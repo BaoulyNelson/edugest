@@ -1,0 +1,165 @@
+{% load interface_extras %}
+<div class="plateforme-console">
+  <section class="plateforme-hero" aria-labelledby="titre-plateforme">
+    <div class="plateforme-hero__texte">
+      <span class="plateforme-surtitre"><i class="bi bi-shield-lock" aria-hidden="true"></i> Administration globale</span>
+      <h1 id="titre-plateforme">Pilotage de la plateforme</h1>
+      <p>Suivez l’activité des établissements et gérez leurs espaces depuis un point central.</p>
+    </div>
+    <div class="plateforme-hero__actions">
+      <a class="btn btn-hero-secondaire" href="#provisionnement"><i class="bi bi-plus-lg" aria-hidden="true"></i> Nouvel établissement</a>
+      <a class="btn btn-hero-secondaire" href="{% url 'configuration_plateforme' %}"><i class="bi bi-palette" aria-hidden="true"></i> Identité de l’ERP</a>
+      <a class="btn btn-hero-secondaire" href="{% url 'etablissements' %}"><i class="bi bi-building-add" aria-hidden="true"></i> Mon espace tenant</a>
+      <a class="btn btn-hero-principal" href="{% url 'admin:index' %}"><i class="bi bi-sliders" aria-hidden="true"></i> Administration Django</a>
+    </div>
+    <div class="plateforme-hero__repere" aria-hidden="true"><i class="bi bi-buildings"></i></div>
+  </section>
+
+  <section class="plateforme-indicateurs" aria-label="Indicateurs de la plateforme">
+    <article class="plateforme-indicateur">
+      <span class="plateforme-indicateur__icone"><i class="bi bi-buildings" aria-hidden="true"></i></span>
+      <div><strong>{{ lignes|length }}</strong><span>Établissements</span></div>
+      <small>Espaces enregistrés</small>
+    </article>
+    <article class="plateforme-indicateur">
+      <span class="plateforme-indicateur__icone"><i class="bi bi-people" aria-hidden="true"></i></span>
+      <div><strong>{{ total_utilisateurs }}</strong><span>Comptes utilisateurs</span></div>
+      <small>Sur l’ensemble de la plateforme</small>
+    </article>
+    <article class="plateforme-indicateur">
+      <span class="plateforme-indicateur__icone"><i class="bi bi-person-workspace" aria-hidden="true"></i></span>
+      <div><strong>{{ total_membres }}</strong><span>Membres actifs</span></div>
+      <small>Équipes des établissements</small>
+    </article>
+    <article class="plateforme-indicateur">
+      <span class="plateforme-indicateur__icone"><i class="bi bi-mortarboard" aria-hidden="true"></i></span>
+      <div><strong>{{ total_apprenants }}</strong><span>Apprenants actifs</span></div>
+      <small>Effectifs cumulés</small>
+    </article>
+    <article class="plateforme-indicateur plateforme-indicateur--succes">
+      <span class="plateforme-indicateur__icone"><i class="bi bi-check-circle" aria-hidden="true"></i></span>
+      <div><strong>{{ abonnements_par_statut.ACTIF|default:0 }}</strong><span>Abonnements actifs</span></div>
+      <small>Accès en cours</small>
+    </article>
+    <article class="plateforme-indicateur plateforme-indicateur--essai">
+      <span class="plateforme-indicateur__icone"><i class="bi bi-hourglass-split" aria-hidden="true"></i></span>
+      <div><strong>{{ abonnements_par_statut.ESSAI|default:0 }}</strong><span>Périodes d’essai</span></div>
+      <small>À suivre</small>
+    </article>
+    <article class="plateforme-indicateur plateforme-indicateur--attention">
+      <span class="plateforme-indicateur__icone"><i class="bi bi-pause-circle" aria-hidden="true"></i></span>
+      <div><strong>{{ abonnements_par_statut.SUSPENDU|default:0 }}</strong><span>Établissements suspendus</span></div>
+      <small>Accès interrompus</small>
+    </article>
+    <article class="plateforme-indicateur plateforme-indicateur--neutre">
+      <span class="plateforme-indicateur__icone"><i class="bi bi-x-circle" aria-hidden="true"></i></span>
+      <div><strong>{{ abonnements_par_statut.RESILIE|default:0 }}</strong><span>Abonnements résiliés</span></div>
+      <small>Contrats terminés</small>
+    </article>
+  </section>
+
+  <section class="plateforme-section plateforme-creation" id="provisionnement" aria-labelledby="titre-provisionnement">
+    <div class="plateforme-section__entete">
+      <span class="plateforme-section__icone"><i class="bi bi-building-add" aria-hidden="true"></i></span>
+      <div>
+        <span class="plateforme-etiquette">Gestion des espaces</span>
+        <h2 id="titre-provisionnement">Provisionner un établissement</h2>
+        <p>Créez un espace isolé, son abonnement d’essai et ses rôles par défaut, puis choisissez son administrateur.</p>
+      </div>
+    </div>
+    <form method="post" novalidate>
+      {% csrf_token %}<input type="hidden" name="action" value="creer">
+      {% if provisionnement.non_field_errors %}<div class="message message--error" role="alert">{{ provisionnement.non_field_errors|join:" " }}</div>{% endif %}
+      <div class="plateforme-formulaire">
+        {% for champ in provisionnement %}{% include "interface/composants/_champ.html" %}{% endfor %}
+        <div class="plateforme-formulaire__action"><button class="btn btn-principal" type="submit"><i class="bi bi-plus-lg" aria-hidden="true"></i> Créer l’établissement</button></div>
+      </div>
+    </form>
+  </section>
+
+  <section class="plateforme-section" aria-labelledby="titre-etablissements">
+    <div class="plateforme-section__barre">
+      <div>
+        <span class="plateforme-etiquette">Parc de la plateforme</span>
+        <h2 id="titre-etablissements">Établissements</h2>
+      </div>
+      <span class="plateforme-compteur">{{ lignes|length }} espace{{ lignes|length|pluralize:"s" }}</span>
+    </div>
+    <div class="defilement-controle">
+      <table class="tableau tableau-adaptatif plateforme-tableau">
+        <thead><tr><th>Établissement</th><th>Type</th><th>État</th><th class="secondaire">Créé le</th><th>Membres</th><th>Apprenants</th><th>Abonnement</th><th>Gestion</th></tr></thead>
+        <tbody>
+        {% for l in lignes %}
+          <tr>
+            <td class="principal" data-libelle="Établissement"><span class="plateforme-nom-etablissement"><i class="bi bi-building" aria-hidden="true"></i>{{ l.etablissement.nom }}</span><div class="sous-titre">{{ l.etablissement.slug }}</div></td>
+            <td data-libelle="Type">{{ l.etablissement.get_type_display }}</td>
+            <td data-libelle="État">{% if l.etablissement.actif %}<span class="badge-statut badge-statut--succes">Actif</span>{% else %}<span class="badge-statut badge-statut--danger">Désactivé</span>{% endif %}</td>
+            <td class="secondaire" data-libelle="Créé le">{{ l.etablissement.cree_le|date:"d/m/Y" }}</td>
+            <td data-libelle="Membres">{{ l.membres }}</td>
+            <td data-libelle="Apprenants">{{ l.apprenants }}</td>
+            <td data-libelle="Abonnement"><span class="plateforme-abonnement">{{ l.abonnement.plan.nom }}</span><span class="sous-titre">{{ l.abonnement.get_statut_display }}</span></td>
+            <td class="actions" data-libelle="Gestion">
+              <form method="post" action="{% url 'plateforme_action' l.etablissement.pk %}" class="plateforme-actions">
+                {% csrf_token %}
+                <select class="form-select form-select-sm" name="actif" aria-label="État de {{ l.etablissement.nom }}"><option value="">État…</option><option value="1">Activer</option><option value="0">Désactiver</option></select>
+                <select class="form-select form-select-sm" name="plan" aria-label="Plan de {{ l.etablissement.nom }}"><option value="">Plan…</option>{% for p in plans %}<option value="{{ p.code }}">{{ p.nom }}</option>{% endfor %}</select>
+                <select class="form-select form-select-sm" name="statut" aria-label="Abonnement de {{ l.etablissement.nom }}"><option value="">Abonnement…</option>{% for code, libelle in statuts %}<option value="{{ code }}">{{ libelle }}</option>{% endfor %}</select>
+                <button class="btn btn-secondaire btn-sm" type="submit">Appliquer</button>
+              </form>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="8" class="plateforme-vide">
+            <span class="plateforme-vide__icone"><i class="bi bi-buildings" aria-hidden="true"></i></span>
+            <strong>Aucun établissement pour le moment</strong>
+            <span>Les espaces provisionnés apparaîtront ici avec leur état et leur abonnement.</span>
+            <a href="#provisionnement">Créer le premier établissement <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+          </td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="plateforme-activite">
+    <section class="plateforme-section" aria-labelledby="titre-audit">
+      <div class="plateforme-section__barre">
+        <div><span class="plateforme-etiquette">Traçabilité</span><h2 id="titre-audit">Activité d'audit récente</h2></div>
+        <span class="plateforme-section__icone plateforme-section__icone--petit"><i class="bi bi-clock-history" aria-hidden="true"></i></span>
+      </div>
+      <div class="defilement-controle">
+        <table class="tableau tableau-adaptatif plateforme-tableau plateforme-tableau--audit">
+          <thead><tr><th>Date</th><th>Établissement</th><th>Utilisateur</th><th>Action</th><th>Objet</th><th>Motif</th></tr></thead>
+          <tbody>
+          {% for entree in audits_recents %}
+            <tr>
+              <td class="secondaire" data-libelle="Date">{{ entree.date|date:"d/m/Y H:i" }}</td>
+              <td data-libelle="Établissement">{{ entree.etablissement.nom|default:"Plateforme" }}</td>
+              <td data-libelle="Utilisateur">{{ entree.utilisateur.nom_affiche|default:"Système" }}</td>
+              <td class="principal" data-libelle="Action">{{ entree.action }}</td>
+              <td data-libelle="Objet">{{ entree.objet_type }}{% if entree.objet_id %} #{{ entree.objet_id }}{% endif %}</td>
+              <td data-libelle="Motif">{{ entree.motif|default:"—" }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="6" class="plateforme-vide plateforme-vide--compact"><i class="bi bi-journal-check" aria-hidden="true"></i><span>Aucune activité enregistrée pour le moment.</span></td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="plateforme-section plateforme-actions-frequentes" aria-labelledby="titre-actions-frequentes">
+      <div class="plateforme-section__barre">
+        <div><span class="plateforme-etiquette">Sur 30 jours</span><h2 id="titre-actions-frequentes">Actions fréquentes</h2></div>
+        <span class="plateforme-section__icone plateforme-section__icone--petit"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i></span>
+      </div>
+      <div class="plateforme-liste-actions">
+        {% for action in actions_recentes %}
+          <div class="plateforme-action-frequente"><span><i class="bi bi-lightning-charge" aria-hidden="true"></i>{{ action.action }}</span><strong>{{ action.total }}</strong></div>
+        {% empty %}
+          <div class="plateforme-vide plateforme-vide--compact"><i class="bi bi-activity" aria-hidden="true"></i><span>Aucune action sur cette période.</span></div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</div>

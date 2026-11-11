@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titre %}Corriger — {{ devoir.titre }}{% endblock %}
+{% block titre_contexte %}Devoirs{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div>
+    <h1 class="titre-page">Correction de la remise</h1>
+    <p class="sous-titre mb-0">{{ devoir.titre }} · {{ remise.inscription.apprenant }} · {{ devoir.matiere_niveau.matiere }}</p>
+  </div>
+  <a class="btn btn-secondaire" href="{% url 'cahier:devoir' devoir.pk %}">Retour au devoir</a>
+</div>
+<section class="carte mb-3">
+  <h2 class="h5">Travail de l'élève</h2>
+  <p>Remis le {{ remise.remise_le|date:"d/m/Y à H:i" }} · {% if remise.en_retard %}en retard{% else %}à temps{% endif %}</p>
+  <ul>
+    <li><a href="{% url 'cahier:telecharger' 'remise' remise.pk %}">{{ remise.fichier.name }}</a></li>
+    {% for piece in remise.pieces_jointes.all %}
+    <li><a href="{% url 'cahier:telecharger' 'piece_remise' piece.pk %}">{{ piece.nom }}</a></li>
+    {% endfor %}
+  </ul>
+  {% if remise.commentaire %}<h3 class="h6">Commentaire de l'élève</h3><p class="mb-0">{{ remise.commentaire|linebreaksbr }}</p>{% endif %}
+</section>
+<form method="post" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  <h2 class="h5">Note et rétroaction</h2>
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}
+  <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">Enregistrer la correction</button></div>
+</form>
+{% endblock %}

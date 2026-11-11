@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{{ titre }}{% endblock %}
+{% block titre_contexte %}Emploi du temps{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{{ titre }}</h1></div>
+{% for jour in jours %}
+<section class="carte mb-3">
+  <h2 class="h5">{{ jour.nom }}{% if jour.aujourdhui %} <span class="badge text-bg-primary">{% translate "Aujourd’hui" %}</span>{% endif %}</h2>
+  <div class="defilement-controle"><table class="tableau tableau-adaptatif">
+    <thead><tr><th>{% translate "Horaire" %}</th><th>{% translate "Classe" %}</th><th>{% translate "Matière" %}</th><th>{% translate "Enseignant" %}</th><th>{% translate "Salle" %}</th></tr></thead>
+    <tbody>{% for ligne in jour.seances %}
+      <tr {% if ligne.en_cours %}class="table-primary"{% endif %}>
+        <td data-libelle="{% translate 'Horaire' %}">{{ ligne.creneau.heure_debut|time:"H:i" }}–{{ ligne.creneau.heure_fin|time:"H:i" }}</td>
+        <td data-libelle="{% translate 'Classe' %}">{{ ligne.creneau.affectation.classe }}</td>
+        <td class="principal" data-libelle="{% translate 'Matière' %}">{{ ligne.creneau.affectation.matiere_niveau.matiere }}</td>
+        <td data-libelle="{% translate 'Enseignant' %}">{{ ligne.creneau.affectation.appartenance.utilisateur.nom_affiche }}</td>
+        <td data-libelle="{% translate 'Salle' %}">{{ ligne.creneau.salle|default:"—" }}</td>
+      </tr>
+    {% endfor %}</tbody>
+  </table></div>
+</section>
+{% empty %}<div class="carte etat-vide">{% translate "Aucun créneau n’est défini pour vos classes." %}</div>{% endfor %}
+{% endblock %}

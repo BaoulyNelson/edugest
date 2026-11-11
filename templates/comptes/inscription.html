@@ -1,0 +1,32 @@
+{% extends "comptes/_auth_base.html" %}
+{% load i18n %}
+{% block titre %}Créer mon établissement{% endblock %}
+{% block classe_panneau %}auth-panneau--haut{% endblock %}
+{% block classe_zone %}auth-zone--carte-haute{% endblock %}
+{% block classe_carte %}auth-carte--hauteur-colonne{% endblock %}
+{% block auth_contenu %}
+<h1>{% translate "Créez votre établissement" %}</h1>
+<p class="sous-titre">{% translate "Essai gratuit de 30 jours, sans carte bancaire. Vous serez l'administrateur de votre espace." %}</p>
+<form method="post" novalidate>
+  {% csrf_token %}
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert"><div>{{ formulaire.non_field_errors|join:" " }}</div></div>{% endif %}
+  <fieldset class="section-formulaire"><legend>{% translate "Votre établissement" %}</legend>
+    <div class="grille-formulaire">
+      {% include "interface/composants/_champ.html" with champ=formulaire.nom_etablissement %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.type_etablissement %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.plan %}
+    </div></fieldset>
+  <fieldset class="section-formulaire"><legend>{% translate "Votre compte" %}</legend>
+    <div class="grille-formulaire grille-formulaire--deux">
+      {% include "interface/composants/_champ.html" with champ=formulaire.prenom %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.nom %}
+    </div>
+    <div class="grille-formulaire mt-3" style="grid-template-columns:1fr">
+      {% include "interface/composants/_champ.html" with champ=formulaire.username %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.email %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.mot_de_passe %}
+    </div></fieldset>
+  <button class="btn btn-principal" type="submit">{% translate "Créer mon établissement" %}</button>
+</form>
+<div class="auth-pied">{% translate "Déjà un compte ?" %} <a href="{% url 'connexion' %}">{% translate "Se connecter" %}</a></div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Mes absences" %}{% endblock %}
+{% block titre_contexte %}{% translate "Mes absences" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Absences et retards" %}</h1><p class="sous-titre mb-0">{% translate "Suivi des apprenants associés à votre compte." %}</p></div></div>
+{% for apprenant, bilan in bilans %}
+<section class="carte">
+  <h2 class="h5">{{ apprenant }}</h2>
+  <div class="d-flex flex-wrap gap-3 mb-3">
+    <span><strong>{{ bilan.absences }}</strong> {% translate "absence(s)" %}</span>
+    <span><strong>{{ bilan.retards }}</strong> {% translate "retard(s)" %}</span>
+    <span><strong>{{ bilan.justifiees }}</strong> {% translate "absence(s) justifiée(s)" %}</span>
+  </div>
+  <div class="defilement-controle">
+    <table class="tableau tableau-adaptatif">
+      <thead><tr><th>{% translate "Date" %}</th><th>{% translate "Classe" %}</th><th>{% translate "Statut" %}</th><th>{% translate "Motif" %}</th></tr></thead>
+      <tbody>
+      {% for ligne in bilan.detail %}
+        <tr><td class="principal" data-libelle="{% translate 'Date' %}">{{ ligne.appel.date|date:"d/m/Y" }}</td><td data-libelle="{% translate 'Classe' %}">{{ ligne.appel.classe }}</td><td data-libelle="{% translate 'Statut' %}">{{ ligne.get_statut_display }}</td><td data-libelle="{% translate 'Motif' %}">{{ ligne.motif|default:"—" }}</td></tr>
+      {% empty %}<tr><td colspan="4" class="etat-vide">{% translate "Aucune absence ni aucun retard enregistré." %}</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% empty %}
+<div class="carte etat-vide">{% translate "Aucun dossier d’apprenant n’est associé à votre compte." %}</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Nouveau message{% endblock %}
+{% block titre_contexte %}Messagerie{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% translate "Nouveau message" %}</h1></div>
+<form method="post" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}
+  <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Envoyer" %}</button><a class="btn btn-secondaire" href="{% url 'messagerie:boite' %}">{% translate "Annuler" %}</a></div>
+</form>
+{% endblock %}

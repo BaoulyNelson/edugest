@@ -1,0 +1,10 @@
+Bonjour,
+
+Vous avez demandé la réinitialisation du mot de passe de votre compte EduGest.
+Choisissez un nouveau mot de passe en ouvrant ce lien :
+
+{{ protocol }}://{{ domain }}{% url 'mot_de_passe_reinitialiser' uidb64=uid token=token %}
+
+Si vous n'êtes pas à l'origine de cette demande, ignorez simplement ce message.
+
+L'équipe EduGest

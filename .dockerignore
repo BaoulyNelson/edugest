@@ -1,0 +1,9 @@
+.git
+.env
+*.sqlite3
+__pycache__/
+*.pyc
+media/
+fichiers_statiques/
+tests/
+deploiement/kubernetes/

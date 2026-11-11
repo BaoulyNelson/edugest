@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Demandes de données{% endblock %}
+{% block titre_contexte %}Demandes RGPD{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Demandes de protection des données" %}</h1><p class="texte-secondaire">{% translate "Les demandes d’effacement sont anonymisées sans supprimer les inscriptions ou résultats historiques. Une inscription en cours bloque l’anonymisation." %}</p></div></div>
+<div class="d-grid gap-3">
+{% for demande in demandes %}<article class="carte-formulaire"><h2 class="h5">{{ demande.get_type_display }} · {{ demande.get_statut_display }}</h2>
+<p>{% if demande.apprenant %}{{ demande.apprenant }}{% else %}{% translate "Dossier indisponible" %}{% endif %} · {% translate "demande du" %} {{ demande.cree_le|date:"d/m/Y" }} · {% translate "échéance" %} {{ demande.echeance|date:"d/m/Y" }}</p>
+{% if demande.details %}<p>{{ demande.details|linebreaksbr }}</p>{% endif %}{% if demande.reponse %}<p><strong>{% translate "Réponse" %} :</strong> {{ demande.reponse|linebreaksbr }}</p>{% endif %}
+{% if demande.statut == "EN_ATTENTE" %}<form method="post" action="{% url 'rgpd:traiter' demande.pk %}" class="d-grid gap-2">{% csrf_token %}
+<label for="decision-{{ demande.pk }}">{% translate "Décision" %}</label><select class="form-select" name="action" id="decision-{{ demande.pk }}"><option value="traiter">{% translate "Traiter" %}</option><option value="refuser">{% translate "Refuser" %}</option></select>
+<label for="reponse-{{ demande.pk }}">{% translate "Réponse ou motif" %}</label><textarea class="form-control" rows="2" name="reponse" id="reponse-{{ demande.pk }}"></textarea>
+<button class="btn btn-principal mt-2" type="submit">{% translate "Enregistrer la décision" %}</button></form>{% endif %}</article>
+{% empty %}<p class="carte-formulaire">{% translate "Aucune demande en attente." %}</p>{% endfor %}</div>
+{% endblock %}

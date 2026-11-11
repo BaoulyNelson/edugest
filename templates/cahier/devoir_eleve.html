@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titre %}{{ devoir.titre }}{% endblock %}
+{% block titre_contexte %}Cahier de textes{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{{ devoir.titre }}</h1><p class="sous-titre mb-0">{{ devoir.classe }} · {{ devoir.matiere_niveau.matiere }} · échéance {{ devoir.date_limite|date:"d/m/Y" }} à {{ devoir.heure_limite|time:"H:i" }}</p></div>
+  <a class="btn btn-secondaire" href="{% url 'cahier:mon_cahier' %}">Retour au cahier</a>
+</div>
+<section class="carte mb-3">
+  <h2 class="h5">Consigne</h2><p>{{ devoir.consigne|linebreaksbr }}</p>
+  {% if devoir.fichier %}<a class="btn btn-secondaire btn-sm" href="{% url 'cahier:telecharger' 'devoir' devoir.pk %}">Télécharger le document joint</a>{% endif %}
+  {% for piece in devoir.pieces_jointes.all %}<a class="btn btn-secondaire btn-sm" href="{% url 'cahier:telecharger' 'piece_devoir' piece.pk %}">{{ piece.nom }}</a>{% endfor %}
+</section>
+{% if remise %}
+<section class="carte mb-3">
+  <h2 class="h5">Mon travail remis</h2>
+  <p>Déposé le {{ remise.remise_le|date:"d/m/Y à H:i" }} · {% if remise.en_retard %}en retard{% else %}à temps{% endif %}</p>
+  <a class="btn btn-secondaire btn-sm" href="{% url 'cahier:telecharger' 'remise' remise.pk %}">Télécharger ma remise</a>
+  {% for piece in remise.pieces_jointes.all %}<a class="btn btn-secondaire btn-sm" href="{% url 'cahier:telecharger' 'piece_remise' piece.pk %}">{{ piece.nom }}</a>{% endfor %}
+  {% if remise.note is not None or remise.appreciation %}
+  <div class="mt-3">
+    <h3 class="h6">Correction de l'enseignant</h3>
+    {% if remise.note is not None %}<p><strong>Note :</strong> {{ remise.note }} / {{ devoir.bareme }}</p>{% endif %}
+    {% if remise.appreciation %}<p class="mb-0"><strong>Rétroaction :</strong> {{ remise.appreciation }}</p>{% endif %}
+  </div>
+  {% endif %}
+</section>
+{% elif not devoir.remise_numerique %}<div class="carte etat-vide">La remise en ligne n'est pas activée pour ce devoir.</div>{% endif %}
+{% if remise_bloquee %}<div class="message message--error" role="status">La date limite est dépassée et les paramètres de ce devoir ne permettent plus de remettre ou modifier le travail.</div>{% endif %}
+{% if peut_deposer %}
+{% if apres_echeance %}<div class="message message--warning" role="status">L'échéance est passée. Cette remise ou modification sera indiquée comme tardive.</div>{% endif %}
+<form method="post" enctype="multipart/form-data" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  <h2 class="h5">{% if remise %}Remplacer mon travail{% else %}Déposer mon travail{% endif %}</h2>
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}
+  <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% if remise %}Mettre à jour ma remise{% else %}Déposer le travail{% endif %}</button></div>
+</form>
+{% endif %}
+{% endblock %}

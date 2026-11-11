@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Mes évaluations" %}{% endblock %}
+{% block titre_contexte %}{% translate "Notes" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% translate "Mes évaluations" %}</h1>{% if annee %}<span class="sous-titre">{% translate "Année" %} {{ annee }}</span>{% endif %}</div>
+{% for l in lignes %}
+<section class="carte"><h2>{{ l.affectation.matiere_niveau.matiere }} · {{ l.affectation.classe|default:l.affectation.matiere_niveau.niveau }}</h2>
+  <div class="d-flex flex-column gap-2">
+  {% for periode, config in l.periodes %}
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 py-1 border-bottom">
+      <div><strong>{{ periode.nom }}</strong> {% statut periode.statut %}</div>
+      <div class="d-flex gap-2 align-items-center">
+        {% if config %}{% statut config.statut %}{% endif %}
+        <a class="btn btn-secondaire btn-sm" href="{% url 'evaluations:configuration' l.affectation.pk periode.pk %}">{% translate "Configurer" %}</a>
+        {% if config and config.statut != "BROUILLON" %}
+          <a class="btn btn-principal btn-sm" href="{% url 'evaluations:saisie' config.pk %}">{% translate "Notes" %}</a>
+          <a class="btn btn-secondaire btn-sm" href="{% url 'evaluations:synthese' config.pk %}">{% translate "Synthèse" %}</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+  </div></section>
+{% empty %}<div class="carte etat-vide">{% translate "Aucune matière ne vous est affectée pour l’année active." %}</div>{% endfor %}
+{% endblock %}

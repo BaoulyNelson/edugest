@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block titre %}Mon cahier de textes{% endblock %}
+{% block titre_contexte %}Cahier de textes{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">Mon cahier de textes</h1><p class="sous-titre mb-0">Séances récentes et devoirs de mes classes.</p></div></div>
+<section class="carte mb-3">
+  <h2 class="h5">Ma classe et mon niveau</h2>
+  {% for inscription in inscriptions %}
+  <p class="mb-1">
+    {% if inscriptions|length > 1 %}<strong>{{ inscription.apprenant }}</strong> · {% endif %}
+    {{ inscription.niveau }}
+    {% if inscription.classe %} · Classe {{ inscription.classe }}{% endif %}
+    · Année {{ inscription.annee }}
+    {% if inscription.programme %} · {{ inscription.programme }}{% endif %}
+  </p>
+  {% empty %}
+  <p class="mb-0">Aucune inscription active n'est associée à ce compte pour l'année en cours. Contactez l'administration si cela vous semble incorrect.</p>
+  {% endfor %}
+</section>
+<section class="carte defilement-controle mb-3">
+  <h2 class="h5">Devoirs</h2>
+  {% if devoirs_eleves %}
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>Devoir</th>{% if inscriptions|length > 1 %}<th>Apprenant</th>{% endif %}<th>Classe</th><th>Matière</th><th>À remettre le</th><th>État</th><th>Note</th></tr></thead>
+    <tbody>
+      {% for ligne in devoirs_eleves %}
+      <tr>
+        <td class="principal" data-libelle="Devoir"><a href="{% url 'cahier:devoir' ligne.devoir.pk %}">{{ ligne.devoir.titre }}</a></td>
+        {% if inscriptions|length > 1 %}<td data-libelle="Apprenant">{{ ligne.inscription.apprenant }}</td>{% endif %}
+        <td data-libelle="Classe">{{ ligne.devoir.classe }}</td>
+        <td data-libelle="Matière">{{ ligne.devoir.matiere_niveau.matiere }}</td>
+        <td data-libelle="Échéance">{{ ligne.devoir.date_limite|date:"d/m/Y" }} à {{ ligne.devoir.heure_limite|time:"H:i" }}</td>
+        <td data-libelle="État">
+          {% if ligne.statut == "A_FAIRE" %}À faire
+          {% elif ligne.statut == "EN_RETARD" %}{% if ligne.remise %}Rendu en retard{% else %}En retard — non rendu{% endif %}
+          {% elif ligne.statut == "NOTE" %}Noté
+          {% else %}Rendu{% endif %}
+          {% if ligne.statut == "NOTE" %}<span class="badge bg-success ms-1">Corrigé</span>{% endif %}
+          {% if ligne.notification_non_lue %}<span class="badge bg-warning text-dark ms-1">Nouveau</span>{% endif %}
+        </td>
+        <td data-libelle="Note">{% if ligne.remise and ligne.remise.note is not None %}{{ ligne.remise.note }} / {{ ligne.devoir.bareme }}{% else %}—{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p class="mb-0">Aucun devoir n'est publié pour votre classe.</p>{% endif %}
+</section>
+<section class="carte defilement-controle">
+  <h2 class="h5">Séances récentes</h2>
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>Date</th><th>Séance</th><th>Classe</th><th>Matière</th><th>Document</th></tr></thead>
+    <tbody>
+      {% for entree in entrees %}
+      <tr>
+        <td data-libelle="Date">{{ entree.date|date:"d/m/Y" }}</td>
+        <td class="principal" data-libelle="Séance"><strong>{{ entree.titre }}</strong><br>{{ entree.contenu|truncatechars:140 }}</td>
+        <td data-libelle="Classe">{{ entree.classe }}</td>
+        <td data-libelle="Matière">{{ entree.matiere_niveau.matiere }}</td>
+        <td data-libelle="Document">{% if entree.fichier %}<a href="{% url 'cahier:telecharger' 'entree' entree.pk %}">Télécharger</a>{% else %}—{% endif %}</td>
+      </tr>
+      {% empty %}<tr><td colspan="5">Aucune séance récente.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

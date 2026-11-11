@@ -1,0 +1,192 @@
+{% load static i18n %}{% get_current_language as LANGUAGE_CODE %}<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  {% include "interface/_tete.html" %}
+  <title>{% block titre %}{% if request.etablissement and request.etablissement.nom %}{{ request.etablissement.nom }}{% elif marque_plateforme.nom %}{{ marque_plateforme.nom }}{% else %}EduGest{% endif %}{% endblock %} · {% if request.etablissement and request.etablissement.nom %}{{ request.etablissement.nom }}{% elif marque_plateforme.nom %}{{ marque_plateforme.nom }}{% else %}EduGest{% endif %}</title>
+  {% block tete %}{% endblock %}
+</head>
+<body{% if user.is_superuser and not navigation %} class="plateforme-sans-tenant"{% endif %}>
+{% if navigation %}
+<div class="coque">
+  <aside class="barre-laterale d-none d-lg-flex" aria-label="{% translate 'Navigation latérale' %}">
+    <div class="entete-sidebar entete-sidebar--selecteur">
+      <span class="logo-sidebar">{% if etablissement_courant.logo %}<img class="logo" src="{{ etablissement_courant.logo.url }}" alt="">{% else %}<span class="logo"><i class="bi bi-mortarboard" aria-hidden="true"></i></span>{% endif %}</span>
+      <div class="selecteur-etablissement">
+        {% if etablissements_disponibles|length > 1 %}
+          <form method="post" action="{% url 'choisir_etablissement_menu' %}" class="selecteur-etablissement__form">
+            {% csrf_token %}
+            <label class="visually-hidden" for="selecteurEtablissement">{% translate "Changer d’établissement" %}</label>
+            <select id="selecteurEtablissement" name="etablissement" aria-label="{% translate 'Changer d’établissement' %}" title="{% translate 'Changer d’établissement' %}">
+              {% for etab in etablissements_disponibles %}
+                <option value="{{ etab.pk }}" title="{{ etab.nom }}" {% if etab.pk == etablissement_courant.pk %}selected{% endif %}>{{ etab.nom_court|default:etab.nom }}</option>
+              {% endfor %}
+            </select>
+            <i class="bi bi-chevron-down selecteur-etablissement__fleche" aria-hidden="true"></i>
+          </form>
+        {% else %}
+          <span class="selecteur-etablissement__nom" title="{{ etablissement_courant.nom }}">{{ etablissement_courant.nom_court|default:etablissement_courant.nom }}</span>
+        {% endif %}
+        <span class="badge-annee-sidebar {% if annee_academique_active %}badge-annee-sidebar--active{% endif %}">
+          <i class="bi {% if annee_academique_active %}bi-calendar-check{% else %}bi-calendar-x{% endif %}" aria-hidden="true"></i>
+          {% if annee_academique_active %}Année {{ annee_academique_active.designation }}{% else %}Aucune année active{% endif %}
+        </span>
+      </div>
+    </div>
+    <nav>
+      {% for categorie, entrees in navigation.sidebar.items %}
+        <div class="categorie-nav">{{ categorie }}</div>
+        {% for e in entrees %}
+          <a class="lien-nav {% if e.active %}actif{% endif %}" href="{{ e.url }}" {% if e.active %}aria-current="page"{% endif %} title="{{ e.libelle }}">
+            <i class="bi {{ e.icone }}" aria-hidden="true"></i><span class="libelle-nav">{{ e.libelle }}</span>
+          </a>
+        {% endfor %}
+      {% endfor %}
+    </nav>
+  </aside>
+
+  <div class="zone-principale">
+    <header class="barre-superieure">
+      <button type="button" class="bouton-icone d-none d-lg-inline-grid" id="basculerSidebar" aria-label="{% translate 'Réduire ou agrandir le menu' %}"><i class="bi bi-layout-sidebar-inset" aria-hidden="true"></i></button>
+      <span class="titre-contexte"><span class="d-lg-none" title="{{ etablissement_courant.nom }}">{{ etablissement_courant.nom_court|default:etablissement_courant.nom }}</span><span class="d-none d-lg-inline">{% block titre_contexte %}{% endblock %}</span></span>
+      {% include "interface/composants/_selecteur_langue.html" %}
+      <div class="dropdown">
+        <button class="bouton-icone" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{% translate 'Notifications' %}">
+          <i class="bi bi-bell" aria-hidden="true"></i>{% if notifications %}<span class="pastille">{{ notifications|length }}</span>{% endif %}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          {% for n in notifications %}<li><a class="dropdown-item text-wrap" href="{% if n.url %}{{ n.url }}{% else %}{% url n.route %}{{ n.parametres }}{% endif %}">{{ n.texte }}</a></li>
+          {% empty %}<li><span class="dropdown-item-text text-muted">{% translate "Aucune notification" %}</span></li>{% endfor %}
+        </ul>
+      </div>
+      <div class="dropdown">
+        <button class="bouton-icone" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{% translate 'Profil et compte' %}"><i class="bi bi-person-circle" aria-hidden="true"></i></button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><span class="dropdown-item-text"><strong>{{ user.nom_affiche }}</strong><br><small class="text-muted">{{ request.appartenance.role|default:"Administrateur plateforme" }}</small></span></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'profil' %}">{% translate "Mon profil" %}</a></li>
+          {% if user.is_superuser %}<li><a class="dropdown-item" href="{% url 'plateforme' %}">{% translate "Console plateforme" %}</a></li>{% endif %}
+          <li><a class="dropdown-item" href="{% url 'etablissements' %}">{% if user.is_superuser %}{% translate "Mes espaces tenant" %}{% else %}{% translate "Changer d'établissement" %}{% endif %}</a></li>
+          <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#modalDeconnexion">{% translate "Se déconnecter" %}</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="contenu" id="contenu">
+      {% include "interface/composants/_messages.html" %}
+      {% include "interface/composants/_bandeau_courriel.html" %}
+      {% block contenu %}{% endblock %}
+    </main>
+    {% include "interface/composants/_pied_plateforme.html" %}
+  </div>
+</div>
+
+<nav class="navigation-mobile{% if user.is_superuser and not navigation %} navigation-mobile--plateforme{% endif %} d-lg-none" aria-label="{% if user.is_superuser and not navigation %}{% translate 'Accès à la plateforme' %}{% else %}{% translate 'Navigation principale' %}{% endif %}">
+  {% if user.is_superuser and not navigation %}
+    {% include "interface/composants/_navigation_mobile_plateforme.html" %}
+  {% else %}
+    {% for e in navigation.principales %}
+      <a href="{{ e.url }}" class="{% if e.active %}actif{% endif %}" {% if e.active %}aria-current="page"{% endif %}><i class="bi {{ e.icone }}" aria-hidden="true"></i><span>{{ e.libelle }}</span></a>
+    {% endfor %}
+    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#panneauPlus" aria-controls="panneauPlus" aria-label="Plus de fonctionnalités"><i class="bi bi-list" aria-hidden="true"></i><span>Plus</span></button>
+  {% endif %}
+</nav>
+
+<div class="offcanvas offcanvas-end panneau-plus d-lg-none" tabindex="-1" id="panneauPlus" aria-labelledby="titrePlus">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title h5" id="titrePlus">{% translate "Plus" %}</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{% translate 'Fermer' %}"></button>
+  </div>
+  <div class="offcanvas-body px-0">
+    {% for categorie, entrees in navigation.groupes_plus.items %}
+      <div class="categorie-nav">{{ categorie }}</div>
+      {% for e in entrees %}<a class="lien-nav {% if e.active %}actif{% endif %}" href="{{ e.url }}"><i class="bi {{ e.icone }}" aria-hidden="true"></i><span>{{ e.libelle }}</span></a>{% endfor %}
+    {% endfor %}
+    <div class="categorie-nav">{% translate "Session" %}</div>
+    <button type="button" class="lien-nav w-100 border-0 bg-transparent text-start px-2" data-bs-toggle="modal" data-bs-target="#modalDeconnexion"><i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>{% translate "Se déconnecter" %}</span></button>
+  </div>
+</div>
+{% else %}
+  {% if user.is_authenticated %}
+  <header class="barre-superieure">
+    <a class="marque" href="{% url 'tableau_de_bord' %}">
+      {% if marque_plateforme.logo %}<img src="{{ marque_plateforme.logo.url }}" alt="" style="max-height:2rem;max-width:3rem">
+      {% else %}<i class="bi bi-mortarboard" aria-hidden="true"></i>{% endif %}
+      {{ marque_plateforme.nom_court|default:marque_plateforme.nom|default:"EduGest" }}
+    </a>
+    <span class="titre-contexte"></span>
+    {% include "interface/composants/_selecteur_langue.html" %}
+    {% if user.is_superuser %}<a class="btn btn-secondaire btn-sm" href="{% url 'plateforme' %}">{% translate "Console plateforme" %}</a>{% endif %}
+    <a class="btn btn-secondaire btn-sm" href="{% url 'etablissements' %}">{% if user.is_superuser %}{% translate "Mes espaces tenant" %}{% else %}{% translate "Mes établissements" %}{% endif %}</a>
+    <button class="btn btn-secondaire btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modalDeconnexion">{% translate "Se déconnecter" %}</button>
+  </header>
+  {% endif %}
+  <main class="contenu" id="contenu">
+    {% include "interface/composants/_messages.html" %}
+    {% block contenu_simple %}{% block contenu_secours %}{% endblock %}{% endblock %}
+  </main>
+  {% include "interface/composants/_pied_plateforme.html" %}
+  {% if user.is_superuser and not navigation %}
+    <nav class="navigation-mobile navigation-mobile--plateforme d-lg-none" aria-label="{% translate 'Accès à la plateforme' %}">
+      {% include "interface/composants/_navigation_mobile_plateforme.html" %}
+    </nav>
+    <div class="offcanvas offcanvas-bottom navigation-plateforme-mobile" tabindex="-1" id="panneauPlateformeMobile" aria-labelledby="titrePlateformeMobile">
+      <div class="offcanvas-header">
+        <h2 class="offcanvas-title h5" id="titrePlateformeMobile">{% translate "Plus d’options" %}</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{% translate 'Fermer' %}"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="navigation-plateforme-mobile__liens">
+          <a href="{% url 'etablissements' %}"><i class="bi bi-building-add" aria-hidden="true"></i><span>{% translate "Mon espace tenant" %}</span><i class="bi bi-chevron-right" aria-hidden="true"></i></a>
+          <a href="{% url 'plateforme' %}#titre-audit"><i class="bi bi-clock-history" aria-hidden="true"></i><span>{% translate "Journal d’audit" %}</span><i class="bi bi-chevron-right" aria-hidden="true"></i></a>
+          <a href="{% url 'admin:index' %}"><i class="bi bi-sliders" aria-hidden="true"></i><span>{% translate "Administration Django" %}</span><i class="bi bi-chevron-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="navigation-plateforme-mobile__bas">
+          <form method="post" action="{% url 'choisir_langue' %}" class="navigation-plateforme-mobile__langue" aria-label="{% translate 'Langue' %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <label for="selecteurLangueMobile">{% translate "Langue de l’interface" %}</label>
+            <select id="selecteurLangueMobile" name="langue" class="form-select form-select-sm">
+              {% for code, nom in LANGUAGES %}
+                <option value="{{ code }}" {% if request.session.langue_interface == code %}selected{% elif not request.session.langue_interface and code == 'fr' %}selected{% endif %}>{{ nom }}</option>
+              {% endfor %}
+            </select>
+          </form>
+          <button type="button" class="btn btn-danger-doux" data-bs-toggle="modal" data-bs-target="#modalDeconnexion"><i class="bi bi-box-arrow-right" aria-hidden="true"></i> {% translate "Se déconnecter" %}</button>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}
+<div class="modal fade" id="modalDeconnexion" tabindex="-1" aria-labelledby="titreModalDeconnexion" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title h5" id="titreModalDeconnexion"><i class="bi bi-box-arrow-right me-2" aria-hidden="true"></i>Confirmer la déconnexion</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Annuler"></button>
+      </div>
+      <div class="modal-body">Voulez-vous vraiment vous déconnecter de votre compte&nbsp;?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondaire" data-bs-dismiss="modal">Rester connecté</button>
+        <form method="post" action="{% url 'deconnexion' %}">{% csrf_token %}
+          <button type="submit" class="btn btn-danger-doux">Se déconnecter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalAjoutRapide" tabindex="-1" aria-labelledby="titreAjoutRapide" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" id="formulaireAjoutRapide" novalidate>
+      {% csrf_token %}
+      <div class="modal-header"><h2 class="modal-title h5" id="titreAjoutRapide">Ajouter une entité</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button></div>
+      <div class="modal-body"><div id="champsAjoutRapide" class="grille-formulaire"></div><div id="erreursAjoutRapide" class="mt-3" role="alert" aria-live="polite"></div></div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondaire" data-bs-dismiss="modal">Annuler</button><button class="btn btn-principal" type="submit" id="confirmerAjoutRapide">Ajouter</button></div>
+    </form>
+  </div>
+</div>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/interface.js' %}?v=2"></script>
+<script src="{% static 'js/selecteur_etablissement.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

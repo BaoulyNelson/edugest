@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Candidatures" %}{% endblock %}
+{% block titre_contexte %}{% translate "Candidatures" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{% translate "Candidatures" %}</h1><div class="sous-titre">{% translate "Demandes reçues par formulaire en ligne" %}</div></div>
+</div>
+<form method="get" class="barre-filtres" data-auto-filtre>
+  <select class="form-select" name="statut" aria-label="{% translate 'Filtrer par statut' %}">
+    <option value="">{% translate "Tous les statuts" %}</option>
+    {% for code, libelle in statuts %}<option value="{{ code }}" {% if statut == code %}selected{% endif %}>{{ libelle }}</option>{% endfor %}
+  </select>
+</form>
+<div class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{% translate "Candidat" %}</th><th>{% translate "Classe demandée" %}</th><th>{% translate "Déposée le" %}</th><th>{% translate "Statut" %}</th><th></th></tr></thead><tbody>
+    {% for c in page %}
+      <tr>
+        <td class="principal" data-libelle="{% translate 'Candidat' %}">{{ c.prenoms }} {{ c.nom }}</td>
+        <td data-libelle="{% translate 'Classe' %}">{{ c.classe }}</td>
+        <td data-libelle="{% translate 'Déposée le' %}">{{ c.date_creation|date:"d/m/Y H:i" }}</td>
+        <td data-libelle="{% translate 'Statut' %}">{% statut c.statut %}</td>
+        <td class="actions"><a class="btn btn-secondaire btn-sm" href="{% url 'admissions:detail' c.reference %}">{% translate "Examiner" %}</a></td>
+      </tr>
+    {% empty %}<tr><td colspan="5" class="etat-vide">{% translate "Aucune candidature pour ce filtre." %}</td></tr>{% endfor %}
+  </tbody></table>
+</div>
+{% include "interface/composants/_pagination.html" %}
+{% endblock %}

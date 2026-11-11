@@ -1,0 +1,145 @@
+/* ===================== Formulaires : larges, aérés, lisibles ===================== */
+
+/* Carte de formulaire : toute la largeur utile, jamais un petit bloc étroit */
+.carte-formulaire, .formulaire-court {
+  width: 100%; max-width: 56rem; padding: 1.5rem;
+  background: var(--couleur-surface); border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon-grand); box-shadow: var(--ombre-douce);
+}
+@media (min-width: 768px) { .carte-formulaire, .formulaire-court { padding: 2rem 2.25rem; } }
+.formulaire-court form, form.formulaire-court { margin: 0; }
+.carte > .formulaire-court, .carte .formulaire-court { box-shadow: none; border: 0; padding: 0; max-width: none; }
+.carte-formulaire > .entete-formulaire { margin-bottom: 1.5rem; }
+.entete-formulaire h2 { font-size: 1.15rem; font-weight: 650; margin: 0 0 .25rem; }
+.entete-formulaire p { margin: 0; color: var(--couleur-texte-doux); }
+
+/* Grille responsive : 1 colonne sur téléphone, 2 ou 3 colonnes dès que la place le permet */
+.grille-formulaire {
+  display: grid; gap: 1.25rem 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+.grille-formulaire + .grille-formulaire { margin-top: 1.25rem; }
+.section-formulaire { border: 0; padding: 0; margin: 0 0 1.75rem; min-width: 0; }
+.section-formulaire > legend {
+  float: none; width: auto; padding: 0; margin: 0 0 1rem; font-size: .8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em; color: var(--couleur-principale);
+  display: flex; align-items: center; gap: .5rem;
+}
+.section-formulaire > legend::after { content: ""; height: 1px; background: var(--couleur-bordure); flex: 1; }
+
+/* Champ */
+.champ { min-width: 0; display: flex; flex-direction: column; gap: .4rem; }
+.champ--large { grid-column: 1 / -1; }
+.champ > label, .champ-etiquette { font-weight: 600; font-size: .9rem; color: var(--couleur-texte); }
+.champ .requis { color: var(--couleur-danger); margin-left: .15rem; }
+
+.champ input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]),
+.champ select, .champ textarea, .form-control, .form-select {
+  width: 100%; min-height: 3.1rem; padding: .75rem 1rem; font-size: 1rem; line-height: 1.4;
+  color: var(--couleur-texte); background-color: #fff;
+  border: 1.5px solid #c5d1d3; border-radius: var(--rayon-moyen);
+  transition: border-color .15s, box-shadow .15s, background-color .15s;
+}
+
+.champ-mot-de-passe {
+  position: relative; display: flex; align-items: center; width: 100%;
+}
+.champ-mot-de-passe input {
+  padding-right: 3rem !important;
+}
+.champ-mot-de-passe__toggle {
+  position: absolute; right: .5rem; top: 50%; transform: translateY(-50%);
+  display: inline-grid; place-items: center; width: 2.2rem; height: 2.2rem;
+  border: 0; border-radius: 999px; background: transparent; color: var(--couleur-principale-sombre);
+  cursor: pointer; transition: background-color .15s, color .15s;
+}
+.champ-mot-de-passe__toggle:hover, .champ-mot-de-passe__toggle:focus-visible {
+  background: rgba(15, 92, 99, .08); color: var(--couleur-principale);
+}
+.champ-mot-de-passe__toggle i { font-size: 1.1rem; }
+.champ input::placeholder, .champ textarea::placeholder { color: #94a3a6; }
+.champ input:hover:not(:focus):not(:disabled), .champ select:hover:not(:focus), .champ textarea:hover:not(:focus) { border-color: #9fb3b6; }
+.champ input:focus, .champ select:focus, .champ textarea:focus, .form-control:focus, .form-select:focus {
+  outline: 0; border-color: var(--couleur-principale); box-shadow: 0 0 0 4px rgba(15, 92, 99, .15);
+}
+.champ input:disabled, .champ select:disabled, .form-control:disabled, .form-select:disabled { background: var(--couleur-neutre-claire); color: var(--couleur-texte-doux); }
+.champ textarea { min-height: 7rem; resize: vertical; }
+.champ select, .form-select {
+  appearance: none; padding-right: 2.75rem; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%235a6b6e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem;
+}
+.champ-relation { display: flex; align-items: stretch; gap: .5rem; min-width: 0; }
+.champ-relation select { flex: 1; min-width: 0; }
+.bouton-ajout-rapide {
+  display: inline-grid; place-items: center; flex: 0 0 3.1rem; min-height: 3.1rem;
+  border: 1.5px solid var(--couleur-principale); border-radius: var(--rayon-moyen);
+  color: var(--couleur-principale); background: #fff; font-size: 1.15rem; cursor: pointer;
+  transition: color .15s, background-color .15s;
+}
+.bouton-ajout-rapide:hover, .bouton-ajout-rapide:focus-visible { color: #fff; background: var(--couleur-principale); }
+.bouton-ajout-rapide:disabled { opacity: .6; cursor: wait; }
+.champ input[type="file"] {
+  width: 100%; padding: .55rem; font-size: .95rem; border: 1.5px dashed #b3c3c6; border-radius: var(--rayon-moyen); background: var(--couleur-fond);
+}
+.champ input[type="file"]::file-selector-button {
+  margin-right: .85rem; padding: .55rem 1rem; border: 0; border-radius: var(--rayon-petit);
+  background: var(--couleur-principale-claire); color: var(--couleur-principale-sombre); font-weight: 600; cursor: pointer;
+}
+.champ.champ--invalide input, .champ.champ--invalide select, .champ.champ--invalide textarea { border-color: var(--couleur-danger); background: #fffafa; }
+.champ.champ--invalide input:focus, .champ.champ--invalide select:focus { box-shadow: 0 0 0 4px rgba(179, 38, 30, .14); }
+.champ-aide { color: var(--couleur-texte-doux); font-size: .82rem; line-height: 1.4; }
+.erreur-champ { color: var(--couleur-danger); font-size: .85rem; font-weight: 500; display: flex; gap: .35rem; align-items: flex-start; }
+
+/* Case à cocher : ligne cliquable, grande zone tactile */
+.champ--case { flex-direction: row; align-items: flex-start; flex-wrap: wrap; gap: .75rem; padding: .9rem 1rem; border: 1.5px solid #c5d1d3; border-radius: var(--rayon-moyen); background: #fff; }
+.champ--case > label { order: 2; flex: 1; cursor: pointer; font-weight: 500; }
+.champ--case input[type="checkbox"] { order: 1; width: 1.35rem; height: 1.35rem; margin-top: .1rem; accent-color: var(--couleur-principale); flex-shrink: 0; }
+.champ--case .champ-aide, .champ--case .erreur-champ { order: 3; flex-basis: 100%; padding-left: 2.1rem; }
+
+/* Choix en cartes (type d'établissement...) */
+.champ--choix > div { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+.champ--choix > div > div { margin: 0; }
+.champ--choix label {
+  display: flex; align-items: center; gap: .75rem; width: 100%; padding: 1rem 1.1rem; cursor: pointer; font-weight: 600;
+  border: 1.5px solid #c5d1d3; border-radius: var(--rayon-moyen); background: #fff; transition: border-color .15s, background .15s, box-shadow .15s;
+}
+.champ--choix label:hover { border-color: var(--couleur-principale); }
+.champ--choix input[type="radio"] { width: 1.2rem; height: 1.2rem; accent-color: var(--couleur-principale); flex-shrink: 0; }
+.champ--choix label:has(input:checked) { border-color: var(--couleur-principale); background: var(--couleur-principale-claire); box-shadow: 0 0 0 3px rgba(15, 92, 99, .12); }
+
+/* Actions : boutons larges, séparés du contenu */
+.actions-formulaire { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--couleur-bordure); }
+.actions-formulaire .btn { min-width: 10rem; }
+@media (max-width: 575.98px) { .actions-formulaire .btn { flex: 1 1 100%; } }
+.btn { min-height: 3rem; padding: .6rem 1.4rem; font-weight: 600; }
+.btn-sm { min-height: 2.5rem; padding: .35rem .9rem; font-size: .9rem; }
+.form-control-sm, .form-select-sm { min-height: 2.5rem; }
+
+/* Sections facultatives repliables */
+.section-facultative { border: 1.5px solid var(--couleur-bordure); border-radius: var(--rayon-moyen); padding: 0 1.1rem; margin-bottom: 1.25rem; background: var(--couleur-fond); }
+.section-facultative > summary { cursor: pointer; min-height: 3.25rem; display: flex; align-items: center; justify-content: space-between; gap: .5rem; color: var(--couleur-principale-sombre); font-weight: 650; list-style: none; }
+.section-facultative > summary::-webkit-details-marker { display: none; }
+.section-facultative > summary::after { content: "\F282"; font-family: "bootstrap-icons"; font-size: .9rem; transition: transform .2s; }
+.section-facultative[open] > summary::after { transform: rotate(180deg); }
+.section-facultative[open] { background: var(--couleur-surface); padding-bottom: 1.1rem; }
+.section-facultative[open] > summary { margin-bottom: .75rem; }
+
+/* Composantes d'évaluation, saisie des notes */
+.ligne-composante { display: grid; grid-template-columns: minmax(0, 1fr) 8rem 3.1rem; gap: .6rem; margin-bottom: .6rem; }
+@media (max-width: 479.98px) { .ligne-composante { grid-template-columns: minmax(0, 1fr) 6rem 3.1rem; } }
+.somme-composantes { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .9rem 1.1rem; border-radius: var(--rayon-moyen); background: var(--couleur-neutre-claire); font-weight: 650; }
+.somme-composantes.ok { background: var(--couleur-succes-claire); color: var(--couleur-succes); }
+.somme-composantes.ko { background: var(--couleur-danger-claire); color: var(--couleur-danger); }
+.entree-note { width: 6rem !important; min-width: 5rem; text-align: right; font-variant-numeric: tabular-nums; }
+.cellule-note { display: flex; gap: .4rem; justify-content: flex-end; align-items: center; flex-wrap: nowrap; }
+.cellule-note select { width: 8.5rem !important; min-height: 3.1rem; }
+
+/* Barre de filtres */
+.barre-filtres .form-control, .barre-filtres .form-select { min-height: 3rem; }
+
+form > .grille-formulaire + .btn, form > .grille-formulaire + button, .champ + .btn { margin-top: 1.25rem; }
+.carte-formulaire .btn-principal[type="submit"]:only-child { min-width: 12rem; }
+
+.grille-formulaire--deux { grid-template-columns: 1fr 1fr; }
+@media (max-width: 575.98px) { .grille-formulaire--deux { grid-template-columns: 1fr; } }

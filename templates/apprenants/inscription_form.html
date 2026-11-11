@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{% if edition %}{% translate "Modifier l’inscription" %}{% else %}{% translate "Nouvelle inscription" %}{% endif %}{% endblock %}
+{% block titre_contexte %}{% translate "Inscriptions" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% if correction_validee %}{% translate "Corriger le niveau d’inscription" %}{% elif edition %}{% translate "Modifier l’inscription" %}{% else %}{% translate "Nouvelle inscription" %}{% endif %}</h1>{% if annee %}<span class="sous-titre">{% translate "Année" %} {{ annee }} · {% if edition %}{{ inscription.get_statut_display }}{% else %}{% translate "statut initial : en attente" %}{% endif %}</span>{% endif %}</div>
+{% if correction_validee %}<div class="alerte alerte-avertissement">{% translate "Cette correction est réservée au niveau et à l’affectation académique. L’apprenant, le statut et les pièces financières restent inchangés. Un motif sera conservé dans le journal d’audit." %}</div>{% endif %}
+<form method="post" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}
+  <div class="grille-formulaire">{% for champ in formulaire %}{% if not correction_validee or champ.name != "type_inscription" and champ.name != "apprenant" or champ.name == "motif_correction" %}{% include "interface/composants/_champ.html" %}{% endif %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% if edition %}{% translate "Enregistrer les modifications" %}{% else %}{% translate "Enregistrer la demande" %}{% endif %}</button><a class="btn btn-secondaire" href="{% if edition %}{% url 'apprenants:inscription_detail' inscription.pk %}{% else %}{% url 'apprenants:inscriptions' %}{% endif %}">{% translate "Annuler" %}</a></div>
+</form>
+{% endblock %}

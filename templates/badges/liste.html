@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{% translate "Badges" %}{% endblock %}
+{% block titre_contexte %}{% translate "Badges" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{% translate "Badges d'identification" %}</h1><p class="texte-secondaire">{% translate "PDF avec QR de vérification opaque; aucun renseignement personnel n'est encodé dans le code." %}</p></div>
+  <a class="btn btn-secondaire" href="{% url 'badges:enseignants_pdf' %}">{% translate "Badges du personnel enseignant" %}</a>
+</div>
+<section class="carte">
+  <h2>{% translate "Badges des apprenants" %}</h2>
+  <div class="table-responsive"><table class="tableau tableau-adaptatif">
+    <thead><tr><th>{% translate "Classe" %}</th><th>{% translate "Niveau" %}</th><th>{% translate "Site" %}</th><th></th></tr></thead>
+    <tbody>{% for classe in classes %}
+      <tr><td>{{ classe.nom }}</td><td>{{ classe.niveau.nom }}</td><td>{{ classe.site|default:"—" }}</td>
+        <td><a class="btn btn-principal btn-sm" href="{% url 'badges:classe_pdf' classe.pk %}">{% translate "Télécharger les badges PDF" %}</a></td></tr>
+    {% empty %}<tr><td colspan="4">{% translate "Aucune classe dans l'année active." %}</td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load i18n %}
+<footer class="pied-plateforme">
+  <div class="pied-plateforme__contenu">
+    <div class="pied-plateforme__principal">
+      <a class="pied-plateforme__marque" href="{% url 'accueil_public' %}">
+        {% if marque_plateforme.logo %}<img src="{{ marque_plateforme.logo.url }}" alt="" loading="lazy">
+        {% else %}<span class="pied-plateforme__icone"><i class="bi bi-mortarboard" aria-hidden="true"></i></span>{% endif %}
+        <span>{{ marque_plateforme.nom|default:"EduGest" }}</span>
+      </a>
+      {% if marque_plateforme.slogan %}<p class="pied-plateforme__slogan">{{ marque_plateforme.slogan }}</p>{% endif %}
+      <p class="pied-plateforme__description">{% if marque_plateforme.pied_de_page %}{{ marque_plateforme.pied_de_page }}{% else %}{% translate "Une plateforme conçue pour faciliter la gestion et faire grandir les communautés éducatives." %}{% endif %}</p>
+    </div>
+
+    <div class="pied-plateforme__contact">
+      <h2>{% translate "Restons en contact" %}</h2>
+      <ul>
+        {% if marque_plateforme.email %}<li><i class="bi bi-envelope" aria-hidden="true"></i><a href="mailto:{{ marque_plateforme.email }}">{{ marque_plateforme.email }}</a></li>{% endif %}
+        {% if marque_plateforme.telephone %}<li><i class="bi bi-telephone" aria-hidden="true"></i><a href="tel:{{ marque_plateforme.telephone }}">{{ marque_plateforme.telephone }}</a></li>{% endif %}
+        {% if marque_plateforme.site_web %}<li><i class="bi bi-globe2" aria-hidden="true"></i><a href="{{ marque_plateforme.site_web }}" rel="noopener noreferrer">{{ marque_plateforme.site_web }}</a></li>{% endif %}
+        {% if marque_plateforme.adresse %}<li><i class="bi bi-geo-alt" aria-hidden="true"></i><span>{{ marque_plateforme.adresse }}</span></li>{% endif %}
+        {% if not marque_plateforme.email and not marque_plateforme.telephone and not marque_plateforme.site_web and not marque_plateforme.adresse %}<li class="pied-plateforme__contact-vide">{% translate "Les coordonnées seront affichées ici." %}</li>{% endif %}
+      </ul>
+    </div>
+  </div>
+  <div class="pied-plateforme__bas">
+    <span>© {% now "Y" %} {{ marque_plateforme.nom|default:"EduGest" }}. {% translate "Tous droits réservés." %}</span>
+    <a href="{% url 'accueil_public' %}">{% translate "Accueil" %} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+  </div>
+</footer>

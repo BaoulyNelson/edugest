@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Saisie des notes" %}{% endblock %}
+{% block titre_contexte %}{{ libelles.evaluations }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{{ config.affectation.matiere_niveau.matiere }} · {{ config.periode.nom }}</h1>
+  <div class="sous-titre">{{ config.affectation.classe|default:config.affectation.matiere_niveau.niveau }}</div></div>
+  <div class="d-flex gap-2"><a class="btn btn-secondaire" href="{% url 'evaluations:synthese' config.pk %}">{% translate "Synthèse et publication" %}</a>
+  <a class="btn btn-secondaire" href="{% url 'evaluations:configuration' config.affectation_id config.periode_id %}">{% translate "Configuration" %}</a></div></div>
+{% if not saisie_possible %}<div class="message message--warning"><i class="bi bi-lock" aria-hidden="true"></i><div>{% translate "La saisie est actuellement fermée (configuration non validée ou période fermée). Les notes sont en consultation." %}</div></div>{% endif %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  <div class="carte defilement-controle">
+    <table class="tableau tableau-adaptatif">
+      <thead><tr><th>{{ libelles.apprenant }}</th>{% for c in composantes %}<th>{{ c.intitule }} /{{ c.bareme|nombre }}</th>{% endfor %}<th>{{ libelles.evaluation }}</th></tr></thead>
+      <tbody>
+      {% for l in lignes %}
+        <tr><td class="principal" data-libelle="{{ libelles.apprenant }}">{{ l.inscription.apprenant }}</td>
+        {% for cellule in l.cellules %}
+          <td data-libelle="{{ cellule.composante.intitule }} /{{ cellule.composante.bareme|nombre }}">
+            <div class="cellule-note">
+              <input class="form-control entree-note" name="note_{{ cellule.cle }}" inputmode="decimal" value="{% if cellule.note and cellule.note.valeur is not None %}{{ cellule.note.valeur|nombre }}{% endif %}" {% if not saisie_possible %}disabled{% endif %} aria-label="{% translate 'Note' %} {{ l.inscription.apprenant }} {{ cellule.composante.intitule }}">
+              <select class="form-select" name="etat_{{ cellule.cle }}" {% if not saisie_possible %}disabled{% endif %} aria-label="{% translate 'État' %}">
+                <option value="SAISIE" {% if not cellule.note or cellule.note.etat == "SAISIE" or cellule.note.etat == "NON_RENSEIGNEE" %}selected{% endif %}>{% translate "Note" %}</option>
+                <option value="ABSENT" {% if cellule.note.etat == "ABSENT" %}selected{% endif %}>{% translate "Absent" %}</option>
+                <option value="DISPENSE" {% if cellule.note.etat == "DISPENSE" %}selected{% endif %}>{% translate "Dispensé" %}</option>
+              </select>
+            </div></td>
+        {% endfor %}
+        <td data-libelle="{% translate 'Résultat' %}">{% if l.resultat %}{{ l.resultat.total|nombre }}/{{ l.resultat.bareme_applique|nombre }} {% statut l.resultat.statut %}{% else %}-{% endif %}</td></tr>
+      {% empty %}<tr><td colspan="9" class="etat-vide">{% translate "Aucun apprenant inscrit et validé dans ce groupe." %}</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if saisie_possible %}
+  <div class="carte-formulaire mt-3">
+    {% if publie %}<label class="form-label" for="motif">{% translate "Motif de la correction (obligatoire : des résultats sont publiés)" %}</label><input class="form-control mb-3" id="motif" name="motif">{% endif %}
+    <button class="btn btn-principal" type="submit">{% translate "Enregistrer les notes" %}</button>
+    <p class="champ-aide mt-2 mb-0">{% translate "Absent et Dispensé ne sont jamais comptés comme zéro : le résultat reste incomplet tant qu’une absence n’est pas traitée." %}</p>
+  </div>
+  {% endif %}
+</form>
+{% endblock %}

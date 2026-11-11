@@ -1,0 +1,11 @@
+{% load i18n %}
+<form method="post" action="{% url 'choisir_langue' %}" class="d-inline-flex align-items-center gap-1" aria-label="{% translate 'Langue' %}">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  <label class="visually-hidden" for="selecteurLangue">{% translate "Langue de l’interface" %}</label>
+  <select id="selecteurLangue" name="langue" class="form-select form-select-sm" aria-label="{% translate 'Langue de l’interface' %}">
+    {% for code, nom in LANGUAGES %}
+      <option value="{{ code }}" {% if request.session.langue_interface == code %}selected{% elif not request.session.langue_interface and code == 'fr' %}selected{% endif %}>{{ nom }}</option>
+    {% endfor %}
+  </select>
+</form>

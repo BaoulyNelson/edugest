@@ -1,0 +1,31 @@
+{% load static i18n %}{% get_current_language as LANGUAGE_CODE %}<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  {% include "interface/_tete.html" %}
+  <title>{% block titre %}{% if request.etablissement and request.etablissement.nom %}{{ request.etablissement.nom }}{% elif marque_plateforme.nom %}{{ marque_plateforme.nom }}{% else %}EduGest{% endif %}{% endblock %} · {% if request.etablissement and request.etablissement.nom %}{{ request.etablissement.nom }}{% elif marque_plateforme.nom %}{{ marque_plateforme.nom }}{% else %}EduGest{% endif %}</title>
+  {% block styles_publics %}{% endblock %}
+</head>
+<body class="public">
+  {% block entete_public %}
+  <header class="public-entete">
+    <a class="marque" href="{% url 'accueil_public' %}">
+      {% if marque_plateforme.logo %}<img src="{{ marque_plateforme.logo.url }}" alt="" style="max-height:2.5rem;max-width:4rem">
+      {% else %}<i class="bi bi-mortarboard" aria-hidden="true"></i>{% endif %}
+      {{ marque_plateforme.nom_court|default:marque_plateforme.nom|default:"EduGest" }}
+    </a>
+    <nav aria-label="{% translate 'Accès' %}">
+      {% include "interface/composants/_selecteur_langue.html" %}
+      {% if user.is_authenticated %}<a class="btn btn-principal" href="{% url 'tableau_de_bord' %}">{% translate "Accéder à mon tableau de bord" %}</a>
+      {% else %}<a class="lien-discret" href="{% url 'connexion' %}">{% translate "Se connecter" %}</a><a class="btn btn-principal" href="{% url 'inscription' %}">{% translate "Créer mon établissement" %}</a>{% endif %}
+    </nav>
+  </header>
+  {% endblock %}
+  <div class="px-3 mx-auto w-100" style="max-width:76rem">{% include "interface/composants/_messages.html" %}</div>
+  {% block corps %}{% endblock %}
+  {% block pied_public %}
+  {% include "interface/composants/_pied_plateforme.html" %}
+  {% endblock %}
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/interface.js' %}?v=2"></script>
+</body>
+</html>

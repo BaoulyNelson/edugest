@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block titre %}Personnel{% endblock %}
+{% block titre_contexte %}Personnel{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">Personnel et accès</h1></div>
+
+<form method="post" class="carte-formulaire mb-4" novalidate>
+  {% csrf_token %}
+  <div class="entete-formulaire"><h2>Inviter une personne</h2><p>Elle reçoit un e-mail, crée elle-même son compte et choisit son mot de passe.</p></div>
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert"><div>{{ formulaire.non_field_errors|join:" " }}</div></div>{% endif %}
+  <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit"><i class="bi bi-send" aria-hidden="true"></i> Envoyer l'invitation</button></div>
+</form>
+
+{% if invitations %}
+<section class="carte defilement-controle mb-4"><h2>Invitations en attente</h2>
+  <table class="tableau tableau-adaptatif"><thead><tr><th>E-mail</th><th>Rôle</th><th class="secondaire">Expire le</th><th></th></tr></thead><tbody>
+  {% for i in invitations %}
+    <tr><td class="principal" data-libelle="E-mail">{{ i.email }}</td><td data-libelle="Rôle">{{ i.role }}</td><td class="secondaire" data-libelle="Expire le">{{ i.date_expiration|date:"d/m/Y" }}</td>
+      <td class="actions"><form method="post" action="{% url 'invitation_action' i.pk %}" class="d-inline-flex gap-1">{% csrf_token %}
+        <button class="btn btn-secondaire btn-sm" name="action" value="renvoyer">Renvoyer</button><button class="btn btn-danger-doux btn-sm" name="action" value="revoquer">Révoquer</button></form></td></tr>
+  {% endfor %}</tbody></table></section>
+{% endif %}
+
+<section class="carte defilement-controle"><h2>Membres</h2>
+  <table class="tableau tableau-adaptatif"><thead><tr><th>Nom</th><th>Rôle</th><th class="secondaire">E-mail</th><th>Accès</th></tr></thead><tbody>
+  {% for m in membres %}
+    <tr><td class="principal" data-libelle="Nom">{{ m.utilisateur.nom_affiche }}</td>
+      <td data-libelle="Rôle"><form method="post" action="{% url 'membre_action' m.pk %}" class="d-flex gap-1">{% csrf_token %}<input type="hidden" name="action" value="role">
+        <select class="form-select form-select-sm" name="role" aria-label="Rôle de {{ m.utilisateur.nom_affiche }}" onchange="this.form.submit()" style="min-width:12rem">{% for r in roles %}<option value="{{ r.pk }}" {% if r.pk == m.role_id %}selected{% endif %}>{{ r.nom }}</option>{% endfor %}</select></form></td>
+      <td class="secondaire" data-libelle="E-mail">{{ m.utilisateur.email }}</td>
+      <td data-libelle="Accès"><form method="post" action="{% url 'membre_action' m.pk %}">{% csrf_token %}
+        {% if m.actif %}<button class="btn btn-secondaire btn-sm" name="action" value="desactiver" onclick="return confirm('Retirer l\'accès de cette personne ?')">Désactiver</button>{% else %}<button class="btn btn-secondaire btn-sm" name="action" value="activer">Réactiver</button>{% endif %}</form></td></tr>
+  {% endfor %}</tbody></table></section>
+{% endblock %}

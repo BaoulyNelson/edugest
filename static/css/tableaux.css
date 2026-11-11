@@ -1,0 +1,22 @@
+.tableau { width: 100%; border-collapse: collapse; }
+.tableau th { text-align: left; font-size: var(--texte-petit); text-transform: uppercase; letter-spacing: .04em; color: var(--couleur-texte-doux); padding: .6rem .75rem; border-bottom: 2px solid var(--couleur-bordure); white-space: nowrap; }
+.tableau td { padding: .65rem .75rem; border-bottom: 1px solid var(--couleur-bordure); vertical-align: middle; }
+.tableau tbody tr:hover { background: var(--couleur-fond); }
+.defilement-controle { overflow-x: auto; }
+.barre-filtres { display: grid; gap: var(--espace-2); grid-template-columns: 1fr; margin-bottom: var(--espace-4); }
+@media (min-width: 768px) { .barre-filtres { grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); align-items: end; } }
+.pagination-simple { display: flex; gap: var(--espace-2); justify-content: center; align-items: center; margin-top: var(--espace-4); }
+
+/* Mobile : le tableau devient une liste de cartes (colonnes prioritaires visibles, détail via libellés) */
+@media (max-width: 767.98px) {
+  .tableau-adaptatif thead { display: none; }
+  .tableau-adaptatif, .tableau-adaptatif tbody, .tableau-adaptatif tr, .tableau-adaptatif td { display: block; width: 100%; }
+  .tableau-adaptatif tr { border: 1px solid var(--couleur-bordure); border-radius: var(--rayon-moyen); padding: var(--espace-2) var(--espace-3); margin-bottom: var(--espace-3); background: var(--couleur-surface); }
+  .tableau-adaptatif td { border: 0; padding: .3rem 0; display: flex; justify-content: space-between; gap: var(--espace-3); align-items: center; text-align: right; }
+  .tableau-adaptatif td::before { content: attr(data-libelle); font-size: var(--texte-petit); color: var(--couleur-texte-doux); text-align: left; flex-shrink: 0; }
+  .tableau-adaptatif td.secondaire { display: none; }
+  .tableau-adaptatif td.principal { font-weight: 650; font-size: 1.02rem; justify-content: flex-start; text-align: left; }
+  .tableau-adaptatif td.principal::before { display: none; }
+  .tableau-adaptatif td.actions { justify-content: flex-end; }
+  .tableau-adaptatif td.actions::before { display: none; }
+}

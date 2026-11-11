@@ -1,0 +1,13 @@
+{% load interface_extras %}{% with type=champ|type_widget quick_cible=champ.field.widget.attrs|element:"data-ajout-rapide" invitation_enseignant=champ.field.widget.attrs|element:"data-inviter-enseignant" %}
+<div class="champ{% if type == 'textarea' or type == 'file' %} champ--large{% endif %}{% if type == 'checkbox' %} champ--case champ--large{% endif %}{% if type == 'radio' %} champ--choix champ--large{% endif %}{% if champ.errors %} champ--invalide{% endif %}">
+  {% if type == "radio" %}<span class="champ-etiquette">{{ champ.label }}</span>{% else %}<label for="{{ champ.id_for_label }}">{{ champ.label }}{% if champ.field.required and type != "checkbox" %}<span class="requis" aria-hidden="true">*</span>{% endif %}</label>{% endif %}
+  {% if quick_cible %}{% peut_creer_rapidement quick_cible as peut_creer %}
+    {% if peut_creer %}<div class="champ-relation">{{ champ }}<button class="bouton-ajout-rapide" type="button" data-ajout-rapide-url="{% url 'ajout_rapide' quick_cible %}" data-ajout-rapide-cible="{{ quick_cible }}" aria-label="Ajouter rapidement : {{ champ.label }}" title="Ajouter {{ champ.label }}"><i class="bi bi-plus-lg" aria-hidden="true"></i></button></div>
+    {% else %}{{ champ }}{% endif %}
+  {% elif invitation_enseignant and peut_inviter_enseignant %}
+    <div class="champ-relation">{{ champ }}<button class="bouton-ajout-rapide" type="button" data-bs-toggle="modal" data-bs-target="#modalInvitationEnseignant" aria-label="Inviter un enseignant" title="Inviter un enseignant"><i class="bi bi-plus-lg" aria-hidden="true"></i></button></div>
+  {% else %}{{ champ }}{% endif %}
+  {% if champ.help_text %}<div class="champ-aide">{{ champ.help_text }}</div>{% endif %}
+  {% for erreur in champ.errors %}<div class="erreur-champ" role="alert"><i class="bi bi-exclamation-circle" aria-hidden="true"></i><span>{{ erreur }}</span></div>{% endfor %}
+</div>
+{% endwith %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Emploi du temps{% endblock %}
+{% block titre_contexte %}Emploi du temps{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{% translate "Emploi du temps" %}</h1><p class="sous-titre mb-0">{% if annee %}{% translate "Année" %} {{ annee.designation }}{% else %}{% translate "Aucune année active" %}{% endif %}</p></div>
+  {% if peut_gerer %}<div class="d-flex gap-2"><a class="btn btn-secondaire" href="{% url 'emploi_du_temps:salles' %}">{% translate "Salles" %}</a><a class="btn btn-principal" href="{% url 'emploi_du_temps:creneau_creer' %}">{% translate "Ajouter un créneau" %}</a></div>{% endif %}
+</div>
+{% if classes %}
+<form method="get" class="carte-formulaire mb-3" data-auto-filtre>
+  <label for="classe" class="form-label">{% translate "Classe" %}</label>
+  <select id="classe" name="classe" class="form-select">
+    {% for choix in classes %}<option value="{{ choix.pk }}" {% if classe.pk == choix.pk %}selected{% endif %}>{{ choix.niveau }} · {{ choix }}</option>{% endfor %}
+  </select>
+</form>
+{% for jour in jours %}
+<section class="carte mb-3">
+  <h2 class="h5">{{ jour.nom }}{% if jour.aujourdhui %} <span class="badge text-bg-primary">{% translate "Aujourd’hui" %}</span>{% endif %}</h2>
+  <div class="defilement-controle">
+    <table class="tableau tableau-adaptatif">
+      <thead><tr><th>{% translate "Horaire" %}</th><th>{% translate "Matière" %}</th><th>{% translate "Enseignant" %}</th><th>{% translate "Salle" %}</th>{% if peut_gerer %}<th>{% translate "Action" %}</th>{% endif %}</tr></thead>
+      <tbody>
+      {% for ligne in jour.seances %}
+        <tr {% if ligne.en_cours %}class="table-primary"{% endif %}>
+          <td data-libelle="{% translate 'Horaire' %}">{{ ligne.creneau.heure_debut|time:"H:i" }}–{{ ligne.creneau.heure_fin|time:"H:i" }}</td>
+          <td class="principal" data-libelle="{% translate 'Matière' %}">{{ ligne.creneau.affectation.matiere_niveau.matiere }}</td>
+          <td data-libelle="{% translate 'Enseignant' %}">{{ ligne.creneau.affectation.appartenance.utilisateur.nom_affiche }}</td>
+          <td data-libelle="{% translate 'Salle' %}">{{ ligne.creneau.salle|default:"—" }}</td>
+          {% if peut_gerer %}<td data-libelle="{% translate 'Action' %}"><form method="post" action="{% url 'emploi_du_temps:creneau_supprimer' ligne.creneau.pk %}">{% csrf_token %}<button class="btn btn-secondaire btn-sm" type="submit">{% translate "Supprimer" %}</button></form></td>{% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% empty %}<div class="carte etat-vide">{% translate "Aucun créneau n’est encore défini pour cette classe." %}</div>{% endfor %}
+{% else %}<div class="carte etat-vide">{% translate "Aucune classe disponible pour l’année active." %}</div>{% endif %}
+{% endblock %}

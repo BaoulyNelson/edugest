@@ -1,0 +1,6 @@
+nom,prenoms,sexe,date_naissance,lieu_naissance,email,telephone,adresse,responsable_nom,responsable_prenoms,responsable_telephone,responsable_email,niveau,classe,programme
+Jean-Baptiste,Marie-Lourdes,F,2012-03-15,Port-au-Prince,marie.jeanbaptiste@gmail.com,+509 3712 4567,Rue 12, Delmas 33,Jean-Baptiste,Pierre,+509 3412 7890,pierre.jb@gmail.com,6eme,6eme A,Fondamental
+Pierre,Kervens,M,2010-07-22,Cap-Haitien,kervens.pierre@gmail.com,+509 3823 1122,Rue A, Petion-ville,Pierre,Micheline,+509 3645 9900,micheline.pierre@gmail.com,4eme,4eme B,Fondamental
+Alcide,Fabiola,F,2013-11-02,Jacmel,fabiola.alcide@gmail.com,+509 3901 3344,Boulevard 15 Octobre,Alcide,Rose-Laure,+509 3288 5511,rose.alcide@gmail.com,6eme,6eme A,Fondamental
+Delva,Wilgens,M,2008-01-30,Les Cayes,wilgens.delva@gmail.com,+509 3777 2211,Avenue Toussaint,Delva,Jonas,+509 3411 8899,jonas.delva@gmail.com,4eme,4eme B,Fondamental
+Cadeau,Nadege,F,2009-05-18,Gonaives,nadege.cadeau@gmail.com,+509 3666 4400,Rue Capois,Cadeau,Emmanuelle,+509 3155 6677,emma.cadeau@gmail.com,6eme,6eme A,Fondamental

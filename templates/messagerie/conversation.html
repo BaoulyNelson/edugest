@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{{ conversation.sujet }}{% endblock %}
+{% block titre_contexte %}Messagerie{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{{ conversation.sujet }}</h1><p class="sous-titre mb-0">{% translate "Avec" %} : {% for participant in participants %}{% if participant.pk != user.pk %}{{ participant.nom_affiche }}{% if not forloop.last %}, {% endif %}{% endif %}{% endfor %}</p></div>
+  <a class="btn btn-secondaire" href="{% url 'messagerie:boite' %}">{% translate "Retour aux messages" %}</a>
+</div>
+<section class="carte mb-3">
+  {% for message in messages_liste %}
+  <article class="py-3 {% if not forloop.last %}border-bottom{% endif %}">
+    <div class="d-flex justify-content-between gap-3"><strong>{% if message.auteur %}{{ message.auteur.nom_affiche }}{% else %}{% translate "Compte supprimé" %}{% endif %}</strong><time class="text-muted" datetime="{{ message.date|date:'c' }}">{{ message.date|date:"d/m/Y H:i" }}</time></div>
+    <p class="mb-0 mt-2">{{ message.texte|linebreaksbr }}</p>
+  </article>
+  {% empty %}<p class="mb-0">{% translate "Aucun message." %}</p>{% endfor %}
+</section>
+<form method="post" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Répondre" %}</button></div>
+</form>
+{% endblock %}

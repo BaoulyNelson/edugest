@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Mes résultats" %}{% endblock %}
+{% block titre_contexte %}{{ libelles.evaluations }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">Mes {{ libelles.evaluations|lower }}</h1></div>
+{% for apprenant, liste in par_apprenant.items %}
+<section class="carte defilement-controle"><h2>{{ apprenant }}</h2>
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{{ libelles.cours_singulier }}</th><th>{% translate "Période" %}</th><th>{% translate "Note" %}</th><th>{% translate "Statut" %}</th><th>{% translate "Document officiel" %}</th></tr></thead><tbody>
+  {% for r in liste %}<tr><td class="principal" data-libelle="{{ libelles.cours_singulier }}">{{ r.matiere_niveau.matiere }}</td><td data-libelle="{% translate 'Période' %}">{{ r.periode.nom }} ({{ r.periode.annee }})</td><td data-libelle="{% translate 'Note' %}">{{ r.total|nombre }}/{{ r.bareme_applique|nombre }}</td><td data-libelle="{% translate 'Statut' %}">{% statut r.statut %}</td><td data-libelle="{% translate 'Document officiel' %}">{% if r.document_resultat %}<a class="btn btn-secondaire btn-sm" href="{% url 'evaluations:document_telecharger' r.document_resultat.pk %}"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> {% translate "Télécharger" %} · {% translate "Version" %} {{ r.document_resultat.version }}</a>{% else %}—{% endif %}</td></tr>{% endfor %}</tbody></table></section>
+{% empty %}<div class="carte etat-vide">{% translate "Aucun résultat publié pour le moment." %}</div>{% endfor %}
+{% endblock %}

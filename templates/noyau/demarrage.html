@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block titre %}Démarrage rapide{% endblock %}
+{% block titre_contexte %}Démarrage{% endblock %}
+{% block contenu %}
+<section class="container-fluid px-0 py-3 py-lg-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xxl-10">
+      <header class="d-flex align-items-center gap-3 mb-4">
+        <span class="d-inline-flex align-items-center justify-content-center rounded-4 bg-primary bg-opacity-10 text-primary flex-shrink-0"
+              style="width:3.75rem;height:3.75rem">
+          <i class="bi bi-magic fs-3" aria-hidden="true"></i>
+        </span>
+        <div>
+          <p class="text-uppercase text-primary fw-semibold small mb-1">Bienvenue sur EduGest</p>
+          <h1 class="titre-page mb-1">Configurez votre établissement</h1>
+          <p class="text-muted mb-0">Une seule étape : année académique, périodes{% if not request.etablissement.est_universitaire %}, niveaux et classes{% endif %}.</p>
+        </div>
+      </header>
+      {% if deja_configure %}
+        <div class="card border-0 shadow-sm rounded-4 p-4 p-lg-5">
+          <div class="d-flex align-items-start gap-3">
+            <span class="d-inline-flex align-items-center justify-content-center rounded-3 bg-info bg-opacity-10 text-info flex-shrink-0"
+                  style="width:3rem;height:3rem">
+              <i class="bi bi-info-circle fs-5" aria-hidden="true"></i>
+            </span>
+            <div>
+              <h2 class="h5 fw-bold text-dark">Votre établissement est déjà configuré</h2>
+              <p class="text-muted mb-4">Une année académique est déjà active. Vous pouvez créer la suivante depuis l’espace académique ou ajuster vos préférences.</p>
+              <div class="d-flex flex-column flex-sm-row gap-2">
+                <a class="btn btn-principal rounded-pill px-4" href="{% url 'academique:annees' %}">
+                  <i class="bi bi-calendar3 me-2" aria-hidden="true"></i>Académique
+                </a>
+                <a class="btn btn-secondaire rounded-pill px-4" href="{% url 'parametres' %}">
+                  <i class="bi bi-gear me-2" aria-hidden="true"></i>Paramètres de l’établissement
+                </a>
+              </div>
+              <p class="small text-muted mt-3 mb-0">Le nombre de périodes par défaut se règle dans les paramètres de l’établissement.</p>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <form method="post" class="card border-0 shadow-sm rounded-4 p-4 p-lg-5" novalidate>
+          {% csrf_token %}
+          <fieldset class="border-0 p-0 mb-4">
+            <legend class="h5 fw-bold text-dark mb-1"><i class="bi bi-calendar-range text-primary me-2" aria-hidden="true"></i>Année académique</legend>
+            <p class="small text-muted mb-3">Choisissez les dates et le découpage qui structureront votre année.</p>
+            <div class="grille-formulaire">{% include "interface/composants/_champ.html" with champ=formulaire.designation %}{% include "interface/composants/_champ.html" with champ=formulaire.nombre_periodes %}</div>
+            <div class="grille-formulaire mt-3">{% include "interface/composants/_champ.html" with champ=formulaire.date_debut %}{% include "interface/composants/_champ.html" with champ=formulaire.date_fin %}</div>
+          </fieldset>
+          {% if formulaire.niveaux_standards %}
+            <fieldset class="border-0 border-top pt-4 p-0 mb-4">
+              <legend class="h5 fw-bold text-dark mb-1"><i class="bi bi-diagram-3 text-primary me-2" aria-hidden="true"></i>Structure</legend>
+              <p class="small text-muted mb-3">Préparez les niveaux et classes qui seront proposés aux inscriptions.</p>
+              <div class="grille-formulaire">{% include "interface/composants/_champ.html" with champ=formulaire.niveaux_standards %}{% include "interface/composants/_champ.html" with champ=formulaire.classes_par_niveau %}</div>
+            </fieldset>
+          {% endif %}
+          {% if formulaire.non_field_errors %}<div class="message message--error mb-4" role="alert"><i class="bi bi-exclamation-circle" aria-hidden="true"></i><div>{{ formulaire.non_field_errors|join:" " }}</div></div>{% endif %}
+          <div class="d-flex flex-column-reverse flex-sm-row justify-content-end gap-2 border-top pt-4">
+            <a class="btn btn-secondaire rounded-pill px-4" href="{% url 'tableau_de_bord' %}">Plus tard</a>
+            <button class="btn btn-principal rounded-pill px-4" type="submit"><i class="bi bi-check2-circle me-2" aria-hidden="true"></i>Configurer et activer</button>
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

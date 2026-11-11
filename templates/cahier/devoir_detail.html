@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block titre %}{{ devoir.titre }}{% endblock %}
+{% block titre_contexte %}Devoirs{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{{ devoir.titre }}</h1><p class="sous-titre mb-0">{{ devoir.classe }} · {{ devoir.matiere_niveau.matiere }} · échéance {{ devoir.date_limite|date:"d/m/Y" }} à {{ devoir.heure_limite|time:"H:i" }} · barème {{ devoir.bareme }}</p></div>
+  <a class="btn btn-secondaire" href="{% url 'cahier:devoirs' %}">Retour aux devoirs</a>
+</div>
+<section class="carte mb-3">
+  <h2 class="h5">Consigne</h2><p>{{ devoir.consigne|linebreaksbr }}</p>
+  {% if devoir.fichier %}<a class="btn btn-secondaire btn-sm" href="{% url 'cahier:telecharger' 'devoir' devoir.pk %}">Télécharger le document joint</a>{% endif %}
+  {% for piece in devoir.pieces_jointes.all %}<a class="btn btn-secondaire btn-sm" href="{% url 'cahier:telecharger' 'piece_devoir' piece.pk %}">{{ piece.nom }}</a>{% endfor %}
+  <p class="small mt-2 mb-0">
+    Remises tardives : {% if devoir.accepter_remises_tardives %}acceptées{% else %}refusées{% endif %} ·
+    Modifications après échéance : {% if devoir.modifier_apres_echeance %}autorisées{% else %}désactivées{% endif %}
+  </p>
+</section>
+<section class="carte defilement-controle">
+  <h2 class="h5">Travaux des élèves</h2>
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>Élève</th><th>Remise</th><th>Statut</th><th>Note</th><th>Commentaire</th><th>Rétroaction</th></tr></thead>
+    <tbody>
+      {% for ligne in lignes %}
+      <tr>
+        <td class="principal" data-libelle="Élève">
+          {% if ligne.remise %}<a href="{% url 'cahier:remise_correction' ligne.remise.pk %}">{{ ligne.inscription.apprenant }}</a>
+          {% else %}{{ ligne.inscription.apprenant }}{% endif %}
+        </td>
+        <td data-libelle="Remise">
+          {% if ligne.remise %}
+            <a href="{% url 'cahier:telecharger' 'remise' ligne.remise.pk %}">{{ ligne.remise.fichier.name|cut:"etablissements/" }}</a>
+            {% for piece in ligne.remise.pieces_jointes.all %}<br><a href="{% url 'cahier:telecharger' 'piece_remise' piece.pk %}">{{ piece.nom }}</a>{% endfor %}
+            <br><small>{{ ligne.remise.remise_le|date:"d/m/Y H:i" }}</small>
+          {% else %}Pas encore remis{% endif %}
+        </td>
+        <td data-libelle="Statut">
+          {% if ligne.statut == "A_FAIRE" %}À faire
+          {% elif ligne.statut == "EN_RETARD" %}{% if ligne.remise %}Rendu en retard{% else %}En retard — non rendu{% endif %}
+          {% elif ligne.statut == "NOTE" %}Noté
+          {% else %}Rendu{% endif %}
+        </td>
+        <td data-libelle="Note">{% if ligne.remise and ligne.remise.note is not None %}{{ ligne.remise.note }} / {{ devoir.bareme }}{% else %}—{% endif %}</td>
+        <td data-libelle="Commentaire">{{ ligne.remise.commentaire|default:"—" }}</td>
+        <td data-libelle="Rétroaction">{{ ligne.remise.appreciation|default:"—" }}</td>
+      </tr>
+      {% empty %}<tr><td colspan="6">Aucun élève validé dans cette classe.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

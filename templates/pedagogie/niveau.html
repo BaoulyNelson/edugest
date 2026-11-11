@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load interface_extras %}
+{% block titre %}{{ niveau }}{% endblock %}
+{% block titre_contexte %}{{ libelles.cours }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{{ niveau }}</h1><div class="sous-titre">Année {{ annee }} · les classes du niveau héritent de cette configuration</div></div>
+  <form method="get" data-auto-filtre><select class="form-select" name="annee" aria-label="Année">{% for a in annees %}<option value="{{ a.pk }}" {% if a.pk == annee.pk %}selected{% endif %}>{{ a }}</option>{% endfor %}</select></form></div>
+<section class="carte defilement-controle"><h2>{{ libelles.cours }} du niveau</h2>
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{{ libelles.cours_singulier }}</th><th>Barème</th><th>Coefficient</th></tr></thead><tbody>
+  {% for e in elements %}<tr><td class="principal" data-libelle="{{ libelles.cours_singulier }}">{{ e.matiere }}</td><td data-libelle="Barème">{{ e.bareme|nombre }}</td><td data-libelle="Coefficient">{{ e.coefficient|nombre }}</td></tr>
+  {% empty %}<tr><td colspan="3" class="etat-vide">Aucun {{ libelles.cours_singulier|lower }} pour ce niveau.</td></tr>{% endfor %}</tbody></table>
+  <form method="post" class="formulaire-court mt-3" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="matiere">
+    <p class="champ-aide">Ajoutez une matière ou modifiez son barème en la sélectionnant à nouveau.</p>
+    <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><button class="btn btn-principal" type="submit">Enregistrer</button></form></section>
+{% if derogations or formulaire_derogation.classe.field.queryset.exists %}
+<section class="carte"><h2>Dérogations de classe (exceptionnel)</h2>
+  {% for d in derogations %}<div class="py-1">{{ d.classe }} · {{ d.matiere_niveau.matiere }} : {% if d.exclue %}non enseignée{% else %}barème {{ d.bareme|nombre }}, coefficient {{ d.coefficient|nombre }}{% endif %}</div>{% endfor %}
+  <details class="section-facultative mt-3"><summary>Ajouter une dérogation</summary>
+    <form method="post" class="formulaire-court" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="derogation">
+      <div class="grille-formulaire">{% for champ in formulaire_derogation %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><button class="btn btn-secondaire" type="submit">Enregistrer la dérogation</button></form></details></section>
+{% endif %}
+{% endblock %}

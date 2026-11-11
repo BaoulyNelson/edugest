@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{% if edition %}{% translate "Modifier le dossier" %}{% else %}Nouvel {{ libelles.apprenant|lower }}{% endif %}{% endblock %}
+{% block titre_contexte %}{{ libelles.apprenants }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% if edition %}{% translate "Modifier le dossier de l’apprenant" %}{% else %}{% translate "Nouvel apprenant" %}{% endif %}</h1><div class="sous-titre">{% if edition %}{% translate "Corrigez les informations permanentes du dossier. Les inscriptions et résultats historiques restent inchangés." %}{% else %}{% translate "Le matricule est généré automatiquement. Le dossier est créé une seule fois pour tout le parcours." %}{% endif %}</div></div></div>
+<form method="post" enctype="multipart/form-data" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  <fieldset class="section-formulaire"><legend>{% translate "Identité" %}</legend>
+    <div class="grille-formulaire">
+      {% include "interface/composants/_champ.html" with champ=formulaire.nom %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.prenoms %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.sexe %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.date_naissance %}
+    </div></fieldset>
+  <details class="section-facultative"><summary>{% translate "Coordonnées (facultatif)" %}</summary>
+    <div class="grille-formulaire">
+      {% include "interface/composants/_champ.html" with champ=formulaire.lieu_naissance %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.email %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.telephone %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.adresse %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.photo %}
+    </div></details>
+  {% if fonctionnalites.parents_tuteurs %}<details class="section-facultative"><summary>{% translate "Responsable légal (facultatif)" %}</summary>
+    <div class="grille-formulaire">
+      {% include "interface/composants/_champ.html" with champ=formulaire.responsable_nom %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.responsable_prenoms %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.responsable_telephone %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.responsable_email %}
+      {% include "interface/composants/_champ.html" with champ=formulaire.responsable_lien %}
+    </div></details>{% endif %}
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% if edition %}{% translate "Enregistrer les modifications" %}{% else %}{% translate "Enregistrer" %}{% endif %}</button><a class="btn btn-secondaire" href="{% if apprenant %}{% url 'apprenants:detail' apprenant.pk %}{% else %}{% url 'apprenants:liste' %}{% endif %}">{% translate "Annuler" %}</a></div>
+</form>
+{% endblock %}

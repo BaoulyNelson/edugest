@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{{ libelles.groupes }}{% endblock %}
+{% block titre_contexte %}{{ libelles.groupes }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{{ libelles.groupes }} et {{ libelles.cours|lower }}</h1>{% if annee %}<span class="sous-titre">{% translate "Année" %} {{ annee }}</span>{% endif %}</div>
+<div class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{{ libelles.groupe }}</th><th>{{ libelles.cours_singulier }}</th><th>{% translate "Enseignant" %}</th><th>{% translate "Barème" %}</th></tr></thead><tbody>
+  {% for a in affectations %}<tr><td class="principal" data-libelle="{{ libelles.groupe }}">{{ a.classe|default:a.matiere_niveau.niveau.nom }}</td><td data-libelle="{{ libelles.cours_singulier }}">{{ a.matiere_niveau.matiere }}</td>
+    <td data-libelle="{% translate 'Enseignant' %}">{{ a.appartenance.utilisateur.nom_affiche }}</td><td data-libelle="{% translate 'Barème' %}">{{ a.matiere_niveau.bareme|floatformat:"-2" }}</td></tr>
+  {% empty %}<tr><td colspan="4" class="etat-vide">{% translate "Aucune classe." %}</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

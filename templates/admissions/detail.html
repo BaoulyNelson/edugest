@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Candidature" %}{% endblock %}
+{% block titre_contexte %}{% translate "Candidature" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{{ candidature.prenoms }} {{ candidature.nom }}</h1><div class="sous-titre">{% blocktranslate with reference=candidature.reference %}Référence {{ reference }}{% endblocktranslate %}</div></div>
+  <a class="btn btn-secondaire" href="{% url 'admissions:liste' %}">{% translate "Retour aux candidatures" %}</a>
+</div>
+<div class="row g-3">
+  <section class="col-lg-6"><div class="carte p-4"><h2 class="h5">{% translate "Candidat" %}</h2>
+    <dl class="row mb-0">
+      <dt class="col-sm-4">{% translate "Date de naissance" %}</dt><dd class="col-sm-8">{{ candidature.date_naissance|date:"d/m/Y" }}</dd>
+      <dt class="col-sm-4">{% translate "Sexe" %}</dt><dd class="col-sm-8">{{ candidature.get_sexe_display|default:"-" }}</dd>
+      <dt class="col-sm-4">{% translate "Lieu de naissance" %}</dt><dd class="col-sm-8">{{ candidature.lieu_naissance|default:"-" }}</dd>
+      <dt class="col-sm-4">{% translate "Classe souhaitée" %}</dt><dd class="col-sm-8">{{ candidature.classe }}</dd>
+      <dt class="col-sm-4">{% translate "Année" %}</dt><dd class="col-sm-8">{{ candidature.annee }}</dd>
+      <dt class="col-sm-4">{% translate "Message" %}</dt><dd class="col-sm-8">{{ candidature.message|default:"-"|linebreaksbr }}</dd>
+    </dl>
+  </div></section>
+  <section class="col-lg-6"><div class="carte p-4"><h2 class="h5">{% translate "Parent ou tuteur" %}</h2>
+    <dl class="row mb-0">
+      <dt class="col-sm-4">{% translate "Nom" %}</dt><dd class="col-sm-8">{{ candidature.nom_parent }}</dd>
+      <dt class="col-sm-4">{% translate "Téléphone" %}</dt><dd class="col-sm-8">{{ candidature.telephone_parent }}</dd>
+      <dt class="col-sm-4">{% translate "Courriel" %}</dt><dd class="col-sm-8">{{ candidature.email_parent }}</dd>
+      <dt class="col-sm-4">{% translate "Consentement" %}</dt><dd class="col-sm-8">{% if candidature.consentement_donnees %}{% blocktranslate with date=candidature.consentement_le|date:"d/m/Y H:i" %}Donné le {{ date }}{% endblocktranslate %}{% else %}{% translate "Non enregistré" %}{% endif %}</dd>
+    </dl>
+  </div></section>
+</div>
+<section class="carte p-4 mt-3">
+  <h2 class="h5">{% translate "Décision" %}</h2>
+  <p>{% translate "Statut" %} : {% statut candidature.statut %}</p>
+  {% if candidature.traitee_le %}<p>{% blocktranslate with date=candidature.traitee_le|date:"d/m/Y H:i" %}Traitée le {{ date }}{% endblocktranslate %}{% if candidature.traitee_par %} {% blocktranslate with name=candidature.traitee_par.nom_affiche %}par {{ name }}{% endblocktranslate %}{% endif %}</p>{% endif %}
+  {% if candidature.apprenant_cree %}<p>{% translate "Dossier créé" %} : <a href="{% url 'apprenants:detail' candidature.apprenant_cree_id %}">{{ candidature.apprenant_cree }}</a></p>{% endif %}
+  {% if candidature.inscription_creee %}<p>{% translate "Inscription" %} : <a href="{% url 'apprenants:inscription_detail' candidature.inscription_creee_id %}">{{ candidature.inscription_creee }}</a></p>{% endif %}
+  {% if candidature.motif_decision %}<p>{% translate "Motif" %} : {{ candidature.motif_decision }}</p>{% endif %}
+  {% if candidature.statut == "RECUE" %}
+    <div class="d-flex flex-wrap gap-2">
+      <form method="post" action="{% url 'admissions:action' candidature.reference %}">
+        {% csrf_token %}<input type="hidden" name="action" value="accepter">
+        <button class="btn btn-principal" type="submit">{% translate "Accepter et inscrire" %}</button>
+      </form>
+      <form method="post" action="{% url 'admissions:action' candidature.reference %}" class="d-flex flex-wrap gap-2">
+        {% csrf_token %}<input type="hidden" name="action" value="refuser">
+        <div><label class="visually-hidden" for="{{ formulaire_decision.motif.id_for_label }}">{% translate "Motif" %}</label>{{ formulaire_decision.motif }}</div>
+        <button class="btn btn-danger" type="submit">{% translate "Refuser" %}</button>
+      </form>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

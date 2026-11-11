@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Mes données personnelles{% endblock %}
+{% block titre_contexte %}Mes données{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Mes données personnelles" %}</h1><p class="texte-secondaire">{% translate "Consultez et exportez les données des dossiers qui vous sont rattachés, ou adressez une demande à l’établissement." %}</p></div></div>
+<section class="carte-formulaire mb-4"><h2 class="h5">{% translate "Exporter mes données" %}</h2>
+{% for apprenant in apprenants %}<p class="mb-2"><strong>{{ apprenant }}</strong> · <a href="{% url 'rgpd:exporter' apprenant.pk %}">{% translate "Télécharger une copie JSON" %}</a></p>{% empty %}<p class="texte-secondaire mb-0">{% translate "Aucun dossier n’est associé à votre compte." %}</p>{% endfor %}
+</section>
+<form method="post" class="carte-formulaire" novalidate>{% csrf_token %}<h2 class="h5">{% translate "Créer une demande" %}</h2>
+<div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+<div class="actions-formulaire mt-3"><button class="btn btn-principal" type="submit">{% translate "Envoyer la demande" %}</button></div></form>
+<section class="carte-formulaire mt-4"><h2 class="h5">{% translate "Historique de mes demandes" %}</h2>
+<ul class="mb-0">{% for demande in demandes %}<li>{{ demande.get_type_display }} · {{ demande.get_statut_display }} · {% translate "échéance" %} {{ demande.echeance|date:"d/m/Y" }}{% if demande.reponse %}<br>{{ demande.reponse }}{% endif %}</li>{% empty %}<li>{% translate "Aucune demande enregistrée." %}</li>{% endfor %}</ul></section>
+{% endblock %}

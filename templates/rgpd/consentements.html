@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Consentements{% endblock %}
+{% block titre_contexte %}Consentements{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Consentements" %} · {{ apprenant }}</h1><p class="texte-secondaire">{% translate "Chaque modification ajoute une entrée à l’historique." %}</p></div></div>
+<form method="post" class="carte-formulaire mb-4" novalidate>{% csrf_token %}<div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><div class="actions-formulaire mt-3"><button class="btn btn-principal" type="submit">{% translate "Enregistrer" %}</button></div></form>
+<section class="carte-formulaire"><h2 class="h5">{% translate "Historique" %}</h2><ul class="mb-0">{% for consentement in consentements %}<li>{{ consentement.get_finalite_display }} · {% if consentement.accorde %}{% translate "accordé" %}{% else %}{% translate "refusé" %}{% endif %} · {{ consentement.cree_le|date:"d/m/Y H:i" }}{% if consentement.note %} · {{ consentement.note }}{% endif %}</li>{% empty %}<li>{% translate "Aucun consentement enregistré." %}</li>{% endfor %}</ul></section>
+{% endblock %}

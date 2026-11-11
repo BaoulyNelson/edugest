@@ -1,0 +1,36 @@
+/* Variables centralisées de l'identité visuelle EduGest. */
+:root {
+  --couleur-principale: #0f5c63;
+  --couleur-principale-sombre: #0a4046;
+  --couleur-principale-claire: #e3f1f2;
+  --couleur-secondaire: #c8791a;
+  --couleur-secondaire-claire: #fdf1e0;
+  --couleur-texte: #1d2b2e;
+  --couleur-texte-doux: #5a6b6e;
+  --couleur-fond: #f5f8f8;
+  --couleur-surface: #ffffff;
+  --couleur-bordure: #d9e2e3;
+
+  --couleur-succes: #1b7a43;
+  --couleur-succes-claire: #e4f4ea;
+  --couleur-attention: #9a6200;
+  --couleur-attention-claire: #fff3d6;
+  --couleur-danger: #b3261e;
+  --couleur-danger-claire: #fde8e6;
+  --couleur-neutre: #4b5a5d;
+  --couleur-neutre-claire: #e9eeef;
+
+  --espace-1: 0.25rem; --espace-2: 0.5rem; --espace-3: 0.75rem;
+  --espace-4: 1rem; --espace-5: 1.5rem; --espace-6: 2rem;
+
+  --rayon-petit: 0.5rem; --rayon-moyen: 0.75rem; --rayon-grand: 1.25rem;
+  --ombre-douce: 0 1px 2px rgba(15, 60, 66, 0.08), 0 2px 8px rgba(15, 60, 66, 0.05);
+  --ombre-haute: 0 6px 24px rgba(15, 60, 66, 0.14);
+
+  --texte-petit: 0.8125rem; --texte-normal: 0.95rem; --texte-titre: 1.4rem;
+
+  --largeur-sidebar: 15.5rem; --largeur-sidebar-reduite: 4.5rem;
+  --hauteur-barre-mobile: 4rem; --hauteur-barre-haute: 3.75rem;
+  --rupture-bureau: 992px; /* utilisée dans les requêtes média (Bootstrap : lg) */
+  --zone-tactile: 2.75rem;
+}

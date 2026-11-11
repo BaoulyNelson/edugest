@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titre %}{{ libelles.cours }}{% endblock %}
+{% block titre_contexte %}{{ libelles.cours }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{{ libelles.cours }} et barèmes</h1></div>
+<div class="row g-3">
+  <section class="col-lg-6"><div class="carte"><h2>Niveaux : définir les matières et leurs barèmes</h2>
+    {% for n in niveaux %}<a class="lien-nav" style="border-left:0" href="{% url 'pedagogie:niveau' n.pk %}"><i class="bi bi-layers" aria-hidden="true"></i><span>{{ n }}</span></a>
+    {% empty %}<div class="etat-vide">Créez d'abord les niveaux dans la structure académique.</div>{% endfor %}</div></section>
+  <section class="col-lg-6"><div class="carte"><h2>Référentiel des {{ libelles.cours|lower }}</h2>
+    <div class="d-flex flex-wrap gap-2 mb-3">{% for m in matieres %}<span class="badge-statut badge-statut--neutre">{{ m.nom }}</span>{% empty %}<span class="sous-titre>Aucun {{ libelles.cours_singulier|lower }}.</span>{% endfor %}</div>
+    <form method="post" novalidate>{% csrf_token %}{% include "interface/composants/_champ.html" with champ=formulaire.nom %}<button class="btn btn-principal" type="submit">Ajouter {{ libelles.cours_singulier|lower }}</button></form></div></section>
+</div>
+{% endblock %}

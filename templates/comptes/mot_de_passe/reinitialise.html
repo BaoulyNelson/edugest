@@ -1,0 +1,23 @@
+{% extends "comptes/_auth_base.html" %}
+{% block titre %}Mot de passe modifié{% endblock %}
+{% block classe_carte %}auth-carte--etroite{% endblock %}
+{% block auth_contenu %}
+<div class="text-center">
+  <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-10 text-success mb-4"
+        style="width:4.5rem;height:4.5rem">
+    <i class="bi bi-check-lg fs-2" aria-hidden="true"></i>
+  </span>
+  <p class="text-uppercase text-success fw-semibold small mb-2">Mise à jour terminée</p>
+  <h1 class="fw-bold text-dark mb-3">Mot de passe modifié</h1>
+  <p class="sous-titre mb-4">Votre nouveau mot de passe est prêt. Vous pouvez maintenant vous connecter à votre espace EduGest.</p>
+</div>
+<div class="bg-light border rounded-4 p-3 mb-4">
+  <div class="d-flex align-items-start gap-3">
+    <i class="bi bi-shield-check text-success fs-5" aria-hidden="true"></i>
+    <p class="small text-muted mb-0">Pour votre sécurité, utilisez un mot de passe unique et ne le partagez avec personne.</p>
+  </div>
+</div>
+<a class="btn btn-principal rounded-pill w-100 py-2" href="{% url 'connexion' %}">
+  <i class="bi bi-box-arrow-in-right me-2" aria-hidden="true"></i>Se connecter
+</a>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Enseignants{% endblock %}
+{% block titre_contexte %}Affectations{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% translate "Affectation des enseignants" %}</h1>{% if annee %}<span class="sous-titre">{% translate "Année" %} {{ annee }}</span>{% endif %}</div>
+<section class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{% translate "Enseignant" %}</th><th>{{ libelles.cours_singulier }}</th><th>{% translate "Niveau" %}</th><th>{{ libelles.groupe }}</th></tr></thead><tbody>
+  {% for a in affectations %}<tr><td class="principal" data-libelle="{% translate 'Enseignant' %}">{{ a.appartenance.utilisateur.nom_affiche }}</td><td data-libelle="{{ libelles.cours_singulier }}">{{ a.matiere_niveau.matiere }}</td><td data-libelle="{% translate 'Niveau' %}">{{ a.matiere_niveau.niveau.nom }}</td><td data-libelle="{{ libelles.groupe }}">{{ a.classe|default:_("Tout le niveau") }}</td></tr>
+  {% empty %}<tr><td colspan="4" class="etat-vide">{% translate "Aucune affectation pour l’année active." %}</td></tr>{% endfor %}</tbody></table></section>
+<section class="carte-formulaire"><h2>{% translate "Nouvelle affectation" %}</h2>
+  <form method="post" novalidate>{% csrf_token %}
+    {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}
+    <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><button class="btn btn-principal" type="submit">{% translate "Affecter" %}</button></form></section>
+{% if peut_inviter_enseignant %}
+<div class="modal fade" id="modalInvitationEnseignant" tabindex="-1" aria-labelledby="titreInvitationEnseignant" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content" method="post" action="{% url 'pedagogie:inviter_enseignant' %}">
+      {% csrf_token %}
+      <div class="modal-header">
+        <h2 class="modal-title h5" id="titreInvitationEnseignant"><i class="bi bi-person-plus me-2" aria-hidden="true"></i>{% translate "Inviter un enseignant" %}</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Fermer' %}"></button>
+      </div>
+      <div class="modal-body">
+        <p class="sous-titre">{% translate "Un lien d’invitation sera envoyé. L’enseignant pourra créer son compte et sera ajouté à votre établissement." %}</p>
+        <label class="form-label" for="emailInvitationEnseignant">{% translate "Adresse e-mail" %}</label>
+        <input class="form-control" type="email" name="email" id="emailInvitationEnseignant" required autocomplete="email" placeholder="nom@exemple.com">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondaire" data-bs-dismiss="modal">{% translate "Annuler" %}</button>
+        <button type="submit" class="btn btn-principal"><i class="bi bi-send" aria-hidden="true"></i> {% translate "Envoyer l’invitation" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

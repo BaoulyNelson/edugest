@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{% translate "Structure académique" %}{% endblock %}
+{% block titre_contexte %}{% translate "Structure académique" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% translate "Structure académique" %}</h1>{% if annee %}<span class="sous-titre">{% translate "Année active" %} : {{ annee }}</span>{% endif %}</div>
+
+{% if request.etablissement.est_universitaire %}
+<section class="carte">
+  <h2>{% translate "Facultés et programmes" %}</h2>
+  {% for f in facultes %}<div class="py-2 border-bottom"><strong>{{ f.nom }}</strong>
+    <div class="sous-titre">{% for p in f.programmes.all %}{{ p.nom }}{% if not forloop.last %} · {% endif %}{% empty %}{% translate "Aucun programme" %}{% endfor %}</div></div>
+  {% empty %}<div class="etat-vide">{% translate "Aucune faculté." %}</div>{% endfor %}
+  <div class="row g-3 mt-2">
+    <form method="post" class="col-md-6" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="faculte">
+      <div class="grille-formulaire">{% for champ in formulaires.faculte %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><button class="btn btn-principal" type="submit">{% translate "Ajouter la faculté" %}</button></form>
+    <form method="post" class="col-md-6" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="programme">
+      <div class="grille-formulaire">{% for champ in formulaires.programme %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><button class="btn btn-principal" type="submit">{% translate "Ajouter le programme" %}</button></form>
+  </div>
+</section>
+{% endif %}
+
+<section class="carte">
+  <h2>{{ libelle_niveau }}</h2>
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    {% for n in niveaux %}<span class="badge-statut badge-statut--neutre">{{ n }} <a class="text-reset ms-1" href="{% url 'academique:niveau_modifier' n.pk %}" aria-label="{% blocktranslate with niveau=n %}Modifier {{ niveau }}{% endblocktranslate %}"><i class="bi bi-pencil" aria-hidden="true"></i></a></span>{% empty %}<span class="etat-vide">{% translate "Aucun niveau." %}</span>{% endfor %}
+  </div>
+  <form method="post" class="formulaire-court" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="niveau">
+    <div class="grille-formulaire">{% for champ in formulaires.niveau %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+    <button class="btn btn-principal" type="submit">{% translate "Ajouter le niveau" %}</button></form>
+</section>
+
+{% if not request.etablissement.est_universitaire %}
+<section class="carte">
+  <h2>{{ libelles.groupes }} {% if annee %}{{ annee }}{% endif %}</h2>
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    {% for c in classes %}<span class="badge-statut badge-statut--neutre">{{ c.nom }} <a class="text-reset ms-1" href="{% url 'academique:classe_modifier' c.pk %}" aria-label="{% blocktranslate with classe=c.nom %}Modifier {{ classe }}{% endblocktranslate %}"><i class="bi bi-pencil" aria-hidden="true"></i></a></span>{% empty %}<span class="etat-vide">{% translate "Aucun groupe pour l’année active." %}</span>{% endfor %}
+  </div>
+  <form method="post" class="formulaire-court" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="classe">
+    <div class="grille-formulaire">{% for champ in formulaires.classe %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+    <button class="btn btn-principal" type="submit">{% translate "Ajouter" %} {{ libelles.groupe|lower }}</button></form>
+</section>
+{% endif %}
+
+<section class="carte">
+  <h2>{% translate "Sites et campus" %}</h2>
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    {% for site in sites %}<span class="badge-statut badge-statut--neutre">{{ site.nom }}{% if site.adresse %} · {{ site.adresse }}{% endif %}</span>{% empty %}<span class="etat-vide">{% translate "Aucun site configuré." %}</span>{% endfor %}
+  </div>
+  <form method="post" class="formulaire-court" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="site">
+    <div class="grille-formulaire">{% for champ in formulaires.site %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+    <button class="btn btn-principal" type="submit">{% translate "Ajouter un site" %}</button>
+  </form>
+</section>
+
+<section class="carte">
+  <h2>{% translate "Presets académiques" %}</h2>
+  {% for preset in presets %}
+    <div class="d-flex justify-content-between align-items-center gap-3 py-2 border-bottom">
+      <div><strong>{{ preset.nom }}</strong><div class="sous-titre">{{ preset.niveaux|join:" · " }}</div></div>
+      <form method="post" action="{% url 'academique:appliquer_preset' preset.pk %}">{% csrf_token %}
+        <button class="btn btn-secondaire btn-sm" type="submit">{% translate "Appliquer les niveaux manquants" %}</button>
+      </form>
+    </div>
+  {% empty %}<p class="etat-vide">{% translate "Aucun preset enregistré." %}</p>{% endfor %}
+  <form method="post" class="formulaire-court mt-3" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="preset">
+    <div class="grille-formulaire">{% for champ in formulaires.preset %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+    <button class="btn btn-principal" type="submit">{% translate "Créer un preset" %}</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{{ titre }}{% endblock %}
+{% block titre_contexte %}{% translate "Structure académique" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{{ titre }}</h1><div class="sous-titre">{{ objet }}</div></div></div>
+<form method="post" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  <div class="grille-formulaire">{% include "interface/composants/_champ.html" with champ=formulaire.nom %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Enregistrer la correction" %}</button><a class="btn btn-secondaire" href="{% url 'academique:structure' %}">{% translate "Annuler" %}</a></div>
+</form>
+{% endblock %}

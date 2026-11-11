@@ -1,0 +1,2743 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EduGest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 18:41-0500\n"
+"PO-Revision-Date: 2026-11-09 18:15-0500\n"
+"Last-Translator: EduGest\n"
+"Language-Team: ht\n"
+"Language: ht\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\applications\interface\navigation.py:10
+msgid "Accueil"
+msgstr "Akèy"
+
+#: .\applications\interface\navigation.py:10
+msgid "Général"
+msgstr "Jeneral"
+
+#: .\applications\interface\navigation.py:11
+#: .\applications\interface\terminologie.py:10
+msgid "Classes"
+msgstr "Klas"
+
+#: .\applications\interface\navigation.py:11
+#: .\applications\interface\navigation.py:12
+#: .\applications\interface\navigation.py:13
+#: .\applications\interface\navigation.py:14
+msgid "Enseignement"
+msgstr "Ansèyman"
+
+#: .\applications\interface\navigation.py:12
+#: .\templates\evaluations\configuration.html:4
+#: .\templates\evaluations\mes_evaluations.html:4
+#: .\templates\evaluations\mes_evaluations.html:17
+msgid "Notes"
+msgstr "Nòt"
+
+#: .\applications\interface\navigation.py:13
+#: .\applications\interface\navigation.py:14
+msgid "Résultats"
+msgstr "Rezilta"
+
+#: .\applications\interface\navigation.py:15
+#: .\templates\importations\accueil.html:15
+msgid "Apprenants"
+msgstr "Elèv"
+
+#: .\applications\interface\navigation.py:15
+#: .\applications\interface\navigation.py:16
+#: .\applications\interface\navigation.py:17
+#: .\applications\interface\navigation.py:18
+#: .\applications\interface\navigation.py:19
+#: .\applications\interface\navigation.py:20
+msgid "Scolarité"
+msgstr "Lekòl"
+
+#: .\applications\interface\navigation.py:16
+msgid "Importer"
+msgstr "Enpòte"
+
+#: .\applications\interface\navigation.py:17
+#: .\templates\apprenants\detail.html:18
+#: .\templates\apprenants\inscription_form.html:4
+#: .\templates\apprenants\inscriptions.html:3
+#: .\templates\apprenants\inscriptions.html:4
+#: .\templates\apprenants\inscriptions.html:6
+msgid "Inscriptions"
+msgstr "Enskripsyon"
+
+#: .\applications\interface\navigation.py:18
+#: .\templates\admissions\liste.html:3 .\templates\admissions\liste.html:4
+#: .\templates\admissions\liste.html:7
+msgid "Candidatures"
+msgstr "Demann admisyon"
+
+#: .\applications\interface\navigation.py:19
+msgid "Académique"
+msgstr "Akademik"
+
+#: .\applications\interface\navigation.py:20
+msgid "Structure"
+msgstr "Estrikti"
+
+#: .\applications\interface\navigation.py:21
+#: .\applications\interface\terminologie.py:12
+#: .\templates\evaluations\resultats.html:41
+#: .\templates\evaluations\resultats.html:48
+msgid "Matières"
+msgstr "Matyè"
+
+#: .\applications\interface\navigation.py:21
+#: .\applications\interface\navigation.py:22
+msgid "Pédagogie"
+msgstr "Anseyman"
+
+#: .\applications\interface\navigation.py:22
+msgid "Enseignants"
+msgstr "Pwofesè"
+
+#: .\applications\interface\navigation.py:23
+#: .\templates\importations\accueil.html:16
+msgid "Personnel"
+msgstr "Pèsonèl"
+
+#: .\applications\interface\navigation.py:23
+#: .\applications\interface\navigation.py:24
+#: .\applications\interface\navigation.py:26
+#: .\applications\interface\navigation.py:27
+#: .\applications\interface\navigation.py:28
+msgid "Administration"
+msgstr "Administrasyon"
+
+#: .\applications\interface\navigation.py:24
+#: .\templates\noyau\parametres.html:24
+msgid "Protection des données"
+msgstr "Pwoteksyon done"
+
+#: .\applications\interface\navigation.py:25
+msgid "Mes données"
+msgstr "Done mwen"
+
+#: .\applications\interface\navigation.py:25
+#: .\applications\interface\navigation.py:44
+#: .\applications\interface\navigation.py:45
+msgid "Compte"
+msgstr "Kont"
+
+#: .\applications\interface\navigation.py:26
+msgid "Paramètres"
+msgstr "Paramèt"
+
+#: .\applications\interface\navigation.py:27
+msgid "Abonnement"
+msgstr "Abònman"
+
+#: .\applications\interface\navigation.py:28
+msgid "Plateforme"
+msgstr "Platfòm"
+
+#: .\applications\interface\navigation.py:29
+#: .\applications\interface\navigation.py:35
+msgid "Rapports"
+msgstr "Rapò"
+
+#: .\applications\interface\navigation.py:29
+msgid "Pilotage"
+msgstr "Jesyon"
+
+#: .\applications\interface\navigation.py:30
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:6
+msgid "Paiements"
+msgstr "Peman"
+
+#: .\applications\interface\navigation.py:30
+#: .\applications\interface\navigation.py:31
+#: .\applications\interface\navigation.py:32
+#: .\applications\interface\navigation.py:33
+#: .\applications\interface\navigation.py:34
+#: .\applications\interface\navigation.py:35
+msgid "Finances"
+msgstr "Finans"
+
+#: .\applications\interface\navigation.py:31
+#: .\templates\finances\factures.html:6 .\templates\finances\paiements.html:6
+#: .\templates\finances\tarifs.html:6
+msgid "Factures"
+msgstr "Fakti"
+
+#: .\applications\interface\navigation.py:32 .\templates\finances\tarifs.html:3
+#: .\templates\finances\tarifs.html:4 .\templates\finances\tarifs.html:6
+msgid "Tarifs et échéances"
+msgstr "Tarif ak dat limit"
+
+#: .\applications\interface\navigation.py:33
+#: .\templates\finances\mes_factures.html:6
+msgid "Mes factures"
+msgstr "Fakti mwen"
+
+#: .\applications\interface\navigation.py:34
+#: .\templates\finances\depenses.html:6 .\templates\finances\rapports.html:9
+msgid "Dépenses"
+msgstr "Depans"
+
+#: .\applications\interface\navigation.py:36
+msgid "Faire l'appel"
+msgstr "Fè apèl la"
+
+#: .\applications\interface\navigation.py:36
+#: .\applications\interface\navigation.py:37
+#: .\applications\interface\navigation.py:38
+#: .\applications\interface\navigation.py:39
+#: .\applications\interface\navigation.py:40
+#: .\applications\interface\navigation.py:42
+#: .\applications\interface\navigation.py:43
+msgid "Vie scolaire"
+msgstr "Lavi lekòl"
+
+#: .\applications\interface\navigation.py:37 .\templates\presences\appel.html:4
+#: .\templates\presences\liste.html:4
+msgid "Présences"
+msgstr "Prezans"
+
+#: .\applications\interface\navigation.py:38
+#: .\templates\presences\mes_absences.html:3
+#: .\templates\presences\mes_absences.html:4
+msgid "Mes absences"
+msgstr "Absans mwen"
+
+#: .\applications\interface\navigation.py:39
+#: .\applications\interface\navigation.py:40
+msgid "Cahier de textes"
+msgstr "Kaye kou"
+
+#: .\applications\interface\navigation.py:41
+#: .\templates\messagerie\boite.html:3 .\templates\messagerie\boite.html:7
+msgid "Messages"
+msgstr "Mesaj"
+
+#: .\applications\interface\navigation.py:41
+msgid "Communication"
+msgstr "Kominikasyon"
+
+#: .\applications\interface\navigation.py:42
+#: .\templates\emploi_du_temps\gestion.html:7
+msgid "Emploi du temps"
+msgstr "Orè"
+
+#: .\applications\interface\navigation.py:43
+msgid "Mon emploi du temps"
+msgstr "Orè m"
+
+#: .\applications\interface\navigation.py:44
+msgid "Profil"
+msgstr "Pwofil"
+
+#: .\applications\interface\navigation.py:45
+msgid "Établissement"
+msgstr "Lekòl"
+
+#: .\applications\interface\templatetags\interface_extras.py:11
+msgid "En attente"
+msgstr "Ann atant"
+
+#: .\applications\interface\templatetags\interface_extras.py:12
+msgid "Correction demandée"
+msgstr "Yo mande koreksyon"
+
+#: .\applications\interface\templatetags\interface_extras.py:13
+msgid "Validée"
+msgstr "Apwouve"
+
+#: .\applications\interface\templatetags\interface_extras.py:14
+msgid "Rejetée"
+msgstr "Rejte"
+
+#: .\applications\interface\templatetags\interface_extras.py:15
+msgid "Annulée"
+msgstr "Anile"
+
+#: .\applications\interface\templatetags\interface_extras.py:16
+msgid "Réussi"
+msgstr "Reyisi"
+
+#: .\applications\interface\templatetags\interface_extras.py:17
+msgid "Échec"
+msgstr "Echwe"
+
+#: .\applications\interface\templatetags\interface_extras.py:18
+#: .\templates\evaluations\resultats.html:49
+msgid "Incomplet"
+msgstr "Enkonpl?"
+
+#: .\applications\interface\templatetags\interface_extras.py:19
+#: .\templates\evaluations\saisie.html:26
+msgid "Dispensé"
+msgstr "Eskize"
+
+#: .\applications\interface\templatetags\interface_extras.py:20
+msgid "Active"
+msgstr "Aktif"
+
+#: .\applications\interface\templatetags\interface_extras.py:21
+msgid "En préparation"
+msgstr "An preparasyon"
+
+#: .\applications\interface\templatetags\interface_extras.py:22
+msgid "Clôturée"
+msgstr "Fèmen"
+
+#: .\applications\interface\templatetags\interface_extras.py:23
+#: .\templates\finances\facture.html:8
+msgid "À venir"
+msgstr "Pral vini"
+
+#: .\applications\interface\templatetags\interface_extras.py:24
+msgid "Ouverte"
+msgstr "Ouv?"
+
+#: .\applications\interface\templatetags\interface_extras.py:25
+msgid "Brouillon"
+msgstr "Bouyon"
+
+#: .\applications\interface\templatetags\interface_extras.py:26
+msgid "Verrouillée"
+msgstr "Bloke"
+
+#: .\applications\interface\templatetags\interface_extras.py:27
+msgid "Reçue"
+msgstr "Resevwa"
+
+#: .\applications\interface\templatetags\interface_extras.py:28
+msgid "Acceptée"
+msgstr "Aksepte"
+
+#: .\applications\interface\templatetags\interface_extras.py:29
+msgid "Refusée"
+msgstr "Refize"
+
+#: .\applications\interface\terminologie.py:8
+msgid "Élèves"
+msgstr "Elèv"
+
+#: .\applications\interface\terminologie.py:9
+msgid "Élève"
+msgstr "Elèv"
+
+#: .\applications\interface\terminologie.py:11
+#: .\templates\admissions\liste.html:21
+#: .\templates\emploi_du_temps\gestion.html:12
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:15
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:22
+#: .\templates\presences\mes_absences.html:17
+#: .\templates\presences\mes_absences.html:20
+msgid "Classe"
+msgstr "Klas"
+
+#: .\applications\interface\terminologie.py:13
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:27
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:16
+msgid "Matière"
+msgstr "Matyè"
+
+#: .\applications\interface\terminologie.py:14
+msgid "Bulletins"
+msgstr "Biltèn"
+
+#: .\applications\interface\terminologie.py:15
+msgid "Bulletin"
+msgstr "Biltin"
+
+#: .\applications\interface\terminologie.py:18
+msgid "Étudiants"
+msgstr "Etidyan inivèsite"
+
+#: .\applications\interface\terminologie.py:19
+msgid "Étudiant"
+msgstr "Etidyan inivèsite"
+
+#: .\applications\interface\terminologie.py:20
+msgid "Programmes / Filières"
+msgstr "Pwogram / filyè"
+
+#: .\applications\interface\terminologie.py:21
+msgid "Programme / Filière"
+msgstr "Pwogram / filyè"
+
+#: .\applications\interface\terminologie.py:22
+msgid "Unités d'Enseignement (UE)"
+msgstr "Inite ansèyman (UE)"
+
+#: .\applications\interface\terminologie.py:23
+msgid "Unité d'Enseignement (UE)"
+msgstr "Inite ansèyman (UE)"
+
+#: .\applications\interface\terminologie.py:24
+msgid "Relevés de notes / Crédits"
+msgstr "Relve nòt / kredi"
+
+#: .\applications\interface\terminologie.py:25
+msgid "Relevé de notes / Crédit"
+msgstr "Relve nòt / kredi"
+
+#: .\applications\interface\terminologie.py:28
+msgid "Stagiaires / Apprenants"
+msgstr "Estajy? / el?v"
+
+#: .\applications\interface\terminologie.py:29
+msgid "Stagiaire / Apprenant"
+msgstr "Estajy? / el?v"
+
+#: .\applications\interface\terminologie.py:30
+msgid "Sessions / Ateliers"
+msgstr "Sesyon / atelye"
+
+#: .\applications\interface\terminologie.py:31
+msgid "Session / Atelier"
+msgstr "Sesyon / atelye"
+
+#: .\applications\interface\terminologie.py:32
+msgid "Modules pratiques"
+msgstr "Modil pratik"
+
+#: .\applications\interface\terminologie.py:33
+msgid "Module pratique"
+msgstr "Modil pratik"
+
+#: .\applications\interface\terminologie.py:34
+msgid "Attestations de compétences"
+msgstr "Sètifika konpetans"
+
+#: .\applications\interface\terminologie.py:35
+msgid "Attestation de compétences"
+msgstr "Sètifika konpetans"
+
+#: .\applications\noyau\forms.py:40
+msgid "Fuseau horaire"
+msgstr "Z?n l?"
+
+#: .\applications\noyau\forms.py:42
+msgid ""
+"Les dates et heures affichées dans cet espace utiliseront ce fuseau. Les "
+"instants restent stockés en UTC."
+msgstr ""
+"Dat ak lè nan espas sa a ap itilize zòn lè sa a. Sistèm nan ap toujou estoke "
+"lè yo an UTC."
+
+#: .\applications\noyau\forms.py:52
+msgid "Nom de l'établissement"
+msgstr "Non lekòl la"
+
+#: .\applications\noyau\forms.py:53
+msgid "Nom court / sigle"
+msgstr "Non kout / sig"
+
+#: .\applications\noyau\forms.py:54
+msgid "Slogan"
+msgstr "Deviz"
+
+#: .\applications\noyau\forms.py:55
+msgid "Devise (code ISO, 3 lettres)"
+msgstr "Lajan (k?d ISO ki gen 3 l?t)"
+
+#: .\applications\noyau\forms.py:56
+msgid "Langue par défaut de l’établissement"
+msgstr "Lang lekòl la itilize pa defo"
+
+#: .\applications\noyau\forms.py:57 .\templates\admissions\detail.html:24
+#: .\templates\apprenants\detail.html:14
+msgid "Téléphone"
+msgstr "Telefòn"
+
+#: .\applications\noyau\forms.py:58 .\templates\pedagogie\affectations.html:26
+msgid "Adresse e-mail"
+msgstr "Adr?s im?l"
+
+#: .\applications\noyau\forms.py:59 .\templates\apprenants\detail.html:15
+msgid "Adresse"
+msgstr "Adr?s"
+
+#: .\applications\noyau\forms.py:60
+msgid "Site web"
+msgstr "Sit ent?n?t"
+
+#: .\applications\noyau\forms.py:61
+msgid "Logo (facultatif)"
+msgstr "Logo (si ou vle)"
+
+#: .\applications\noyau\forms.py:64
+msgid ""
+"Exemple : CEMO pour Collège Éducation Moderne. Ce nom court est utilisé dans "
+"la navigation."
+msgstr ""
+"Egzanp: CEMO pou Collège Éducation Moderne. Non kout sa a parèt nan meni an."
+
+#: .\applications\noyau\forms.py:65
+msgid ""
+"Exemple : HTG, XOF ou EUR. Elle sera affichée sur les factures et reçus."
+msgstr "Egzanp: HTG, XOF oswa EUR. Lajan sa a ap parèt sou fakti ak resi yo."
+
+#: .\applications\noyau\forms.py:66
+msgid ""
+"Langue utilisée par défaut dans l’interface. Chaque utilisateur peut choisir "
+"une autre langue pour sa session."
+msgstr ""
+"Lang koòdone a itilize pa defo. Chak moun ka chwazi yon lòt lang pou sesyon "
+"pa li."
+
+#: .\applications\noyau\views.py:52
+msgid "La langue sélectionnée n’est pas disponible."
+msgstr "Lang ou chwazi a pa disponib."
+
+#: .\templates\academique\annee_form.html:3
+#: .\templates\academique\annees.html:7
+msgid "Nouvelle année"
+msgstr "Nouvo ane lekòl"
+
+#: .\templates\academique\annee_form.html:4
+#: .\templates\academique\annees.html:3 .\templates\academique\annees.html:4
+#: .\templates\academique\annees.html:6
+msgid "Années académiques"
+msgstr "Ane akademik"
+
+#: .\templates\academique\annee_form.html:6
+msgid "Nouvelle année académique"
+msgstr "Nouvo ane akademik"
+
+#: .\templates\academique\annee_form.html:11
+msgid "Le nombre proposé par défaut se configure dans les"
+msgstr "Kantite pa defo a fikse nan"
+
+#: .\templates\academique\annee_form.html:11
+msgid "paramètres de l’établissement"
+msgstr "paramèt lekòl la"
+
+#: .\templates\academique\annee_form.html:12
+msgid "Créer l’année"
+msgstr "Kreye ane lekòl la"
+
+#: .\templates\academique\annee_form.html:12
+#: .\templates\apprenants\creer.html:30
+#: .\templates\apprenants\inscription_form.html:11
+#: .\templates\emploi_du_temps\creneau_form.html:12
+#: .\templates\emploi_du_temps\salle_form.html:11
+#: .\templates\finances\depense_creer.html:11
+#: .\templates\finances\facture.html:11
+#: .\templates\finances\paiement_creer.html:11
+#: .\templates\messagerie\nouveau.html:11
+#: .\templates\pedagogie\affectations.html:30
+msgid "Annuler"
+msgstr "Anile"
+
+#: .\templates\academique\annees.html:10 .\templates\academique\annees.html:13
+#: .\templates\admissions\detail.html:17 .\templates\apprenants\detail.html:19
+#: .\templates\apprenants\detail.html:20
+#: .\templates\apprenants\inscription_form.html:6
+#: .\templates\apprenants\inscriptions.html:6
+#: .\templates\apprenants\inscriptions.html:10
+#: .\templates\emploi_du_temps\gestion.html:7
+#: .\templates\evaluations\classes.html:6
+#: .\templates\evaluations\mes_evaluations.html:6
+#: .\templates\evaluations\resultats.html:17
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7 .\templates\finances\tarifs.html:11
+#: .\templates\pedagogie\affectations.html:6
+msgid "Année"
+msgstr "Ane"
+
+#: .\templates\academique\annees.html:10 .\templates\academique\annees.html:13
+#: .\templates\academique\periodes.html:34
+msgid "Début"
+msgstr "Kòmansman"
+
+#: .\templates\academique\annees.html:10 .\templates\academique\annees.html:13
+#: .\templates\academique\periodes.html:35
+msgid "Fin"
+msgstr "Fen"
+
+#: .\templates\academique\annees.html:10 .\templates\academique\annees.html:14
+#: .\templates\academique\periodes.html:20
+#: .\templates\academique\periodes.html:24
+#: .\templates\admissions\detail.html:32 .\templates\admissions\liste.html:17
+#: .\templates\admissions\liste.html:23 .\templates\apprenants\detail.html:19
+#: .\templates\apprenants\detail.html:20
+#: .\templates\apprenants\inscriptions.html:11
+#: .\templates\apprenants\inscriptions.html:14
+#: .\templates\apprenants\inscriptions.html:16
+#: .\templates\evaluations\portail.html:9
+#: .\templates\evaluations\portail.html:10
+#: .\templates\evaluations\resultats.html:24
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:59
+#: .\templates\evaluations\synthese.html:15
+#: .\templates\evaluations\synthese.html:17
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7 .\templates\presences\appel.html:26
+#: .\templates\presences\appel.html:31 .\templates\presences\appel.html:32
+#: .\templates\presences\mes_absences.html:17
+#: .\templates\presences\mes_absences.html:20
+msgid "Statut"
+msgstr "Estati"
+
+#: .\templates\academique\annees.html:15
+msgid "Gérer"
+msgstr "Jere"
+
+#: .\templates\academique\annees.html:16
+msgid "Aucune année. Créez la première pour commencer les inscriptions."
+msgstr "Pa gen ane lekòl. Kreye premye a pou kòmanse enskri elèv yo."
+
+#: .\templates\academique\periodes.html:3
+#: .\templates\academique\periodes.html:4
+#, python-format
+msgid "Année scolaire %(annee)s"
+msgstr "Ane lekòl %(annee)s"
+
+#: .\templates\academique\periodes.html:7
+#: .\templates\noyau\tableau_de_bord.html:16
+#, python-format
+msgid "Année %(designation)s"
+msgstr "Ane lekòl %(designation)s"
+
+#: .\templates\academique\periodes.html:10
+msgid "Activer cette année ? Les inscriptions pourront démarrer."
+msgstr "Aktive ane lekòl sa a? Apre sa enskripsyon ka kòmanse."
+
+#: .\templates\academique\periodes.html:10
+msgid "Activer"
+msgstr "Aktive"
+
+#: .\templates\academique\periodes.html:12
+msgid "Clôturer l’année ? Toutes les périodes seront fermées."
+msgstr "Fèmen ane lekòl la? Tout peryòd yo ap fèmen."
+
+#: .\templates\academique\periodes.html:12
+#: .\templates\academique\periodes.html:45
+msgid "Clôturer"
+msgstr "Fèmen"
+
+#: .\templates\academique\periodes.html:20
+#: .\templates\academique\periodes.html:23
+#: .\templates\evaluations\portail.html:9
+#: .\templates\evaluations\portail.html:10
+#: .\templates\evaluations\resultats.html:18
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:58
+msgid "Période"
+msgstr "Peryòd"
+
+#: .\templates\academique\periodes.html:20
+#: .\templates\academique\periodes.html:23
+msgid "Du"
+msgstr "Soti"
+
+#: .\templates\academique\periodes.html:20
+#: .\templates\academique\periodes.html:23
+msgid "Au"
+msgstr "Jiska"
+
+#: .\templates\academique\periodes.html:20
+#: .\templates\evaluations\saisie.html:3
+msgid "Saisie des notes"
+msgstr "Antre nòt"
+
+#: .\templates\academique\periodes.html:25
+msgid "Saisie"
+msgstr "Antre"
+
+#: .\templates\academique\periodes.html:25
+msgid "Autorisée"
+msgstr "Otorize"
+
+#: .\templates\academique\periodes.html:25
+msgid "Suspendue"
+msgstr "Sispann"
+
+#: .\templates\academique\periodes.html:29
+msgid "Modifier"
+msgstr "Modifye"
+
+#: .\templates\academique\periodes.html:33
+#: .\templates\admissions\detail.html:23
+#: .\templates\emploi_du_temps\salles.html:8
+#: .\templates\emploi_du_temps\salles.html:9
+#: .\templates\importations\detail.html:9
+msgid "Nom"
+msgstr "Non"
+
+#: .\templates\academique\periodes.html:37 .\templates\apprenants\creer.html:30
+#: .\templates\apprenants\inscription_detail.html:47
+#: .\templates\emploi_du_temps\creneau_form.html:12
+#: .\templates\emploi_du_temps\salle_form.html:11
+#: .\templates\finances\depense_creer.html:11
+#: .\templates\finances\paiement_creer.html:11
+#: .\templates\noyau\parametres.html:11 .\templates\noyau\parametres.html:16
+#: .\templates\noyau\parametres.html:21 .\templates\noyau\parametres.html:26
+#: .\templates\noyau\parametres.html:31 .\templates\rgpd\consentements.html:7
+msgid "Enregistrer"
+msgstr "Sove"
+
+#: .\templates\academique\periodes.html:42 .\templates\apprenants\liste.html:17
+msgid "Ouvrir"
+msgstr "Louvri"
+
+#: .\templates\academique\periodes.html:44
+msgid "Suspendre la saisie"
+msgstr "Sispann antre nòt"
+
+#: .\templates\academique\periodes.html:44
+msgid "Rouvrir la saisie"
+msgstr "Relouvri antre nòt"
+
+#: .\templates\academique\periodes.html:45
+msgid "Clôturer cette période ?"
+msgstr "Fèmen peryòd sa a?"
+
+#: .\templates\academique\periodes.html:55
+msgid "Ajouter une période"
+msgstr "Ajoute yon peryòd"
+
+#: .\templates\academique\periodes.html:55
+msgid ""
+"Définissez son nom et ses dates dans les limites de l’année académique, sans "
+"chevaucher une période existante."
+msgstr ""
+"Mete non ak dat li nan limit ane lekòl la, san li pa sipèpoze ak yon lòt "
+"peryòd."
+
+#: .\templates\academique\periodes.html:60
+#: .\templates\academique\structure.html:41
+#: .\templates\apprenants\inscription_detail.html:60
+msgid "Ajouter"
+msgstr "Ajoute"
+
+#: .\templates\academique\periodes.html:67
+msgid "Reprendre la structure d’une année précédente"
+msgstr "Reprann estrikti yon ane anvan"
+
+#: .\templates\academique\periodes.html:70
+msgid "Année source"
+msgstr "Ane sous"
+
+#: .\templates\academique\periodes.html:71
+msgid "Reprendre classes et barèmes"
+msgstr "Reprann klas ak barèm yo"
+
+#: .\templates\academique\structure.html:3
+#: .\templates\academique\structure.html:4
+#: .\templates\academique\structure.html:6
+msgid "Structure académique"
+msgstr "Estrikti akademik"
+
+#: .\templates\academique\structure.html:6
+#: .\templates\apprenants\inscriptions.html:10
+msgid "Année active"
+msgstr "Ane aktif"
+
+#: .\templates\academique\structure.html:10
+msgid "Facultés et programmes"
+msgstr "Fakilte ak pwogram"
+
+#: .\templates\academique\structure.html:12
+msgid "Aucun programme"
+msgstr "Pa gen pwogram"
+
+#: .\templates\academique\structure.html:13
+msgid "Aucune faculté."
+msgstr "Pa gen fakilte."
+
+#: .\templates\academique\structure.html:16
+msgid "Ajouter la faculté"
+msgstr "Ajoute fakilte a"
+
+#: .\templates\academique\structure.html:18
+msgid "Ajouter le programme"
+msgstr "Ajoute pwogram nan"
+
+#: .\templates\academique\structure.html:26
+msgid "Aucun niveau."
+msgstr "Pa gen nivo."
+
+#: .\templates\academique\structure.html:30
+msgid "Ajouter le niveau"
+msgstr "Ajoute nivo a"
+
+#: .\templates\academique\structure.html:37
+msgid "Aucun groupe pour l’année active."
+msgstr "Pa gen gwoup pou ane aktif la."
+
+#: .\templates\admissions\confirmation.html:3
+#: .\templates\admissions\confirmation.html:7
+msgid "Candidature envoyée"
+msgstr "Demann admisyon an voye"
+
+#: .\templates\admissions\confirmation.html:8
+#, python-format
+msgid "Votre demande a bien été transmise à <strong>%(school)s</strong>."
+msgstr "Yo voye demann ou bay <strong>%(school)s</strong>."
+
+#: .\templates\admissions\confirmation.html:9
+#, python-format
+msgid "Conservez cette référence : <strong>%(reference)s</strong>."
+msgstr "Kenbe referans sa a: <strong>%(reference)s</strong>."
+
+#: .\templates\admissions\confirmation.html:10
+msgid "Retour à l’accueil"
+msgstr "Retounen nan paj dakèy la"
+
+#: .\templates\admissions\deposer.html:7
+msgid "Déposer une candidature"
+msgstr "Soumèt yon demann admisyon"
+
+#: .\templates\admissions\deposer.html:8
+msgid ""
+"Transmettez votre demande à l’établissement. La direction vous contactera "
+"après examen du dossier."
+msgstr ""
+"Voye demann ou bay lekòl la. Direksyon an ap kontakte w apre li fin egzamine "
+"dosye a."
+
+#: .\templates\admissions\deposer.html:11
+msgid "Établissement souhaité"
+msgstr "Lekòl ou chwazi a"
+
+#: .\templates\admissions\deposer.html:13
+msgid "Choisir un établissement"
+msgstr "Chwazi yon lekòl"
+
+#: .\templates\admissions\deposer.html:16
+msgid "Continuer"
+msgstr "Kontinye"
+
+#: .\templates\admissions\deposer.html:17
+msgid "Aucun établissement n’accepte actuellement les candidatures en ligne."
+msgstr "Pa gen lekòl k ap aksepte demann admisyon sou entènèt kounye a."
+
+#: .\templates\admissions\deposer.html:39
+msgid ""
+"Les renseignements sont utilisés uniquement pour examiner cette candidature "
+"et préparer une éventuelle inscription."
+msgstr ""
+"Yo itilize enfòmasyon yo sèlman pou egzamine demann sa a epi prepare yon "
+"enskripsyon si sa nesesè."
+
+#: .\templates\admissions\deposer.html:40
+msgid "Envoyer la candidature"
+msgstr "Voye demann admisyon an"
+
+#: .\templates\admissions\detail.html:3 .\templates\admissions\detail.html:4
+msgid "Candidature"
+msgstr "Demann admisyon"
+
+#: .\templates\admissions\detail.html:7
+#, python-format
+msgid "Référence %(reference)s"
+msgstr "Referans %(reference)s"
+
+#: .\templates\admissions\detail.html:8
+msgid "Retour aux candidatures"
+msgstr "Retounen nan demann admisyon yo"
+
+#: .\templates\admissions\detail.html:11 .\templates\admissions\liste.html:17
+#: .\templates\admissions\liste.html:20
+msgid "Candidat"
+msgstr "Moun ki fè demann lan"
+
+#: .\templates\admissions\detail.html:13
+msgid "Date de naissance"
+msgstr "Dat nesans"
+
+#: .\templates\admissions\detail.html:14 .\templates\apprenants\detail.html:12
+msgid "Sexe"
+msgstr "Sèks"
+
+#: .\templates\admissions\detail.html:15
+msgid "Lieu de naissance"
+msgstr "Kote nesans"
+
+#: .\templates\admissions\detail.html:16
+msgid "Classe souhaitée"
+msgstr "Klas yo mande a"
+
+#: .\templates\admissions\detail.html:18
+msgid "Message"
+msgstr "Mesaj"
+
+#: .\templates\admissions\detail.html:21
+msgid "Parent ou tuteur"
+msgstr "Paran oswa responsab"
+
+#: .\templates\admissions\detail.html:25
+msgid "Courriel"
+msgstr "Imèl"
+
+#: .\templates\admissions\detail.html:26
+msgid "Consentement"
+msgstr "Konsantman"
+
+#: .\templates\admissions\detail.html:26
+#, python-format
+msgid "Donné le %(date)s"
+msgstr "Bay nan dat %(date)s"
+
+#: .\templates\admissions\detail.html:26
+msgid "Non enregistré"
+msgstr "Pa anrejistre"
+
+#: .\templates\admissions\detail.html:31
+#: .\templates\apprenants\inscription_detail.html:35
+#: .\templates\rgpd\demandes.html:12
+msgid "Décision"
+msgstr "Desizyon"
+
+#: .\templates\admissions\detail.html:33
+#, python-format
+msgid "Traitée le %(date)s"
+msgstr "Trete nan dat %(date)s"
+
+#: .\templates\admissions\detail.html:33
+#, python-format
+msgid "par %(name)s"
+msgstr "pa %(name)s"
+
+#: .\templates\admissions\detail.html:34
+msgid "Dossier créé"
+msgstr "Dosye kreye"
+
+#: .\templates\admissions\detail.html:35
+#: .\templates\apprenants\inscription_detail.html:9
+msgid "Inscription"
+msgstr "Enskripsyon"
+
+#: .\templates\admissions\detail.html:36 .\templates\admissions\detail.html:45
+#: .\templates\finances\depenses.html:8 .\templates\finances\depenses.html:10
+#: .\templates\finances\paiements.html:8 .\templates\finances\paiements.html:10
+#: .\templates\presences\appel.html:37
+#: .\templates\presences\mes_absences.html:17
+#: .\templates\presences\mes_absences.html:20
+msgid "Motif"
+msgstr "Rezon"
+
+#: .\templates\admissions\detail.html:41
+msgid "Accepter et inscrire"
+msgstr "Aksepte epi enskri"
+
+#: .\templates\admissions\detail.html:46 .\templates\rgpd\demandes.html:12
+msgid "Refuser"
+msgstr "Refize"
+
+#: .\templates\admissions\liste.html:7
+msgid "Demandes reçues par formulaire en ligne"
+msgstr "Demann ki resevwa sou entènèt"
+
+#: .\templates\admissions\liste.html:10
+msgid "Filtrer par statut"
+msgstr "Filtre pa estati"
+
+#: .\templates\admissions\liste.html:11
+#: .\templates\apprenants\inscriptions.html:11
+#: .\templates\evaluations\resultats.html:24
+msgid "Tous les statuts"
+msgstr "Tout estati yo"
+
+#: .\templates\admissions\liste.html:14
+msgid "Filtrer"
+msgstr "Filtre"
+
+#: .\templates\admissions\liste.html:17
+msgid "Classe demandée"
+msgstr "Klas yo mande a"
+
+#: .\templates\admissions\liste.html:17 .\templates\admissions\liste.html:22
+msgid "Déposée le"
+msgstr "Soumèt nan dat"
+
+#: .\templates\admissions\liste.html:24
+msgid "Examiner"
+msgstr "Egzamine"
+
+#: .\templates\admissions\liste.html:26
+msgid "Aucune candidature pour ce filtre."
+msgstr "Pa gen demann admisyon ki koresponn ak filtè sa a."
+
+#: .\templates\apprenants\creer.html:6 .\templates\apprenants\liste.html:7
+msgid "Nouvel apprenant"
+msgstr "Nouvo elèv"
+
+#: .\templates\apprenants\creer.html:6
+msgid ""
+"Le matricule est généré automatiquement. Le dossier est créé une seule fois "
+"pour tout le parcours."
+msgstr ""
+"Nimewo elèv la kreye otomatikman. Yo kreye dosye a yon sèl fwa pou tout "
+"pakou lekòl li."
+
+#: .\templates\apprenants\creer.html:9
+msgid "Identité"
+msgstr "Idantite"
+
+#: .\templates\apprenants\creer.html:16
+msgid "Coordonnées (facultatif)"
+msgstr "Enfòmasyon kontak (si ou vle)"
+
+#: .\templates\apprenants\creer.html:23
+msgid "Responsable légal (facultatif)"
+msgstr "Responsab legal (si ou vle)"
+
+#: .\templates\apprenants\detail.html:6 .\templates\apprenants\liste.html:13
+#: .\templates\apprenants\liste.html:16
+msgid "Matricule"
+msgstr "Nimewo elèv"
+
+#: .\templates\apprenants\detail.html:7 .\templates\importations\detail.html:15
+msgid "Retour"
+msgstr "Retounen"
+
+#: .\templates\apprenants\detail.html:8
+msgid ""
+"Ce dossier a été anonymisé. Les inscriptions et résultats historiques sont "
+"conservés."
+msgstr ""
+"Yo anonim dosye sa a. Enskripsyon ak rezilta nan tan lontan yo rete konsève."
+
+#: .\templates\apprenants\detail.html:9
+msgid "Gérer les consentements"
+msgstr "Jere konsantman yo"
+
+#: .\templates\apprenants\detail.html:9
+msgid "Cette action est irréversible. Confirmer l’anonymisation ?"
+msgstr "Aksyon sa a pa ka anile. Èske ou konfime anonimizasyon an?"
+
+#: .\templates\apprenants\detail.html:9
+msgid "Anonymiser le dossier"
+msgstr "Anonimize dosye a"
+
+#: .\templates\apprenants\detail.html:10
+msgid "Dossier"
+msgstr "Dosye"
+
+#: .\templates\apprenants\detail.html:13 .\templates\apprenants\liste.html:13
+#: .\templates\apprenants\liste.html:16
+msgid "Naissance"
+msgstr "Nesans"
+
+#: .\templates\apprenants\detail.html:13
+msgid "à"
+msgstr "nan"
+
+#: .\templates\apprenants\detail.html:19 .\templates\apprenants\detail.html:20
+#: .\templates\apprenants\inscription_detail.html:28
+#: .\templates\apprenants\inscriptions.html:14
+#: .\templates\apprenants\inscriptions.html:15
+#: .\templates\evaluations\resultats.html:19
+#: .\templates\finances\tarifs.html:11
+#: .\templates\pedagogie\affectations.html:8
+#: .\templates\pedagogie\affectations.html:9
+msgid "Niveau"
+msgstr "Nivo"
+
+#: .\templates\apprenants\detail.html:21 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7
+#: .\templates\finances\rapports.html:11
+msgid "Détail"
+msgstr "Detay"
+
+#: .\templates\apprenants\detail.html:22
+msgid "Aucune inscription."
+msgstr "Pa gen enskripsyon."
+
+#: .\templates\apprenants\detail.html:24
+msgid "Inscrire"
+msgstr "Enskri"
+
+#: .\templates\apprenants\inscription_detail.html:14
+msgid "Dossier de l’élève"
+msgstr "Dosye elèv la"
+
+#: .\templates\apprenants\inscription_detail.html:17
+msgid "Liste des inscriptions"
+msgstr "Lis enskripsyon yo"
+
+#: .\templates\apprenants\inscription_detail.html:21
+#: .\templates\finances\facture.html:6 .\templates\finances\mes_factures.html:7
+#: .\templates\finances\rapports.html:11
+msgid "Facture"
+msgstr "Fakti"
+
+#: .\templates\apprenants\inscription_detail.html:26
+msgid "Demande"
+msgstr "Demann"
+
+#: .\templates\apprenants\inscription_detail.html:29
+msgid "Faculté"
+msgstr "Fakilte"
+
+#: .\templates\apprenants\inscription_detail.html:29
+msgid "Programme"
+msgstr "Pwogram"
+
+#: .\templates\apprenants\inscription_detail.html:31
+msgid "Fin d’année"
+msgstr "Fen ane"
+
+#: .\templates\apprenants\inscription_detail.html:38
+#: .\templates\rgpd\demandes.html:14
+msgid "Enregistrer la décision"
+msgstr "Anrejistre desizyon an"
+
+#: .\templates\apprenants\inscription_detail.html:42
+msgid "Suivi du parcours"
+msgstr "Suivi pakou a"
+
+#: .\templates\apprenants\inscription_detail.html:45
+msgid "Changer de groupe"
+msgstr "Chanje gwoup"
+
+#: .\templates\apprenants\inscription_detail.html:49
+msgid "Préparer la réinscription pour l’année active ?"
+msgstr "Prepare re-enskripsyon pou ane aktif la?"
+
+#: .\templates\apprenants\inscription_detail.html:49
+msgid "Préparer la réinscription"
+msgstr "Prepare re-enskripsyon"
+
+#: .\templates\apprenants\inscription_detail.html:53
+msgid "Historique des décisions"
+msgstr "Istwa desizyon yo"
+
+#: .\templates\apprenants\inscription_detail.html:55
+msgid "Aucune décision pour le moment."
+msgstr "Pa gen desizyon pou kounye a."
+
+#: .\templates\apprenants\inscription_detail.html:57
+msgid "Pièces"
+msgstr "Dokiman"
+
+#: .\templates\apprenants\inscription_detail.html:58
+msgid "Aucune pièce jointe."
+msgstr "Pa gen pyès ki tache."
+
+#: .\templates\apprenants\inscription_form.html:3
+#: .\templates\apprenants\inscription_form.html:6
+#: .\templates\apprenants\inscriptions.html:7
+msgid "Nouvelle inscription"
+msgstr "Nouvo enskripsyon"
+
+#: .\templates\apprenants\inscription_form.html:6
+msgid "statut initial : en attente"
+msgstr "estati inisyal: ann atant"
+
+#: .\templates\apprenants\inscription_form.html:11
+msgid "Enregistrer la demande"
+msgstr "Anrejistre demann lan"
+
+#: .\templates\apprenants\inscriptions.html:9
+msgid "Nom, prénom ou matricule"
+msgstr "Siyati, non oswa nimewo elèv"
+
+#: .\templates\apprenants\inscriptions.html:9
+msgid "Rechercher"
+msgstr "Chèche"
+
+#: .\templates\apprenants\inscriptions.html:17
+#: .\templates\rgpd\demandes.html:12
+msgid "Traiter"
+msgstr "Trete"
+
+#: .\templates\apprenants\inscriptions.html:18
+msgid "Aucune inscription pour ces critères."
+msgstr "Pa gen enskripsyon pou kritè sa yo."
+
+#: .\templates\apprenants\liste.html:9
+msgid "Rechercher par nom, prénom ou matricule"
+msgstr "Chèche pa siyati, non oswa nimewo elèv"
+
+#: .\templates\apprenants\liste.html:9
+msgid "Rechercher un apprenant"
+msgstr "Chèche yon elèv"
+
+#: .\templates\apprenants\liste.html:18
+msgid "Aucun apprenant trouvé."
+msgstr "Pa jwenn elèv."
+
+#: .\templates\base.html:11
+msgid "Navigation latérale"
+msgstr "Meni sou kote"
+
+#: .\templates\base.html:18 .\templates\base.html:19
+msgid "Changer d’établissement"
+msgstr "Chanje lekòl"
+
+#: .\templates\base.html:49
+msgid "Réduire ou agrandir le menu"
+msgstr "Fè meni an pi piti oswa pi gwo"
+
+#: .\templates\base.html:53 .\templates\messagerie\notifications.html:7
+msgid "Notifications"
+msgstr "Notifikasyon"
+
+#: .\templates\base.html:58
+msgid "Aucune notification"
+msgstr "Pa gen notifikasyon"
+
+#: .\templates\base.html:62
+msgid "Profil et compte"
+msgstr "Pwofil ak kont"
+
+#: .\templates\base.html:66
+msgid "Mon profil"
+msgstr "Pwofil mwen"
+
+#: .\templates\base.html:67 .\templates\base.html:113
+msgid "Console plateforme"
+msgstr "Kons?l platf?m"
+
+#: .\templates\base.html:68
+msgid "Changer d'établissement"
+msgstr "Chanje lekòl"
+
+#: .\templates\base.html:69 .\templates\base.html:104 .\templates\base.html:115
+msgid "Se déconnecter"
+msgstr "Konekte"
+
+#: .\templates\base.html:82
+msgid "Accès à la plateforme"
+msgstr "Aksè nan platfòm nan"
+
+#: .\templates\base.html:82
+msgid "Navigation principale"
+msgstr "Navigasyon prensipal"
+
+#: .\templates\base.html:95
+msgid "Plus"
+msgstr "Plis"
+
+#: .\templates\base.html:96 .\templates\pedagogie\affectations.html:22
+msgid "Fermer"
+msgstr "F?men"
+
+#: .\templates\base.html:103
+msgid "Session"
+msgstr "Sesyon"
+
+#: .\templates\base.html:114
+msgid "Mes établissements"
+msgstr "Lekòl mwen yo"
+
+#: .\templates\comptes\connexion.html:7
+msgid "Bon retour"
+msgstr "Kontan w? w ank?"
+
+#: .\templates\comptes\connexion.html:8
+msgid "Connectez-vous avec votre nom d’utilisateur ou votre adresse e-mail."
+msgstr "Konekte avèk non itilizatè ou oswa adrès imèl ou."
+
+#: .\templates\comptes\connexion.html:16
+msgid "Mot de passe oublié ?"
+msgstr "Ou bliye modpas ou"
+
+#: .\templates\comptes\connexion.html:18
+#: .\templates\comptes\inscription.html:30
+#: .\templates\interface\public_base.html:13
+msgid "Se connecter"
+msgstr "Konekte"
+
+#: .\templates\comptes\connexion.html:20
+msgid "Nouveau sur EduGest ?"
+msgstr "Ou nouvo sou EduGest?"
+
+#: .\templates\comptes\connexion.html:20
+#: .\templates\comptes\inscription.html:28
+#: .\templates\interface\public_base.html:13
+msgid "Créer mon établissement"
+msgstr "Kreye lekòl mwen"
+
+#: .\templates\comptes\inscription.html:8
+msgid "Créez votre établissement"
+msgstr "Kreye lekòl ou"
+
+#: .\templates\comptes\inscription.html:9
+msgid ""
+"Essai gratuit de 30 jours, sans carte bancaire. Vous serez l'administrateur "
+"de votre espace."
+msgstr ""
+"Eseye gratis pandan 30 jou, san kat labank. W ap administrat? espas pa w la."
+
+#: .\templates\comptes\inscription.html:13
+msgid "Votre établissement"
+msgstr "Lekòl ou"
+
+#: .\templates\comptes\inscription.html:18
+msgid "Votre compte"
+msgstr "Kont ou"
+
+#: .\templates\comptes\inscription.html:30
+msgid "Déjà un compte ?"
+msgstr "Ou gen yon kont deja"
+
+#: .\templates\emploi_du_temps\creneau_form.html:6
+msgid "Nouveau créneau"
+msgstr "Nouvo lè"
+
+#: .\templates\emploi_du_temps\creneau_form.html:11
+msgid ""
+"Les chevauchements pour la classe, l’enseignant et la salle sont refusés."
+msgstr "Yo pa pèmèt sipèpozisyon pou klas, pwofesè oswa sal la."
+
+#: .\templates\emploi_du_temps\gestion.html:7
+#: .\templates\noyau\tableau_de_bord.html:18
+msgid "Aucune année active"
+msgstr "Pa gen ane lekòl aktif"
+
+#: .\templates\emploi_du_temps\gestion.html:8
+#: .\templates\emploi_du_temps\salles.html:6
+msgid "Salles"
+msgstr "Sal yo"
+
+#: .\templates\emploi_du_temps\gestion.html:8
+msgid "Ajouter un créneau"
+msgstr "Ajoute yon lè"
+
+#: .\templates\emploi_du_temps\gestion.html:19
+#: .\templates\emploi_du_temps\mon_emploi.html:9
+msgid "Aujourd’hui"
+msgstr "Jodi a"
+
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:26
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:14
+msgid "Horaire"
+msgstr "Orè"
+
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:28
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:17
+#: .\templates\evaluations\classes.html:8
+#: .\templates\evaluations\classes.html:10
+#: .\templates\pedagogie\affectations.html:8
+#: .\templates\pedagogie\affectations.html:9
+msgid "Enseignant"
+msgstr "Pwofesè"
+
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:29
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:18
+msgid "Salle"
+msgstr "Sal"
+
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:30
+msgid "Action"
+msgstr "Aksyon"
+
+#: .\templates\emploi_du_temps\gestion.html:30
+msgid "Supprimer"
+msgstr "Efase"
+
+#: .\templates\emploi_du_temps\gestion.html:37
+msgid "Aucun créneau n’est encore défini pour cette classe."
+msgstr "Yo poko defini lè pou klas sa a."
+
+#: .\templates\emploi_du_temps\gestion.html:38
+msgid "Aucune classe disponible pour l’année active."
+msgstr "Pa gen klas ki disponib pou ane aktif la."
+
+#: .\templates\emploi_du_temps\mon_emploi.html:23
+msgid "Aucun créneau n’est défini pour vos classes."
+msgstr "Pa gen lè ki defini pou klas ou yo."
+
+#: .\templates\emploi_du_temps\salle_form.html:6
+#: .\templates\emploi_du_temps\salles.html:6
+msgid "Ajouter une salle"
+msgstr "Ajoute yon sal"
+
+#: .\templates\emploi_du_temps\salles.html:8
+#: .\templates\emploi_du_temps\salles.html:9
+msgid "Capacité"
+msgstr "Kapasite"
+
+#: .\templates\emploi_du_temps\salles.html:9
+msgid "Non précisée"
+msgstr "Pa presize"
+
+#: .\templates\emploi_du_temps\salles.html:10
+msgid "Aucune salle enregistrée."
+msgstr "Pa gen sal ki anrejistre."
+
+#: .\templates\evaluations\classes.html:8
+#: .\templates\evaluations\classes.html:10
+#: .\templates\evaluations\configuration.html:16
+#: .\templates\evaluations\configuration.html:18
+msgid "Barème"
+msgstr "Barèm"
+
+#: .\templates\evaluations\classes.html:11
+msgid "Aucune classe."
+msgstr "Pa gen klas."
+
+#: .\templates\evaluations\configuration.html:3
+msgid "Configuration de l’évaluation"
+msgstr "Konfigirasyon evalyasyon an"
+
+#: .\templates\evaluations\configuration.html:7
+msgid "barème de la matière"
+msgstr "barèm matyè a"
+
+#: .\templates\evaluations\configuration.html:12
+msgid "Composantes de l’évaluation"
+msgstr "Konpozan evalyasyon an"
+
+#: .\templates\evaluations\configuration.html:13
+#, python-format
+msgid ""
+"Choisissez librement vos composantes (interrogation, devoir, examen…). La "
+"somme des barèmes doit être exactement %(bareme)s."
+msgstr ""
+"Chwazi konpozan yo (tès, devwa, egzamen…). Total barèm yo dwe egzakteman "
+"%(bareme)s."
+
+#: .\templates\evaluations\configuration.html:16
+#: .\templates\evaluations\configuration.html:18
+msgid "Intitulé"
+msgstr "Tit"
+
+#: .\templates\evaluations\configuration.html:16
+#: .\templates\evaluations\configuration.html:18
+msgid "Retirer la composante"
+msgstr "Retire konpozan an"
+
+#: .\templates\evaluations\configuration.html:21
+msgid "Ajouter une composante"
+msgstr "Ajoute konpozan"
+
+#: .\templates\evaluations\configuration.html:22
+#: .\templates\evaluations\configuration.html:32
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:59
+#: .\templates\evaluations\synthese.html:15 .\templates\finances\facture.html:7
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7
+msgid "Total"
+msgstr "Total"
+
+#: .\templates\evaluations\configuration.html:23
+msgid "Des notes sont déjà saisies. Modifier les composantes les supprimera."
+msgstr "Gen nòt ki deja antre. Si w modifye konpozan yo, y ap efase."
+
+#: .\templates\evaluations\configuration.html:23
+msgid "Je confirme la suppression des notes saisies"
+msgstr "Mwen konfime efasman nòt ki antre yo"
+
+#: .\templates\evaluations\configuration.html:25
+msgid "Enregistrer le brouillon"
+msgstr "Anrejistre bouyon an"
+
+#: .\templates\evaluations\configuration.html:26
+msgid "Valider la configuration"
+msgstr "Valide konfigirasyon an"
+
+#: .\templates\evaluations\configuration.html:30
+msgid "Composantes validées"
+msgstr "Konpozan valide yo"
+
+#: .\templates\evaluations\configuration.html:33
+msgid "Saisir les notes"
+msgstr "Antre nòt yo"
+
+#: .\templates\evaluations\configuration.html:34
+msgid "Modifier la configuration"
+msgstr "Modifye konfigirasyon an"
+
+#: .\templates\evaluations\configuration.html:36
+msgid "Motif (obligatoire, tracé)"
+msgstr "Rezon (obligatwa epi anrejistre)"
+
+#: .\templates\evaluations\configuration.html:37
+msgid "Rouvrir la configuration"
+msgstr "Relouvri konfigirasyon an"
+
+#: .\templates\evaluations\mes_evaluations.html:3
+#: .\templates\evaluations\mes_evaluations.html:6
+msgid "Mes évaluations"
+msgstr "Evalyasyon mwen yo"
+
+#: .\templates\evaluations\mes_evaluations.html:15
+#: .\templates\noyau\tableau_de_bord.html:64
+#: .\templates\noyau\tableau_de_bord.html:95
+msgid "Configurer"
+msgstr "Konfigire"
+
+#: .\templates\evaluations\mes_evaluations.html:18
+msgid "Synthèse"
+msgstr "Rezime"
+
+#: .\templates\evaluations\mes_evaluations.html:24
+msgid "Aucune matière ne vous est affectée pour l’année active."
+msgstr "Pa gen matyè yo ba ou pou ane aktif la."
+
+#: .\templates\evaluations\portail.html:3
+msgid "Mes résultats"
+msgstr "Rezilta mwen yo"
+
+#: .\templates\evaluations\portail.html:9
+#: .\templates\evaluations\portail.html:10
+#: .\templates\evaluations\saisie.html:22
+#: .\templates\evaluations\saisie.html:24
+msgid "Note"
+msgstr "Nòt"
+
+#: .\templates\evaluations\portail.html:11
+msgid "Aucun résultat publié pour le moment."
+msgstr "Poko gen rezilta ki pibliye."
+
+#: .\templates\evaluations\resultats.html:10
+msgid "Vue des résultats"
+msgstr "Aparans rezilta yo"
+
+#: .\templates\evaluations\resultats.html:11
+msgid "Résultats par matière"
+msgstr "Rezilta pa matyè"
+
+#: .\templates\evaluations\resultats.html:13
+msgid "Bulletin synthétique"
+msgstr "Kanè rezime"
+
+#: .\templates\evaluations\resultats.html:17
+msgid "Toutes les années"
+msgstr "Tout ane yo"
+
+#: .\templates\evaluations\resultats.html:18
+msgid "Toutes les périodes"
+msgstr "Tout peryòd yo"
+
+#: .\templates\evaluations\resultats.html:19
+msgid "Tous les niveaux"
+msgstr "Tout nivo yo"
+
+#: .\templates\evaluations\resultats.html:20
+msgid "Tous les groupes"
+msgstr "Tout gwoup yo"
+
+#: .\templates\evaluations\resultats.html:22
+msgid "Tous les cours"
+msgstr "Tout kou yo"
+
+#: .\templates\evaluations\resultats.html:23
+msgid "Composante"
+msgstr "Konpozan"
+
+#: .\templates\evaluations\resultats.html:23
+msgid "Toutes les composantes"
+msgstr "Tout konpozan yo"
+
+#: .\templates\evaluations\resultats.html:25
+#: .\templates\evaluations\synthese.html:15
+#: .\templates\evaluations\synthese.html:17
+#: .\templates\evaluations\synthese.html:24
+msgid "Publication"
+msgstr "Piblikasyon"
+
+#: .\templates\evaluations\resultats.html:25
+msgid "Publiés ou non"
+msgstr "Pibliye oswa pa pibliye"
+
+#: .\templates\evaluations\resultats.html:25
+msgid "Publiés"
+msgstr "Pibliye"
+
+#: .\templates\evaluations\resultats.html:25
+msgid "Non publiés"
+msgstr "Pa pibliye"
+
+#: .\templates\evaluations\resultats.html:30
+msgid ""
+"Choisissez une période pour afficher le bulletin synthétique consolidé de "
+"chaque apprenant."
+msgstr "Chwazi yon peryòd pou wè kanè rezime chak elèv."
+
+#: .\templates\evaluations\resultats.html:33
+msgid "Bulletins synthétiques"
+msgstr "Kanè rezime yo"
+
+#: .\templates\evaluations\resultats.html:33
+msgid "Les bulletins ne sont établis qu’à partir des résultats publiés."
+msgstr "Yo prepare kanè yo sèlman apati rezilta ki pibliye."
+
+#: .\templates\evaluations\resultats.html:36
+#: .\templates\evaluations\resultats.html:55
+msgid ""
+"Le classement est désactivé dans les paramètres de l’établissement. Les "
+"rangs apparaîtront lorsqu’il sera autorisé."
+msgstr ""
+"Klasman an dezaktive nan paramèt lekòl la. Ran yo ap parèt lè yo aktive l."
+
+#: .\templates\evaluations\resultats.html:36
+#: .\templates\evaluations\resultats.html:55
+msgid "Activer le classement dans les paramètres"
+msgstr "Aktive klasman nan paramèt yo"
+
+#: .\templates\evaluations\resultats.html:40
+#: .\templates\evaluations\resultats.html:46
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:58
+msgid "Rang"
+msgstr "Ran"
+
+#: .\templates\evaluations\resultats.html:41
+#: .\templates\evaluations\resultats.html:47
+msgid "Moyenne générale"
+msgstr "Mwayèn jeneral"
+
+#: .\templates\evaluations\resultats.html:41
+#: .\templates\evaluations\resultats.html:49
+msgid "État du bulletin"
+msgstr "Estati kanè a"
+
+#: .\templates\evaluations\resultats.html:46
+#: .\templates\evaluations\resultats.html:58
+msgid "1er"
+msgstr "1ye"
+
+#: .\templates\evaluations\resultats.html:46
+#: .\templates\evaluations\resultats.html:58
+msgid "e"
+msgstr "yèm"
+
+#: .\templates\evaluations\resultats.html:49
+msgid "Complet"
+msgstr "Konplè"
+
+#: .\templates\evaluations\resultats.html:50
+msgid "Aucun bulletin publié pour cette période et ces critères."
+msgstr "Pa gen kanè ki pibliye pou peryòd ak kritè sa yo."
+
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:59
+#: .\templates\evaluations\synthese.html:17
+msgid "Publié"
+msgstr "Pibliye"
+
+#: .\templates\evaluations\resultats.html:59
+msgid "Oui"
+msgstr "Wi"
+
+#: .\templates\evaluations\resultats.html:59
+msgid "Non"
+msgstr "Non"
+
+#: .\templates\evaluations\resultats.html:60
+msgid "Aucun résultat pour ces critères."
+msgstr "Pa gen rezilta pou kritè sa yo."
+
+#: .\templates\evaluations\saisie.html:8
+msgid "Synthèse et publication"
+msgstr "Rezime ak piblikasyon"
+
+#: .\templates\evaluations\saisie.html:9
+#: .\templates\noyau\tableau_de_bord.html:47
+msgid "Configuration"
+msgstr "Konfigirasyon"
+
+#: .\templates\evaluations\saisie.html:10
+msgid ""
+"La saisie est actuellement fermée (configuration non validée ou période "
+"fermée). Les notes sont en consultation."
+msgstr ""
+"Antre nòt fèmen kounye a (konfigirasyon pa valide oswa peryòd fèmen). Nòt yo "
+"an lekti sèlman."
+
+#: .\templates\evaluations\saisie.html:23 .\templates\finances\facture.html:8
+msgid "État"
+msgstr "Estati"
+
+#: .\templates\evaluations\saisie.html:25
+msgid "Absent"
+msgstr "Absan"
+
+#: .\templates\evaluations\saisie.html:30
+msgid "Résultat"
+msgstr "Rezilta"
+
+#: .\templates\evaluations\saisie.html:31
+msgid "Aucun apprenant inscrit et validé dans ce groupe."
+msgstr "Pa gen elèv ki enskri epi valide nan gwoup sa a."
+
+#: .\templates\evaluations\saisie.html:37
+msgid "Motif de la correction (obligatoire : des résultats sont publiés)"
+msgstr "Rezon koreksyon (obligatwa paske gen rezilta ki pibliye)"
+
+#: .\templates\evaluations\saisie.html:38
+msgid "Enregistrer les notes"
+msgstr "Anrejistre nòt yo"
+
+#: .\templates\evaluations\saisie.html:39
+msgid ""
+"Absent et Dispensé ne sont jamais comptés comme zéro : le résultat reste "
+"incomplet tant qu’une absence n’est pas traitée."
+msgstr ""
+"Absàn ak Eskize pa janm konte kòm zewo: rezilta a rete enkonplè jiskaske yo "
+"trete absans lan."
+
+#: .\templates\evaluations\synthese.html:10
+msgid "Moyenne de la classe"
+msgstr "Mwayèn klas la"
+
+#: .\templates\evaluations\synthese.html:11
+msgid "Taux de réussite"
+msgstr "To reyisit"
+
+#: .\templates\evaluations\synthese.html:12
+msgid "Résultats incomplets"
+msgstr "Rezilta ki pa konplè"
+
+#: .\templates\evaluations\synthese.html:17
+msgid "Non publié"
+msgstr "Pa pibliye"
+
+#: .\templates\evaluations\synthese.html:18
+msgid "Aucun résultat."
+msgstr "Pa gen rezilta."
+
+#: .\templates\evaluations\synthese.html:19
+msgid "en difficulté"
+msgstr "An difikilte"
+
+#: .\templates\evaluations\synthese.html:21
+msgid "Classement"
+msgstr "Klasman"
+
+#: .\templates\evaluations\synthese.html:25
+msgid ""
+"Publier les résultats ? Ils deviendront visibles des apprenants et des "
+"parents."
+msgstr "Pibliye rezilta yo? Elèv ak paran ap kapab wè yo."
+
+#: .\templates\evaluations\synthese.html:26
+msgid "Publier malgré des résultats incomplets (ils resteront non publiés)"
+msgstr "Pibliye malgre rezilta ki pa konplè (yo ap rete san pibliye)"
+
+#: .\templates\evaluations\synthese.html:27
+msgid "Publier les résultats complets"
+msgstr "Pibliye rezilta ki konplè yo"
+
+#: .\templates\evaluations\synthese.html:29
+msgid "Dépublier (motif obligatoire)"
+msgstr "Retire piblikasyon (rezon obligatwa)"
+
+#: .\templates\evaluations\synthese.html:29
+msgid "Dépublier"
+msgstr "Retire piblikasyon"
+
+#: .\templates\finances\depense_creer.html:6
+#: .\templates\finances\depenses.html:6
+msgid "Enregistrer une dépense"
+msgstr "Anrejistre yon depans"
+
+#: .\templates\finances\depenses.html:8 .\templates\finances\depenses.html:10
+#: .\templates\finances\facture.html:9 .\templates\finances\factures.html:8
+#: .\templates\finances\paiements.html:8 .\templates\finances\paiements.html:10
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:21
+#: .\templates\presences\mes_absences.html:17
+#: .\templates\presences\mes_absences.html:20
+msgid "Date"
+msgstr "Dat"
+
+#: .\templates\finances\depenses.html:8 .\templates\finances\depenses.html:10
+msgid "Catégorie"
+msgstr "Kategori"
+
+#: .\templates\finances\depenses.html:8 .\templates\finances\depenses.html:10
+#: .\templates\finances\facture.html:7 .\templates\finances\facture.html:8
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:8
+#: .\templates\finances\paiements.html:10 .\templates\finances\tarifs.html:11
+msgid "Montant"
+msgstr "Kantite lajan"
+
+#: .\templates\finances\depenses.html:11
+msgid "Aucune dépense enregistrée."
+msgstr "Pa gen depans ki anrejistre."
+
+#: .\templates\finances\depenses.html:14 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:14
+msgid "Pagination"
+msgstr "Paj"
+
+#: .\templates\finances\depenses.html:15 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:15
+msgid "Précédent"
+msgstr "Anvan"
+
+#: .\templates\finances\depenses.html:16 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:16
+msgid "Page"
+msgstr "Paj"
+
+#: .\templates\finances\depenses.html:16 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:16
+msgid "sur"
+msgstr "sou"
+
+#: .\templates\finances\depenses.html:17 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:17
+msgid "Suivant"
+msgstr "Apre"
+
+#: .\templates\finances\facture.html:6
+msgid "Retour aux factures"
+msgstr "Retounen nan fakti yo"
+
+#: .\templates\finances\facture.html:7
+msgid "Détail des frais"
+msgstr "Detay frè yo"
+
+#: .\templates\finances\facture.html:7
+msgid "Libellé"
+msgstr "Deskripsyon"
+
+#: .\templates\finances\facture.html:7 .\templates\finances\facture.html:8
+msgid "Payé"
+msgstr "Peye"
+
+#: .\templates\finances\facture.html:7 .\templates\finances\mes_factures.html:7
+#: .\templates\finances\rapports.html:11
+msgid "Solde"
+msgstr "Balans"
+
+#: .\templates\finances\facture.html:8 .\templates\finances\tarifs.html:11
+msgid "Échéances"
+msgstr "Dat limit yo"
+
+#: .\templates\finances\facture.html:8
+msgid "Échéance"
+msgstr "Dat limit"
+
+#: .\templates\finances\facture.html:8
+msgid "Date limite"
+msgstr "Dat limit"
+
+#: .\templates\finances\facture.html:8
+msgid "Reste"
+msgstr "Rès"
+
+#: .\templates\finances\facture.html:8
+msgid "En retard"
+msgstr "Anreta"
+
+#: .\templates\finances\facture.html:8
+msgid "Payée"
+msgstr "Peye"
+
+#: .\templates\finances\facture.html:8
+msgid "Aucune échéance configurée."
+msgstr "Pa gen dat limit ki fikse."
+
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:8
+#: .\templates\finances\paiements.html:10
+msgid "Reçu"
+msgstr "Resi"
+
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:8
+#: .\templates\finances\paiements.html:10
+msgid "Mode"
+msgstr "Mòd"
+
+#: .\templates\finances\facture.html:9
+msgid "Référence"
+msgstr "Referans"
+
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:10
+msgid "Reçu PDF"
+msgstr "Resi PDF"
+
+#: .\templates\finances\facture.html:9
+msgid "Aucun paiement."
+msgstr "Pa gen peman."
+
+#: .\templates\finances\facture.html:10
+#: .\templates\finances\paiement_creer.html:6
+#: .\templates\finances\paiements.html:6
+msgid "Enregistrer un paiement"
+msgstr "Anrejistre yon peman"
+
+#: .\templates\finances\facture.html:10
+msgid "Solde dû"
+msgstr "Balans pou peye"
+
+#: .\templates\finances\facture.html:10
+msgid "Encaisser"
+msgstr "Resevwa peman"
+
+#: .\templates\finances\facture.html:11
+msgid "Annuler cette facture ?"
+msgstr "Anile fakti sa a?"
+
+#: .\templates\finances\facture.html:11
+msgid "Annuler la facture"
+msgstr "Anile fakti a"
+
+#: .\templates\finances\factures.html:6
+msgid ""
+"Les factures sont émises à la validation de l'inscription à partir des "
+"grilles de frais."
+msgstr "Yo emèt fakti lè yo apwouve enskripsyon an, dapre tarif yo."
+
+#: .\templates\finances\factures.html:6
+msgid "Gérer les tarifs"
+msgstr "Jere tarif yo"
+
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+msgid "Numéro"
+msgstr "Nimewo"
+
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7
+#: .\templates\finances\rapports.html:11 .\templates\presences\appel.html:26
+#: .\templates\presences\appel.html:30
+msgid "Apprenant"
+msgstr "Elèv"
+
+#: .\templates\finances\factures.html:7
+msgid "Émise le"
+msgstr "Emèt nan dat"
+
+#: .\templates\finances\factures.html:9
+msgid "Aucune facture émise."
+msgstr "Pa gen fakti ki emèt."
+
+#: .\templates\finances\mes_factures.html:6
+msgid "Factures associées à votre dossier ou à celui de vos enfants."
+msgstr "Fakti ki asosye ak dosye pa w oswa dosye pitit ou yo."
+
+#: .\templates\finances\mes_factures.html:7
+msgid "Aucune facture disponible."
+msgstr "Pa gen fakti ki disponib."
+
+#: .\templates\finances\paiements.html:11
+msgid "Aucun paiement enregistré."
+msgstr "Pa gen peman ki anrejistre."
+
+#: .\templates\finances\rapports.html:6
+msgid "Rapports financiers"
+msgstr "Rapò finansye"
+
+#: .\templates\finances\rapports.html:7
+msgid "Synthèse générale"
+msgstr "Rezime jeneral"
+
+#: .\templates\finances\rapports.html:7
+msgid "Paiements enregistrés"
+msgstr "Peman ki anrejistre"
+
+#: .\templates\finances\rapports.html:7
+msgid "Dépenses enregistrées"
+msgstr "Depans ki anrejistre"
+
+#: .\templates\finances\rapports.html:7 .\templates\finances\rapports.html:9
+msgid "Solde net"
+msgstr "Balans nèt"
+
+#: .\templates\finances\rapports.html:8
+msgid "Période du rapport"
+msgstr "Peryòd rapò a"
+
+#: .\templates\finances\rapports.html:8
+msgid "Afficher"
+msgstr "Montre"
+
+#: .\templates\finances\rapports.html:9
+#, python-format
+msgid "Synthèse du %(debut)s au %(fin)s"
+msgstr "Rezime soti %(debut)s rive %(fin)s"
+
+#: .\templates\finances\rapports.html:9
+msgid "Paiements encaissés"
+msgstr "Peman resevwa"
+
+#: .\templates\finances\rapports.html:9
+msgid "Factures émises (cumul)"
+msgstr "Fakti ki emèt (total)"
+
+#: .\templates\finances\rapports.html:9 .\templates\finances\rapports.html:11
+msgid "Échéances en retard"
+msgstr "Dat limit ki anreta"
+
+#: .\templates\finances\rapports.html:10
+msgid "Encaissements par mode"
+msgstr "Peman resevwa pa mòd"
+
+#: .\templates\finances\rapports.html:10
+msgid "Aucun encaissement sur cette période."
+msgstr "Pa gen peman ki resevwa pandan peryòd sa a."
+
+#: .\templates\finances\rapports.html:10
+msgid "Dépenses par catégorie"
+msgstr "Depans pa kategori"
+
+#: .\templates\finances\rapports.html:10
+msgid "Aucune dépense sur cette période."
+msgstr "Pa gen depans pandan peryòd sa a."
+
+#: .\templates\finances\rapports.html:11
+msgid "Exigible"
+msgstr "Pou peye"
+
+#: .\templates\finances\rapports.html:11
+msgid "Aucune échéance en retard."
+msgstr "Pa gen dat limit ki anreta."
+
+#: .\templates\finances\tarifs.html:6
+msgid ""
+"Les grilles sont appliquées aux inscriptions validées ensuite. Les factures "
+"déjà émises ne sont pas modifiées."
+msgstr ""
+"Tarif yo aplike pou nouvo enskripsyon ki apwouve. Yo pa modifye fakti ki "
+"deja emèt yo."
+
+#: .\templates\finances\tarifs.html:8
+msgid "Créer un type de frais"
+msgstr "Kreye yon kalite frè"
+
+#: .\templates\finances\tarifs.html:8
+msgid "Ajouter le type"
+msgstr "Ajoute kalite frè a"
+
+#: .\templates\finances\tarifs.html:9
+msgid "Configurer une grille"
+msgstr "Konfigire yon tarif"
+
+#: .\templates\finances\tarifs.html:9
+msgid "Enregistrer la grille"
+msgstr "Anrejistre tarif la"
+
+#: .\templates\finances\tarifs.html:10
+msgid "Types de frais"
+msgstr "Kalite frè yo"
+
+#: .\templates\finances\tarifs.html:10
+msgid "inactif"
+msgstr "pa aktif"
+
+#: .\templates\finances\tarifs.html:10
+msgid "Aucun type de frais."
+msgstr "Pa gen kalite frè."
+
+#: .\templates\finances\tarifs.html:11
+msgid "Grilles configurées"
+msgstr "Tarif ki konfigire yo"
+
+#: .\templates\finances\tarifs.html:11
+msgid "Frais"
+msgstr "Frè"
+
+#: .\templates\finances\tarifs.html:11
+msgid "Aucune grille configurée."
+msgstr "Pa gen tarif ki konfigire."
+
+#: .\templates\importations\accueil.html:6
+msgid "Importations"
+msgstr "Enpòtasyon"
+
+#: .\templates\importations\accueil.html:6
+msgid ""
+"Importez des dossiers d’apprenants ou envoyez des invitations au personnel à "
+"partir d’un fichier CSV ou Excel."
+msgstr ""
+"Enpòte dosye elèv oswa voye envitasyon bay pèsonèl apati yon fichye CSV oswa "
+"Excel."
+
+#: .\templates\importations\accueil.html:10
+msgid ""
+"Taille maximale : 5 Mo et 5 000 lignes. L’aperçu est conservé au maximum 24 "
+"heures."
+msgstr ""
+"Gwosè maksimòm: 5 MB ak 5,000 liy. Yo kenbe aperçu a pandan 24 èdtan "
+"maksimòm."
+
+#: .\templates\importations\accueil.html:11
+msgid "Analyser le fichier"
+msgstr "Analize fichye a"
+
+#: .\templates\importations\accueil.html:14
+msgid "Colonnes attendues"
+msgstr "Kolòn yo espere"
+
+#: .\templates\importations\accueil.html:15
+msgid ""
+"Les colonnes lieu_naissance, email, telephone, adresse, responsable_nom, "
+"responsable_prenoms, responsable_telephone, responsable_email, niveau, "
+"classe et programme sont facultatives."
+msgstr ""
+"Kolòn lieu_naissance, email, telephone, adresse, responsable_nom, "
+"responsable_prenoms, responsable_telephone, responsable_email, niveau, "
+"classe ak programme opsyonèl."
+
+#: .\templates\importations\accueil.html:16
+msgid "Le rôle doit correspondre à un rôle de l’établissement."
+msgstr "Wòl la dwe koresponn ak yon wòl nan lekòl la."
+
+#: .\templates\importations\accueil.html:19
+msgid "Aperçus en attente"
+msgstr "Aperçu k ap tann yo"
+
+#: .\templates\importations\accueil.html:19
+msgid "ligne(s) valide(s)"
+msgstr "liy ki valab"
+
+#: .\templates\importations\detail.html:6
+msgid "ligne(s)"
+msgstr "liy"
+
+#: .\templates\importations\detail.html:6
+msgid "valide(s)"
+msgstr "valab"
+
+#: .\templates\importations\detail.html:6
+msgid "erreur(s)"
+msgstr "erè"
+
+#: .\templates\importations\detail.html:7
+msgid "Cet aperçu a expiré. Veuillez analyser à nouveau le fichier."
+msgstr "Aperçu sa a ekspire. Tanpri analize fichye a ankò."
+
+#: .\templates\importations\detail.html:8
+msgid "Lignes à corriger"
+msgstr "Liy pou korije"
+
+#: .\templates\importations\detail.html:8
+#: .\templates\importations\detail.html:9
+msgid "Ligne"
+msgstr "Liy"
+
+#: .\templates\importations\detail.html:9
+msgid "Lignes prêtes à importer"
+msgstr "Liy ki pare pou enpòte"
+
+#: .\templates\importations\detail.html:9
+msgid "Prénoms"
+msgstr "Non"
+
+#: .\templates\importations\detail.html:9
+msgid "Détails"
+msgstr "Detay"
+
+#: .\templates\importations\detail.html:9
+msgid "E-mail et rôle"
+msgstr "Imèl ak wòl"
+
+#: .\templates\importations\detail.html:13
+msgid "Confirmer l’importation"
+msgstr "Konfime enpòtasyon an"
+
+#: .\templates\importations\detail.html:14
+msgid "Supprimer l’aperçu"
+msgstr "Efase aperçu a"
+
+#: .\templates\interface\composants\_selecteur_langue.html:2
+msgid "Langue"
+msgstr "Lang"
+
+#: .\templates\interface\composants\_selecteur_langue.html:5
+msgid "Langue de l’interface"
+msgstr "Lang koòdone a"
+
+#: .\templates\interface\composants\_selecteur_langue.html:7
+msgid "Langue de l’établissement"
+msgstr "Lang lekòl la"
+
+#: .\templates\interface\composants\_selecteur_langue.html:12
+msgid "Appliquer"
+msgstr "Aplike"
+
+#: .\templates\interface\public_base.html:10
+msgid "Accès"
+msgstr "Aksè"
+
+#: .\templates\interface\public_base.html:12
+msgid "Mon espace"
+msgstr "Espas mwen"
+
+#: .\templates\interface\public_base.html:18
+msgid "Gestion scolaire et universitaire en ligne"
+msgstr "Jesyon lek?l ak iniv?site sou ent?n?t"
+
+#: .\templates\messagerie\boite.html:4
+msgid "Messagerie"
+msgstr "Mesajri"
+
+#: .\templates\messagerie\boite.html:7
+msgid "Échanges privés avec les membres de votre établissement."
+msgstr "Konvèsasyon prive ak manm lekòl ou."
+
+#: .\templates\messagerie\boite.html:8 .\templates\messagerie\nouveau.html:6
+msgid "Nouveau message"
+msgstr "Nouvo mesaj"
+
+#: .\templates\messagerie\boite.html:12 .\templates\messagerie\boite.html:16
+msgid "Sujet"
+msgstr "Sijè"
+
+#: .\templates\messagerie\boite.html:12 .\templates\messagerie\boite.html:17
+msgid "Participants"
+msgstr "Patisipan yo"
+
+#: .\templates\messagerie\boite.html:12 .\templates\messagerie\boite.html:18
+msgid "Dernier message"
+msgstr "Dènye mesaj"
+
+#: .\templates\messagerie\boite.html:12 .\templates\messagerie\boite.html:19
+msgid "Activité"
+msgstr "Aktivite"
+
+#: .\templates\messagerie\boite.html:16
+#: .\templates\messagerie\notifications.html:14
+msgid "Nouveau"
+msgstr "Nouvo"
+
+#: .\templates\messagerie\boite.html:21
+msgid ""
+"Aucune conversation. Vous pouvez écrire à un membre autorisé de "
+"l’établissement."
+msgstr "Pa gen konvèsasyon. Ou ka ekri yon manm lekòl la ki gen pèmisyon."
+
+#: .\templates\messagerie\conversation.html:7
+msgid "Avec"
+msgstr "Avèk"
+
+#: .\templates\messagerie\conversation.html:8
+msgid "Retour aux messages"
+msgstr "Retounen nan mesaj yo"
+
+#: .\templates\messagerie\conversation.html:13
+msgid "Compte supprimé"
+msgstr "Kont efase"
+
+#: .\templates\messagerie\conversation.html:16
+msgid "Aucun message."
+msgstr "Pa gen mesaj."
+
+#: .\templates\messagerie\conversation.html:21
+msgid "Répondre"
+msgstr "Reponn"
+
+#: .\templates\messagerie\notifications.html:8
+msgid "Tout marquer comme lu"
+msgstr "Make tout kòm li"
+
+#: .\templates\messagerie\notifications.html:18
+msgid "Aucune notification."
+msgstr "Pa gen notifikasyon."
+
+#: .\templates\messagerie\nouveau.html:11
+msgid "Envoyer"
+msgstr "Voye"
+
+#: .\templates\noyau\accueil_public.html:7
+msgid "Gérez votre école ou votre université, de l'inscription au bulletin."
+msgstr "Jere lekòl oswa inivèsite ou, depi enskripsyon rive nan kanè nòt."
+
+#: .\templates\noyau\accueil_public.html:8
+msgid ""
+"EduGest est une plateforme en ligne : créez votre établissement en deux "
+"minutes, invitez votre équipe et commencez à inscrire vos apprenants."
+msgstr ""
+"EduGest se yon platfòm sou entènèt: kreye lekòl ou nan de minit, envite ekip "
+"ou epi kòmanse enskri elèv yo."
+
+#: .\templates\noyau\accueil_public.html:10
+msgid "Créer mon établissement gratuitement"
+msgstr "Kreye lekòl mwen gratis"
+
+#: .\templates\noyau\accueil_public.html:11
+msgid "J'ai déjà un compte"
+msgstr "Mwen gen kont deja"
+
+#: .\templates\noyau\accueil_public.html:12
+msgid "Candidater à une école"
+msgstr "Fè demann admisyon nan yon lekòl"
+
+#: .\templates\noyau\accueil_public.html:14
+msgid "Essai gratuit de 30 jours · sans carte bancaire · aucune installation"
+msgstr "Eseye gratis pandan 30 jou · san kat labank · san enstalasyon"
+
+#: .\templates\noyau\accueil_public.html:19
+msgid "Tout ce qu'il faut, rien de superflu"
+msgstr "Tout sa ou bezwen, san bagay anplis"
+
+#: .\templates\noyau\accueil_public.html:20
+msgid ""
+"Conçu pour les secrétaires, enseignants, directeurs, parents et apprenants."
+msgstr "Fèt pou sekretè, pwofesè, direktè, paran ak elèv."
+
+#: .\templates\noyau\accueil_public.html:22
+msgid "Inscriptions simples"
+msgstr "Enskripsyon fasil"
+
+#: .\templates\noyau\accueil_public.html:22
+msgid ""
+"Dossier permanent de l'apprenant, validation tracée, réinscription en un "
+"clic."
+msgstr ""
+"Dosye elèv pèmanan, apwobasyon anrejistre, re-enskripsyon ak yon sèl klik."
+
+#: .\templates\noyau\accueil_public.html:23
+msgid "Notation libre"
+msgstr "N?t fleksib"
+
+#: .\templates\noyau\accueil_public.html:23
+msgid ""
+"Barèmes sur 10, 20, 100 ou plus. Chaque enseignant organise ses évaluations."
+msgstr ""
+"Barèm sou 10, 20, 100 oswa plis. Chak pwofesè òganize evalyasyon pa li."
+
+#: .\templates\noyau\accueil_public.html:24
+msgid "École ou université"
+msgstr "Lekòl oswa inivèsite"
+
+#: .\templates\noyau\accueil_public.html:24
+msgid ""
+"Niveaux et classes, ou facultés et programmes : l'outil s'adapte à votre "
+"organisation."
+msgstr ""
+"Nivo ak klas, oswa fakilte ak pwogram: platfòm nan adapte ak òganizasyon ou."
+
+#: .\templates\noyau\accueil_public.html:25
+msgid "Données isolées"
+msgstr "Done separe"
+
+#: .\templates\noyau\accueil_public.html:25
+msgid ""
+"Chaque établissement travaille dans son propre espace, sans aucune fuite "
+"possible."
+msgstr "Chak lekòl travay nan pwòp espas pa li, epi done yo rete separe."
+
+#: .\templates\noyau\accueil_public.html:30
+msgid "Démarrez en trois étapes"
+msgstr "Kòmanse nan twa etap"
+
+#: .\templates\noyau\accueil_public.html:31
+msgid ""
+"Aucun administrateur ne crée votre compte : vous êtes autonome dès le départ."
+msgstr ""
+"Ou pa bezwen yon administratè pou kreye kont ou; ou gen kontwòl depi nan "
+"kòmansman."
+
+#: .\templates\noyau\accueil_public.html:33
+msgid "Créez votre espace"
+msgstr "Kreye espas ou"
+
+#: .\templates\noyau\accueil_public.html:33
+msgid "Nom de l'établissement, votre adresse e-mail et votre mot de passe."
+msgstr "Ekri non lekòl la, adrès imèl ou ak modpas ou."
+
+#: .\templates\noyau\accueil_public.html:34
+msgid "Configurez en un clic"
+msgstr "Konfigire ak yon s?l klik"
+
+#: .\templates\noyau\accueil_public.html:34
+msgid "Année, périodes, niveaux et classes se créent en une seule étape."
+msgstr "Kreye ane lekòl la, peryòd yo, nivo yo ak klas yo nan yon sèl etap."
+
+#: .\templates\noyau\accueil_public.html:35
+msgid "Invitez votre équipe"
+msgstr "Envite ekip ou"
+
+#: .\templates\noyau\accueil_public.html:35
+msgid "Chacun reçoit un e-mail et crée lui-même son accès."
+msgstr "Chak moun resevwa yon imèl epi li kreye pwòp aksè pa li."
+
+#: .\templates\noyau\accueil_public.html:40
+msgid "Des formules adaptées à votre taille"
+msgstr "Plan ki adapte ak lekòl ou"
+
+#: .\templates\noyau\accueil_public.html:41
+msgid "Commencez gratuitement, changez de formule quand vous grandissez."
+msgstr "Kòmanse gratis, chanje plan lè lekòl la grandi."
+
+#: .\templates\noyau\accueil_public.html:46
+msgid "Gratuit"
+msgstr "Gratis"
+
+#: .\templates\noyau\accueil_public.html:46
+msgid "mois"
+msgstr "mwa"
+
+#: .\templates\noyau\accueil_public.html:47
+#, python-format
+msgid "Jusqu'à %(limite)s apprenants"
+msgstr "Jiska %(limite)s elèv"
+
+#: .\templates\noyau\accueil_public.html:47
+msgid "Apprenants illimités"
+msgstr "Elèv san limit"
+
+#: .\templates\noyau\accueil_public.html:48
+#, python-format
+msgid "%(limite)s membres du personnel"
+msgstr "%(limite)s manm p?son?l"
+
+#: .\templates\noyau\accueil_public.html:48
+msgid "Personnel illimité"
+msgstr "Pèsonèl san limit"
+
+#: .\templates\noyau\accueil_public.html:49
+msgid "30 jours d'essai"
+msgstr "Eseye pandan 30 jou"
+
+#: .\templates\noyau\accueil_public.html:53
+msgid "Commencer maintenant"
+msgstr "K?manse kounye a"
+
+#: .\templates\noyau\parametres.html:6
+msgid "Paramètres de l’établissement"
+msgstr "Paramèt lekòl la"
+
+#: .\templates\noyau\parametres.html:9
+msgid "Identité, langue et fuseau horaire"
+msgstr "Idantite, lang ak zòn lè"
+
+#: .\templates\noyau\parametres.html:9
+msgid ""
+"Renseignez les coordonnées de l’établissement, sa langue par défaut et le "
+"fuseau horaire utilisé pour ses dates et heures."
+msgstr ""
+"Mete enfòmasyon kontak lekòl la, lang pa defo ak zòn lè pou dat ak lè yo."
+
+#: .\templates\noyau\parametres.html:14
+msgid "Règles de notation"
+msgstr "Règ pou bay nòt"
+
+#: .\templates\noyau\parametres.html:14
+msgid "Aucune note maximale n'est imposée : chaque matière a son barème."
+msgstr "Pa gen nòt maksimòm fiks; chak matyè gen pwòp barèm pa li."
+
+#: .\templates\noyau\parametres.html:19
+msgid "Année académique"
+msgstr "Ane akademik"
+
+#: .\templates\noyau\parametres.html:19
+msgid ""
+"Choisissez le nombre de périodes proposé automatiquement pour chaque "
+"nouvelle année. Vous pourrez le modifier pendant la création de l’année."
+msgstr ""
+"Chwazi kantite peryòd ki pwopoze pou chak nouvo ane lekòl. Ou ka chanje l lè "
+"w ap kreye ane a."
+
+#: .\templates\noyau\parametres.html:24
+msgid ""
+"Définissez la durée de conservation des dossiers inactifs avant qu'ils "
+"puissent être anonymisés."
+msgstr "Chwazi konbyen tan pou konsève dosye ki pa aktif anvan yo ka anonim."
+
+#: .\templates\noyau\parametres.html:29
+msgid "Vocabulaire"
+msgstr "Vokabil?"
+
+#: .\templates\noyau\parametres.html:29
+msgid ""
+"Adaptez les termes à votre établissement (ex. « Département » à la place de "
+"« Programme »)."
+msgstr ""
+"Adapte mo yo ak lekòl ou (pa egzanp, itilize «Depatman» olye «Pwogram»)."
+
+#: .\templates\noyau\tableau_de_bord.html:10
+msgid "Votre espace de travail"
+msgstr "Espas travay ou"
+
+#: .\templates\noyau\tableau_de_bord.html:11
+msgid "Bonjour"
+msgstr "Bonjou"
+
+#: .\templates\noyau\tableau_de_bord.html:25
+msgid "Indicateurs de l’établissement"
+msgstr "Endikatè lekòl la"
+
+#: .\templates\noyau\tableau_de_bord.html:35
+msgid "en activité"
+msgstr "aktif"
+
+#: .\templates\noyau\tableau_de_bord.html:48
+msgid "Les premiers pas"
+msgstr "Premye etap yo"
+
+#: .\templates\noyau\tableau_de_bord.html:49
+msgid "Suivez ces étapes pour préparer votre établissement à fonctionner."
+msgstr "Swiv etap sa yo pou prepare lekòl la pou li fonksyone."
+
+#: .\templates\noyau\tableau_de_bord.html:54
+msgid "Progression de la configuration"
+msgstr "Pwogr? konfigirasyon an"
+
+#: .\templates\noyau\tableau_de_bord.html:77
+msgid "À faire"
+msgstr "Pou fè"
+
+#: .\templates\noyau\tableau_de_bord.html:78
+msgid "Travail pédagogique"
+msgstr "Travay ansèyman"
+
+#: .\templates\noyau\tableau_de_bord.html:93
+msgid "Saisir"
+msgstr "Antre n?t"
+
+#: .\templates\noyau\tableau_de_bord.html:108
+msgid "Suivi"
+msgstr "Swivi"
+
+#: .\templates\noyau\tableau_de_bord.html:109
+msgid "Résultats récents"
+msgstr "Dènye rezilta yo"
+
+#: .\templates\pedagogie\affectations.html:6
+msgid "Affectation des enseignants"
+msgstr "Afektasyon pwofesè yo"
+
+#: .\templates\pedagogie\affectations.html:9
+msgid "Tout le niveau"
+msgstr "Tout nivo a"
+
+#: .\templates\pedagogie\affectations.html:10
+msgid "Aucune affectation pour l’année active."
+msgstr "Pa gen afektasyon pou ane aktif la."
+
+#: .\templates\pedagogie\affectations.html:11
+msgid "Nouvelle affectation"
+msgstr "Nouvo afektasyon"
+
+#: .\templates\pedagogie\affectations.html:14
+msgid "Affecter"
+msgstr "Afekte"
+
+#: .\templates\pedagogie\affectations.html:21
+msgid "Inviter un enseignant"
+msgstr "Envite yon pwofesè"
+
+#: .\templates\pedagogie\affectations.html:25
+msgid ""
+"Un lien d’invitation sera envoyé. L’enseignant pourra créer son compte et "
+"sera ajouté à votre établissement."
+msgstr ""
+"Y ap voye yon lyen envitasyon. Pwofesè a ap kapab kreye kont li epi antre "
+"nan lekòl ou."
+
+#: .\templates\pedagogie\affectations.html:31
+msgid "Envoyer l’invitation"
+msgstr "Voye envitasyon an"
+
+#: .\templates\presences\appel.html:3 .\templates\presences\appel.html:7
+msgid "Appel des présences"
+msgstr "Fè apèl prezans"
+
+#: .\templates\presences\appel.html:7
+msgid "Enregistrez les présences, absences et retards de vos classes."
+msgstr "Anrejistre prezans, absans ak reta nan klas ou yo."
+
+#: .\templates\presences\appel.html:8 .\templates\rgpd\consentements.html:8
+msgid "Historique"
+msgstr "Istwa"
+
+#: .\templates\presences\appel.html:24
+msgid ""
+"Un appel existe déjà pour cette classe et cette date; son enregistrement "
+"mettra à jour les statuts."
+msgstr ""
+"Gen yon apèl ki deja fèt pou klas ak dat sa a; lè w anrejistre l, estati yo "
+"ap mete ajou."
+
+#: .\templates\presences\appel.html:26
+msgid "Motif (facultatif)"
+msgstr "Rezon (si ou vle)"
+
+#: .\templates\presences\appel.html:42
+msgid "Enregistrer l’appel"
+msgstr "Anrejistre apèl la"
+
+#: .\templates\presences\appel.html:45
+msgid "Aucun apprenant validé n’est inscrit dans cette classe."
+msgstr "Pa gen elèv ki valide ki enskri nan klas sa a."
+
+#: .\templates\presences\liste.html:3 .\templates\presences\liste.html:6
+msgid "Historique des présences"
+msgstr "Istwa prezans yo"
+
+#: .\templates\presences\liste.html:6
+msgid "Appels enregistrés et assiduité par classe."
+msgstr "Apèl ki anrejistre ak prezans pa klas."
+
+#: .\templates\presences\liste.html:6
+msgid "Faire l’appel"
+msgstr "Fè apèl prezans"
+
+#: .\templates\presences\liste.html:8
+msgid "Filtrer par classe"
+msgstr "Filtre pa klas"
+
+#: .\templates\presences\liste.html:10
+msgid "Toutes les classes"
+msgstr "Tout klas yo"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:23
+msgid "Présents"
+msgstr "Prezante"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:24
+msgid "Absents"
+msgstr "Absan"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:25
+msgid "Retards"
+msgstr "Anreta"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:26
+msgid "Justifiés"
+msgstr "Eskize"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:27
+msgid "Enregistré par"
+msgstr "Anrejistre pa"
+
+#: .\templates\presences\liste.html:29
+msgid "Aucun appel enregistré."
+msgstr "Pa gen apèl ki anrejistre."
+
+#: .\templates\presences\mes_absences.html:6
+msgid "Absences et retards"
+msgstr "Absans ak reta"
+
+#: .\templates\presences\mes_absences.html:6
+msgid "Suivi des apprenants associés à votre compte."
+msgstr "Swiv elèv ki asosye ak kont ou."
+
+#: .\templates\presences\mes_absences.html:11
+msgid "absence(s)"
+msgstr "absans"
+
+#: .\templates\presences\mes_absences.html:12
+msgid "retard(s)"
+msgstr "reta"
+
+#: .\templates\presences\mes_absences.html:13
+msgid "absence(s) justifiée(s)"
+msgstr "absans eskize"
+
+#: .\templates\presences\mes_absences.html:21
+msgid "Aucune absence ni aucun retard enregistré."
+msgstr "Pa gen absans ni reta ki anrejistre."
+
+#: .\templates\presences\mes_absences.html:27
+msgid "Aucun dossier d’apprenant n’est associé à votre compte."
+msgstr "Pa gen dosye elèv ki asosye ak kont ou."
+
+#: .\templates\rgpd\consentements.html:6
+msgid "Consentements"
+msgstr "Konsantman"
+
+#: .\templates\rgpd\consentements.html:6
+msgid "Chaque modification ajoute une entrée à l’historique."
+msgstr "Chak chanjman ajoute yon antre nan istwa a."
+
+#: .\templates\rgpd\consentements.html:8
+msgid "accordé"
+msgstr "aksepte"
+
+#: .\templates\rgpd\consentements.html:8
+msgid "refusé"
+msgstr "refize"
+
+#: .\templates\rgpd\consentements.html:8
+msgid "Aucun consentement enregistré."
+msgstr "Pa gen konsantman ki anrejistre."
+
+#: .\templates\rgpd\demandes.html:6
+msgid "Demandes de protection des données"
+msgstr "Demann pou pwoteksyon done"
+
+#: .\templates\rgpd\demandes.html:6
+msgid ""
+"Les demandes d’effacement sont anonymisées sans supprimer les inscriptions "
+"ou résultats historiques. Une inscription en cours bloque l’anonymisation."
+msgstr ""
+"Demann efasman yo anonim dosye yo san efase enskripsyon oswa rezilta nan tan "
+"lontan. Yon enskripsyon aktif anpeche anonimizasyon."
+
+#: .\templates\rgpd\demandes.html:9
+msgid "Dossier indisponible"
+msgstr "Dosye pa disponib"
+
+#: .\templates\rgpd\demandes.html:9
+msgid "demande du"
+msgstr "mande nan dat"
+
+#: .\templates\rgpd\demandes.html:9 .\templates\rgpd\mes_donnees.html:14
+msgid "échéance"
+msgstr "dat limit"
+
+#: .\templates\rgpd\demandes.html:10
+msgid "Réponse"
+msgstr "Repons"
+
+#: .\templates\rgpd\demandes.html:13
+msgid "Réponse ou motif"
+msgstr "Repons oswa rezon"
+
+#: .\templates\rgpd\demandes.html:15
+msgid "Aucune demande en attente."
+msgstr "Pa gen demann k ap tann."
+
+#: .\templates\rgpd\mes_donnees.html:6
+msgid "Mes données personnelles"
+msgstr "Done pèsonèl mwen"
+
+#: .\templates\rgpd\mes_donnees.html:6
+msgid ""
+"Consultez et exportez les données des dossiers qui vous sont rattachés, ou "
+"adressez une demande à l’établissement."
+msgstr ""
+"Gade epi ekspòte done dosye ki asosye ak ou, oswa voye yon demann bay lekòl "
+"la."
+
+#: .\templates\rgpd\mes_donnees.html:7
+msgid "Exporter mes données"
+msgstr "Ekspòte done mwen yo"
+
+#: .\templates\rgpd\mes_donnees.html:8
+msgid "Télécharger une copie JSON"
+msgstr "Telechaje yon kopi JSON"
+
+#: .\templates\rgpd\mes_donnees.html:8
+msgid "Aucun dossier n’est associé à votre compte."
+msgstr "Pa gen dosye ki asosye ak kont ou."
+
+#: .\templates\rgpd\mes_donnees.html:10
+msgid "Créer une demande"
+msgstr "Kreye yon demann"
+
+#: .\templates\rgpd\mes_donnees.html:12
+msgid "Envoyer la demande"
+msgstr "Voye demann lan"
+
+#: .\templates\rgpd\mes_donnees.html:13
+msgid "Historique de mes demandes"
+msgstr "Istwa demann mwen yo"
+
+#: .\templates\rgpd\mes_donnees.html:14
+msgid "Aucune demande enregistrée."
+msgstr "Pa gen demann ki anrejistre."
+
+#, python-format
+#~| msgid "Année %(designation)s"
+#~ msgid "School year %(designation)s"
+#~ msgstr "Ane lekòl %(designation)s"

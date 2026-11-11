@@ -1,0 +1,99 @@
+"""Catalogue des permissions métier et rôles par défaut.
+
+Les permissions sont des codes texte stockés dans ``Role.codes``. Elles sont
+vérifiées côté serveur par ``noyau.services.verifier_permission``.
+"""
+
+CATALOGUE = {
+    "etablissement.configurer": ("Configurer l'établissement (identité, notation, vocabulaire)", "Administration"),
+    "utilisateurs.gerer": ("Gérer le personnel et les rôles", "Administration"),
+    "statistiques.consulter": ("Consulter les statistiques globales", "Pilotage"),
+    "academique.gerer": ("Gérer années, périodes et structure académique", "Académique"),
+    "apprenants.consulter": ("Consulter les dossiers des apprenants", "Apprenants"),
+    "apprenants.gerer": ("Créer et modifier les dossiers des apprenants", "Apprenants"),
+    "importations.apprenants": ("Importer des dossiers d'apprenants", "Apprenants"),
+    "importations.personnel": ("Importer et inviter du personnel", "Administration"),
+    "inscriptions.enregistrer": ("Enregistrer une demande d'inscription", "Inscriptions"),
+    "inscriptions.decider": ("Valider ou rejeter une inscription", "Inscriptions"),
+    "pedagogie.gerer": ("Gérer matières, barèmes et affectations", "Pédagogie"),
+    "evaluations.saisir": ("Configurer les évaluations et saisir les notes de ses classes", "Évaluations"),
+    "resultats.consulter": ("Consulter les résultats de ses classes", "Résultats"),
+    "resultats.consulter_tous": ("Consulter les résultats de toutes les classes", "Résultats"),
+    "resultats.publier": ("Publier les résultats", "Résultats"),
+    "resultats.exporter": ("Exporter les résultats (PDF, Excel)", "Résultats"),
+    "resultats.consulter_propres": ("Consulter ses propres résultats", "Portail"),
+    "resultats.consulter_enfants": ("Consulter les résultats de ses enfants", "Portail"),
+    "finances.consulter": ("Consulter les opérations financières", "Finances"),
+    "finances.gerer": ("Enregistrer des paiements et des dépenses", "Finances"),
+    "finances.consulter_propres": ("Consulter les factures de ses dossiers liés", "Portail"),
+    "presences.saisir": ("Enregistrer l'appel des présences des classes affectées", "Vie scolaire"),
+    "presences.consulter": ("Consulter l'historique des présences de l'établissement", "Vie scolaire"),
+    "presences.consulter_propres": ("Consulter ses absences ou celles de ses enfants", "Portail"),
+    "cahier.gerer": ("Créer des séances et devoirs pour ses classes affectées", "Vie scolaire"),
+    "cahier.gerer_tous": ("Gérer le cahier de textes de toutes les classes", "Vie scolaire"),
+    "cahier.consulter": ("Consulter le cahier de textes de ses classes", "Portail"),
+    "devoirs.remettre": ("Remettre un devoir en ligne", "Portail"),
+    "messagerie.utiliser": ("Consulter et envoyer des messages dans son périmètre", "Communication"),
+    "messagerie.diffuser": ("Diffuser un message à ses classes", "Communication"),
+    "messagerie.diffuser_tous": ("Diffuser un message à toutes les classes", "Communication"),
+    "emploi.consulter": ("Consulter l'emploi du temps de ses classes", "Vie scolaire"),
+    "emploi.enseigner": ("Consulter son emploi du temps d'enseignant", "Vie scolaire"),
+    "emploi.voir": ("Consulter et gérer les emplois du temps", "Vie scolaire"),
+    "emploi.gerer": ("Créer et modifier les emplois du temps", "Vie scolaire"),
+    "rgpd.gerer": ("Gérer les demandes et paramètres de protection des données", "Administration"),
+    "rgpd.demander": ("Consulter et demander ses données personnelles", "Protection des données"),
+}
+
+TOUTES_LES_PERMISSIONS = list(CATALOGUE)
+
+ROLES_PAR_DEFAUT = {
+    "Administrateur de l'établissement": TOUTES_LES_PERMISSIONS,
+    "Directeur": [
+        "statistiques.consulter", "apprenants.consulter", "resultats.consulter_tous",
+        "resultats.publier", "resultats.exporter", "inscriptions.decider",
+        "utilisateurs.gerer", "academique.gerer", "etablissement.configurer",
+        "importations.apprenants", "importations.personnel", "rgpd.gerer",
+        "presences.consulter",
+        "cahier.gerer_tous", "cahier.consulter",
+        "messagerie.utiliser", "messagerie.diffuser_tous",
+        "emploi.voir", "emploi.gerer",
+    ],
+    "Secrétaire": [
+        "apprenants.consulter", "apprenants.gerer", "inscriptions.enregistrer",
+        "importations.apprenants",
+        "messagerie.utiliser", "messagerie.diffuser_tous",
+    ],
+    "Responsable pédagogique": [
+        "academique.gerer", "pedagogie.gerer", "apprenants.consulter",
+        "inscriptions.decider", "resultats.consulter_tous", "resultats.publier",
+        "resultats.exporter", "statistiques.consulter",
+        "importations.apprenants", "rgpd.gerer",
+        "presences.consulter",
+        "cahier.gerer_tous", "cahier.consulter",
+        "messagerie.utiliser", "messagerie.diffuser_tous",
+        "emploi.voir", "emploi.gerer",
+    ],
+    "Enseignant": [
+        "evaluations.saisir", "resultats.consulter", "resultats.exporter",
+        "presences.saisir", "cahier.gerer",
+        "messagerie.utiliser", "messagerie.diffuser",
+        "emploi.enseigner",
+    ],
+    "Comptable": [
+        "apprenants.consulter", "finances.consulter", "finances.gerer",
+        "messagerie.utiliser",
+    ],
+    "Apprenant": [
+        "resultats.consulter_propres", "presences.consulter_propres",
+        "cahier.consulter", "devoirs.remettre",
+        "finances.consulter_propres",
+        "messagerie.utiliser", "emploi.consulter",
+        "rgpd.demander",
+    ],
+    "Parent": [
+        "resultats.consulter_enfants", "presences.consulter_propres", "cahier.consulter",
+        "finances.consulter_propres",
+        "messagerie.utiliser", "emploi.consulter",
+        "rgpd.demander",
+    ],
+}

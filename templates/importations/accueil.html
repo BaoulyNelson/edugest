@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Importations{% endblock %}
+{% block titre_contexte %}Importations{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Importations" %}</h1><p class="texte-secondaire">{% translate "Importez des dossiers d’apprenants ou envoyez des invitations au personnel à partir d’un fichier CSV ou Excel." %}</p></div></div>
+<form method="post" enctype="multipart/form-data" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <p class="texte-secondaire mt-3">{% translate "Taille maximale : 5 Mo et 5 000 lignes. L’aperçu est conservé au maximum 24 heures." %}</p>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Analyser le fichier" %}</button></div>
+</form>
+<section class="carte-formulaire mt-4">
+  <h2 class="h5">{% translate "Colonnes attendues" %}</h2>
+  <p><strong>{% translate "Apprenants" %} :</strong> nom, prenoms, sexe, date_naissance. {% translate "Les colonnes lieu_naissance, email, telephone, adresse, responsable_nom, responsable_prenoms, responsable_telephone, responsable_email, niveau, classe et programme sont facultatives." %}</p>
+  <p><strong>{% translate "Personnel" %} :</strong> nom, prenoms, email, role. {% translate "Le rôle doit correspondre à un rôle de l’établissement." %}</p>
+</section>
+{% if lots %}
+<section class="carte-formulaire mt-4"><h2 class="h5">{% translate "Aperçus en attente" %}</h2><ul class="mb-0">{% for lot in lots %}<li><a href="{% url 'importations:detail' lot.pk %}">{{ lot.nom_fichier }}</a> · {{ lot.get_type_display }} · {{ lot.nombre_valide }} {% translate "ligne(s) valide(s)" %}</li>{% endfor %}</ul></section>
+{% endif %}
+{% endblock %}

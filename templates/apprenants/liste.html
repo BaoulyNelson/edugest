@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{{ libelles.apprenants }}{% endblock %}
+{% block titre_contexte %}{{ libelles.apprenants }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{{ libelles.apprenants }}</h1>
+  {% if "apprenants.gerer" in request.appartenance.role.codes %}<a class="btn btn-principal" href="{% url 'apprenants:creer' %}"><i class="bi bi-person-plus" aria-hidden="true"></i> {% translate "Nouvel apprenant" %}</a>{% endif %}</div>
+<form method="get" class="barre-filtres" role="search" data-auto-filtre>
+  <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="{% translate 'Rechercher par nom, prénom ou matricule' %}" aria-label="{% translate 'Rechercher un apprenant' %}">
+</form>
+<div class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>{{ libelles.apprenant }}</th><th>{% translate "Matricule" %}</th><th>{% translate "Sexe" %}</th><th class="secondaire">{% translate "Naissance" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for a in page %}
+      <tr><td class="principal" data-libelle="{{ libelles.apprenant }}">{{ a }}</td><td data-libelle="{% translate 'Matricule' %}">{{ a.matricule }}</td><td data-libelle="{% translate 'Sexe' %}">{{ a.get_sexe_display|default:"—" }}</td><td class="secondaire" data-libelle="{% translate 'Naissance' %}">{{ a.date_naissance|date:"d/m/Y" }}</td>
+          <td class="actions"><a class="btn btn-secondaire btn-sm" href="{% url 'apprenants:detail' a.pk %}">{% translate "Ouvrir" %}</a></td></tr>
+    {% empty %}<tr><td colspan="5" class="etat-vide">{% translate "Aucun apprenant trouvé." %}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "interface/composants/_pagination.html" %}
+{% endblock %}

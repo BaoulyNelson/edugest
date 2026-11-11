@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Configuration de l’évaluation" %}{% endblock %}
+{% block titre_contexte %}{% translate "Notes" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{{ affectation.matiere_niveau.matiere }} · {{ periode.nom }}</h1>
+  <div class="sous-titre">{{ affectation.classe|default:affectation.matiere_niveau.niveau }} · {% translate "barème de la matière" %} : <strong>{{ bareme|nombre }}</strong></div></div>{% statut config.statut %}</div>
+
+{% if config.statut == "BROUILLON" %}
+<form method="post" class="carte-formulaire" id="formulaireComposantes" novalidate data-bareme="{{ bareme|nombre }}">
+  {% csrf_token %}
+  <h2>{% translate "Composantes de l’évaluation" %}</h2>
+  <p class="champ-aide">{% blocktranslate with bareme=bareme|nombre %}Choisissez librement vos composantes (interrogation, devoir, examen…). La somme des barèmes doit être exactement {{ bareme }}.{% endblocktranslate %}</p>
+  <div id="lignes">
+    {% for c in composantes %}
+      <div class="ligne-composante"><input class="form-control" name="intitule" value="{{ c.intitule }}" placeholder="{% translate 'Intitulé' %}" aria-label="{% translate 'Intitulé' %}"><input class="form-control" name="bareme" inputmode="decimal" value="{{ c.bareme|nombre }}" placeholder="{% translate 'Barème' %}" aria-label="{% translate 'Barème' %}"><button type="button" class="btn btn-secondaire retirer" aria-label="{% translate 'Retirer la composante' %}"><i class="bi bi-trash" aria-hidden="true"></i></button></div>
+    {% empty %}
+      <div class="ligne-composante"><input class="form-control" name="intitule" placeholder="{% translate 'Intitulé' %}" aria-label="{% translate 'Intitulé' %}"><input class="form-control" name="bareme" inputmode="decimal" placeholder="{% translate 'Barème' %}" aria-label="{% translate 'Barème' %}"><button type="button" class="btn btn-secondaire retirer" aria-label="{% translate 'Retirer la composante' %}"><i class="bi bi-trash" aria-hidden="true"></i></button></div>
+    {% endfor %}
+  </div>
+  <button type="button" class="btn btn-secondaire mb-3" id="ajouter"><i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Ajouter une composante" %}</button>
+  <div class="somme-composantes mb-3" id="somme" aria-live="polite"><span>{% translate "Total" %}</span><span id="totalAffiche">0 / {{ bareme|nombre }}</span></div>
+  {% if notes_existantes %}<div class="message message--warning"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i><div>{% translate "Des notes sont déjà saisies. Modifier les composantes les supprimera." %}<br><label><input type="checkbox" name="confirmer_perte" value="1"> {% translate "Je confirme la suppression des notes saisies" %}</label></div></div>{% endif %}
+  <div class="d-flex gap-2 flex-wrap">
+    <button class="btn btn-secondaire" type="submit" name="action" value="enregistrer">{% translate "Enregistrer le brouillon" %}</button>
+    <button class="btn btn-principal" type="submit" name="action" value="valider" id="boutonValider">{% translate "Valider la configuration" %}</button>
+  </div>
+</form>
+{% else %}
+<section class="carte-formulaire"><h2>{% translate "Composantes validées" %}</h2>
+  {% for c in composantes %}<div class="d-flex justify-content-between py-1 border-bottom"><span>{{ c.intitule }}</span><strong>{{ c.bareme|nombre }}</strong></div>{% endfor %}
+  <div class="d-flex justify-content-between py-2"><span>{% translate "Total" %}</span><strong>{{ somme|nombre }} / {{ bareme|nombre }}</strong></div>
+  <div class="d-flex gap-2 flex-wrap mt-2"><a class="btn btn-principal" href="{% url 'evaluations:saisie' config.pk %}">{% translate "Saisir les notes" %}</a>
+  <details class="section-facultative"><summary>{% translate "Modifier la configuration" %}</summary>
+    <form method="post" novalidate>{% csrf_token %}<input type="hidden" name="action" value="rouvrir">
+      <label class="form-label" for="motif">{% translate "Motif (obligatoire, tracé)" %}</label><input class="form-control mb-2" id="motif" name="motif" required>
+      <button class="btn btn-danger-doux" type="submit">{% translate "Rouvrir la configuration" %}</button></form></details></div></section>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  var formulaire = document.getElementById("formulaireComposantes");
+  if (!formulaire) { return; }
+  var bareme = parseFloat(formulaire.dataset.bareme.replace(",", "."));
+  var lignes = document.getElementById("lignes");
+  var somme = document.getElementById("somme"), total = document.getElementById("totalAffiche");
+  function actualiser() {
+    var s = 0;
+    lignes.querySelectorAll("input[name=bareme]").forEach(function (c) { var v = parseFloat(c.value.replace(",", ".")); if (!isNaN(v)) { s += v; } });
+    s = Math.round(s * 100) / 100;
+    var ecart = Math.round((bareme - s) * 100) / 100;
+    somme.classList.toggle("ok", ecart === 0); somme.classList.toggle("ko", ecart !== 0);
+    total.textContent = s + " / " + bareme + (ecart === 0 ? " ✓ conforme" : ecart > 0 ? " (il manque " + ecart + ")" : " (" + (-ecart) + " en trop)");
+  }
+  lignes.addEventListener("input", actualiser);
+  lignes.addEventListener("click", function (e) {
+    var bouton = e.target.closest(".retirer");
+    if (bouton && lignes.children.length > 1) { bouton.parentElement.remove(); actualiser(); }
+  });
+  document.getElementById("ajouter").addEventListener("click", function () {
+    var modele = lignes.lastElementChild.cloneNode(true);
+    modele.querySelectorAll("input").forEach(function (c) { c.value = ""; });
+    lignes.appendChild(modele); modele.querySelector("input").focus();
+  });
+  actualiser();
+})();
+</script>
+{% endblock %}

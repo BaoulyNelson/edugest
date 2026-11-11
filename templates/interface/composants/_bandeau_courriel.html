@@ -1,0 +1,9 @@
+{% if user.is_authenticated and not user.is_superuser and not user.email_verifie %}
+<div class="message message--info message--verification" role="status">
+  <i class="bi bi-envelope-exclamation" aria-hidden="true"></i>
+  <div class="d-flex flex-wrap align-items-center gap-2 justify-content-between w-100">
+    <span>Confirmez votre adresse e-mail <strong>{{ user.email }}</strong> grâce au lien que nous vous avons envoyé.</span>
+    <form method="post" action="{% url 'renvoyer_verification' %}">{% csrf_token %}<input type="hidden" name="suite" value="tableau_de_bord"><button class="btn btn-secondaire btn-sm" type="submit">Renvoyer l'e-mail</button></form>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{% translate "Ressources et quiz" %}{% endblock %}
+{% block titre_contexte %}{% translate "Ressources et quiz" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Ressources et quiz" %}</h1><p class="texte-secondaire">{% translate "Documents pédagogiques et évaluations interactives de vos classes." %}</p></div></div>
+{% if gestionnaire %}
+<div class="row g-3 mb-4">
+  <section class="col-lg-6"><div class="carte-formulaire h-100">
+    <h2>{% translate "Publier une ressource" %}</h2>
+    <form method="post" enctype="multipart/form-data" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="ressource">
+      <div class="grille-formulaire">{% for champ in formulaire_ressource %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+      <button class="btn btn-principal mt-3" type="submit">{% translate "Publier le document" %}</button>
+    </form>
+  </div></section>
+  <section class="col-lg-6"><div class="carte-formulaire h-100">
+    <h2>{% translate "Créer un quiz" %}</h2>
+    <form method="post" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="quiz">
+      <div class="grille-formulaire">{% for champ in formulaire_quiz %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+      <button class="btn btn-principal mt-3" type="submit">{% translate "Publier le quiz" %}</button>
+    </form>
+  </div></section>
+</div>
+{% endif %}
+<section class="carte mb-4">
+  <h2>{% translate "Quiz" %}</h2>
+  <div class="table-responsive"><table class="tableau tableau-adaptatif">
+    <thead><tr><th>{% translate "Titre" %}</th><th>{% translate "Classe" %}</th><th>{% translate "Matière" %}</th><th>{% translate "Échéance" %}</th><th></th></tr></thead>
+    <tbody>{% for item in quiz %}
+      <tr><td>{{ item.titre }}</td><td>{{ item.classe.nom }}</td><td>{{ item.matiere_niveau.matiere.nom }}</td>
+        <td>{{ item.date_limite|date:"d/m/Y H:i"|default:"—" }}</td>
+        <td><a class="btn btn-secondaire btn-sm" href="{% url 'pedagogie:quiz_detail' item.pk %}">{% translate "Ouvrir" %}</a></td></tr>
+    {% empty %}<tr><td colspan="5">{% translate "Aucun quiz disponible." %}</td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+<section class="carte">
+  <h2>{% translate "Ressources pédagogiques" %}</h2>
+  <div class="table-responsive"><table class="tableau tableau-adaptatif">
+    <thead><tr><th>{% translate "Titre" %}</th><th>{% translate "Classe" %}</th><th>{% translate "Matière" %}</th><th>{% translate "Date" %}</th><th></th></tr></thead>
+    <tbody>{% for ressource in ressources %}
+      <tr><td>{{ ressource.titre }}</td><td>{{ ressource.classe.nom }}</td><td>{{ ressource.matiere_niveau.matiere.nom }}</td>
+        <td>{{ ressource.cree_le|date:"d/m/Y" }}</td>
+        <td><a class="btn btn-secondaire btn-sm" href="{% url 'pedagogie:telecharger_ressource' ressource.pk %}">{% translate "Télécharger" %}</a></td></tr>
+    {% empty %}<tr><td colspan="5">{% translate "Aucune ressource disponible." %}</td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+{% endblock %}

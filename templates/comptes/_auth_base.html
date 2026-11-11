@@ -1,0 +1,15 @@
+{% extends "interface/public_base.html" %}
+{% block corps %}
+<div class="auth">
+  <aside class="auth-panneau {% block classe_panneau %}{% endblock %}" aria-hidden="true">
+    <h2>La gestion de votre établissement, simple et en ligne.</h2>
+    <ul>
+      <li><i class="bi bi-person-check"></i><span>Créez votre compte vous-même, sans attendre personne.</span></li>
+      <li><i class="bi bi-building"></i><span>Chaque établissement dispose de son espace, strictement isolé.</span></li>
+      <li><i class="bi bi-people"></i><span>Invitez secrétaires, enseignants et directeurs par e-mail.</span></li>
+      <li><i class="bi bi-phone"></i><span>Pensé pour le téléphone comme pour l'ordinateur.</span></li>
+    </ul>
+  </aside>
+  <div class="auth-zone {% block classe_zone %}{% endblock %}"><div class="auth-carte {% block classe_carte %}{% endblock %}">{% block auth_contenu %}{% endblock %}</div></div>
+</div>
+{% endblock %}

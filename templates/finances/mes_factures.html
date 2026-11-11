@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Mes factures{% endblock %}
+{% block titre_contexte %}Mes factures{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Mes factures" %}</h1><p class="texte-secondaire">{% translate "Factures associées à votre dossier ou à celui de vos enfants." %}</p></div></div>
+<section class="carte defilement-controle"><table class="tableau tableau-adaptatif"><thead><tr><th>{% translate "Facture" %}</th><th>{% translate "Apprenant" %}</th><th>{% translate "Année" %}</th><th>{% translate "Total" %}</th><th>{% translate "Statut" %}</th><th>{% translate "Solde" %}</th><th></th></tr></thead><tbody>{% for ligne in factures %}<tr><td class="principal">{{ ligne.facture.numero }}</td><td>{{ ligne.facture.inscription.apprenant }}</td><td>{{ ligne.facture.inscription.annee }}</td><td>{{ ligne.facture.total }} {{ ligne.facture.devise }}</td><td>{{ ligne.facture.get_statut_display }}</td><td>{{ ligne.solde }} {{ ligne.facture.devise }}</td><td><a class="btn btn-secondaire btn-sm" href="{% url 'finances:facture_detail' ligne.facture.pk %}">{% translate "Détail" %}</a></td></tr>{% empty %}<tr><td colspan="7">{% translate "Aucune facture disponible." %}</td></tr>{% endfor %}</tbody></table></section>
+{% endblock %}

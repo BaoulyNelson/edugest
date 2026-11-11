@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load interface_extras static %}
+{% block titre %}Console plateforme{% endblock %}
+{% block titre_contexte %}Plateforme{% endblock %}
+{% block tete %}<link href="{% static 'css/plateforme.css' %}" rel="stylesheet">{% endblock %}
+{% block contenu %}{% include "noyau/_contenu_plateforme.html" %}{% endblock %}
+{% block contenu_simple %}{% include "noyau/_contenu_plateforme.html" %}{% endblock %}

@@ -1,0 +1,173 @@
+# Déploiement Kubernetes haute disponibilité d'EduGest.
+#   kubectl apply -f deploiement/kubernetes/edugest.yaml
+# Prérequis : un contrôleur Ingress (nginx), cert-manager (certificat wildcard), un MySQL géré en haute disponibilité
+# (RDS/Cloud SQL multi-zone ou Group Replication) et un Redis géré. Remplacer les valeurs « CHANGER ».
+apiVersion: v1
+kind: Namespace
+metadata: { name: edugest }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: edugest-config, namespace: edugest }
+data:
+  DEBUG: "False"
+  BD_MOTEUR: "mysql"
+  BD_NOM: "edugest"
+  BD_HOTE: "mysql.edugest.svc.cluster.local"   # CHANGER : point d'accès du cluster MySQL (écriture)
+  BD_PORT: "3306"
+  BD_CONN_MAX_AGE: "60"
+  URL_REDIS: "redis://redis.edugest.svc.cluster.local:6379/1"
+  DOMAINE_PLATEFORME: "edugest.example.org"      # CHANGER
+  HOTES_AUTORISES: ".edugest.example.org,edugest.example.org"
+  ORIGINES_CSRF_FIABLES: "https://*.edugest.example.org,https://edugest.example.org"
+  FORCER_HTTPS: "True"
+  URL_CDN: ""                                     # ex. https://cdn.edugest.example.org/statique/
+  FUSEAU_HORAIRE: "UTC"
+  DOSSIER_MEDIA: "/app/media"
+---
+apiVersion: v1
+kind: Secret
+metadata: { name: edugest-secrets, namespace: edugest }
+type: Opaque
+stringData:
+  CLE_SECRETE: "CHANGER-par-une-cle-de-50-caracteres-aleatoires"
+  BD_UTILISATEUR: "edugest"
+  BD_MOT_DE_PASSE: "CHANGER"
+  EMAIL_UTILISATEUR: ""
+  EMAIL_MOT_DE_PASSE: ""
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: { name: edugest-fichiers, namespace: edugest }
+spec:
+  accessModes: ["ReadWriteMany"]     # stockage partagé entre les pods (NFS/EFS/Filestore) ; ou stockage objet via django-storages
+  resources: { requests: { storage: 50Gi } }
+---
+apiVersion: batch/v1
+kind: Job
+metadata: { name: edugest-migration, namespace: edugest }
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migration
+          image: registry.example.org/edugest:1.0.0     # CHANGER
+          command: ["python", "manage.py", "migrate", "--noinput"]
+          envFrom: [{ configMapRef: { name: edugest-config } }, { secretRef: { name: edugest-secrets } }]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: edugest-web, namespace: edugest, labels: { app: edugest-web } }
+spec:
+  replicas: 3
+  strategy: { type: RollingUpdate, rollingUpdate: { maxSurge: 1, maxUnavailable: 0 } }   # mises à jour sans interruption
+  selector: { matchLabels: { app: edugest-web } }
+  template:
+    metadata: { labels: { app: edugest-web } }
+    spec:
+      terminationGracePeriodSeconds: 40
+      securityContext: { runAsNonRoot: true, runAsUser: 10001, fsGroup: 10001 }
+      topologySpreadConstraints:        # répartition sur plusieurs zones de disponibilité
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector: { matchLabels: { app: edugest-web } }
+      containers:
+        - name: web
+          image: registry.example.org/edugest:1.0.0     # CHANGER
+          ports: [{ containerPort: 8000 }]
+          envFrom: [{ configMapRef: { name: edugest-config } }, { secretRef: { name: edugest-secrets } }]
+          env: [{ name: NOM_NOEUD, valueFrom: { fieldRef: { fieldPath: metadata.name } } }]
+          resources: { requests: { cpu: 250m, memory: 384Mi }, limits: { cpu: "1", memory: 768Mi } }
+          readinessProbe: { httpGet: { path: /sante/prete/, port: 8000, httpHeaders: [{ name: Host, value: edugest.example.org }] }, periodSeconds: 10, failureThreshold: 3 }
+          livenessProbe: { httpGet: { path: /sante/, port: 8000, httpHeaders: [{ name: Host, value: edugest.example.org }] }, periodSeconds: 15, failureThreshold: 4, initialDelaySeconds: 20 }
+          lifecycle: { preStop: { exec: { command: ["sleep", "10"] } } }
+          volumeMounts: [{ name: fichiers, mountPath: /app/media }]
+      volumes: [{ name: fichiers, persistentVolumeClaim: { claimName: edugest-fichiers } }]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: edugest-web, namespace: edugest }
+spec:
+  selector: { app: edugest-web }
+  ports: [{ port: 80, targetPort: 8000 }]
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: edugest
+  namespace: edugest
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dns       # certificat wildcard (validation DNS)
+    nginx.ingress.kubernetes.io/proxy-body-size: 12m
+    nginx.ingress.kubernetes.io/limit-rps: "30"
+spec:
+  ingressClassName: nginx
+  tls: [{ hosts: ["edugest.example.org", "*.edugest.example.org"], secretName: edugest-tls }]
+  rules:
+    - host: edugest.example.org
+      http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: edugest-web, port: { number: 80 } } } }] }
+    - host: "*.edugest.example.org"                         # un sous-domaine par établissement
+      http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: edugest-web, port: { number: 80 } } } }] }
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: edugest-web, namespace: edugest }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: edugest-web }
+  minReplicas: 3
+  maxReplicas: 20
+  metrics: [{ type: Resource, resource: { name: cpu, target: { type: Utilization, averageUtilization: 65 } } }]
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: edugest-web, namespace: edugest }
+spec:
+  minAvailable: 2
+  selector: { matchLabels: { app: edugest-web } }
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata: { name: edugest-abonnements, namespace: edugest }
+spec:
+  schedule: "10 3 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - { name: tache, image: "registry.example.org/edugest:1.0.0", command: ["python", "manage.py", "traiter_abonnements"], envFrom: [{ configMapRef: { name: edugest-config } }, { secretRef: { name: edugest-secrets } }] }
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata: { name: edugest-retention-rgpd, namespace: edugest }
+spec:
+  schedule: "0 4 1 * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - { name: tache, image: "registry.example.org/edugest:1.0.0", command: ["python", "manage.py", "appliquer_retention_rgpd", "--appliquer"], envFrom: [{ configMapRef: { name: edugest-config } }, { secretRef: { name: edugest-secrets } }], volumeMounts: [{ name: fichiers, mountPath: /app/media }] }
+          volumes: [{ name: fichiers, persistentVolumeClaim: { claimName: edugest-fichiers } }]
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata: { name: edugest-metriques, namespace: edugest }
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - { name: tache, image: "registry.example.org/edugest:1.0.0", command: ["python", "manage.py", "collecter_metriques"], envFrom: [{ configMapRef: { name: edugest-config } }, { secretRef: { name: edugest-secrets } }], env: [{ name: NOM_NOEUD, value: cluster }] }

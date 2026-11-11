@@ -1,0 +1,109 @@
+/* ===================== Pages publiques : accueil, connexion, inscription ===================== */
+.public { min-height: 100vh; display: flex; flex-direction: column; background: var(--couleur-surface); }
+.public-entete { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; max-width: 76rem; width: 100%; margin: 0 auto; }
+.public-entete nav { display: flex; align-items: center; gap: .5rem; }
+.lien-discret { color: var(--couleur-texte); text-decoration: none; font-weight: 600; padding: .6rem .9rem; border-radius: var(--rayon-petit); }
+.lien-discret:hover { background: var(--couleur-neutre-claire); }
+.marque { text-decoration: none; }
+
+.heros { background: linear-gradient(180deg, var(--couleur-principale-claire) 0%, var(--couleur-surface) 100%); padding: 3.5rem 1.25rem 4rem; text-align: center; }
+.heros-contenu { max-width: 46rem; margin: 0 auto; }
+.heros h1 { font-size: clamp(1.9rem, 5vw, 3.1rem); font-weight: 750; line-height: 1.12; color: var(--couleur-principale-sombre); letter-spacing: -.02em; }
+.heros p { font-size: 1.15rem; color: var(--couleur-texte-doux); margin: 1.1rem auto 1.75rem; max-width: 38rem; }
+.heros .actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }
+.heros .btn { min-height: 3.2rem; padding-inline: 1.8rem; font-size: 1.05rem; }
+.mention { margin-top: 1rem; font-size: .88rem; color: var(--couleur-texte-doux); }
+
+.section-publique { max-width: 76rem; margin: 0 auto; padding: 3rem 1.25rem; width: 100%; }
+.section-publique h2 { font-size: 1.6rem; font-weight: 700; text-align: center; margin-bottom: .5rem; }
+.section-publique .intro { text-align: center; color: var(--couleur-texte-doux); margin-bottom: 2rem; }
+.grille-avantages { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.avantage { padding: 1.5rem; border: 1px solid var(--couleur-bordure); border-radius: var(--rayon-grand); background: var(--couleur-surface); }
+.avantage i { font-size: 1.6rem; color: var(--couleur-principale); background: var(--couleur-principale-claire); width: 3rem; height: 3rem; display: grid; place-items: center; border-radius: var(--rayon-moyen); margin-bottom: .9rem; }
+.avantage h3 { font-size: 1.05rem; font-weight: 650; }
+.avantage p { margin: 0; color: var(--couleur-texte-doux); font-size: .95rem; }
+.grille-tarifs { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); max-width: 56rem; margin: 0 auto; }
+.tarif { padding: 1.75rem; border: 1.5px solid var(--couleur-bordure); border-radius: var(--rayon-grand); text-align: center; background: var(--couleur-surface); }
+.tarif--vedette { border-color: var(--couleur-principale); box-shadow: var(--ombre-haute); }
+.tarif .prix { font-size: 2.2rem; font-weight: 750; color: var(--couleur-principale-sombre); }
+.tarif .prix small { font-size: .9rem; font-weight: 500; color: var(--couleur-texte-doux); }
+.tarif ul { list-style: none; padding: 0; margin: 1rem 0 0; color: var(--couleur-texte-doux); }
+.tarif li { padding: .3rem 0; }
+.public-pied { margin-top: auto; padding: 1.5rem 1.25rem; text-align: center; color: var(--couleur-texte-doux); font-size: .88rem; border-top: 1px solid var(--couleur-bordure); }
+.pied-plateforme {
+  position: relative; overflow: hidden; padding: 2.4rem max(1.25rem, env(safe-area-inset-left, 0px)) 1rem;
+  color: #d7e5e6; background: linear-gradient(125deg, #102f34 0%, #123f45 54%, #0c3036 100%);
+  border-top: 0; text-align: left;
+}
+.pied-plateforme::before { position: absolute; inset: 0 0 auto; height: 3px; content: ""; background: linear-gradient(90deg, #55c5b7, #e6b66e, #55c5b7); }
+.pied-plateforme__contenu, .pied-plateforme__bas { position: relative; z-index: 1; width: min(100%, 76rem); margin-inline: auto; }
+.pied-plateforme__contenu { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(16rem, .8fr); gap: 3rem; padding: .6rem 0 2rem; }
+.pied-plateforme__principal { max-width: 34rem; }
+.pied-plateforme__marque { display: inline-flex; align-items: center; gap: .75rem; max-width: 100%; color: #fff; font-size: 1.2rem; font-weight: 750; text-decoration: none; }
+.pied-plateforme__marque > span:last-child { overflow-wrap: anywhere; }
+.pied-plateforme__marque img, .pied-plateforme__icone { display: grid; place-items: center; flex: 0 0 2.8rem; width: 2.8rem; height: 2.8rem; border-radius: .85rem; object-fit: contain; }
+.pied-plateforme__marque img { padding: .2rem; background: #fff; }
+.pied-plateforme__icone { color: #fff; background: rgba(255,255,255,.12); font-size: 1.3rem; }
+.pied-plateforme__slogan { margin: .8rem 0 .35rem; color: #a9d8d3; font-size: .94rem; font-weight: 650; }
+.pied-plateforme__description { max-width: 34rem; margin: .45rem 0 0; color: #c1d2d3; font-size: .87rem; line-height: 1.7; overflow-wrap: anywhere; }
+.pied-plateforme__contact h2 { margin: .2rem 0 .85rem; color: #fff; font-size: .85rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.pied-plateforme__contact ul { display: grid; gap: .65rem; margin: 0; padding: 0; list-style: none; }
+.pied-plateforme__contact li { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); align-items: start; gap: .6rem; color: #d0dede; font-size: .84rem; line-height: 1.5; min-width: 0; }
+.pied-plateforme__contact li > i { margin-top: .13rem; color: #76cfc2; text-align: center; }
+.pied-plateforme__contact a { color: #e4eeee; text-decoration: none; overflow-wrap: anywhere; }
+.pied-plateforme__contact a:hover { color: #fff; text-decoration: underline; text-underline-offset: .2rem; }
+.pied-plateforme__contact-vide { color: #a9bdbe !important; }
+.pied-plateforme__bas { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .75rem 1rem; padding: 1rem 0 .25rem; border-top: 1px solid rgba(226,242,242,.16); color: #a9bdbe; font-size: .76rem; }
+.pied-plateforme__bas span { overflow-wrap: anywhere; }
+.pied-plateforme__bas a { display: inline-flex; align-items: center; gap: .35rem; color: #d4e5e5; text-decoration: none; }
+.pied-plateforme__bas a:hover { color: #fff; }
+@media (max-width: 767.98px) {
+  .pied-plateforme { padding: 1.8rem max(.9rem, env(safe-area-inset-left, 0px)) 1rem; }
+  .pied-plateforme__contenu { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; padding-bottom: 1.5rem; }
+  .pied-plateforme__bas { align-items: flex-start; flex-direction: column; }
+}
+
+/* Page d'erreur */
+.erreur-page {
+  flex: 1; display: grid; place-items: center; padding: 3rem 1.25rem;
+  background: radial-gradient(ellipse at 50% 0%, var(--couleur-principale-claire) 0%, var(--couleur-surface) 68%);
+}
+.erreur-page__carte { width: min(100%, 38rem); padding: clamp(1.75rem, 6vw, 3.5rem); border: 1px solid var(--couleur-bordure); border-radius: var(--rayon-grand); background: var(--couleur-surface); box-shadow: var(--ombre-haute); text-align: center; }
+.erreur-page__icone { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; margin: 0 auto 1.25rem; border-radius: 1.4rem; color: var(--couleur-principale); background: var(--couleur-principale-claire); font-size: 2rem; }
+.erreur-page__code { margin: 0 0 .4rem; color: var(--couleur-principale); font-size: .78rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+.erreur-page h1 { margin: 0; color: var(--couleur-texte); font-size: clamp(1.7rem, 5vw, 2.3rem); font-weight: 750; letter-spacing: -.03em; }
+.erreur-page__texte { max-width: 29rem; margin: .85rem auto 1.5rem; color: var(--couleur-texte-doux); line-height: 1.65; }
+.erreur-page__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .65rem; }
+@media (max-width: 575.98px) { .erreur-page__actions { flex-direction: column; } .erreur-page__actions .btn { width: 100%; } }
+
+/* Authentification : carte centrée large, avec panneau d'argumentaire sur bureau */
+.auth { flex: 1; display: grid; grid-template-columns: 1fr; background: var(--couleur-fond); }
+@media (min-width: 992px) { .auth { grid-template-columns: minmax(22rem, 5fr) 7fr; } }
+.auth-panneau { display: none; padding: 3rem; background: linear-gradient(160deg, var(--couleur-principale) 0%, var(--couleur-principale-sombre) 100%); color: #fff; flex-direction: column; justify-content: center; gap: 1.5rem; }
+@media (min-width: 992px) { .auth-panneau { display: flex; } }
+@media (min-width: 992px) { .auth-panneau--haut { justify-content: flex-start; } }
+.auth-panneau h2 { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
+.auth-panneau ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+.auth-panneau li { display: flex; gap: .8rem; align-items: flex-start; color: rgba(255,255,255,.92); }
+.auth-panneau li i { font-size: 1.25rem; color: #ffd9a3; margin-top: .1rem; }
+.auth-zone { display: grid; place-items: center; padding: 2rem 1rem; }
+.auth-carte { width: 100%; max-width: 38rem; background: var(--couleur-surface); border: 1px solid var(--couleur-bordure); border-radius: var(--rayon-grand); box-shadow: var(--ombre-haute); padding: 2rem 1.5rem; }
+@media (min-width: 576px) { .auth-carte { padding: 2.5rem 2.5rem; } }
+@media (min-width: 992px) { .auth-zone--carte-haute { padding-block: 0; align-items: stretch; } .auth-carte--hauteur-colonne { align-self: stretch; display: flex; flex-direction: column; justify-content: center; } }
+.auth-carte--etroite { max-width: 30rem; }
+.auth-carte h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: .35rem; }
+.auth-carte .sous-titre { margin-bottom: 1.75rem; font-size: .95rem; }
+.auth-carte .btn-principal { width: 100%; min-height: 3.2rem; font-size: 1.05rem; margin-top: 1.5rem; }
+.auth-pied { margin-top: 1.5rem; text-align: center; color: var(--couleur-texte-doux); font-size: .92rem; }
+.auth-pied a { font-weight: 600; }
+@media (max-width: 575.98px) {
+  .public-entete { flex-wrap: wrap; min-width: 0; }
+  .public-entete > .marque { flex: 1 1 auto; min-width: 0; }
+  .public-entete nav { flex: 1 1 100%; justify-content: flex-end; flex-wrap: nowrap; min-width: 0; }
+  .public-entete nav form { flex: 0 1 auto; min-width: 0; }
+  .public-entete nav form select { width: clamp(4.5rem, 25vw, 6.5rem); min-width: 0; padding-inline: .5rem 1.5rem; font-size: .8rem; }
+  .public-entete nav > a { flex: 0 1 auto; min-width: 0; padding-inline: .55rem; font-size: .82rem; text-align: center; }
+  .auth-zone { min-width: 0; padding: 1.25rem .75rem; }
+  .auth-carte { min-width: 0; padding: 1.5rem 1.1rem; }
+  .auth-carte .grille-formulaire { min-width: 0; }
+}

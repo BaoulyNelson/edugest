@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% get_current_language as LANG %}
+{% block titre %}{{ libelles.evaluations }}{% endblock %}
+{% block titre_contexte %}{{ libelles.evaluations }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{{ libelles.evaluations }}</h1>
+  {% if peut_exporter %}<div class="d-flex gap-2"><a class="btn btn-secondaire" href="?{{ parametres }}export=excel"><i class="bi bi-file-earmark-excel" aria-hidden="true"></i> Excel</a><a class="btn btn-secondaire" href="?{{ parametres }}export=pdf"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> PDF</a></div>{% endif %}</div>
+<form method="get" class="barre-filtres" data-auto-filtre>
+  <select class="form-select" name="vue" aria-label="{% translate 'Vue des résultats' %}">
+    <option value="matieres" {% if vue == "matieres" %}selected{% endif %}>{% translate "Résultats par matière" %}</option>
+    {% if peut_consulter_tous %}
+      <option value="bulletin" {% if vue == "bulletin" %}selected{% endif %}>{% translate "Bulletin synthétique" %}</option>
+    {% endif %}
+  </select>
+  <input class="form-control" type="search" name="apprenant" value="{{ filtres.apprenant }}" placeholder="{{ libelles.apprenant }}" aria-label="{{ libelles.apprenant }}">
+  <select class="form-select" name="annee" aria-label="{% translate 'Année' %}"><option value="">{% translate "Toutes les années" %}</option>{% for a in annees %}<option value="{{ a.pk }}" {% if filtres.annee == a.pk|stringformat:"s" %}selected{% endif %}>{{ a }}</option>{% endfor %}</select>
+  <select class="form-select" name="periode" aria-label="{% translate 'Période' %}"><option value="">{% translate "Toutes les périodes" %}</option>{% for p in periodes %}<option value="{{ p.pk }}" {% if filtres.periode == p.pk|stringformat:"s" %}selected{% endif %}>{{ p.nom }} ({{ p.annee }})</option>{% endfor %}</select>
+  <select class="form-select" name="niveau" aria-label="{% translate 'Niveau' %}"><option value="">{% translate "Tous les niveaux" %}</option>{% for n in niveaux %}<option value="{{ n.pk }}" {% if filtres.niveau == n.pk|stringformat:"s" %}selected{% endif %}>{{ n.nom }}</option>{% endfor %}</select>
+  <select class="form-select" name="classe" aria-label="{{ libelles.groupe }}"><option value="">{% translate "Tous les groupes" %}</option>{% for c in classes %}<option value="{{ c.pk }}" {% if filtres.classe == c.pk|stringformat:"s" %}selected{% endif %}>{{ c.nom }}</option>{% endfor %}</select>
+  {% if vue != "bulletin" %}
+    <select class="form-select" name="matiere" aria-label="{{ libelles.cours_singulier }}"><option value="">{% translate "Tous les cours" %}</option>{% for m in matieres %}<option value="{{ m.pk }}" {% if filtres.matiere == m.pk|stringformat:"s" %}selected{% endif %}>{{ m.nom }}</option>{% endfor %}</select>
+    <select class="form-select" name="composante" aria-label="{% translate 'Composante' %}"><option value="">{% translate "Toutes les composantes" %}</option>{% for c in composantes %}<option value="{{ c.pk }}" {% if filtres.composante == c.pk|stringformat:"s" %}selected{% endif %}>{{ c.intitule }} — {{ c.configuration.affectation.matiere_niveau.matiere }} — {{ c.configuration.periode.nom }}</option>{% endfor %}</select>
+    <select class="form-select" name="statut" aria-label="{% translate 'Statut' %}"><option value="">{% translate "Tous les statuts" %}</option>{% for code, libelle in statuts %}<option value="{{ code }}" {% if filtres.statut == code %}selected{% endif %}>{{ libelle }}</option>{% endfor %}</select>
+    <select class="form-select" name="publie" aria-label="{% translate 'Publication' %}"><option value="">{% translate "Publiés ou non" %}</option><option value="1" {% if filtres.publie == "1" %}selected{% endif %}>{% translate "Publiés" %}</option><option value="0" {% if filtres.publie == "0" %}selected{% endif %}>{% translate "Non publiés" %}</option></select>
+  {% endif %}
+</form>
+{% if vue == "bulletin" %}
+  {% if not periode_bulletin %}
+    <div class="message message--info" role="status"><i class="bi bi-info-circle" aria-hidden="true"></i><div>{% translate "Choisissez une période pour afficher le bulletin synthétique consolidé de chaque apprenant." %}</div></div>
+  {% else %}
+    <div class="entete-page">
+      <div><h2 class="h5 mb-1">{% translate "Bulletins synthétiques" %} · {{ periode_bulletin.nom }}</h2><p class="sous-titre mb-0">{% translate "Les bulletins ne sont établis qu’à partir des résultats publiés." %}</p></div>
+      {% if peut_exporter %}<div class="d-flex gap-2"><a class="btn btn-secondaire" href="?{{ parametres }}export=excel"><i class="bi bi-file-earmark-excel" aria-hidden="true"></i> Excel</a><a class="btn btn-secondaire" href="?{{ parametres }}export=pdf"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> PDF</a></div>{% endif %}
+    </div>
+    {% if not classement_autorise %}<div class="message message--info" role="status"><i class="bi bi-shield-lock" aria-hidden="true"></i><div>{% translate "Le classement est désactivé dans les paramètres de l’établissement. Les rangs apparaîtront lorsqu’il sera autorisé." %}{% if peut_configurer %} <a href="{% url 'parametres' %}">{% translate "Activer le classement dans les paramètres" %}</a>.{% endif %}</div></div>{% endif %}
+    <div class="carte defilement-controle">
+      <table class="tableau tableau-adaptatif"><thead><tr>
+        <th>{{ libelles.apprenant }}</th><th>{{ libelles.groupe }}</th>
+        {% for matiere in matieres_bulletin %}<th>{{ matiere.nom }}<small class="d-block text-muted">{% with bareme=baremes_bulletin|element:matiere.pk %}{% if bareme %}{% translate "sur" %} {{ bareme|nombre }}{% else %}{% translate "Barème selon la classe" %}{% endif %}{% endwith %}</small></th>{% endfor %}
+        {% if classement_autorise %}<th>{% translate "Rang" %}</th>{% endif %}
+        <th>{% translate "Moyenne générale" %}</th><th>{% translate "Matières" %}</th><th>{% translate "État du bulletin" %}</th><th>{% translate "Document officiel" %}</th>
+      </tr></thead><tbody>
+      {% for b in bulletins %}<tr>
+        <td class="principal" data-libelle="{{ libelles.apprenant }}">{{ b.inscription.apprenant }}</td>
+        <td data-libelle="{{ libelles.groupe }}">{{ b.inscription.classe|default:b.inscription.niveau }}</td>
+        {% for matiere in matieres_bulletin %}{% with note=b.notes_matieres|element:matiere.pk %}
+          <td data-libelle="{{ matiere.nom }}">{% if note.total != None %}{{ note.total|nombre }}{% if not baremes_bulletin|element:matiere.pk %} / {{ note.bareme|nombre }}{% else %}<span class="d-md-none"> / {{ note.bareme|nombre }}</span>{% endif %}{% elif note.statut %}{{ note.statut }}{% else %}—{% endif %}</td>
+        {% endwith %}{% endfor %}
+        {% if classement_autorise %}<td data-libelle="{% translate 'Rang' %}">{% if b.rang %}<strong>{% if b.rang == 1 %}{% translate "1er" %}{% else %}{{ b.rang }}{% translate "e" %}{% endif %}</strong>{% else %}—{% endif %}</td>{% endif %}
+        <td data-libelle="{% translate 'Moyenne générale' %}">{% if b.moyenne %}<strong>{{ b.moyenne.moyenne|nombre }}/{{ b.moyenne.echelle }}</strong><small class="d-block text-muted">{% translate "Total général" %} : {{ b.moyenne.total_points|nombre }} / {{ b.moyenne.bareme_total|nombre }} {% translate "pts" %}</small>{% else %}—{% endif %}</td>
+        <td data-libelle="{% translate 'Matières' %}">{{ b.matieres_comptees }} / {{ b.matieres_attendues }}</td>
+        <td data-libelle="{% translate 'État du bulletin' %}">{% if b.complet %}<span class="badge-statut badge-statut--succes">{% translate "Complet" %}</span>{% else %}<span class="badge-statut badge-statut--attention">{% translate "Incomplet" %}</span>{% endif %}</td>
+        <td data-libelle="{% translate 'Document officiel' %}">
+          {% if b.document_actif %}
+            <a class="btn btn-secondaire btn-sm" href="{% url 'evaluations:document_telecharger' b.document_actif.pk %}"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> {% translate "Version" %} {{ b.document_actif.version }}</a>
+            <form method="post" action="{% url 'evaluations:document_revoquer' b.document_actif.pk %}" class="mt-2">
+              {% csrf_token %}
+              <input class="form-control form-control-sm mb-1" name="motif" required maxlength="500" placeholder="{% translate 'Motif de révocation' %}" aria-label="{% translate 'Motif de révocation' %}">
+              <button class="btn btn-secondaire btn-sm" type="submit">{% translate "Révoquer" %}</button>
+            </form>
+          {% elif b.complet %}
+            <form method="post" action="{% url 'evaluations:document_creer' b.inscription.pk periode_bulletin.pk %}">
+              {% csrf_token %}
+              <button class="btn btn-primaire btn-sm" type="submit"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> {% translate "Émettre le PDF" %}</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>{% empty %}<tr><td colspan="{% if classement_autorise %}{{ matieres_bulletin|length|add:7 }}{% else %}{{ matieres_bulletin|length|add:6 }}{% endif %}" class="etat-vide">{% translate "Aucun bulletin publié pour cette période et ces critères." %}</td></tr>{% endfor %}
+      </tbody></table>
+    </div>
+  {% endif %}
+{% else %}
+  {% if not classement_autorise %}<div class="message message--info" role="status"><i class="bi bi-shield-lock" aria-hidden="true"></i><div>{% translate "Le classement est désactivé dans les paramètres de l’établissement. Les rangs apparaîtront lorsqu’il sera autorisé." %}{% if peut_configurer %} <a href="{% url 'parametres' %}">{% translate "Activer le classement dans les paramètres" %}</a>.{% endif %}</div></div>{% endif %}
+  <div class="carte defilement-controle">
+    <table class="tableau tableau-adaptatif"><thead><tr><th>{{ libelles.apprenant }}</th>{% if classement_autorise %}<th>{% translate "Rang" %}</th>{% endif %}<th>{{ libelles.cours_singulier }}</th><th class="secondaire">{% translate "Période" %}</th><th>{% translate "Total" %}</th><th>{% translate "Statut" %}</th><th class="secondaire">{% translate "Publié" %}</th></tr></thead><tbody>
+    {% for r in page %}<tr><td class="principal" data-libelle="{{ libelles.apprenant }}">{{ r.inscription.apprenant }}</td>{% if classement_autorise %}<td data-libelle="{% translate 'Rang' %}">{% if r.rang %}<strong>{% if r.rang == 1 %}{% translate "1er" %}{% else %}{{ r.rang }}{% translate "e" %}{% endif %}</strong>{% else %}—{% endif %}</td>{% endif %}<td data-libelle="{{ libelles.cours_singulier }}">{{ r.matiere_niveau.matiere }}</td><td class="secondaire" data-libelle="{% translate 'Période' %}">{{ r.periode.nom }}</td>
+      <td data-libelle="{% translate 'Total' %}">{{ r.total|nombre }}/{{ r.bareme_applique|nombre }}</td><td data-libelle="{% translate 'Statut' %}">{% statut r.statut %}</td><td class="secondaire" data-libelle="{% translate 'Publié' %}">{% if r.publie %}{% translate "Oui" %}{% else %}{% translate "Non" %}{% endif %}</td></tr>
+    {% empty %}<tr><td colspan="{% if classement_autorise %}7{% else %}6{% endif %}" class="etat-vide">{% translate "Aucun résultat pour ces critères." %}</td></tr>{% endfor %}</tbody></table></div>
+  {% include "interface/composants/_pagination.html" %}
+{% endif %}
+{% endblock %}

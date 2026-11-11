@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}Synthèse{% endblock %}
+{% block titre_contexte %}{{ libelles.evaluations }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{{ config.affectation.matiere_niveau.matiere }} · {{ config.periode.nom }}</h1>
+  <div class="sous-titre">{{ config.affectation.classe|default:config.affectation.matiere_niveau.niveau }}</div></div></div>
+<div class="grille-indicateurs mb-4">
+  <div class="indicateur"><strong>{{ stats.effectif }}</strong><span>{{ libelles.apprenants }}</span></div>
+  <div class="indicateur"><strong>{{ stats.moyenne_pct|default_if_none:"-" }}{% if stats.moyenne_pct is not None %} %{% endif %}</strong><span>{% translate "Moyenne de la classe" %}</span></div>
+  <div class="indicateur"><strong>{{ stats.taux_reussite|default_if_none:"-" }}{% if stats.taux_reussite is not None %} %{% endif %}</strong><span>{% translate "Taux de réussite" %}</span></div>
+  <div class="indicateur"><strong>{{ stats.incomplets }}</strong><span>{% translate "Résultats incomplets" %}</span></div>
+</div>
+<section class="carte defilement-controle"><h2>{{ libelles.evaluations }}</h2>
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{{ libelles.apprenant }}</th><th>{% translate "Total" %}</th><th>%</th><th>{% translate "Statut" %}</th><th>{% translate "Publication" %}</th></tr></thead><tbody>
+  {% for r in resultats %}<tr><td class="principal" data-libelle="{{ libelles.apprenant }}">{{ r.inscription.apprenant }}</td><td data-libelle="Total">{{ r.total|nombre }}/{{ r.bareme_applique|nombre }}</td>
+    <td data-libelle="%">{{ r.pourcentage|nombre }}</td><td data-libelle="{% translate 'Statut' %}">{% statut r.statut %}</td><td data-libelle="{% translate 'Publication' %}">{% if r.publie %}{% translate "Publié" %}{% else %}{% translate "Non publié" %}{% endif %}</td></tr>
+  {% empty %}<tr><td colspan="5" class="etat-vide">{% translate "Aucun résultat." %}</td></tr>{% endfor %}</tbody></table></section>
+{% if stats.en_difficulte %}<section class="carte"><h2>{{ libelles.apprenants }} {% translate "en difficulté" %}</h2>
+  {% for r in stats.en_difficulte %}<div class="d-flex justify-content-between py-1 border-bottom"><span>{{ r.inscription.apprenant }}</span><strong>{{ r.pourcentage|nombre }} %</strong></div>{% endfor %}</section>{% endif %}
+{% if stats.classement %}<section class="carte"><h2>{% translate "Classement" %}</h2>
+  {% for r in stats.classement %}<div class="d-flex justify-content-between py-1 border-bottom"><span>{{ forloop.counter }}. {{ r.inscription.apprenant }}</span><strong>{{ r.pourcentage|nombre }} %</strong></div>{% endfor %}</section>{% endif %}
+{% if peut_publier and config.statut != "BROUILLON" %}
+<section class="carte-formulaire"><h2>{% translate "Publication" %}</h2>
+  <form method="post" class="mb-3" data-confirmer="{% translate 'Publier les résultats ? Ils deviendront visibles des apprenants et des parents.' %}">{% csrf_token %}<input type="hidden" name="action" value="publier">
+    {% if stats.incomplets %}<label class="d-block mb-2"><input type="checkbox" name="forcer" value="1"> {% translate "Publier malgré des résultats incomplets (ils resteront non publiés)" %}</label>{% endif %}
+    <button class="btn btn-principal" type="submit">{% translate "Publier les résultats complets" %}</button></form>
+  <form method="post" novalidate>{% csrf_token %}<input type="hidden" name="action" value="depublier">
+    <label class="form-label" for="motif">{% translate "Dépublier (motif obligatoire)" %}</label><input class="form-control mb-2" id="motif" name="motif"><button class="btn btn-danger-doux" type="submit">{% translate "Dépublier" %}</button></form></section>
+{% endif %}
+{% endblock %}

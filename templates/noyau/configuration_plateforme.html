@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block titre %}{% translate "Identité de l’ERP" %}{% endblock %}
+{% block tete %}<link href="{% static 'css/plateforme.css' %}" rel="stylesheet">{% endblock %}
+{% block contenu_simple %}
+<div class="configuration-plateforme">
+  <header class="plateforme-hero configuration-plateforme__hero">
+    <div class="plateforme-hero__texte">
+      <span class="plateforme-surtitre"><i class="bi bi-sliders" aria-hidden="true"></i> {% translate "Paramètres de la plateforme" %}</span>
+      <h1>{% translate "Une identité à votre image" %}</h1>
+      <p>{% translate "Personnalisez la marque de votre ERP. Ces informations apparaissent sur les pages publiques, les en-têtes et les communications de la plateforme." %}</p>
+    </div>
+    <a class="btn btn-hero-secondaire" href="{% url 'plateforme' %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> {% translate "Retour à la console" %}</a>
+    <i class="bi bi-palette plateforme-hero__repere" aria-hidden="true"></i>
+  </header>
+
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}
+  <div class="configuration-plateforme__grille">
+    <form method="post" enctype="multipart/form-data" class="configuration-plateforme__formulaire" novalidate>
+      {% csrf_token %}
+      <section class="plateforme-section configuration-plateforme__section" aria-labelledby="titre-marque">
+        <div class="configuration-plateforme__section-entete">
+          <span class="plateforme-section__icone"><i class="bi bi-stars" aria-hidden="true"></i></span>
+          <div><span class="plateforme-etiquette">{% translate "Présentation" %}</span><h2 id="titre-marque">{% translate "Nom et identité visuelle" %}</h2><p>{% translate "Définissez le nom qui sera reconnu par vos utilisateurs." %}</p></div>
+        </div>
+        <div class="configuration-plateforme__champs configuration-plateforme__champs--marque">
+          {% with champ=formulaire.nom %}{% include "interface/composants/_champ.html" %}{% endwith %}
+          {% with champ=formulaire.nom_court %}{% include "interface/composants/_champ.html" %}{% endwith %}
+          {% with champ=formulaire.slogan %}{% include "interface/composants/_champ.html" %}{% endwith %}
+          {% with champ=formulaire.logo %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        </div>
+      </section>
+
+      <section class="plateforme-section configuration-plateforme__section" aria-labelledby="titre-coordonnees">
+        <div class="configuration-plateforme__section-entete">
+          <span class="plateforme-section__icone"><i class="bi bi-chat-square-text" aria-hidden="true"></i></span>
+          <div><span class="plateforme-etiquette">{% translate "Contact" %}</span><h2 id="titre-coordonnees">{% translate "Coordonnées de la plateforme" %}</h2><p>{% translate "Aidez vos visiteurs à savoir qui contacter et où vous trouver." %}</p></div>
+        </div>
+        <div class="configuration-plateforme__champs">
+          {% with champ=formulaire.email %}{% include "interface/composants/_champ.html" %}{% endwith %}
+          {% with champ=formulaire.telephone %}{% include "interface/composants/_champ.html" %}{% endwith %}
+          {% with champ=formulaire.site_web %}{% include "interface/composants/_champ.html" %}{% endwith %}
+          {% with champ=formulaire.adresse %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        </div>
+        <p class="sous-titre">{% translate "Réseaux sociaux facultatifs : seuls les liens renseignés apparaîtront dans le pied de page public." %}</p>
+        <div class="configuration-plateforme__champs">
+          {% with champ=formulaire.linkedin_url %}{% include "interface/composants/_champ.html" %}{% endwith %}
+          {% with champ=formulaire.facebook_url %}{% include "interface/composants/_champ.html" %}{% endwith %}
+          {% with champ=formulaire.instagram_url %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        </div>
+      </section>
+
+      <section class="plateforme-section configuration-plateforme__section" aria-labelledby="titre-pied">
+        <div class="configuration-plateforme__section-entete">
+          <span class="plateforme-section__icone"><i class="bi bi-layout-text-window-reverse" aria-hidden="true"></i></span>
+          <div><span class="plateforme-etiquette">{% translate "Pages publiques" %}</span><h2 id="titre-pied">{% translate "Message de pied de page" %}</h2><p>{% translate "Ajoutez une courte mention, une signature ou vos informations institutionnelles." %}</p></div>
+        </div>
+        {% with champ=formulaire.pied_de_page %}{% include "interface/composants/_champ.html" %}{% endwith %}
+      </section>
+
+      <div class="configuration-plateforme__actions">
+        <span><i class="bi bi-shield-check" aria-hidden="true"></i> {% translate "Ces réglages s’appliquent à l’ERP, pas aux marques propres à chaque établissement." %}</span>
+        <button class="btn btn-principal" type="submit"><i class="bi bi-check2-circle" aria-hidden="true"></i> {% translate "Enregistrer les changements" %}</button>
+      </div>
+    </form>
+
+    <aside class="configuration-plateforme__apercu" aria-label="{% translate 'Aperçu de la marque' %}">
+      <section class="plateforme-section configuration-plateforme__carte-apercu">
+        <div class="configuration-plateforme__apercu-entete">
+          <span class="configuration-plateforme__pastille"><i class="bi bi-eye" aria-hidden="true"></i> {% translate "Aperçu en direct" %}</span>
+          <h2>{% translate "Votre marque dans l’ERP" %}</h2>
+          <p>{% translate "L’aperçu se met à jour pendant votre saisie." %}</p>
+        </div>
+        <div class="configuration-plateforme__simulation">
+          <div class="configuration-plateforme__simulation-barre">
+            {% if marque_plateforme.logo %}<img class="configuration-plateforme__logo" data-apercu-logo src="{{ marque_plateforme.logo.url }}" alt="">
+            {% else %}<span class="configuration-plateforme__logo configuration-plateforme__logo--defaut" data-apercu-icone><i class="bi bi-mortarboard" aria-hidden="true"></i></span>{% endif %}
+            <strong data-apercu-nom-court>{{ marque_plateforme.nom_court|default:marque_plateforme.nom }}</strong>
+            <span class="configuration-plateforme__simulation-menu"><i class="bi bi-list" aria-hidden="true"></i></span>
+          </div>
+          <div class="configuration-plateforme__simulation-contenu">
+            <span class="configuration-plateforme__simulation-etiquette">{% translate "Page d’accueil" %}</span>
+            <h3 data-apercu-nom>{{ marque_plateforme.nom }}</h3>
+            <p data-apercu-slogan>{% if marque_plateforme.slogan %}{{ marque_plateforme.slogan }}{% else %}{% translate "Votre slogan apparaîtra ici." %}{% endif %}</p>
+            <div class="configuration-plateforme__simulation-liens"><span>{% translate "Découvrir" %}</span><span>{% translate "En savoir plus" %}</span></div>
+          </div>
+          <div class="configuration-plateforme__simulation-pied">
+            <strong data-apercu-pied-nom>{{ marque_plateforme.nom }}</strong>
+            <span data-apercu-coordonnees>{% if marque_plateforme.email %}{{ marque_plateforme.email }}{% endif %}{% if marque_plateforme.telephone %}{% if marque_plateforme.email %} · {% endif %}{{ marque_plateforme.telephone }}{% endif %}</span>
+            <small data-apercu-pied-texte>{% if marque_plateforme.pied_de_page %}{{ marque_plateforme.pied_de_page }}{% else %}{% translate "Votre signature institutionnelle apparaîtra ici." %}{% endif %}</small>
+          </div>
+        </div>
+        <div class="configuration-plateforme__note"><i class="bi bi-info-circle" aria-hidden="true"></i><span>{% translate "Votre logo et votre nom court sont utilisés dans les en-têtes. Les coordonnées et la signature s’affichent dans le pied des pages publiques." %}</span></div>
+      </section>
+    </aside>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/configuration_plateforme.js' %}" defer></script>{% endblock %}

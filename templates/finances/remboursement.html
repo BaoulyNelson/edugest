@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{% translate "Remboursement" %}{% endblock %}
+{% block titre_contexte %}{% translate "Remboursement" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div>
+    <h1 class="titre-page">{% translate "Rembourser un paiement" %}</h1>
+    <p class="texte-secondaire">{{ paiement.numero_recu }} · {{ paiement.apprenant }} · {{ paiement.montant }}</p>
+  </div>
+  <a class="btn btn-secondaire" href="{% if paiement.facture_id %}{% url 'finances:facture_detail' paiement.facture_id %}{% else %}{% url 'finances:paiements' %}{% endif %}">{% translate "Retour" %}</a>
+</div>
+<section class="carte-formulaire mb-4">
+  <p>{% translate "Montant remboursable" %} : <strong>{{ restant }}</strong></p>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}
+    <div class="actions-formulaire mt-3"><button class="btn btn-principal" type="submit">{% translate "Enregistrer le remboursement" %}</button></div>
+  </form>
+</section>
+<section class="carte">
+  <h2>{% translate "Historique des remboursements" %}</h2>
+  <ul>{% for remboursement in remboursements %}<li>{{ remboursement.date_remboursement|date:"d/m/Y H:i" }} · {{ remboursement.montant }} · {{ remboursement.motif }}</li>{% empty %}<li>{% translate "Aucun remboursement." %}</li>{% endfor %}</ul>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load interface_extras %}
+{% block titre %}Abonnement{% endblock %}
+{% block titre_contexte %}Abonnement{% endblock %}
+{% block contenu %}
+{% with a=usage.abonnement %}
+<div class="entete-page"><h1 class="titre-page">Abonnement</h1>{% if a %}<span class="badge-statut {% if actif %}badge-statut--succes{% else %}badge-statut--danger{% endif %}">{{ a.get_statut_display }}</span>{% endif %}</div>
+{% if not actif %}<div class="message message--error"><i class="bi bi-lock" aria-hidden="true"></i><div>{{ message }}</div></div>{% endif %}
+{% if a %}
+<div class="grille-indicateurs mb-4">
+  <div class="indicateur"><strong>{{ a.plan.nom }}</strong><span>Formule actuelle</span></div>
+  <div class="indicateur"><strong>{{ usage.apprenants }}{% if a.plan.limite_apprenants %} / {{ a.plan.limite_apprenants }}{% endif %}</strong><span>{{ libelles.apprenants }}</span></div>
+  <div class="indicateur"><strong>{{ usage.membres }}{% if a.plan.limite_membres %} / {{ a.plan.limite_membres }}{% endif %}</strong><span>Membres du personnel</span></div>
+  {% if a.date_fin_essai %}<div class="indicateur"><strong>{{ a.date_fin_essai|date:"d/m/Y" }}</strong><span>Fin de l'essai</span></div>{% endif %}
+</div>
+{% endif %}
+<section class="carte"><h2>Formules disponibles</h2>
+  <div class="grille-tarifs">
+  {% for plan in plans %}<div class="tarif {% if a and plan.pk == a.plan_id %}tarif--vedette{% endif %}"><h3 class="h5">{{ plan.nom }}</h3>
+    <div class="prix">{% if plan.prix_mensuel == 0 %}Gratuit{% else %}{{ plan.prix_mensuel|floatformat:"-0" }} $<small> / mois</small>{% endif %}</div>
+    <ul><li>{% if plan.limite_apprenants %}{{ plan.limite_apprenants }} {{ libelles.apprenants|lower }}{% else %}{{ libelles.apprenants }} illimités{% endif %}</li><li>{% if plan.limite_membres %}{{ plan.limite_membres }} membres du personnel{% else %}Personnel illimité{% endif %}</li></ul></div>{% endfor %}
+  </div>
+  <p class="sous-titre mt-3 mb-0">Pour changer de formule, contactez l'administrateur de la plateforme.</p>
+</section>
+<section class="carte mt-4">
+  <h2>Historique d’utilisation</h2>
+  <div class="table-responsive"><table class="tableau tableau-adaptatif">
+    <thead><tr><th>Date</th><th>{{ libelles.apprenants }}</th><th>Membres</th><th>Invitations en attente</th></tr></thead>
+    <tbody>{% for mesure in historique_usage %}
+      <tr><td>{{ mesure.date|date:"d/m/Y" }}</td><td>{{ mesure.nombre_apprenants }}</td><td>{{ mesure.nombre_membres }}</td><td>{{ mesure.invitations_en_attente }}</td></tr>
+    {% empty %}<tr><td colspan="4">Aucune mesure enregistrée.</td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+{% endwith %}
+{% endblock %}

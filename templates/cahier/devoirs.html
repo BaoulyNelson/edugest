@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block titre %}Devoirs{% endblock %}
+{% block titre_contexte %}Devoirs{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">Devoirs</h1><p class="sous-titre mb-0">Consignes, échéances et remises des élèves.</p></div>
+  <a class="btn btn-principal" href="{% url 'cahier:devoir_creer' %}">Publier un devoir</a>
+</div>
+<section class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>Devoir</th><th>Classe</th><th>Matière</th><th>À remettre le</th><th>Remises</th></tr></thead>
+    <tbody>
+      {% for devoir in devoirs %}
+      <tr>
+        <td class="principal" data-libelle="Devoir"><a href="{% url 'cahier:devoir' devoir.pk %}"><strong>{{ devoir.titre }}</strong></a></td>
+        <td data-libelle="Classe">{{ devoir.classe }}</td>
+        <td data-libelle="Matière">{{ devoir.matiere_niveau.matiere }}</td>
+        <td data-libelle="Échéance">{{ devoir.date_limite|date:"d/m/Y" }}</td>
+        <td data-libelle="Remises">{{ devoir.remises.count }}</td>
+      </tr>
+      {% empty %}<tr><td colspan="5">Aucun devoir publié.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

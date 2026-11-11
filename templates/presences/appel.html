@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Appel des présences" %}{% endblock %}
+{% block titre_contexte %}{% translate "Présences" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{% translate "Appel des présences" %}</h1><p class="sous-titre mb-0">{% translate "Enregistrez les présences, absences et retards de vos classes." %}</p></div>
+  {% if peut_consulter %}<a class="btn btn-secondaire" href="{% url 'presences:liste' %}">{% translate "Historique" %}</a>{% endif %}
+</div>
+<form method="get" class="carte-formulaire" data-auto-filtre>
+  <div class="grille-formulaire">
+    {% include "interface/composants/_champ.html" with champ=formulaire.classe %}
+    {% include "interface/composants/_champ.html" with champ=formulaire.date %}
+  </div>
+</form>
+{% if formulaire.date.errors %}<div class="message message--error" role="alert">{{ formulaire.date.errors|join:" " }}</div>{% endif %}
+{% if formulaire.classe.errors %}<div class="message message--error" role="alert">{{ formulaire.classe.errors|join:" " }}</div>{% endif %}
+{% if formulaire.is_bound and formulaire.classe.value %}
+  {% if lignes %}
+  <form method="post" class="carte defilement-controle">
+    {% csrf_token %}
+    <input type="hidden" name="classe" value="{{ formulaire.classe.value }}">
+    <input type="hidden" name="date" value="{{ formulaire.date.value }}">
+    {% if appel_existant %}<p class="sous-titre">{% translate "Un appel existe déjà pour cette classe et cette date; son enregistrement mettra à jour les statuts." %}</p>{% endif %}
+    <table class="tableau tableau-adaptatif">
+      <thead><tr><th>{% translate "Apprenant" %}</th><th>{% translate "Statut" %}</th><th>{% translate "Motif (facultatif)" %}</th></tr></thead>
+      <tbody>
+      {% for ligne in lignes %}
+        <tr>
+          <td class="principal" data-libelle="{% translate 'Apprenant' %}">{{ ligne.inscription.apprenant }}</td>
+          <td data-libelle="{% translate 'Statut' %}">
+            <label class="visually-hidden" for="statut-{{ ligne.inscription.pk }}">{% translate "Statut" %} — {{ ligne.inscription.apprenant }}</label>
+            <select class="form-select" id="statut-{{ ligne.inscription.pk }}" name="statut_{{ ligne.inscription.pk }}">
+              {% for code, libelle in statuts %}<option value="{{ code }}" {% if ligne.statut == code %}selected{% endif %}>{{ libelle }}</option>{% endfor %}
+            </select>
+          </td>
+          <td data-libelle="{% translate 'Motif' %}"><input class="form-control" name="motif_{{ ligne.inscription.pk }}" maxlength="150" value="{{ ligne.motif }}" aria-label="{% translate 'Motif' %} {{ ligne.inscription.apprenant }}"></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <div class="actions-formulaire"><button class="btn btn-principal" type="submit" name="enregistrer" value="1"><i class="bi bi-check-lg" aria-hidden="true"></i> {% translate "Enregistrer l’appel" %}</button></div>
+  </form>
+  {% else %}
+    <div class="carte etat-vide">{% translate "Aucun apprenant validé n’est inscrit dans cette classe." %}</div>
+  {% endif %}
+{% endif %}
+{% endblock %}

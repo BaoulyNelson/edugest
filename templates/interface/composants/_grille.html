@@ -1,0 +1,3 @@
+{# Rend tous les champs d'un formulaire dans une grille responsive. #}
+{% if formulaire.non_field_errors %}<div class="message message--error" role="alert"><i class="bi bi-x-octagon" aria-hidden="true"></i><div>{{ formulaire.non_field_errors|join:" " }}</div></div>{% endif %}
+<div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>

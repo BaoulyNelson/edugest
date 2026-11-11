@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Paiements{% endblock %}
+{% block titre_contexte %}Paiements{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% translate "Paiements" %}</h1><div class="d-flex gap-2"><a class="btn btn-secondaire" href="{% url 'finances:factures' %}">{% translate "Factures" %}</a><a class="btn btn-principal" href="{% url 'finances:paiement_creer' %}">{% translate "Enregistrer un paiement" %}</a></div></div>
+<section class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{% translate "Reçu" %}</th><th>{{ libelles.apprenant }}</th><th>{% translate "Motif" %}</th><th>{% translate "Date" %}</th><th>{% translate "Mode" %}</th><th>{% translate "Montant" %}</th><th></th></tr></thead><tbody>
+  {% for paiement in page %}
+    <tr><td class="principal" data-libelle="{% translate 'Reçu' %}">{{ paiement.numero_recu|default:"—" }}</td><td data-libelle="{{ libelles.apprenant }}">{{ paiement.apprenant }}</td><td data-libelle="{% translate 'Motif' %}">{{ paiement.motif }}</td><td data-libelle="{% translate 'Date' %}">{{ paiement.date_paiement|date:"d/m/Y" }}</td><td data-libelle="{% translate 'Mode' %}">{{ paiement.get_mode_display }}</td><td data-libelle="{% translate 'Montant' %}">{{ paiement.montant }}</td><td class="d-flex gap-2">{% if paiement.numero_recu %}<a class="btn btn-secondaire btn-sm" href="{% url 'finances:recu' paiement.pk %}">{% translate "Reçu PDF" %}</a>{% endif %}{% if peut_gerer %}<a class="btn btn-secondaire btn-sm" href="{% url 'finances:paiement_rembourser' paiement.pk %}">{% translate "Rembourser" %}</a>{% endif %}</td></tr>
+  {% empty %}<tr><td colspan="7">{% translate "Aucun paiement enregistré." %}</td></tr>{% endfor %}
+  </tbody></table>
+</section>
+{% if page.has_other_pages %}<nav class="pagination" aria-label="{% translate 'Pagination' %}">
+  {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">{% translate "Précédent" %}</a>{% endif %}
+  <span>{% translate "Page" %} {{ page.number }} {% translate "sur" %} {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}<a href="?page={{ page.next_page_number }}">{% translate "Suivant" %}</a>{% endif %}
+</nav>{% endif %}
+{% endblock %}

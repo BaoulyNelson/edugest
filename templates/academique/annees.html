@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Années académiques" %}{% endblock %}
+{% block titre_contexte %}{% translate "Années académiques" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% translate "Années académiques" %}</h1>
+  <a class="btn btn-principal" href="{% url 'academique:annee_creer' %}"><i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Nouvelle année" %}</a></div>
+<div class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>{% translate "Année" %}</th><th>{% translate "Début" %}</th><th>{% translate "Fin" %}</th><th>{% translate "Statut" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for a in annees %}
+      <tr><td class="principal" data-libelle="{% translate 'Année' %}">{{ a.designation }}</td><td data-libelle="{% translate 'Début' %}">{{ a.date_debut|date:"d/m/Y" }}</td><td data-libelle="{% translate 'Fin' %}">{{ a.date_fin|date:"d/m/Y" }}</td>
+          <td data-libelle="{% translate 'Statut' %}">{% statut a.statut %}</td>
+          <td class="actions"><a class="btn btn-secondaire btn-sm" href="{% url 'academique:periodes' a.pk %}">{% translate "Gérer" %}</a></td></tr>
+    {% empty %}<tr><td colspan="5" class="etat-vide">{% translate "Aucune année. Créez la première pour commencer les inscriptions." %}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+<div class="carte">
+  {% for e in liste %}
+    <form method="post" action="{% url 'choisir_etablissement' e.pk %}" class="d-flex justify-content-between align-items-center py-2 border-bottom gap-2">
+      {% csrf_token %}
+      <div><strong>{{ e.nom }}</strong><br><span class="sous-titre">{{ e.get_type_display }}</span></div>
+      {% if e.pk == request.etablissement.pk %}<span class="badge-statut badge-statut--succes"><i class="bi bi-check-circle" aria-hidden="true"></i> Courant</span>
+      {% else %}<button class="btn btn-secondaire" type="submit">Utiliser</button>{% endif %}
+    </form>
+  {% empty %}<div class="etat-vide">Aucun établissement disponible.</div>{% endfor %}
+</div>

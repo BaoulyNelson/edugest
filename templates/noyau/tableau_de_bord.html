@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% load interface_extras static i18n %}
+{% block titre %}Accueil{% endblock %}
+{% block titre_contexte %}Accueil{% endblock %}
+{% block tete %}<link rel="stylesheet" href="{% static 'css/tableau_de_bord.css' %}?v=2">{% endblock %}
+{% block contenu %}
+<div class="tableau-bord">
+  <header class="tableau-bord__hero">
+    <div class="tableau-bord__hero-contenu">
+      <span class="tableau-bord__surtitre"><i class="bi bi-grid-1x2" aria-hidden="true"></i> {% translate "Votre espace de travail" %}</span>
+      <h1>{% translate "Bonjour" %} {{ user.first_name|default:user.username }}</h1>
+      <p>{{ request.appartenance.role|default:"Administrateur plateforme" }} <span aria-hidden="true">·</span> {{ etablissement_courant.nom }}</p>
+      <a class="text-white" href="{% url 'accueil_public' %}">{% translate "Voir le site public" %} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="tableau-bord__repere">
+      {% if annee %}
+        <span class="tableau-bord__badge"><i class="bi bi-calendar-check" aria-hidden="true"></i> {% blocktrans with designation=annee.designation %}Année {{ designation }}{% endblocktrans %}</span>
+      {% else %}
+        <span class="tableau-bord__badge tableau-bord__badge--attention"><i class="bi bi-calendar-x" aria-hidden="true"></i> {% translate "Aucune année active" %}</span>
+      {% endif %}
+      <i class="bi bi-mortarboard tableau-bord__illustration" aria-hidden="true"></i>
+    </div>
+  </header>
+
+  {% if indicateurs %}
+    <section class="tableau-bord__indicateurs" aria-label="{% translate 'Indicateurs de l’établissement' %}">
+      {% for libelle, valeur, route, parametres in indicateurs %}
+        <a class="tableau-bord__indicateur tableau-bord__indicateur--{{ forloop.counter }}" href="{% url route %}{{ parametres }}">
+          <span class="tableau-bord__indicateur-icone" aria-hidden="true">
+            {% if forloop.counter == 1 %}<i class="bi bi-hourglass-split"></i>
+            {% elif forloop.counter == 2 %}<i class="bi bi-people"></i>
+            {% else %}<i class="bi bi-check2-square"></i>{% endif %}
+          </span>
+          <span class="tableau-bord__indicateur-valeur">{{ valeur }}</span>
+          <span class="tableau-bord__indicateur-libelle">
+            {% if libelle == "Apprenants actifs" %}{{ libelles.apprenants }} {% translate "en activité" %}{% else %}{{ libelle }}{% endif %}
+          </span>
+          <i class="bi bi-arrow-up-right tableau-bord__indicateur-lien" aria-hidden="true"></i>
+        </a>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  {% if graphique_inscriptions %}
+    <section class="tableau-bord__carte tableau-bord__graphique" aria-labelledby="titre-graphique-inscriptions">
+      <div class="tableau-bord__section-entete tableau-bord__section-entete--compact">
+        <div>
+          <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "Année en cours" %}</span>
+          <h2 id="titre-graphique-inscriptions">{% translate "Suivi des inscriptions" %}</h2>
+        </div>
+      </div>
+      {% for categorie in graphique_inscriptions %}
+        <div class="tableau-bord__barre-ligne">
+          <span>{{ categorie.libelle }}</span><strong>{{ categorie.valeur }}</strong>
+          <div class="tableau-bord__barre-donnee" role="progressbar" aria-label="{{ categorie.libelle }}" aria-valuenow="{{ categorie.pourcentage }}" aria-valuemin="0" aria-valuemax="100">
+            <span style="width: {{ categorie.pourcentage }}%"></span>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  {% if graphiques_tableau %}
+    {{ graphiques_tableau|json_script:"donnees-graphiques-tableau" }}
+    <section class="tableau-bord__graphiques" aria-label="{% translate 'Statistiques de l’établissement' %}">
+      {% if graphiques_tableau.effectifs %}
+        <section class="tableau-bord__carte tableau-bord__carte-graphique" aria-labelledby="titre-graphique-effectifs">
+          <div class="tableau-bord__section-entete tableau-bord__section-entete--compact">
+            <div>
+              <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "Année en cours" %}</span>
+              <h2 id="titre-graphique-effectifs">{% translate "Répartition des apprenants" %}</h2>
+            </div>
+          </div>
+          <div class="tableau-bord__graphique-cadre">
+            <canvas id="graphique-effectifs" role="img" aria-label="{% translate 'Nombre d’apprenants par classe ou niveau' %}"></canvas>
+            <p class="tableau-bord__graphique-vide" id="vide-graphique-effectifs" hidden>{% translate "Aucun apprenant inscrit pour cette année." %}</p>
+          </div>
+        </section>
+      {% endif %}
+      {% if graphiques_tableau.paiements %}
+        <section class="tableau-bord__carte tableau-bord__carte-graphique" aria-labelledby="titre-graphique-paiements">
+          <div class="tableau-bord__section-entete tableau-bord__section-entete--compact">
+            <div>
+              <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "Année en cours" %}</span>
+              <h2 id="titre-graphique-paiements">{% translate "Statut des paiements" %}</h2>
+            </div>
+          </div>
+          <div class="tableau-bord__graphique-cadre tableau-bord__graphique-cadre--donut">
+            <canvas id="graphique-paiements" role="img" aria-label="{% translate 'Factures payées, en retard, partiellement payées ou à venir' %}"></canvas>
+            <p class="tableau-bord__graphique-vide" id="vide-graphique-paiements" hidden>{% translate "Aucune facture émise pour cette année." %}</p>
+          </div>
+        </section>
+      {% endif %}
+      {% if graphiques_tableau.moyennes %}
+        <section class="tableau-bord__carte tableau-bord__carte-graphique tableau-bord__carte-graphique--large" aria-labelledby="titre-graphique-moyennes">
+          <div class="tableau-bord__section-entete tableau-bord__section-entete--compact">
+            <div>
+              <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "Résultats publiés" %}</span>
+              <h2 id="titre-graphique-moyennes">{% translate "Évolution de la moyenne générale" %}</h2>
+            </div>
+          </div>
+          <div class="tableau-bord__graphique-cadre tableau-bord__graphique-cadre--large">
+            <canvas id="graphique-moyennes" role="img" aria-label="{% translate 'Moyenne générale de l’établissement par période' %}"></canvas>
+            <p class="tableau-bord__graphique-vide" id="vide-graphique-moyennes" hidden>{% translate "Aucun résultat publié pour cette année." %}</p>
+          </div>
+        </section>
+      {% endif %}
+    </section>
+  {% endif %}
+
+  {% if profil_apprenant %}
+    <section class="tableau-bord__carte tableau-bord__classes" aria-labelledby="titre-classe-apprenant">
+      <div class="tableau-bord__section-entete tableau-bord__section-entete--compact">
+        <div>
+          <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "Mon parcours" %}</span>
+          <h2 id="titre-classe-apprenant">{% translate "Ma classe et mon niveau" %}</h2>
+        </div>
+        <a class="tableau-bord__lien-suite" href="{% url 'cahier:mon_cahier' %}">{% translate "Mon cahier" %} <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      {% for inscription in inscriptions_apprenant %}
+        <p class="tableau-bord__classe-ligne">
+          <strong>{{ inscription.niveau }}</strong>
+          {% if inscription.classe %}<span>· {% translate "Classe" %} {{ inscription.classe }}</span>{% endif %}
+          <span>· {{ inscription.annee }}</span>
+          {% if inscription.programme %}<span>· {{ inscription.programme }}</span>{% endif %}
+        </p>
+      {% empty %}
+        <p class="mb-0">{% translate "Aucune inscription active n’est associée à ce compte pour l’année en cours. Contactez l’administration si cela vous semble incorrect." %}</p>
+      {% endfor %}
+    </section>
+    <div class="tableau-bord__colonnes">
+      <section class="tableau-bord__carte tableau-bord__graphique" aria-labelledby="titre-graphique-devoirs">
+        <div class="tableau-bord__section-entete tableau-bord__section-entete--compact">
+          <div>
+            <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "Progression" %}</span>
+            <h2 id="titre-graphique-devoirs">{% translate "Suivi de mes devoirs" %}</h2>
+          </div>
+        </div>
+        {% for categorie in graphique_devoirs %}
+          <div class="tableau-bord__barre-ligne">
+            <span>{{ categorie.libelle }}</span><strong>{{ categorie.valeur }}</strong>
+            <div class="tableau-bord__barre-donnee" role="progressbar" aria-label="{{ categorie.libelle }}" aria-valuenow="{{ categorie.pourcentage }}" aria-valuemin="0" aria-valuemax="100">
+              <span style="width: {{ categorie.pourcentage }}%"></span>
+            </div>
+          </div>
+        {% endfor %}
+        <a class="tableau-bord__lien-suite" href="{% url 'cahier:mon_cahier' %}">{% translate "Voir tous mes devoirs" %} <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+      </section>
+      <section class="tableau-bord__carte" aria-labelledby="titre-devoirs-corriges">
+        <div class="tableau-bord__section-entete tableau-bord__section-entete--compact">
+          <div>
+            <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "Dernières notes" %}</span>
+            <h2 id="titre-devoirs-corriges">{% translate "Devoirs corrigés" %}</h2>
+          </div>
+        </div>
+        <div class="tableau-bord__liste">
+          {% for element in devoirs_corriges_recents %}
+            <article class="tableau-bord__ligne tableau-bord__ligne--resultat">
+              <span class="tableau-bord__ligne-icone tableau-bord__ligne-icone--resultat"><i class="bi bi-award" aria-hidden="true"></i></span>
+              <div class="tableau-bord__ligne-contenu">
+                <strong>{{ element.remise.devoir.titre }}</strong>
+                <span>{{ element.remise.devoir.matiere_niveau.matiere }} · {{ element.remise.corrige_le|date:"d/m/Y" }}</span>
+              </div>
+              <div class="tableau-bord__note">{{ element.remise.note|nombre }}<span> / {{ element.remise.devoir.bareme|nombre }}</span></div>
+              <span class="badge bg-success">{% translate "Corrigé" %}</span>
+              {% if element.nouveau %}<span class="badge bg-warning text-dark">{% translate "Nouveau" %}</span>{% endif %}
+              <a class="tableau-bord__ligne-lien" href="{% url 'cahier:devoir' element.remise.devoir_id %}" aria-label="{% translate 'Voir la correction' %}">{% translate "Voir" %}</a>
+            </article>
+          {% empty %}
+            <p class="mb-0">{% translate "Aucun devoir corrigé pour le moment." %}</p>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+  {% endif %}
+
+  {% if etapes %}
+    <section class="tableau-bord__carte tableau-bord__demarrage" aria-labelledby="titre-etapes">
+      <div class="tableau-bord__section-entete">
+        <div>
+          <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "Configuration" %}</span>
+          <h2 id="titre-etapes">{% translate "Les premiers pas" %}</h2>
+          <p>{% translate "Suivez ces étapes pour préparer votre établissement à fonctionner." %}</p>
+        </div>
+        <span class="tableau-bord__progression">{{ etapes_faites }} <span>/ {{ etapes|length }}</span></span>
+      </div>
+      {% widthratio etapes_faites etapes|length 100 as progression %}
+      <div class="tableau-bord__barre-progression" role="progressbar" aria-label="{% translate 'Progression de la configuration' %}" aria-valuenow="{{ progression }}" aria-valuemin="0" aria-valuemax="100">
+        <span style="width: {{ progression }}%"></span>
+      </div>
+      <div class="tableau-bord__etapes">
+        {% for libelle, fait, route in etapes %}
+          <a href="{% url route %}" class="tableau-bord__etape {% if fait %}tableau-bord__etape--faite{% endif %}">
+            <span class="tableau-bord__etape-icone">
+              <i class="bi {% if fait %}bi-check-lg{% else %}bi-arrow-right{% endif %}" aria-hidden="true"></i>
+            </span>
+            <span class="tableau-bord__etape-libelle">{{ libelle }}</span>
+            {% if not fait %}<span class="tableau-bord__etape-action">{% translate "Configurer" %} <i class="bi bi-chevron-right" aria-hidden="true"></i></span>{% endif %}
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if taches or resultats_recents %}
+    <div class="tableau-bord__colonnes">
+      {% if taches %}
+        <section class="tableau-bord__carte" aria-labelledby="titre-taches">
+          <div class="tableau-bord__section-entete tableau-bord__section-entete--compact">
+            <div>
+              <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "À faire" %}</span>
+              <h2 id="titre-taches">{% translate "Travail pédagogique" %}</h2>
+            </div>
+            <span class="tableau-bord__compteur">{{ taches|length }}</span>
+          </div>
+          <div class="tableau-bord__liste">
+            {% for t in taches %}
+              <article class="tableau-bord__ligne">
+                <span class="tableau-bord__ligne-icone"><i class="bi bi-journal-check" aria-hidden="true"></i></span>
+                <div class="tableau-bord__ligne-contenu">
+                  <strong>{{ t.affectation.matiere_niveau.matiere }}</strong>
+                  <span>{{ t.affectation.classe|default:t.affectation.matiere_niveau.niveau }} <span aria-hidden="true">·</span> {{ t.periode.nom }}</span>
+                </div>
+                <div class="tableau-bord__ligne-action">
+                  {% if t.configuration %}{% statut t.configuration.statut %}{% else %}{% statut "BROUILLON" %}{% endif %}
+                  {% if t.configuration.statut == "VALIDEE" %}
+                    <a class="btn btn-principal btn-sm" href="{% url 'evaluations:saisie' t.configuration.pk %}">{% translate "Saisir" %}</a>
+                  {% else %}
+                    <a class="btn btn-secondaire btn-sm" href="{% url 'evaluations:configuration' t.affectation.pk t.periode.pk %}">{% translate "Configurer" %}</a>
+                  {% endif %}
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+
+      {% if resultats_recents %}
+        <section class="tableau-bord__carte" aria-labelledby="titre-resultats">
+          <div class="tableau-bord__section-entete tableau-bord__section-entete--compact">
+            <div>
+              <span class="tableau-bord__surtitre tableau-bord__surtitre--sombre">{% translate "Suivi" %}</span>
+              <h2 id="titre-resultats">{% translate "Résultats récents" %}</h2>
+            </div>
+            <span class="tableau-bord__compteur">{{ resultats_recents|length }}</span>
+          </div>
+          <div class="tableau-bord__liste">
+            {% for r in resultats_recents %}
+              <article class="tableau-bord__ligne tableau-bord__ligne--resultat">
+                <span class="tableau-bord__ligne-icone tableau-bord__ligne-icone--resultat"><i class="bi bi-award" aria-hidden="true"></i></span>
+                <div class="tableau-bord__ligne-contenu">
+                  <strong>{{ r.inscription.apprenant }} <span aria-hidden="true">·</span> {{ r.matiere_niveau.matiere }}</strong>
+                  <span>{{ r.periode.nom }}</span>
+                </div>
+                <div class="tableau-bord__note">{{ r.total|nombre }}<span> / {{ r.bareme_applique|nombre }}</span></div>
+              </article>
+            {% endfor %}
+          </div>
+          <a class="tableau-bord__lien-suite" href="{% url 'evaluations:portail' %}">Consulter les résultats <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </section>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if not indicateurs and not taches and not resultats_recents and not etapes and not profil_apprenant %}
+    <section class="tableau-bord__vide">
+      <span><i class="bi bi-compass" aria-hidden="true"></i></span>
+      <h2>Bienvenue dans votre espace</h2>
+      <p>Les informations utiles à votre rôle apparaîtront ici. Utilisez le menu pour accéder aux fonctionnalités disponibles.</p>
+    </section>
+  {% endif %}
+</div>
+{% endblock %}
+{% block scripts %}
+  {% if graphiques_tableau %}
+    <script src="{% static 'vendor/chart.umd.min.js' %}" defer></script>
+    <script src="{% static 'js/tableau_de_bord.js' %}" defer></script>
+  {% endif %}
+{% endblock %}

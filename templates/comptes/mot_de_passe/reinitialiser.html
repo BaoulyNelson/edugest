@@ -1,0 +1,15 @@
+{% extends "comptes/_auth_base.html" %}
+{% block titre %}Nouveau mot de passe{% endblock %}
+{% block classe_carte %}auth-carte--etroite{% endblock %}
+{% block auth_contenu %}
+{% if validlink %}
+<h1>Nouveau mot de passe</h1>
+<p class="sous-titre">Choisissez un mot de passe solide.</p>
+<form method="post" novalidate>{% csrf_token %}
+  <div class="grille-formulaire" style="grid-template-columns:1fr">{% for champ in form %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <button class="btn btn-principal" type="submit">Enregistrer</button></form>
+{% else %}
+<h1>Lien invalide</h1><p class="sous-titre">Ce lien a expiré ou a déjà été utilisé.</p>
+<a class="btn btn-principal" style="width:100%" href="{% url 'mot_de_passe_oublie' %}">Demander un nouveau lien</a>
+{% endif %}
+{% endblock %}

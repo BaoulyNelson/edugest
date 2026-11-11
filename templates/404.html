@@ -1,0 +1,21 @@
+{% extends "interface/public_base.html" %}
+{% block titre %}Page introuvable{% endblock %}
+{% block corps %}
+<main class="erreur-page" id="contenu">
+  <section class="erreur-page__carte" aria-labelledby="titre-erreur">
+    <span class="erreur-page__icone" aria-hidden="true"><i class="bi bi-compass"></i></span>
+    <p class="erreur-page__code">Erreur 404</p>
+    <h1 id="titre-erreur">Cette page n’existe pas</h1>
+    <p class="erreur-page__texte">Le lien est peut-être incorrect, ou la page a été déplacée. Vous pouvez retourner à un espace accessible.</p>
+    <div class="erreur-page__actions">
+      {% if user.is_authenticated %}
+        <a class="btn btn-principal" href="{% url 'tableau_de_bord' %}"><i class="bi bi-house-door" aria-hidden="true"></i> Retourner à mon espace</a>
+        <a class="btn btn-secondaire" href="{% url 'etablissements' %}">Mes établissements</a>
+      {% else %}
+        <a class="btn btn-principal" href="{% url 'accueil_public' %}"><i class="bi bi-house-door" aria-hidden="true"></i> Retour à l’accueil</a>
+        <a class="btn btn-secondaire" href="{% url 'connexion' %}">Se connecter</a>
+      {% endif %}
+    </div>
+  </section>
+</main>
+{% endblock %}

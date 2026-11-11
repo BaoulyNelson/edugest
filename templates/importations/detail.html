@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Aperçu de l'importation{% endblock %}
+{% block titre_contexte %}Aperçu de l'importation{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{{ lot.nom_fichier }}</h1><p class="texte-secondaire">{{ lot.get_type_display }} · {{ lot.nombre_lignes }} {% translate "ligne(s)" %}, {{ lot.nombre_valide }} {% translate "valide(s)" %}, {{ lot.nombre_erreurs }} {% translate "erreur(s)" %}</p></div></div>
+{% if expire %}<div class="alerte alerte-avertissement">{% translate "Cet aperçu a expiré. Veuillez analyser à nouveau le fichier." %}</div>{% endif %}
+{% if lot.erreurs %}<section class="carte-formulaire mb-4"><h2 class="h5">{% translate "Lignes à corriger" %}</h2><ul>{% for erreur in lot.erreurs %}<li>{% translate "Ligne" %} {{ erreur.numero }} : {{ erreur.message }}</li>{% endfor %}</ul></section>{% endif %}
+{% if lot.lignes %}<section class="carte-formulaire mb-4"><h2 class="h5">{% translate "Lignes prêtes à importer" %}</h2><div class="table-responsive"><table class="table"><thead><tr><th>{% translate "Ligne" %}</th><th>{% translate "Nom" %}</th><th>{% translate "Prénoms" %}</th><th>{% if lot.type == "APPRENANTS" %}{% translate "Détails" %}{% else %}{% translate "E-mail et rôle" %}{% endif %}</th></tr></thead><tbody>
+{% for ligne in lot.lignes %}<tr><td>{{ ligne.numero }}</td><td>{{ ligne.donnees.nom }}</td><td>{{ ligne.donnees.prenoms }}</td><td>{% if lot.type == "APPRENANTS" %}{{ ligne.donnees.niveau }}{% if ligne.donnees.classe %} · {{ ligne.donnees.classe }}{% endif %}{% else %}{{ ligne.donnees.email }} · {{ ligne.donnees.role }}{% endif %}</td></tr>{% endfor %}
+</tbody></table></div></section>{% endif %}
+<div class="actions-formulaire">
+  {% if lot.lignes and not expire %}<form method="post" action="{% url 'importations:confirmer' lot.pk %}">{% csrf_token %}<button class="btn btn-principal" type="submit">{% translate "Confirmer l’importation" %}</button></form>{% endif %}
+  <form method="post" action="{% url 'importations:annuler' lot.pk %}">{% csrf_token %}<button class="btn btn-secondaire" type="submit">{% translate "Supprimer l’aperçu" %}</button></form>
+  <a class="btn btn-secondaire" href="{% url 'importations:accueil' %}">{% translate "Retour" %}</a>
+</div>
+{% endblock %}

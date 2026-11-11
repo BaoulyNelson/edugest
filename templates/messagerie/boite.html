@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{% translate "Messages" %}{% endblock %}
+{% block titre_contexte %}{% translate "Messagerie" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{% translate "Messages" %}</h1><p class="sous-titre mb-0">{% translate "Échanges privés avec les membres de votre établissement." %}</p></div>
+  <a class="btn btn-principal" href="{% url 'messagerie:nouveau' %}">{% translate "Nouveau message" %}</a>
+</div>
+<section class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>{% translate "Sujet" %}</th><th>{% translate "Participants" %}</th><th>{% translate "Dernier message" %}</th><th>{% translate "Activité" %}</th></tr></thead>
+    <tbody>
+      {% for ligne in conversations %}
+      <tr>
+        <td class="principal" data-libelle="{% translate 'Sujet' %}"><a href="{% url 'messagerie:conversation' ligne.conversation.pk %}"><strong>{{ ligne.conversation.sujet }}</strong></a>{% if ligne.non_lu %} <span class="badge text-bg-primary">{% translate "Nouveau" %}</span>{% endif %}</td>
+        <td data-libelle="{% translate 'Participants' %}">{{ ligne.personnes|join:", " }}</td>
+        <td data-libelle="{% translate 'Dernier message' %}">{% if ligne.dernier %}{{ ligne.dernier.texte|truncatechars:100 }}{% else %}—{% endif %}</td>
+        <td data-libelle="{% translate 'Activité' %}">{{ ligne.conversation.derniere_activite|date:"d/m/Y H:i" }}</td>
+      </tr>
+      {% empty %}<tr><td colspan="4">{% translate "Aucune conversation. Vous pouvez écrire à un membre autorisé de l’établissement." %}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

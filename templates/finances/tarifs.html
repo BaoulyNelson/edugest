@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{% translate "Tarifs et échéances" %}{% endblock %}
+{% block titre_contexte %}{% translate "Tarifs et échéances" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Tarifs et échéances" %}</h1><p class="texte-secondaire">{% translate "Les grilles sont appliquées aux inscriptions validées ensuite. Les factures déjà émises ne sont pas modifiées." %}</p></div><a class="btn btn-secondaire" href="{% url 'finances:factures' %}">{% translate "Factures" %}</a></div>
+<div class="d-grid gap-4">
+<form method="post" class="carte-formulaire" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="type"><h2 class="h5">{% translate "Créer un type de frais" %}</h2><div class="grille-formulaire">{% for champ in form_type %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><div class="actions-formulaire mt-3"><button class="btn btn-principal" type="submit">{% translate "Ajouter le type" %}</button></div></form>
+<form method="post" class="carte-formulaire" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="grille"><h2 class="h5">{% translate "Configurer une grille" %}</h2><div class="grille-formulaire">{% for champ in form_grille %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><div class="actions-formulaire mt-3"><button class="btn btn-principal" type="submit">{% translate "Enregistrer la grille" %}</button></div></form>
+<section class="carte-formulaire"><h2 class="h5">{% translate "Types de frais" %}</h2><ul>{% for type_frais in types %}<li>{{ type_frais.nom }}{% if not type_frais.actif %} · {% translate "inactif" %}{% endif %}</li>{% empty %}<li>{% translate "Aucun type de frais." %}</li>{% endfor %}</ul></section>
+<section class="carte-formulaire"><h2 class="h5">{% translate "Grilles configurées" %}</h2><div class="table-responsive"><table class="table"><thead><tr><th>{% translate "Année" %}</th><th>{% translate "Niveau" %}</th><th>{% translate "Frais" %}</th><th>{% translate "Montant" %}</th><th>{% translate "Échéances" %}</th></tr></thead><tbody>{% for grille in grilles %}<tr><td>{{ grille.annee }}</td><td>{{ grille.niveau }}</td><td>{{ grille.type_frais }}</td><td>{{ grille.montant }} {{ etablissement_courant.devise }}</td><td>{{ grille.nombre_echeances }}</td></tr>{% empty %}<tr><td colspan="5">{% translate "Aucune grille configurée." %}</td></tr>{% endfor %}</tbody></table></div></section>
+</div>
+{% endblock %}

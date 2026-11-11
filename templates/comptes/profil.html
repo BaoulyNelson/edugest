@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titre %}Profil{% endblock %}
+{% block titre_contexte %}Profil{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">Mon profil</h1></div>
+<div class="carte-formulaire">
+  <dl class="row mb-0">
+    <dt class="col-sm-4">Nom</dt><dd class="col-sm-8">{{ user.nom_affiche }}</dd>
+    <dt class="col-sm-4">Adresse e-mail</dt><dd class="col-sm-8">{{ user.email }} {% if user.email_verifie %}<span class="badge-statut badge-statut--succes"><i class="bi bi-patch-check" aria-hidden="true"></i> Confirmée</span>{% else %}<span class="badge-statut badge-statut--attention"><i class="bi bi-exclamation-circle" aria-hidden="true"></i> Non confirmée</span>{% endif %}</dd>
+    <dt class="col-sm-4">Établissement</dt><dd class="col-sm-8">{{ request.etablissement.nom }}</dd>
+    <dt class="col-sm-4">Rôle</dt><dd class="col-sm-8">{{ request.appartenance.role|default:"Administrateur plateforme" }}</dd>
+  </dl>
+  <div class="actions-formulaire"><a class="btn btn-secondaire" href="{% url 'mot_de_passe_changer' %}"><i class="bi bi-key" aria-hidden="true"></i> Changer mon mot de passe</a>
+    <a class="btn btn-secondaire" href="{% url 'etablissements' %}"><i class="bi bi-building" aria-hidden="true"></i> Mes établissements</a></div>
+</div>
+{% endblock %}

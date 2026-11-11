@@ -1,0 +1,23 @@
+{% extends "comptes/_auth_base.html" %}
+{% block titre %}E-mail envoyé{% endblock %}
+{% block classe_carte %}auth-carte--etroite{% endblock %}
+{% block auth_contenu %}
+<div class="text-center">
+  <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 text-primary mb-4"
+        style="width:4.5rem;height:4.5rem">
+    <i class="bi bi-envelope-check fs-2" aria-hidden="true"></i>
+  </span>
+  <p class="text-uppercase text-primary fw-semibold small mb-2">Sécurité du compte</p>
+  <h1 class="fw-bold text-dark mb-3">Consultez votre boîte mail</h1>
+  <p class="sous-titre mb-4">Si un compte existe avec cette adresse, un lien de réinitialisation vient d’être envoyé. Il est valable quelques heures.</p>
+</div>
+<div class="bg-light border rounded-4 p-3 mb-4">
+  <div class="d-flex align-items-start gap-3">
+    <i class="bi bi-shield-lock text-primary fs-5" aria-hidden="true"></i>
+    <p class="small text-muted mb-0">Pour protéger votre compte, nous ne révélons pas si une adresse e-mail est associée à un utilisateur.</p>
+  </div>
+</div>
+<a class="btn btn-principal rounded-pill w-100 py-2" href="{% url 'connexion' %}">
+  <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Retour à la connexion
+</a>
+{% endblock %}

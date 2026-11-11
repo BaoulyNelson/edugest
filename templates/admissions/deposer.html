@@ -1,0 +1,45 @@
+{% extends "interface/public_base.html" %}
+{% load i18n %}
+{% block titre %}Candidature en ligne{% endblock %}
+{% block corps %}
+<section class="section-publique">
+  <div class="mx-auto" style="max-width: 52rem">
+    <h1>{% translate "Déposer une candidature" %}</h1>
+    <p class="intro">{% translate "Transmettez votre demande à l’établissement. La direction vous contactera après examen du dossier." %}</p>
+    {% if not etablissement_choisi %}
+      <form method="get" class="carte p-4">
+        <label class="form-label" for="choix-etablissement">{% translate "Établissement souhaité" %}</label>
+        <select class="form-select" name="etablissement" id="choix-etablissement" required>
+          <option value="">{% translate "Choisir un établissement" %}</option>
+          {% for etab in etablissements %}<option value="{{ etab.pk }}">{{ etab.nom }}</option>{% endfor %}
+        </select>
+        <button class="btn btn-principal mt-3" type="submit">{% translate "Continuer" %}</button>
+        {% if not etablissements %}<p class="etat-vide mt-3">{% translate "Aucun établissement n’accepte actuellement les candidatures en ligne." %}</p>{% endif %}
+      </form>
+    {% else %}
+      <form method="post" class="carte p-4">
+        {% csrf_token %}
+        {{ formulaire.etablissement }}
+        {% if formulaire.non_field_errors %}<div class="alert alert-danger">{{ formulaire.non_field_errors }}</div>{% endif %}
+        <div class="row g-3">
+          {% for field in formulaire %}
+            {% if field.name != "etablissement" and field.name != "consentement" %}
+              <div class="{% if field.name == 'message' %}col-12{% else %}col-md-6{% endif %}">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% for error in field.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+              </div>
+            {% endif %}
+          {% endfor %}
+          <div class="col-12 form-check mt-3">
+            {{ formulaire.consentement }}<label class="form-check-label" for="{{ formulaire.consentement.id_for_label }}">{{ formulaire.consentement.label }}</label>
+            {% for error in formulaire.consentement.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+          </div>
+        </div>
+        <p class="small text-muted mt-3">{% translate "Les renseignements sont utilisés uniquement pour examiner cette candidature et préparer une éventuelle inscription." %}</p>
+        <button class="btn btn-principal mt-3" type="submit">{% translate "Envoyer la candidature" %}</button>
+      </form>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

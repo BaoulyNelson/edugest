@@ -1,0 +1,5 @@
+{% load i18n %}
+<a href="{% url 'plateforme' %}" class="{% if request.resolver_match.url_name == 'plateforme' %}actif{% endif %}" {% if request.resolver_match.url_name == 'plateforme' %}aria-current="page"{% endif %}><i class="bi bi-speedometer2" aria-hidden="true"></i><span>{% translate "Plateforme" %}</span></a>
+<a href="{% url 'plateforme' %}#titre-etablissements"><i class="bi bi-buildings" aria-hidden="true"></i><span>{% translate "Établissements" %}</span></a>
+<a href="{% url 'configuration_plateforme' %}" class="{% if request.resolver_match.url_name == 'configuration_plateforme' %}actif{% endif %}" {% if request.resolver_match.url_name == 'configuration_plateforme' %}aria-current="page"{% endif %}><i class="bi bi-palette" aria-hidden="true"></i><span>{% translate "Identité ERP" %}</span></a>
+<button type="button" data-bs-toggle="offcanvas" data-bs-target="#panneauPlateformeMobile" aria-controls="panneauPlateformeMobile"><i class="bi bi-three-dots" aria-hidden="true"></i><span>{% translate "Plus" %}</span></button>

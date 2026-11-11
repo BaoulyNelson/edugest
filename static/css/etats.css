@@ -1,0 +1,11 @@
+.badge-statut { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .6rem; border-radius: 1rem; font-size: var(--texte-petit); font-weight: 600; white-space: nowrap; }
+.badge-statut--succes { background: var(--couleur-succes-claire); color: var(--couleur-succes); }
+.badge-statut--attente { background: var(--couleur-secondaire-claire); color: var(--couleur-secondaire); }
+.badge-statut--attention { background: var(--couleur-attention-claire); color: var(--couleur-attention); }
+.badge-statut--danger { background: var(--couleur-danger-claire); color: var(--couleur-danger); }
+.badge-statut--neutre { background: var(--couleur-neutre-claire); color: var(--couleur-neutre); }
+.message { border-radius: var(--rayon-petit); padding: var(--espace-3) var(--espace-4); margin-bottom: var(--espace-3); display: flex; gap: .6rem; align-items: flex-start; border: 1px solid transparent; }
+.message--success { background: var(--couleur-succes-claire); color: var(--couleur-succes); }
+.message--error { background: var(--couleur-danger-claire); color: var(--couleur-danger); }
+.message--warning { background: var(--couleur-attention-claire); color: var(--couleur-attention); }
+.message--info { background: var(--couleur-principale-claire); color: var(--couleur-principale-sombre); }

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{{ apprenant }}{% endblock %}
+{% block titre_contexte %}{{ libelles.apprenants }}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{{ apprenant }}</h1><div class="sous-titre">{% translate "Matricule" %} {{ apprenant.matricule }}</div></div>
+{% if "apprenants.gerer" in request.appartenance.role.codes and not apprenant.anonymise %}<a class="btn btn-principal" href="{% url 'apprenants:modifier' apprenant.pk %}"><i class="bi bi-pencil" aria-hidden="true"></i> {% translate "Modifier le dossier" %}</a>{% endif %}
+<a class="btn btn-secondaire" href="{% url 'apprenants:liste' %}">{% translate "Retour" %}</a></div>
+{% if apprenant.anonymise %}<div class="alerte alerte-avertissement">{% translate "Ce dossier a été anonymisé. Les inscriptions et résultats historiques sont conservés." %}</div>{% endif %}
+{% if request.appartenance and "rgpd.gerer" in request.appartenance.role.codes %}<div class="actions-formulaire mb-3"><a class="btn btn-secondaire" href="{% url 'rgpd:consentements' apprenant.pk %}">{% translate "Gérer les consentements" %}</a>{% if not apprenant.anonymise %}<form method="post" action="{% url 'rgpd:anonymiser' apprenant.pk %}" onsubmit="return confirm('{% translate "Cette action est irréversible. Confirmer l’anonymisation ?" %}');">{% csrf_token %}<button class="btn btn-danger" type="submit">{% translate "Anonymiser le dossier" %}</button></form>{% endif %}</div>{% endif %}
+<section class="carte"><h2>{% translate "Dossier" %}</h2>
+  <dl class="row mb-0">
+    <dt class="col-sm-3">{% translate "Sexe" %}</dt><dd class="col-sm-9">{{ apprenant.get_sexe_display }}</dd>
+    <dt class="col-sm-3">{% translate "Naissance" %}</dt><dd class="col-sm-9">{{ apprenant.date_naissance|date:"d/m/Y" }}{% if apprenant.lieu_naissance %} {% translate "à" %} {{ apprenant.lieu_naissance }}{% endif %}</dd>
+    {% if apprenant.email %}<dt class="col-sm-3">{% translate "E-mail" %}</dt><dd class="col-sm-9">{{ apprenant.email }}</dd>{% endif %}
+    {% if apprenant.telephone %}<dt class="col-sm-3">{% translate "Téléphone" %}</dt><dd class="col-sm-9">{{ apprenant.telephone }}</dd>{% endif %}
+    {% if apprenant.adresse %}<dt class="col-sm-3">{% translate "Adresse" %}</dt><dd class="col-sm-9">{{ apprenant.adresse }}</dd>{% endif %}
+    {% if fonctionnalites.parents_tuteurs %}{% for l in liens %}<dt class="col-sm-3">{{ l.get_lien_display }}</dt><dd class="col-sm-9">{{ l.responsable }} {{ l.responsable.telephone }}</dd>{% endfor %}{% endif %}
+  </dl></section>
+<section class="carte defilement-controle"><h2>{% translate "Inscriptions" %}</h2>
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{% translate "Année" %}</th><th>{% translate "Niveau" %}</th><th>{{ libelles.groupe }}</th><th>{% translate "Statut" %}</th><th></th></tr></thead><tbody>
+  {% for i in inscriptions %}<tr><td class="principal" data-libelle="{% translate 'Année' %}">{{ i.annee }}</td><td data-libelle="{% translate 'Niveau' %}">{{ i.niveau }}</td><td data-libelle="{{ libelles.groupe }}">{{ i.classe|default:"-" }}</td><td data-libelle="{% translate 'Statut' %}">{% statut i.statut %}</td>
+    <td class="actions"><a class="btn btn-secondaire btn-sm" href="{% url 'apprenants:inscription_detail' i.pk %}">{% translate "Détail" %}</a></td></tr>
+  {% empty %}<tr><td colspan="5" class="etat-vide">{% translate "Aucune inscription." %}</td></tr>{% endfor %}
+  </tbody></table>
+  {% if "inscriptions.enregistrer" in request.appartenance.role.codes %}<a class="btn btn-principal mt-3" href="{% url 'apprenants:inscription_creer' %}?apprenant={{ apprenant.pk }}">{% translate "Inscrire" %}</a>{% endif %}
+</section>
+{% endblock %}

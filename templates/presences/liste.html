@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Historique des présences" %}{% endblock %}
+{% block titre_contexte %}{% translate "Présences" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Historique des présences" %}</h1><p class="sous-titre mb-0">{% translate "Appels enregistrés et assiduité par classe." %}</p></div><a class="btn btn-secondaire" href="{% url 'presences:appel' %}">{% translate "Faire l’appel" %}</a></div>
+<form method="get" class="carte-formulaire" data-auto-filtre>
+  <label class="champ" for="filtre-classe">{% translate "Filtrer par classe" %}
+    <select class="form-select" id="filtre-classe" name="classe">
+      <option value="">{% translate "Toutes les classes" %}</option>
+      {% for item in classes %}<option value="{{ item.pk }}" {% if classe.pk == item.pk %}selected{% endif %}>{{ item }} · {{ item.annee }}</option>{% endfor %}
+    </select>
+  </label>
+</form>
+<div class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>{% translate "Date" %}</th><th>{% translate "Classe" %}</th><th>{% translate "Présents" %}</th><th>{% translate "Absents" %}</th><th>{% translate "Retards" %}</th><th>{% translate "Justifiés" %}</th><th>{% translate "Enregistré par" %}</th></tr></thead>
+    <tbody>
+    {% for appel in appels %}
+      <tr>
+        <td class="principal" data-libelle="{% translate 'Date' %}">{{ appel.date|date:"d/m/Y" }}</td>
+        <td data-libelle="{% translate 'Classe' %}">{{ appel.classe }}</td>
+        <td data-libelle="{% translate 'Présents' %}">{{ appel.presents }}</td>
+        <td data-libelle="{% translate 'Absents' %}">{{ appel.absents }}</td>
+        <td data-libelle="{% translate 'Retards' %}">{{ appel.retards }}</td>
+        <td data-libelle="{% translate 'Justifiés' %}">{{ appel.justifies }}</td>
+        <td data-libelle="{% translate 'Enregistré par' %}">{{ appel.enseignant|default:"—" }}</td>
+      </tr>
+    {% empty %}<tr><td colspan="7" class="etat-vide">{% translate "Aucun appel enregistré." %}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

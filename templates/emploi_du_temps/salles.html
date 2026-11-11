@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Salles{% endblock %}
+{% block titre_contexte %}Emploi du temps{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% translate "Salles" %}</h1><a class="btn btn-principal" href="{% url 'emploi_du_temps:salle_creer' %}">{% translate "Ajouter une salle" %}</a></div>
+<section class="carte defilement-controle"><table class="tableau tableau-adaptatif">
+  <thead><tr><th>{% translate "Nom" %}</th><th>{% translate "Capacité" %}</th></tr></thead><tbody>
+  {% for salle in salles %}<tr><td class="principal" data-libelle="{% translate 'Nom' %}">{{ salle.nom }}</td><td data-libelle="{% translate 'Capacité' %}">{% if salle.capacite %}{{ salle.capacite }}{% else %}{% translate "Non précisée" %}{% endif %}</td></tr>
+  {% empty %}<tr><td colspan="2">{% translate "Aucune salle enregistrée." %}</td></tr>{% endfor %}
+  </tbody></table>
+</section>
+{% endblock %}

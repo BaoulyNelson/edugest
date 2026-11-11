@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% blocktranslate with annee=annee %}Année scolaire {{ annee }}{% endblocktranslate %}{% endblock %}
+{% block titre_contexte %}{% blocktranslate with annee=annee %}Année scolaire {{ annee }}{% endblocktranslate %}{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">{% blocktranslate with designation=annee.designation %}Année {{ designation }}{% endblocktranslate %}</h1><div class="sous-titre">{{ annee.date_debut|date:"d/m/Y" }} → {{ annee.date_fin|date:"d/m/Y" }}</div></div>
+  <div class="d-flex gap-2 align-items-center">{% statut annee.statut %}
+    {% if annee.statut == "PREPARATION" %}
+      <form method="post" action="{% url 'academique:annee_action' annee.pk %}" data-confirmer="{% translate 'Activer cette année ? Les inscriptions pourront démarrer.' %}">{% csrf_token %}<input type="hidden" name="action" value="activer"><button class="btn btn-principal" type="submit">{% translate "Activer" %}</button></form>
+    {% elif annee.statut == "ACTIVE" %}
+      <form method="post" action="{% url 'academique:annee_action' annee.pk %}" data-confirmer="{% translate 'Clôturer l’année ? Toutes les périodes seront fermées.' %}">{% csrf_token %}<input type="hidden" name="action" value="cloturer"><button class="btn btn-danger-doux" type="submit">{% translate "Clôturer" %}</button></form>
+    {% endif %}
+  </div>
+</div>
+
+{% if annee.statut != "CLOTUREE" %}
+<details class="carte-formulaire mb-3">
+  <summary class="btn btn-secondaire">{% translate "Modifier les dates de l’année" %}</summary>
+  <p class="text-muted mt-3">{% translate "Toutes les périodes existantes doivent rester comprises dans ces dates." %}</p>
+  <form method="post" action="{% url 'academique:annee_action' annee.pk %}">
+    {% csrf_token %}<input type="hidden" name="action" value="modifier_dates">
+    <div class="grille-formulaire">{% for champ in formulaire_dates_annee %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+    <button class="btn btn-principal mt-3" type="submit">{% translate "Enregistrer les dates" %}</button>
+  </form>
+</details>
+{% endif %}
+
+<section class="carte defilement-controle">
+  <h2>{{ libelle_periode }}</h2>
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>{% translate "Période" %}</th><th>{% translate "Du" %}</th><th>{% translate "Au" %}</th><th>{% translate "Statut" %}</th><th>{% translate "Saisie des notes" %}</th><th></th></tr></thead>
+    <tbody>
+    {% for p in periodes %}
+      <tr><td class="principal" data-libelle="{% translate 'Période' %}">{{ p.nom }}</td><td data-libelle="{% translate 'Du' %}">{{ p.date_debut|date:"d/m/Y" }}</td><td data-libelle="{% translate 'Au' %}">{{ p.date_fin|date:"d/m/Y" }}</td>
+        <td data-libelle="{% translate 'Statut' %}">{% statut p.statut %}</td>
+        <td data-libelle="{% translate 'Saisie' %}">{% if p.statut == "OUVERTE" %}{% if p.saisie_ouverte %}<i class="bi bi-unlock" aria-hidden="true"></i> {% translate "Autorisée" %}{% else %}<i class="bi bi-lock" aria-hidden="true"></i> {% translate "Suspendue" %}{% endif %}{% else %}-{% endif %}</td>
+        <td class="actions">
+          {% if annee.statut != "CLOTUREE" %}
+            <details class="w-100">
+              <summary class="btn btn-secondaire btn-sm">{% translate "Modifier" %}</summary>
+              <form method="post" action="{% url 'academique:periode_action' p.pk %}" class="mt-2">
+                {% csrf_token %}<input type="hidden" name="action" value="modifier">
+                <div class="grille-formulaire">
+                  <label class="champ">{% translate "Nom" %}<input class="form-control" name="nom" maxlength="60" required value="{{ p.nom }}"></label>
+                  <label class="champ">{% translate "Début" %}<input class="form-control" type="date" name="date_debut" required value="{{ p.date_debut|date:'Y-m-d' }}"></label>
+                  <label class="champ">{% translate "Fin" %}<input class="form-control" type="date" name="date_fin" required value="{{ p.date_fin|date:'Y-m-d' }}"></label>
+                </div>
+                <button class="btn btn-principal btn-sm mt-2" type="submit">{% translate "Enregistrer" %}</button>
+              </form>
+            </details>
+          {% endif %}
+          <form method="post" action="{% url 'academique:periode_action' p.pk %}" class="d-inline-flex gap-1 flex-wrap">{% csrf_token %}
+            {% if p.statut == "A_VENIR" and annee.statut == "ACTIVE" %}<button class="btn btn-secondaire btn-sm" name="action" value="ouvrir">{% translate "Ouvrir" %}</button>{% endif %}
+            {% if p.statut == "OUVERTE" %}
+              {% if p.saisie_ouverte %}<button class="btn btn-secondaire btn-sm" name="action" value="saisie_off">{% translate "Suspendre la saisie" %}</button>{% else %}<button class="btn btn-secondaire btn-sm" name="action" value="saisie_on">{% translate "Rouvrir la saisie" %}</button>{% endif %}
+              <button class="btn btn-danger-doux btn-sm" name="action" value="fermer" onclick="return confirm('{% translate "Clôturer cette période ?" %}')">{% translate "Clôturer" %}</button>
+            {% endif %}
+          </form></td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+{% if annee.statut != "CLOTUREE" %}
+<section class="carte-formulaire">
+  <div class="entete-formulaire"><h2>{% translate "Ajouter une période" %}</h2><p>{% translate "Définissez son nom et ses dates dans les limites de l’année académique, sans chevaucher une période existante." %}</p></div>
+  <form method="post" action="{% url 'academique:periode_creer' annee.pk %}" novalidate>
+    {% csrf_token %}
+    {% if formulaire_periode.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire_periode.non_field_errors }}</div>{% endif %}
+    <div class="grille-formulaire">{% for champ in formulaire_periode %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+    <div class="actions-formulaire"><button class="btn btn-principal" type="submit"><i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Ajouter" %} {{ libelle_periode|lower }}</button></div>
+  </form>
+</section>
+{% endif %}
+
+{% if sources %}
+<section class="carte-formulaire">
+  <h2>{% translate "Reprendre la structure d’une année précédente" %}</h2>
+  <form method="post" action="{% url 'academique:annee_action' annee.pk %}" class="d-flex gap-2 flex-wrap">{% csrf_token %}
+    <input type="hidden" name="action" value="dupliquer">
+    <select class="form-select" name="source" aria-label="{% translate 'Année source' %}" style="max-width:14rem">{% for s in sources %}<option value="{{ s.pk }}">{{ s.designation }}</option>{% endfor %}</select>
+    <button class="btn btn-secondaire" type="submit">{% translate "Reprendre classes et barèmes" %}</button>
+  </form>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+<div class="entete-page"><h1 class="titre-page">Mes établissements</h1></div>
+<div class="carte mb-4">
+  {% for e in liste %}
+    <form method="post" action="{% url 'choisir_etablissement' e.pk %}" class="d-flex justify-content-between align-items-center py-3 border-bottom gap-2 flex-wrap">
+      {% csrf_token %}
+      <div><strong>{{ e.nom }}</strong><br><span class="sous-titre">{{ e.get_type_display }}</span></div>
+      {% if request.etablissement and e.pk == request.etablissement.pk %}<span class="badge-statut badge-statut--succes"><i class="bi bi-check-circle" aria-hidden="true"></i> Espace courant</span>
+      {% else %}<button class="btn btn-secondaire" type="submit">Ouvrir cet espace</button>{% endif %}
+    </form>
+  {% empty %}<div class="etat-vide">Vous n'appartenez encore à aucun établissement. Créez le vôtre ci-dessous ou acceptez une invitation reçue par e-mail.</div>{% endfor %}
+</div>
+<form method="post" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  <div class="entete-formulaire"><h2>Créer un nouvel établissement</h2><p>Vous en serez l'administrateur. Essai gratuit de 30 jours.</p></div>
+  <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">Créer l'établissement</button></div>
+</form>

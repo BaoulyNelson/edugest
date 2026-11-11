@@ -1,0 +1,43 @@
+body {
+  background: var(--couleur-fond);
+  color: var(--couleur-texte);
+  font-size: var(--texte-normal);
+  -webkit-text-size-adjust: 100%;
+}
+.coque { display: flex; min-height: 100vh; }
+.zone-principale { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.contenu {
+  flex: 1;
+  padding: var(--espace-4);
+  /* espace pour que la navigation mobile fixe ne masque jamais le contenu */
+  padding-bottom: calc(var(--hauteur-barre-mobile) + env(safe-area-inset-bottom, 0px) + var(--espace-5));
+  max-width: 78rem; width: 100%; margin: 0 auto;
+}
+@media (min-width: 992px) { .contenu { padding: var(--espace-5) var(--espace-6); padding-bottom: var(--espace-6); } }
+.titre-page { font-size: var(--texte-titre); font-weight: 650; margin: 0; }
+.entete-page { display: flex; flex-wrap: wrap; gap: var(--espace-3); align-items: center; justify-content: space-between; margin-bottom: var(--espace-4); }
+.sous-titre { color: var(--couleur-texte-doux); font-size: var(--texte-petit); }
+.carte {
+  background: var(--couleur-surface); border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon-moyen); box-shadow: var(--ombre-douce); padding: var(--espace-4);
+}
+.carte + .carte { margin-top: var(--espace-4); }
+.carte h2 { font-size: 1.05rem; font-weight: 650; margin-bottom: var(--espace-3); }
+.grille-indicateurs { display: grid; gap: var(--espace-3); grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+.indicateur { padding: var(--espace-3) var(--espace-4); border-radius: var(--rayon-moyen); background: var(--couleur-principale-claire); }
+.indicateur strong { display: block; font-size: 1.6rem; line-height: 1.1; color: var(--couleur-principale-sombre); }
+.indicateur span { font-size: var(--texte-petit); color: var(--couleur-texte-doux); }
+.etat-vide { text-align: center; color: var(--couleur-texte-doux); padding: var(--espace-5); }
+a { color: var(--couleur-principale); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; border-radius: var(--rayon-petit); }
+.btn-principal { background: var(--couleur-principale); border-color: var(--couleur-principale); color: #fff; }
+.btn-principal:hover, .btn-principal:focus { background: var(--couleur-principale-sombre); border-color: var(--couleur-principale-sombre); color: #fff; }
+.btn-secondaire { background: var(--couleur-surface); border: 1px solid var(--couleur-bordure); color: var(--couleur-texte); }
+.btn-secondaire:hover { background: var(--couleur-neutre-claire); }
+.btn-danger-doux { background: var(--couleur-danger-claire); color: var(--couleur-danger); border: 1px solid transparent; }
+.btn.en-chargement { pointer-events: none; opacity: .75; }
+:focus-visible { outline: 3px solid var(--couleur-secondaire); outline-offset: 2px; }
+.marque { display: flex; align-items: center; gap: .6rem; font-weight: 700; color: var(--couleur-principale-sombre); font-size: 1.3rem; }
+.marque i { background: var(--couleur-principale); color: #fff; border-radius: var(--rayon-petit); padding: .35rem .5rem; }
+
+.message + .entete-page, .message + .carte, .message + .carte-formulaire { margin-top: 1.25rem; }

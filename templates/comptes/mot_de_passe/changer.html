@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titre %}Changer le mot de passe{% endblock %}
+{% block titre_contexte %}Profil{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">Changer mon mot de passe</h1></div>
+<form method="post" class="carte-formulaire" novalidate>{% csrf_token %}
+  <div class="grille-formulaire">{% for champ in form %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">Enregistrer</button><a class="btn btn-secondaire" href="{% url 'profil' %}">Annuler</a></div>
+</form>
+{% endblock %}

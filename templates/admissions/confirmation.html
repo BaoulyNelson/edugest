@@ -1,0 +1,40 @@
+{% extends "interface/public_base.html" %}
+{% load i18n %}
+{% block titre %}{% translate "Candidature envoyée" %}{% endblock %}
+{% block corps %}
+<section class="section-publique py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-9 col-xl-8">
+        <article class="card border-0 shadow-lg rounded-4 p-4 p-md-5 text-center" role="status" aria-live="polite">
+          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-10 text-success mx-auto mb-4"
+               style="width: 5rem; height: 5rem">
+            <i class="bi bi-check-lg" style="font-size: 2.5rem" aria-hidden="true"></i>
+          </div>
+          <p class="text-uppercase text-success fw-semibold small mb-2">{% translate "Confirmation de réception" %}</p>
+          <h1 class="fw-bold text-dark display-6 mb-3">{% translate "Candidature envoyée" %}</h1>
+          <p class="text-muted fs-5 mb-4">
+            {% blocktranslate with school=candidature.etablissement.nom %}Votre demande a bien été transmise à <strong class="text-dark">{{ school }}</strong>.{% endblocktranslate %}
+          </p>
+          <div class="bg-light border rounded-4 p-3 p-md-4 mb-4 text-start">
+            <p class="small text-muted fw-semibold text-uppercase mb-2">{% translate "Votre référence de candidature" %}</p>
+            <p class="font-monospace fs-5 fw-semibold text-dark mb-2 text-break">
+              {{ candidature.reference }}
+            </p>
+            <p class="small text-muted mb-0">
+              <i class="bi bi-info-circle me-1" aria-hidden="true"></i>
+              {% blocktranslate with reference=candidature.reference %}Conservez cette référence : <strong>{{ reference }}</strong>.{% endblocktranslate %}
+            </p>
+          </div>
+          <div>
+            <a class="btn btn-principal rounded-pill px-4 py-2" href="{% url 'accueil_public' %}">
+              <i class="bi bi-house-door me-2" aria-hidden="true"></i>
+              {% translate "Retour à l’accueil" %}
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

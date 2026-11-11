@@ -1,0 +1,10 @@
+{% if messages %}
+<div role="status" aria-live="polite">
+{% for message in messages %}
+  <div class="message message--{{ message.level_tag }}">
+    <i class="bi {% if message.level_tag == 'success' %}bi-check-circle{% elif message.level_tag == 'error' %}bi-x-octagon{% elif message.level_tag == 'warning' %}bi-exclamation-triangle{% else %}bi-info-circle{% endif %}" aria-hidden="true"></i>
+    <div>{{ message }}</div>
+  </div>
+{% endfor %}
+</div>
+{% endif %}

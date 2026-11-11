@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titre %}Rapports{% endblock %}
+{% block titre_contexte %}Rapports{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">Rapports</h1>{% if annee %}<span class="sous-titre">Année {{ annee }}</span>{% endif %}</div>
+<div class="carte defilement-controle">
+  <h2>Effectifs par niveau et {{ libelles.groupe|lower }}</h2>
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>Niveau</th><th>{{ libelles.groupe }}</th><th>Effectif</th></tr></thead>
+    <tbody>
+    {% for l in repartition %}<tr><td class="principal" data-libelle="Niveau">{{ l.niveau__nom }}</td><td data-libelle="{{ libelles.groupe }}">{{ l.classe__nom|default:"Non affecté" }}</td><td data-libelle="Effectif">{{ l.effectif }}</td></tr>
+    {% empty %}<tr><td colspan="3" class="etat-vide">Aucune inscription validée.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

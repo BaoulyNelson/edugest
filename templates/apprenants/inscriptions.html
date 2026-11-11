@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n interface_extras %}
+{% block titre %}{% translate "Inscriptions" %}{% endblock %}
+{% block titre_contexte %}{% translate "Inscriptions" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{% translate "Inscriptions" %}</h1>{% if annee %}<div class="sous-titre">{% translate "Année" %} {{ annee }}</div>{% endif %}</div>
+  <a class="btn btn-principal" href="{% url 'apprenants:inscription_creer' %}"><i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Nouvelle inscription" %}</a></div>
+<form method="get" class="barre-filtres" data-auto-filtre>
+  <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="{% translate 'Nom, prénom ou matricule' %}" aria-label="{% translate 'Rechercher' %}">
+  <select class="form-select" name="annee" aria-label="{% translate 'Année' %}"><option value="">{% translate "Année active" %}</option>{% for a in annees %}<option value="{{ a.pk }}" {% if annee.pk == a.pk %}selected{% endif %}>{{ a }}</option>{% endfor %}</select>
+  <select class="form-select" name="statut" aria-label="{% translate 'Statut' %}"><option value="">{% translate "Tous les statuts" %}</option>{% for code, libelle in statuts %}<option value="{{ code }}" {% if statut == code %}selected{% endif %}>{{ libelle }}</option>{% endfor %}</select>
+  <label class="form-check">
+    <input class="form-check-input" type="checkbox" name="a_valider" value="1" {% if uniquement_a_valider %}checked{% endif %}>
+    <span class="form-check-label">{% translate "À valider uniquement" %}</span>
+  </label>
+</form>
+<form method="post" action="{% url 'apprenants:inscriptions_valider_lot' %}" data-confirmer="{% translate 'Valider les inscriptions sélectionnées ?' %}">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  {% if peut_decider %}<div class="actions-formulaire"><button class="btn btn-principal" type="submit"><i class="bi bi-check2-all" aria-hidden="true"></i> {% translate "Valider la sélection" %}</button></div>{% endif %}
+  <div class="carte defilement-controle">
+    <table class="tableau tableau-adaptatif"><thead><tr>
+      {% if peut_decider %}<th><input class="form-check-input" type="checkbox" data-selection-tout aria-label="{% translate 'Tout sélectionner pour validation sur cette page' %}"></th>{% endif %}
+      <th>{{ libelles.apprenant }}</th><th>{% translate "Niveau" %}</th><th class="secondaire">{{ libelles.groupe }}</th><th>{% translate "Statut" %}</th><th></th>
+    </tr></thead><tbody>
+    {% for i in page %}<tr>
+      {% if peut_decider %}<td data-libelle="{% translate 'Sélectionner' %}">{% if i.statut == "EN_ATTENTE" or i.statut == "CORRECTION_DEMANDEE" %}<input class="form-check-input" type="checkbox" name="inscriptions" value="{{ i.pk }}" data-selection-ligne aria-label="{% blocktranslate with apprenant=i.apprenant %}Sélectionner l’inscription de {{ apprenant }}{% endblocktranslate %}">{% endif %}</td>{% endif %}
+      <td class="principal" data-libelle="{{ libelles.apprenant }}">{{ i.apprenant }}</td><td data-libelle="{% translate 'Niveau' %}">{{ i.niveau.nom }}</td>
+      <td class="secondaire" data-libelle="{{ libelles.groupe }}">{{ i.classe|default:i.programme|default:"-" }}</td><td data-libelle="{% translate 'Statut' %}">{% statut i.statut %}</td>
+      <td class="actions"><a class="btn btn-secondaire btn-sm" href="{% url 'apprenants:inscription_detail' i.pk %}">{% translate "Traiter" %}</a></td></tr>
+    {% empty %}<tr><td colspan="{% if peut_decider %}6{% else %}5{% endif %}" class="etat-vide">{% translate "Aucune inscription pour ces critères." %}</td></tr>{% endfor %}
+    </tbody></table>
+  </div>
+</form>
+{% include "interface/composants/_pagination.html" %}
+{% endblock %}

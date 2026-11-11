@@ -1,0 +1,209 @@
+{% extends "interface/public_base.html" %}
+{% load i18n static %}
+
+{% block titre %}{% translate "Pilotez votre établissement scolaire avec précision" %}{% endblock %}
+{% block meta_description %}{% blocktrans with plateforme=marque_plateforme.nom|default:"EduGest" %}{{ plateforme }} réunit la gestion des élèves, des notes, des bulletins et des finances dans un espace sécurisé pour chaque établissement.{% endblocktrans %}{% endblock %}
+{% block og_title %}{% translate "Toute la gestion de votre établissement, enfin réunie" %}{% endblock %}
+{% block twitter_title %}{% translate "Toute la gestion de votre établissement, enfin réunie" %}{% endblock %}
+{% block styles_publics %}<link rel="stylesheet" href="{% static 'css/landing.css' %}?v=5">{% endblock %}
+
+{% block entete_public %}
+<header class="landing-nav" id="top">
+  <a class="landing-brand" href="{% url 'accueil_public' %}" aria-label="{{ marque_plateforme.nom|default:'EduGest' }}">
+    {% if marque_plateforme.logo %}<img src="{{ marque_plateforme.logo.url }}" alt="" class="landing-brand__logo">
+    {% else %}<span class="landing-brand__symbol" aria-hidden="true"><i class="bi bi-mortarboard-fill"></i></span>{% endif %}
+    <span>{{ marque_plateforme.nom_court|default:marque_plateforme.nom|default:"EduGest" }}</span>
+  </a>
+  <nav class="landing-nav__links" aria-label="{% translate 'Navigation principale' %}">
+    <a href="#fonctionnalites"><i class="bi bi-grid" aria-hidden="true"></i><span>{% translate "Fonctionnalités" %}</span></a>
+    <a href="#tarifs"><i class="bi bi-tags" aria-hidden="true"></i><span>{% translate "Tarifs" %}</span></a>
+    <a href="#apropos"><i class="bi bi-info-circle" aria-hidden="true"></i><span>{% translate "À propos" %}</span></a>
+    <a class="landing-nav__account" href="{% url 'connexion' %}" aria-label="{% translate 'Connexion' %}" title="{% translate 'Connexion' %}"><i class="bi bi-person" aria-hidden="true"></i></a>
+  </nav>
+  <div class="landing-nav__actions">
+    <span class="landing-nav__lang-code" aria-hidden="true">{{ LANGUAGE_CODE|upper }}</span>
+    {% include "interface/composants/_selecteur_langue.html" %}
+    {% if user.is_authenticated %}
+      <a class="landing-button landing-button--small" href="{% url 'tableau_de_bord' %}">{% translate "Accéder à mon tableau de bord" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    {% else %}
+      <a class="landing-text-link" href="{% url 'connexion' %}">{% translate "Connexion" %}</a>
+      <a class="landing-button landing-button--small" href="{% url 'inscription' %}">{% translate "Essai gratuit" %}<i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+    {% endif %}
+  </div>
+</header>
+{% endblock %}
+
+{% block corps %}
+<main class="landing">
+  <section class="landing-hero" id="apercu">
+    <div class="landing-hero__glow landing-hero__glow--one" aria-hidden="true"></div>
+    <div class="landing-hero__glow landing-hero__glow--two" aria-hidden="true"></div>
+    <div class="landing-hero__inner">
+      <div class="landing-hero__copy">
+        <div class="landing-eyebrow"><span class="landing-eyebrow__dot"></span>{% translate "La plateforme de gestion pensée pour l'éducation" %}</div>
+        <h1>{% translate "Pilotez votre établissement scolaire avec une précision inégalée." %}</h1>
+        <p>{% blocktrans with plateforme=marque_plateforme.nom|default:"EduGest" %}{{ plateforme }} rassemble élèves, inscriptions, notes, bulletins et finances dans un espace moderne, conçu pour votre établissement et votre équipe.{% endblocktrans %}</p>
+        <div class="landing-hero__actions">
+          {% if user.is_authenticated %}<a class="landing-button" href="{% url 'tableau_de_bord' %}">{% translate "Accéder à mon tableau de bord" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>{% else %}<a class="landing-button" href="{% url 'inscription' %}?plan=essai">{% translate "Commencer gratuitement" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>{% endif %}
+          <a class="landing-button landing-button--ghost" href="#apercu-produit"><span class="landing-play" aria-hidden="true"><i class="bi bi-play-fill"></i></span>{% translate "Voir la démo" %}</a>
+        </div>
+        <div class="landing-hero__assurance"><i class="bi bi-check-circle-fill" aria-hidden="true"></i>{% translate "30 jours d'essai gratuit" %}<span aria-hidden="true">·</span>{% translate "Aucune installation requise" %}</div>
+      </div>
+
+      <div class="landing-preview" id="apercu-produit" aria-label="{% translate 'Aperçu illustratif du tableau de bord EduGest' %}">
+        <div class="landing-preview__backdrop" aria-hidden="true"></div>
+        <div class="landing-preview__caption"><i class="bi bi-eye"></i>{% translate "Aperçu — données de démonstration" %}</div>
+        <div class="landing-app">
+          <aside class="landing-app__side" aria-hidden="true">
+            <div class="landing-app__brand"><span><i class="bi bi-mortarboard-fill"></i></span><b>{{ marque_plateforme.nom_court|default:marque_plateforme.nom|default:"EduGest" }}</b></div>
+            <div class="landing-app__tenant"><span class="landing-app__tenant-icon"><i class="bi bi-buildings"></i></span><span><b>{% translate "Mon établissement" %}</b><small>{% translate "Année 2025–2026" %}</small></span><i class="bi bi-chevron-down"></i></div>
+            <small class="landing-app__label">{% translate "MENU PRINCIPAL" %}</small>
+            <span class="landing-app__item landing-app__item--active"><i class="bi bi-grid-1x2-fill"></i>{% translate "Vue d'ensemble" %}</span>
+            <span class="landing-app__item"><i class="bi bi-people"></i>{% translate "Élèves" %}</span>
+            <span class="landing-app__item"><i class="bi bi-journal-check"></i>{% translate "Notes & bulletins" %}</span>
+            <span class="landing-app__item"><i class="bi bi-wallet2"></i>{% translate "Finances" %}</span>
+            <div class="landing-app__side-bottom"><span class="landing-avatar">AD</span><span><b>{% translate "Administration" %}</b><small>{% translate "Espace de gestion" %}</small></span><i class="bi bi-three-dots"></i></div>
+          </aside>
+          <div class="landing-app__main">
+            <div class="landing-app__top"><span>{% translate "Tableau de bord" %}<small>{% translate "Voici un aperçu de votre établissement." %}</small></span><span class="landing-app__top-actions"><i class="bi bi-search"></i><i class="bi bi-bell"></i><span class="landing-avatar">AD</span></span></div>
+            <div class="landing-app__welcome"><span><b>{% translate "Bonjour, Admin" %} <span aria-hidden="true">✦</span></b><small>{% translate "Un regard clair sur votre activité scolaire." %}</small></span><span class="landing-app__period"><i class="bi bi-calendar3"></i>{% translate "Cette année" %}<i class="bi bi-chevron-down"></i></span></div>
+            <div class="landing-app__stats">
+              <div><span class="landing-app__stat-icon landing-app__stat-icon--blue"><i class="bi bi-people-fill"></i></span><small>{% translate "Élèves inscrits" %}</small><b>1 248</b><em><i class="bi bi-arrow-up-right"></i> 8,2% <span>{% translate "cette année" %}</span></em></div>
+              <div><span class="landing-app__stat-icon landing-app__stat-icon--green"><i class="bi bi-journal-check"></i></span><small>{% translate "Résultats publiés" %}</small><b>86%</b><em><i class="bi bi-arrow-up-right"></i> 12% <span>{% translate "ce trimestre" %}</span></em></div>
+              <div><span class="landing-app__stat-icon landing-app__stat-icon--gold"><i class="bi bi-cash-stack"></i></span><small>{% translate "Recettes suivies" %}</small><b>—</b><em class="landing-app__muted">{% translate "Suivi en temps réel" %}</em></div>
+            </div>
+            <div class="landing-app__chart">
+              <div class="landing-app__chart-head"><span><b>{% translate "Activité de l'établissement" %}</b><small>{% translate "Inscriptions au fil de l'année" %}</small></span><span class="landing-app__legend"><i></i>{% translate "Inscriptions" %}</span></div>
+              <svg viewBox="0 0 640 150" role="img" aria-label="{% translate 'Graphique illustratif des inscriptions scolaires' %}">
+                <defs><linearGradient id="landingChartFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#297c72" stop-opacity=".22"/><stop offset="1" stop-color="#297c72" stop-opacity="0"/></linearGradient></defs>
+                <path d="M0 124H640M0 86H640M0 48H640M0 10H640" fill="none" stroke="#edf1f4" stroke-width="1"/>
+                <path d="M0 118C45 112 58 89 105 99S172 72 220 84 290 49 338 66 406 42 453 53 520 18 564 35 609 12 640 18V150H0Z" fill="url(#landingChartFill)"/>
+                <path d="M0 118C45 112 58 89 105 99S172 72 220 84 290 49 338 66 406 42 453 53 520 18 564 35 609 12 640 18" fill="none" stroke="#28796f" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="564" cy="35" r="5" fill="#fff" stroke="#28796f" stroke-width="3"/>
+              </svg>
+              <div class="landing-app__months"><span>{% translate "Sept." %}</span><span>{% translate "Oct." %}</span><span>{% translate "Nov." %}</span><span>{% translate "Déc." %}</span><span>{% translate "Janv." %}</span><span>{% translate "Févr." %}</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="landing-float landing-float--grade"><span><i class="bi bi-patch-check-fill"></i></span><div><b>{% translate "Bulletin publié" %}</b><small>{% translate "La famille est informée" %}</small></div></div>
+        <div class="landing-float landing-float--attendance"><span class="landing-float__pulse"></span><div><b>{% translate "Suivi centralisé" %}</b><small>{% translate "Données à jour" %}</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-trust" aria-label="{% translate 'Les engagements de la plateforme' %}">
+    <div class="landing-trust__inner">
+      <div><span class="landing-trust__icon"><i class="bi bi-calendar2-check"></i></span><b>30 {% translate "jours" %}</b><small>{% translate "pour essayer la plateforme" %}</small></div>
+      <div><span class="landing-trust__icon"><i class="bi bi-building-lock"></i></span><b>{% translate "Un espace par établissement" %}</b><small>{% translate "Vos données restent séparées" %}</small></div>
+      <div><span class="landing-trust__icon"><i class="bi bi-cloud-check"></i></span><b>{% translate "Accessible en ligne" %}</b><small>{% translate "Aucun logiciel à installer" %}</small></div>
+    </div>
+  </section>
+
+  <section class="landing-section landing-features" id="fonctionnalites">
+    <div class="landing-section__heading">
+      <span class="landing-kicker">{% translate "Une gestion, sans les silos" %}</span>
+      <h2>{% translate "Tout votre établissement. Un seul espace de travail." %}</h2>
+      <p>{% translate "Des tâches quotidiennes aux décisions de direction, retrouvez l'essentiel dans un outil cohérent." %}</p>
+    </div>
+    <div class="landing-feature-grid">
+      <article class="landing-feature-card"><span class="landing-feature-card__icon landing-feature-card__icon--blue"><i class="bi bi-journal-bookmark-fill"></i></span><h3>{% translate "Notes & bulletins" %}</h3><p>{% translate "Configurez vos périodes et barèmes, suivez les résultats et publiez des bulletins lisibles pour chaque famille." %}</p><a href="{% if user.is_authenticated %}{% url 'tableau_de_bord' %}{% else %}{% url 'inscription' %}?plan=essai{% endif %}">{% translate "Simplifier le suivi scolaire" %}<i class="bi bi-arrow-right"></i></a></article>
+      <article class="landing-feature-card"><span class="landing-feature-card__icon landing-feature-card__icon--mint"><i class="bi bi-person-hearts"></i></span><h3>{% translate "Un portail pour chaque rôle" %}</h3><p>{% translate "Donnez aux équipes, aux familles et aux apprenants un accès adapté à leurs informations et à leurs activités." %}</p><a href="{% if user.is_authenticated %}{% url 'tableau_de_bord' %}{% else %}{% url 'inscription' %}?plan=essai{% endif %}">{% translate "Rassembler votre communauté" %}<i class="bi bi-arrow-right"></i></a></article>
+      <article class="landing-feature-card" id="securite"><span class="landing-feature-card__icon landing-feature-card__icon--violet"><i class="bi bi-shield-lock-fill"></i></span><h3>{% translate "Un espace isolé par école" %}</h3><p>{% translate "Chaque établissement dispose de son propre espace. Les rôles et permissions structurent les accès de votre équipe." %}</p><a href="{% if user.is_authenticated %}{% url 'tableau_de_bord' %}{% else %}{% url 'inscription' %}?plan=essai{% endif %}">{% translate "Créer votre espace" %}<i class="bi bi-arrow-right"></i></a></article>
+      <article class="landing-feature-card"><span class="landing-feature-card__icon landing-feature-card__icon--gold"><i class="bi bi-wallet2"></i></span><h3>{% translate "Finances & scolarité" %}</h3><p>{% translate "Centralisez paiements, frais, factures et dépenses pour une vision plus claire de la vie de l'établissement." %}</p><a href="{% if user.is_authenticated %}{% url 'tableau_de_bord' %}{% else %}{% url 'inscription' %}?plan=essai{% endif %}">{% translate "Organiser votre gestion" %}<i class="bi bi-arrow-right"></i></a></article>
+      <article class="landing-feature-card"><span class="landing-feature-card__icon landing-feature-card__icon--rose"><i class="bi bi-calendar2-week-fill"></i></span><h3>{% translate "Présences & vie scolaire" %}</h3><p>{% translate "Suivez les absences, les retards, les devoirs et les événements qui rythment le quotidien scolaire." %}</p><a href="{% if user.is_authenticated %}{% url 'tableau_de_bord' %}{% else %}{% url 'inscription' %}?plan=essai{% endif %}">{% translate "Fluidifier le quotidien" %}<i class="bi bi-arrow-right"></i></a></article>
+      <article class="landing-feature-card"><span class="landing-feature-card__icon landing-feature-card__icon--teal"><i class="bi bi-mortarboard-fill"></i></span><h3>{% translate "École ou université" %}</h3><p>{% translate "Adaptez la structure académique à votre réalité : niveaux et classes, ou facultés et programmes." %}</p><a href="{% if user.is_authenticated %}{% url 'tableau_de_bord' %}{% else %}{% url 'inscription' %}?plan=essai{% endif %}">{% translate "Configurer votre structure" %}<i class="bi bi-arrow-right"></i></a></article>
+    </div>
+  </section>
+
+  <section class="landing-how">
+    <div class="landing-how__inner">
+      <div class="landing-how__copy"><span class="landing-kicker">{% translate "Prêt quand vous l'êtes" %}</span><h2>{% translate "De votre première connexion à votre première inscription, en quelques étapes." %}</h2><p>{% translate "Pas de déploiement complexe. Créez votre établissement, configurez l'année scolaire et invitez votre équipe quand vous le souhaitez." %}</p>{% if user.is_authenticated %}<a class="landing-button" href="{% url 'tableau_de_bord' %}">{% translate "Accéder à mon tableau de bord" %}<i class="bi bi-arrow-right"></i></a>{% else %}<a class="landing-button" href="{% url 'inscription' %}?plan=essai">{% translate "Créer mon établissement" %}<i class="bi bi-arrow-right"></i></a>{% endif %}</div>
+      <ol class="landing-steps">
+        <li><span>01</span><div><b>{% translate "Créez votre espace" %}</b><p>{% translate "Renseignez le nom de votre établissement et créez votre compte administrateur." %}</p></div></li>
+        <li><span>02</span><div><b>{% translate "Configurez votre année" %}</b><p>{% translate "Définissez vos périodes, votre structure académique et vos matières." %}</p></div></li>
+        <li><span>03</span><div><b>{% translate "Invitez votre équipe" %}</b><p>{% translate "Attribuez les rôles nécessaires et commencez à travailler ensemble." %}</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="landing-proof">
+    <div class="landing-section__heading">
+      <span class="landing-kicker">{% translate "Un quotidien mieux organisé" %}</span>
+      <h2>{% translate "Des outils qui parlent aux réalités de chaque équipe." %}</h2>
+      <p>{% translate "Voici des exemples de bénéfices possibles, selon le rôle de chacun dans l'établissement." %}</p>
+    </div>
+    <div class="landing-proof__grid">
+      <article class="landing-proof-card"><span class="landing-proof-card__role"><i class="bi bi-person-workspace"></i>{% translate "Direction" %}</span><blockquote>{% translate "Une vue d'ensemble plus claire pour suivre les inscriptions, les résultats et les activités de l'établissement." %}</blockquote><div class="landing-proof-card__person"><span>01</span><b>{% translate "Pilotage centralisé" %}</b></div></article>
+      <article class="landing-proof-card"><span class="landing-proof-card__role"><i class="bi bi-person-vcard"></i>{% translate "Administration" %}</span><blockquote>{% translate "Les dossiers, les paiements et les opérations courantes sont réunis dans un même espace de travail." %}</blockquote><div class="landing-proof-card__person"><span>02</span><b>{% translate "Gestion simplifiée" %}</b></div></article>
+      <article class="landing-proof-card"><span class="landing-proof-card__role"><i class="bi bi-easel2"></i>{% translate "Enseignement" %}</span><blockquote>{% translate "Un suivi pédagogique connecté aux classes, aux évaluations, aux devoirs et aux familles." %}</blockquote><div class="landing-proof-card__person"><span>03</span><b>{% translate "Suivi pédagogique" %}</b></div></article>
+    </div>
+    <p class="landing-proof__disclaimer"><i class="bi bi-info-circle"></i>{% translate "Ces encadrés présentent des exemples illustratifs de fonctionnalités, et non des témoignages clients publiés." %}</p>
+  </section>
+
+  <section class="landing-section landing-pricing" id="tarifs">
+    <div class="landing-section__heading">
+      <span class="landing-kicker">{% translate "Une offre qui évolue avec vous" %}</span>
+      <h2>{% translate "Commencez simplement. Grandissez à votre rythme." %}</h2>
+      <p>{% translate "Choisissez une formule selon la taille de votre communauté. Vous pourrez évoluer avec votre établissement." %}</p>
+    </div>
+    <div class="landing-pricing-grid">
+      {% for plan in plans %}
+      <article class="landing-price-card {% if plan.code == 'STANDARD' %}landing-price-card--featured{% endif %}">
+        {% if plan.code == 'STANDARD' %}<span class="landing-price-card__badge">{% translate "Le plus choisi" %}</span>{% endif %}
+        <h3>{{ plan.nom }}</h3>
+        <p class="landing-price-card__summary">{% if plan.code == 'ESSAI' %}{% translate "Pour découvrir EduGest et démarrer sereinement." %}{% elif plan.code == 'STANDARD' %}{% translate "Pour les établissements en pleine croissance." %}{% else %}{% translate "Pour les communautés éducatives sans limite." %}{% endif %}</p>
+        <div class="landing-price-card__price">{% if plan.prix_mensuel == 0 %}{% translate "Gratuit" %}{% else %}<strong>{{ plan.prix_mensuel|floatformat:"-0" }} $</strong><span>/{% translate "mois" %}</span>{% endif %}</div>
+        <ul>
+          <li><i class="bi bi-check-circle-fill"></i>{% if plan.limite_apprenants %}{% blocktrans with limite=plan.limite_apprenants %}Jusqu'à {{ limite }} apprenants{% endblocktrans %}{% else %}{% translate "Apprenants illimités" %}{% endif %}</li>
+          <li><i class="bi bi-check-circle-fill"></i>{% if plan.limite_membres %}{% blocktrans with limite=plan.limite_membres %}{{ limite }} membres du personnel{% endblocktrans %}{% else %}{% translate "Personnel illimité" %}{% endif %}</li>
+          {% if plan.code == 'ESSAI' %}<li><i class="bi bi-check-circle-fill"></i>{% translate "30 jours d'essai" %}</li>{% endif %}
+          <li><i class="bi bi-check-circle-fill"></i>{% translate "Accès à la plateforme en ligne" %}</li>
+        </ul>
+        {% if user.is_authenticated %}<a class="landing-price-card__button" href="{% url 'tableau_de_bord' %}">{% translate "Accéder à mon tableau de bord" %}<i class="bi bi-arrow-right"></i></a>{% else %}<a class="landing-price-card__button {% if plan.code == 'STANDARD' %}landing-price-card__button--primary{% endif %}" href="{% url 'inscription' %}?plan={{ plan.code|lower }}">{% if plan.code == 'ESSAI' %}{% translate "Essayer gratuitement" %}{% else %}{% translate "Choisir cette formule" %}{% endif %}<i class="bi bi-arrow-right"></i></a>{% endif %}
+      </article>
+      {% endfor %}
+    </div>
+    <p class="landing-pricing__note"><i class="bi bi-info-circle"></i>{% translate "Les formules et tarifs affichés sont ceux configurés pour la plateforme." %}</p>
+  </section>
+
+  <section class="landing-about" id="apropos">
+    <div class="landing-about__inner">
+      <span class="landing-about__mark"><i class="bi bi-quote"></i></span>
+      <div><span class="landing-kicker landing-kicker--light">{% translate "Pensé pour les équipes éducatives" %}</span><h2>{% translate "Moins de tâches dispersées. Plus de temps pour faire grandir votre communauté." %}</h2><p>{% translate "EduGest accompagne les directions, les équipes administratives et les enseignants avec des outils réunis dans un même espace." %}</p></div>
+      <div class="landing-about__roles"><span><i class="bi bi-person-workspace"></i>{% translate "Direction" %}</span><span><i class="bi bi-person-vcard"></i>{% translate "Administration" %}</span><span><i class="bi bi-easel2"></i>{% translate "Enseignement" %}</span><span><i class="bi bi-people"></i>{% translate "Familles" %}</span></div>
+    </div>
+  </section>
+
+  <section class="landing-cta">
+    <div class="landing-cta__inner"><div><span class="landing-kicker landing-kicker--light">{% translate "Votre prochain chapitre commence ici" %}</span><h2>{% translate "Offrez à votre établissement un espace de gestion à sa mesure." %}</h2><p>{% translate "Créez votre espace EduGest et découvrez une façon plus claire de travailler ensemble." %}</p></div>{% if user.is_authenticated %}<a class="landing-button landing-button--white" href="{% url 'tableau_de_bord' %}">{% translate "Accéder à mon tableau de bord" %}<i class="bi bi-arrow-right"></i></a>{% else %}<a class="landing-button landing-button--white" href="{% url 'inscription' %}?plan=essai">{% translate "Demander un accès" %}<i class="bi bi-arrow-right"></i></a>{% endif %}</div>
+  </section>
+</main>
+{% endblock %}
+
+{% block pied_public %}
+<footer class="landing-footer">
+  <div class="landing-footer__main">
+    <div class="landing-footer__brand">
+      <a class="landing-brand landing-brand--footer" href="{% url 'accueil_public' %}">
+        {% if marque_plateforme.logo %}<img src="{{ marque_plateforme.logo.url }}" alt="" class="landing-brand__logo">
+        {% else %}<span class="landing-brand__symbol" aria-hidden="true"><i class="bi bi-mortarboard-fill"></i></span>{% endif %}
+        <span>{{ marque_plateforme.nom|default:"EduGest" }}</span>
+      </a>
+      {% if marque_plateforme.slogan %}<p class="landing-footer__slogan">{{ marque_plateforme.slogan }}</p>{% endif %}
+      <p>{% if marque_plateforme.pied_de_page %}{{ marque_plateforme.pied_de_page }}{% else %}{% translate "La gestion de votre établissement, réunie dans un espace conçu pour l'éducation." %}{% endif %}</p>
+    </div>
+    <div class="landing-footer__group"><h2>{% translate "Découvrir" %}</h2><a href="#fonctionnalites">{% translate "Fonctionnalités" %}</a><a href="#tarifs">{% translate "Tarifs" %}</a><a href="#apropos">{% translate "À propos" %}</a><a href="#securite">{% translate "Données & sécurité" %}</a></div>
+    <div class="landing-footer__group"><h2>{% translate "Accès rapide" %}</h2>{% if user.is_authenticated %}<a href="{% url 'tableau_de_bord' %}">{% translate "Accéder à mon tableau de bord" %}</a>{% else %}<a href="{% url 'connexion' %}">{% translate "Connexion" %}</a><a href="{% url 'inscription' %}?plan=essai">{% translate "Créer un établissement" %}</a>{% endif %}<a href="{% url 'admissions:deposer' %}">{% translate "Candidature en ligne" %}</a></div>
+    <div class="landing-footer__group"><h2>{% translate "Nous contacter" %}</h2>
+      {% if marque_plateforme.email %}<a href="mailto:{{ marque_plateforme.email }}"><i class="bi bi-envelope"></i>{{ marque_plateforme.email }}</a>{% endif %}
+      {% if marque_plateforme.telephone %}<a href="tel:{{ marque_plateforme.telephone }}"><i class="bi bi-telephone"></i>{{ marque_plateforme.telephone }}</a>{% endif %}
+      {% if marque_plateforme.site_web %}<a href="{{ marque_plateforme.site_web }}" rel="noopener noreferrer"><i class="bi bi-globe2"></i>{% translate "Site officiel" %}</a>{% endif %}
+      {% if marque_plateforme.linkedin_url %}<a href="{{ marque_plateforme.linkedin_url }}" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i>LinkedIn</a>{% endif %}
+      {% if marque_plateforme.facebook_url %}<a href="{{ marque_plateforme.facebook_url }}" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook"></i>Facebook</a>{% endif %}
+      {% if marque_plateforme.instagram_url %}<a href="{{ marque_plateforme.instagram_url }}" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i>Instagram</a>{% endif %}
+      {% if marque_plateforme.adresse %}<span><i class="bi bi-geo-alt"></i>{{ marque_plateforme.adresse }}</span>{% endif %}
+    </div>
+  </div>
+  <div class="landing-footer__bottom"><span>© {% now "Y" %} {{ marque_plateforme.nom|default:"EduGest" }}. {% translate "Tous droits réservés." %}</span><a href="#securite">{% translate "Protection des données" %}</a><a href="#top" class="landing-footer__top">{% translate "Retour en haut" %}<i class="bi bi-arrow-up"></i></a></div>
+</footer>
+{% endblock %}

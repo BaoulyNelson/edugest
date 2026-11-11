@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titre %}Cahier de textes{% endblock %}
+{% block titre_contexte %}Cahier de textes{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <div><h1 class="titre-page">Cahier de textes</h1><p class="sous-titre mb-0">Séances enregistrées pour vos classes.</p></div>
+  <a class="btn btn-principal" href="{% url 'cahier:entree_creer' %}">Ajouter une séance</a>
+</div>
+<section class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif">
+    <thead><tr><th>Date</th><th>Séance</th><th>Classe</th><th>Matière</th><th>Enseignant</th><th>Document</th></tr></thead>
+    <tbody>
+      {% for entree in entrees %}
+      <tr>
+        <td data-libelle="Date">{{ entree.date|date:"d/m/Y" }}</td>
+        <td class="principal" data-libelle="Séance"><strong>{{ entree.titre }}</strong><br><span class="sous-titre">{{ entree.contenu|truncatechars:120 }}</span></td>
+        <td data-libelle="Classe">{{ entree.classe }}</td>
+        <td data-libelle="Matière">{{ entree.matiere_niveau.matiere }}</td>
+        <td data-libelle="Enseignant">{{ entree.enseignant.utilisateur.nom_affiche|default:"Administration" }}</td>
+        <td data-libelle="Document">{% if entree.fichier %}<a href="{% url 'cahier:telecharger' 'entree' entree.pk %}">Télécharger</a>{% else %}—{% endif %}</td>
+      </tr>
+      {% empty %}<tr><td colspan="6">Aucune séance enregistrée.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

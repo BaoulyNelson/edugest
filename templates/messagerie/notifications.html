@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Notifications de messagerie{% endblock %}
+{% block titre_contexte %}Messagerie{% endblock %}
+{% block contenu %}
+<div class="entete-page">
+  <h1 class="titre-page">{% translate "Notifications" %}</h1>
+  <form method="post" action="{% url 'messagerie:tout_lu' %}">{% csrf_token %}<button class="btn btn-secondaire" type="submit">{% translate "Tout marquer comme lu" %}</button></form>
+</div>
+<section class="carte">
+  {% for notification in notifications %}
+  <article class="py-3 {% if not forloop.last %}border-bottom{% endif %}">
+    <a href="{{ notification.url }}"><strong>{{ notification.titre }}</strong></a>
+    {% if not notification.lue %}<span class="badge text-bg-primary">{% translate "Nouveau" %}</span>{% endif %}
+    {% if notification.texte %}<p class="mb-1 mt-1">{{ notification.texte }}</p>{% endif %}
+    <small class="text-muted">{{ notification.date|date:"d/m/Y H:i" }}</small>
+  </article>
+  {% empty %}<p class="mb-0">{% translate "Aucune notification." %}</p>{% endfor %}
+</section>
+{% endblock %}

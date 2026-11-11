@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Paramètres{% endblock %}
+{% block titre_contexte %}Paramètres{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% translate "Paramètres de l’établissement" %}</h1></div>
+<div class="d-grid gap-4">
+<form method="post" enctype="multipart/form-data" class="carte-formulaire" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="identite">
+  <div class="entete-formulaire"><h2>{% translate "Identité, langue et fuseau horaire" %}</h2><p>{% translate "Renseignez les coordonnées de l’établissement, sa langue par défaut et le fuseau horaire utilisé pour ses dates et heures." %}</p></div>
+  <div class="grille-formulaire">{% for champ in identite %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Enregistrer" %}</button></div></form>
+
+<form method="post" class="carte-formulaire" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="notation">
+  <div class="entete-formulaire"><h2>{% translate "Règles de notation" %}</h2><p>{% translate "Aucune note maximale n'est imposée : chaque matière a son barème." %}</p></div>
+  <div class="grille-formulaire">{% for champ in notation %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Enregistrer" %}</button></div></form>
+
+<form method="post" class="carte-formulaire" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="periodes">
+  <div class="entete-formulaire"><h2>{% translate "Année académique" %}</h2><p>{% translate "Choisissez le nombre de périodes proposé automatiquement pour chaque nouvelle année. Vous pourrez le modifier pendant la création de l’année." %}</p></div>
+  <div class="grille-formulaire">{% for champ in periodes %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Enregistrer" %}</button></div></form>
+
+<form method="post" class="carte-formulaire" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="retention">
+  <div class="entete-formulaire"><h2>{% translate "Protection des données" %}</h2><p>{% translate "Définissez la durée de conservation des dossiers inactifs avant qu'ils puissent être anonymisés." %}</p></div>
+  <div class="grille-formulaire">{% for champ in retention %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Enregistrer" %}</button></div></form>
+
+<form method="post" class="carte-formulaire" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="vocabulaire">
+  <div class="entete-formulaire"><h2>{% translate "Vocabulaire" %}</h2><p>{% translate "Adaptez les termes à votre établissement (ex. « Département » à la place de « Programme »)." %}</p></div>
+  <div class="grille-formulaire">{% for champ in vocab %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Enregistrer" %}</button></div></form>
+</div>
+{% endblock %}

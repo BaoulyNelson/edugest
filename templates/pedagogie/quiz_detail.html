@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}{{ quiz.titre }}{% endblock %}
+{% block titre_contexte %}{% translate "Quiz" %}{% endblock %}
+{% block contenu %}
+<div class="entete-page"><div><h1 class="titre-page">{{ quiz.titre }}</h1><p class="texte-secondaire">{{ quiz.classe.nom }} · {{ quiz.matiere_niveau.matiere.nom }}</p></div><a class="btn btn-secondaire" href="{% url 'pedagogie:ressources' %}">{% translate "Retour aux ressources" %}</a></div>
+{% if quiz.description %}<section class="carte mb-3">{{ quiz.description|linebreaks }}</section>{% endif %}
+{% if tentative %}
+<section class="carte mb-3"><h2>{% translate "Tentative remise" %}</h2><p>{% translate "Résultat" %} : <strong>{{ tentative.score }} / {{ questions|length }}</strong></p><p class="sous-titre">{{ tentative.soumise_le|date:"d/m/Y H:i" }}</p></section>
+{% elif peut_repondre %}
+<form method="post" class="carte-formulaire">{% csrf_token %}
+  {% for ligne in questions %}
+  <fieldset class="mb-4"><legend class="h5">{{ forloop.counter }}. {{ ligne.question.texte }}</legend>
+    {% for choix in ligne.choix %}<label class="d-flex align-items-center gap-2 py-1"><input class="form-check-input m-0" type="radio" name="question_{{ ligne.question.pk }}" value="{{ choix.pk }}"><span>{{ choix.texte }}</span></label>{% endfor %}
+  </fieldset>
+  {% endfor %}
+  <p class="sous-titre">{% translate "Tentatives utilisées" %} : {{ nombre_tentatives }} / {{ quiz.nombre_tentatives_max }}</p>
+  <button class="btn btn-principal" type="submit">{% translate "Soumettre les réponses" %}</button>
+</form>
+{% else %}
+<section class="carte"><p>{% translate "Ce quiz n'est pas disponible pour une nouvelle tentative." %}</p><p class="sous-titre">{% translate "Tentatives utilisées" %} : {{ nombre_tentatives }} / {{ quiz.nombre_tentatives_max }}</p></section>
+{% endif %}
+{% endblock %}

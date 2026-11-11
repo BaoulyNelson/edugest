@@ -1,0 +1,2757 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EduGest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 18:41-0500\n"
+"PO-Revision-Date: 2026-11-09 18:15-0500\n"
+"Last-Translator: EduGest\n"
+"Language-Team: en\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\applications\interface\navigation.py:10
+msgid "Accueil"
+msgstr "Home"
+
+#: .\applications\interface\navigation.py:10
+msgid "Général"
+msgstr "General"
+
+#: .\applications\interface\navigation.py:11
+#: .\applications\interface\terminologie.py:10
+msgid "Classes"
+msgstr "Classes"
+
+#: .\applications\interface\navigation.py:11
+#: .\applications\interface\navigation.py:12
+#: .\applications\interface\navigation.py:13
+#: .\applications\interface\navigation.py:14
+msgid "Enseignement"
+msgstr "Teaching"
+
+#: .\applications\interface\navigation.py:12
+#: .\templates\evaluations\configuration.html:4
+#: .\templates\evaluations\mes_evaluations.html:4
+#: .\templates\evaluations\mes_evaluations.html:17
+msgid "Notes"
+msgstr "Grades"
+
+#: .\applications\interface\navigation.py:13
+#: .\applications\interface\navigation.py:14
+msgid "Résultats"
+msgstr "Results"
+
+#: .\applications\interface\navigation.py:15
+#: .\templates\importations\accueil.html:15
+msgid "Apprenants"
+msgstr "Students"
+
+#: .\applications\interface\navigation.py:15
+#: .\applications\interface\navigation.py:16
+#: .\applications\interface\navigation.py:17
+#: .\applications\interface\navigation.py:18
+#: .\applications\interface\navigation.py:19
+#: .\applications\interface\navigation.py:20
+msgid "Scolarité"
+msgstr "Schooling"
+
+#: .\applications\interface\navigation.py:16
+msgid "Importer"
+msgstr "Import"
+
+#: .\applications\interface\navigation.py:17
+#: .\templates\apprenants\detail.html:18
+#: .\templates\apprenants\inscription_form.html:4
+#: .\templates\apprenants\inscriptions.html:3
+#: .\templates\apprenants\inscriptions.html:4
+#: .\templates\apprenants\inscriptions.html:6
+msgid "Inscriptions"
+msgstr "Enrollments"
+
+#: .\applications\interface\navigation.py:18
+#: .\templates\admissions\liste.html:3 .\templates\admissions\liste.html:4
+#: .\templates\admissions\liste.html:7
+msgid "Candidatures"
+msgstr "Applications"
+
+#: .\applications\interface\navigation.py:19
+msgid "Académique"
+msgstr "Academic"
+
+#: .\applications\interface\navigation.py:20
+msgid "Structure"
+msgstr "Structure"
+
+#: .\applications\interface\navigation.py:21
+#: .\applications\interface\terminologie.py:12
+#: .\templates\evaluations\resultats.html:41
+#: .\templates\evaluations\resultats.html:48
+msgid "Matières"
+msgstr "Subjects"
+
+#: .\applications\interface\navigation.py:21
+#: .\applications\interface\navigation.py:22
+msgid "Pédagogie"
+msgstr "Teaching"
+
+#: .\applications\interface\navigation.py:22
+msgid "Enseignants"
+msgstr "Teachers"
+
+#: .\applications\interface\navigation.py:23
+#: .\templates\importations\accueil.html:16
+msgid "Personnel"
+msgstr "Staff"
+
+#: .\applications\interface\navigation.py:23
+#: .\applications\interface\navigation.py:24
+#: .\applications\interface\navigation.py:26
+#: .\applications\interface\navigation.py:27
+#: .\applications\interface\navigation.py:28
+msgid "Administration"
+msgstr "Administration"
+
+#: .\applications\interface\navigation.py:24
+#: .\templates\noyau\parametres.html:24
+msgid "Protection des données"
+msgstr "Data protection"
+
+#: .\applications\interface\navigation.py:25
+msgid "Mes données"
+msgstr "My data"
+
+#: .\applications\interface\navigation.py:25
+#: .\applications\interface\navigation.py:44
+#: .\applications\interface\navigation.py:45
+msgid "Compte"
+msgstr "Account"
+
+#: .\applications\interface\navigation.py:26
+msgid "Paramètres"
+msgstr "Settings"
+
+#: .\applications\interface\navigation.py:27
+msgid "Abonnement"
+msgstr "Subscription"
+
+#: .\applications\interface\navigation.py:28
+msgid "Plateforme"
+msgstr "Platform"
+
+#: .\applications\interface\navigation.py:29
+#: .\applications\interface\navigation.py:35
+msgid "Rapports"
+msgstr "Reports"
+
+#: .\applications\interface\navigation.py:29
+msgid "Pilotage"
+msgstr "Management"
+
+#: .\applications\interface\navigation.py:30
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:6
+msgid "Paiements"
+msgstr "Payments"
+
+#: .\applications\interface\navigation.py:30
+#: .\applications\interface\navigation.py:31
+#: .\applications\interface\navigation.py:32
+#: .\applications\interface\navigation.py:33
+#: .\applications\interface\navigation.py:34
+#: .\applications\interface\navigation.py:35
+msgid "Finances"
+msgstr "Finances"
+
+#: .\applications\interface\navigation.py:31
+#: .\templates\finances\factures.html:6 .\templates\finances\paiements.html:6
+#: .\templates\finances\tarifs.html:6
+msgid "Factures"
+msgstr "Invoices"
+
+#: .\applications\interface\navigation.py:32 .\templates\finances\tarifs.html:3
+#: .\templates\finances\tarifs.html:4 .\templates\finances\tarifs.html:6
+msgid "Tarifs et échéances"
+msgstr "Fees and due dates"
+
+#: .\applications\interface\navigation.py:33
+#: .\templates\finances\mes_factures.html:6
+msgid "Mes factures"
+msgstr "My invoices"
+
+#: .\applications\interface\navigation.py:34
+#: .\templates\finances\depenses.html:6 .\templates\finances\rapports.html:9
+msgid "Dépenses"
+msgstr "Expenses"
+
+#: .\applications\interface\navigation.py:36
+msgid "Faire l'appel"
+msgstr "Take attendance"
+
+#: .\applications\interface\navigation.py:36
+#: .\applications\interface\navigation.py:37
+#: .\applications\interface\navigation.py:38
+#: .\applications\interface\navigation.py:39
+#: .\applications\interface\navigation.py:40
+#: .\applications\interface\navigation.py:42
+#: .\applications\interface\navigation.py:43
+msgid "Vie scolaire"
+msgstr "School life"
+
+#: .\applications\interface\navigation.py:37 .\templates\presences\appel.html:4
+#: .\templates\presences\liste.html:4
+msgid "Présences"
+msgstr "Attendance"
+
+#: .\applications\interface\navigation.py:38
+#: .\templates\presences\mes_absences.html:3
+#: .\templates\presences\mes_absences.html:4
+msgid "Mes absences"
+msgstr "My absences"
+
+#: .\applications\interface\navigation.py:39
+#: .\applications\interface\navigation.py:40
+msgid "Cahier de textes"
+msgstr "Class journal"
+
+#: .\applications\interface\navigation.py:41
+#: .\templates\messagerie\boite.html:3 .\templates\messagerie\boite.html:7
+msgid "Messages"
+msgstr "Messages"
+
+#: .\applications\interface\navigation.py:41
+msgid "Communication"
+msgstr "Communication"
+
+#: .\applications\interface\navigation.py:42
+#: .\templates\emploi_du_temps\gestion.html:7
+msgid "Emploi du temps"
+msgstr "Timetable"
+
+#: .\applications\interface\navigation.py:43
+msgid "Mon emploi du temps"
+msgstr "My timetable"
+
+#: .\applications\interface\navigation.py:44
+msgid "Profil"
+msgstr "Profile"
+
+#: .\applications\interface\navigation.py:45
+msgid "Établissement"
+msgstr "School"
+
+#: .\applications\interface\templatetags\interface_extras.py:11
+msgid "En attente"
+msgstr "Pending"
+
+#: .\applications\interface\templatetags\interface_extras.py:12
+msgid "Correction demandée"
+msgstr "Correction requested"
+
+#: .\applications\interface\templatetags\interface_extras.py:13
+msgid "Validée"
+msgstr "Approved"
+
+#: .\applications\interface\templatetags\interface_extras.py:14
+msgid "Rejetée"
+msgstr "Rejected"
+
+#: .\applications\interface\templatetags\interface_extras.py:15
+msgid "Annulée"
+msgstr "Cancelled"
+
+#: .\applications\interface\templatetags\interface_extras.py:16
+msgid "Réussi"
+msgstr "Passed"
+
+#: .\applications\interface\templatetags\interface_extras.py:17
+msgid "Échec"
+msgstr "Failed"
+
+#: .\applications\interface\templatetags\interface_extras.py:18
+#: .\templates\evaluations\resultats.html:49
+msgid "Incomplet"
+msgstr "Incomplete"
+
+#: .\applications\interface\templatetags\interface_extras.py:19
+#: .\templates\evaluations\saisie.html:26
+msgid "Dispensé"
+msgstr "Excused"
+
+#: .\applications\interface\templatetags\interface_extras.py:20
+msgid "Active"
+msgstr "Active"
+
+#: .\applications\interface\templatetags\interface_extras.py:21
+msgid "En préparation"
+msgstr "Preparing"
+
+#: .\applications\interface\templatetags\interface_extras.py:22
+msgid "Clôturée"
+msgstr "Closed"
+
+#: .\applications\interface\templatetags\interface_extras.py:23
+#: .\templates\finances\facture.html:8
+msgid "À venir"
+msgstr "Upcoming"
+
+#: .\applications\interface\templatetags\interface_extras.py:24
+msgid "Ouverte"
+msgstr "Open"
+
+#: .\applications\interface\templatetags\interface_extras.py:25
+msgid "Brouillon"
+msgstr "Draft"
+
+#: .\applications\interface\templatetags\interface_extras.py:26
+msgid "Verrouillée"
+msgstr "Locked"
+
+#: .\applications\interface\templatetags\interface_extras.py:27
+msgid "Reçue"
+msgstr "Received"
+
+#: .\applications\interface\templatetags\interface_extras.py:28
+msgid "Acceptée"
+msgstr "Accepted"
+
+#: .\applications\interface\templatetags\interface_extras.py:29
+msgid "Refusée"
+msgstr "Rejected"
+
+#: .\applications\interface\terminologie.py:8
+msgid "Élèves"
+msgstr "Students"
+
+#: .\applications\interface\terminologie.py:9
+msgid "Élève"
+msgstr "Student"
+
+#: .\applications\interface\terminologie.py:11
+#: .\templates\admissions\liste.html:21
+#: .\templates\emploi_du_temps\gestion.html:12
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:15
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:22
+#: .\templates\presences\mes_absences.html:17
+#: .\templates\presences\mes_absences.html:20
+msgid "Classe"
+msgstr "Class"
+
+#: .\applications\interface\terminologie.py:13
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:27
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:16
+msgid "Matière"
+msgstr "Subject"
+
+#: .\applications\interface\terminologie.py:14
+msgid "Bulletins"
+msgstr "Report cards"
+
+#: .\applications\interface\terminologie.py:15
+msgid "Bulletin"
+msgstr "Report card"
+
+#: .\applications\interface\terminologie.py:18
+msgid "Étudiants"
+msgstr "University students"
+
+#: .\applications\interface\terminologie.py:19
+msgid "Étudiant"
+msgstr "University student"
+
+#: .\applications\interface\terminologie.py:20
+msgid "Programmes / Filières"
+msgstr "Programs / Majors"
+
+#: .\applications\interface\terminologie.py:21
+msgid "Programme / Filière"
+msgstr "Program / Major"
+
+#: .\applications\interface\terminologie.py:22
+msgid "Unités d'Enseignement (UE)"
+msgstr "Courses (credits)"
+
+#: .\applications\interface\terminologie.py:23
+msgid "Unité d'Enseignement (UE)"
+msgstr "Course (credits)"
+
+#: .\applications\interface\terminologie.py:24
+msgid "Relevés de notes / Crédits"
+msgstr "Transcripts / Credits"
+
+#: .\applications\interface\terminologie.py:25
+msgid "Relevé de notes / Crédit"
+msgstr "Transcript / Credit"
+
+#: .\applications\interface\terminologie.py:28
+msgid "Stagiaires / Apprenants"
+msgstr "Trainees / Students"
+
+#: .\applications\interface\terminologie.py:29
+msgid "Stagiaire / Apprenant"
+msgstr "Trainee / Student"
+
+#: .\applications\interface\terminologie.py:30
+msgid "Sessions / Ateliers"
+msgstr "Sessions / Workshops"
+
+#: .\applications\interface\terminologie.py:31
+msgid "Session / Atelier"
+msgstr "Session / Workshop"
+
+#: .\applications\interface\terminologie.py:32
+msgid "Modules pratiques"
+msgstr "Practical modules"
+
+#: .\applications\interface\terminologie.py:33
+msgid "Module pratique"
+msgstr "Practical module"
+
+#: .\applications\interface\terminologie.py:34
+msgid "Attestations de compétences"
+msgstr "Skills certificates"
+
+#: .\applications\interface\terminologie.py:35
+msgid "Attestation de compétences"
+msgstr "Skills certificate"
+
+#: .\applications\noyau\forms.py:40
+msgid "Fuseau horaire"
+msgstr "Time zone"
+
+#: .\applications\noyau\forms.py:42
+msgid ""
+"Les dates et heures affichées dans cet espace utiliseront ce fuseau. Les "
+"instants restent stockés en UTC."
+msgstr ""
+"Dates and times shown in this workspace use this time zone. Timestamps "
+"remain stored in UTC."
+
+#: .\applications\noyau\forms.py:52
+msgid "Nom de l'établissement"
+msgstr "School name"
+
+#: .\applications\noyau\forms.py:53
+msgid "Nom court / sigle"
+msgstr "Short name / acronym"
+
+#: .\applications\noyau\forms.py:54
+msgid "Slogan"
+msgstr "Slogan"
+
+#: .\applications\noyau\forms.py:55
+msgid "Devise (code ISO, 3 lettres)"
+msgstr "Currency (3-letter ISO code)"
+
+#: .\applications\noyau\forms.py:56
+msgid "Langue par défaut de l’établissement"
+msgstr "School default language"
+
+#: .\applications\noyau\forms.py:57 .\templates\admissions\detail.html:24
+#: .\templates\apprenants\detail.html:14
+msgid "Téléphone"
+msgstr "Phone"
+
+#: .\applications\noyau\forms.py:58 .\templates\pedagogie\affectations.html:26
+msgid "Adresse e-mail"
+msgstr "Email address"
+
+#: .\applications\noyau\forms.py:59 .\templates\apprenants\detail.html:15
+msgid "Adresse"
+msgstr "Address"
+
+#: .\applications\noyau\forms.py:60
+msgid "Site web"
+msgstr "Website"
+
+#: .\applications\noyau\forms.py:61
+msgid "Logo (facultatif)"
+msgstr "Logo (optional)"
+
+#: .\applications\noyau\forms.py:64
+msgid ""
+"Exemple : CEMO pour Collège Éducation Moderne. Ce nom court est utilisé dans "
+"la navigation."
+msgstr ""
+"Example: CEMO for Collège Éducation Moderne. This short name appears in "
+"navigation."
+
+#: .\applications\noyau\forms.py:65
+msgid ""
+"Exemple : HTG, XOF ou EUR. Elle sera affichée sur les factures et reçus."
+msgstr ""
+"Example: HTG, XOF or EUR. This currency appears on invoices and receipts."
+
+#: .\applications\noyau\forms.py:66
+msgid ""
+"Langue utilisée par défaut dans l’interface. Chaque utilisateur peut choisir "
+"une autre langue pour sa session."
+msgstr ""
+"Default interface language. Each user can choose another language for their "
+"session."
+
+#: .\applications\noyau\views.py:52
+msgid "La langue sélectionnée n’est pas disponible."
+msgstr "The selected language is not available."
+
+#: .\templates\academique\annee_form.html:3
+#: .\templates\academique\annees.html:7
+msgid "Nouvelle année"
+msgstr "New school year"
+
+#: .\templates\academique\annee_form.html:4
+#: .\templates\academique\annees.html:3 .\templates\academique\annees.html:4
+#: .\templates\academique\annees.html:6
+msgid "Années académiques"
+msgstr "Academic years"
+
+#: .\templates\academique\annee_form.html:6
+msgid "Nouvelle année académique"
+msgstr "New academic year"
+
+#: .\templates\academique\annee_form.html:11
+msgid "Le nombre proposé par défaut se configure dans les"
+msgstr "Set the default number in the"
+
+#: .\templates\academique\annee_form.html:11
+msgid "paramètres de l’établissement"
+msgstr "school settings"
+
+#: .\templates\academique\annee_form.html:12
+msgid "Créer l’année"
+msgstr "Create school year"
+
+#: .\templates\academique\annee_form.html:12
+#: .\templates\apprenants\creer.html:30
+#: .\templates\apprenants\inscription_form.html:11
+#: .\templates\emploi_du_temps\creneau_form.html:12
+#: .\templates\emploi_du_temps\salle_form.html:11
+#: .\templates\finances\depense_creer.html:11
+#: .\templates\finances\facture.html:11
+#: .\templates\finances\paiement_creer.html:11
+#: .\templates\messagerie\nouveau.html:11
+#: .\templates\pedagogie\affectations.html:30
+msgid "Annuler"
+msgstr "Cancel"
+
+#: .\templates\academique\annees.html:10 .\templates\academique\annees.html:13
+#: .\templates\admissions\detail.html:17 .\templates\apprenants\detail.html:19
+#: .\templates\apprenants\detail.html:20
+#: .\templates\apprenants\inscription_form.html:6
+#: .\templates\apprenants\inscriptions.html:6
+#: .\templates\apprenants\inscriptions.html:10
+#: .\templates\emploi_du_temps\gestion.html:7
+#: .\templates\evaluations\classes.html:6
+#: .\templates\evaluations\mes_evaluations.html:6
+#: .\templates\evaluations\resultats.html:17
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7 .\templates\finances\tarifs.html:11
+#: .\templates\pedagogie\affectations.html:6
+msgid "Année"
+msgstr "Year"
+
+#: .\templates\academique\annees.html:10 .\templates\academique\annees.html:13
+#: .\templates\academique\periodes.html:34
+msgid "Début"
+msgstr "Start"
+
+#: .\templates\academique\annees.html:10 .\templates\academique\annees.html:13
+#: .\templates\academique\periodes.html:35
+msgid "Fin"
+msgstr "End"
+
+#: .\templates\academique\annees.html:10 .\templates\academique\annees.html:14
+#: .\templates\academique\periodes.html:20
+#: .\templates\academique\periodes.html:24
+#: .\templates\admissions\detail.html:32 .\templates\admissions\liste.html:17
+#: .\templates\admissions\liste.html:23 .\templates\apprenants\detail.html:19
+#: .\templates\apprenants\detail.html:20
+#: .\templates\apprenants\inscriptions.html:11
+#: .\templates\apprenants\inscriptions.html:14
+#: .\templates\apprenants\inscriptions.html:16
+#: .\templates\evaluations\portail.html:9
+#: .\templates\evaluations\portail.html:10
+#: .\templates\evaluations\resultats.html:24
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:59
+#: .\templates\evaluations\synthese.html:15
+#: .\templates\evaluations\synthese.html:17
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7 .\templates\presences\appel.html:26
+#: .\templates\presences\appel.html:31 .\templates\presences\appel.html:32
+#: .\templates\presences\mes_absences.html:17
+#: .\templates\presences\mes_absences.html:20
+msgid "Statut"
+msgstr "Status"
+
+#: .\templates\academique\annees.html:15
+msgid "Gérer"
+msgstr "Manage"
+
+#: .\templates\academique\annees.html:16
+msgid "Aucune année. Créez la première pour commencer les inscriptions."
+msgstr "No school year yet. Create one to start enrolling students."
+
+#: .\templates\academique\periodes.html:3
+#: .\templates\academique\periodes.html:4
+#, python-format
+msgid "Année scolaire %(annee)s"
+msgstr "School year %(annee)s"
+
+#: .\templates\academique\periodes.html:7
+#: .\templates\noyau\tableau_de_bord.html:16
+#, python-format
+msgid "Année %(designation)s"
+msgstr "School year %(designation)s"
+
+#: .\templates\academique\periodes.html:10
+msgid "Activer cette année ? Les inscriptions pourront démarrer."
+msgstr "Activate this school year? Enrollment can then begin."
+
+#: .\templates\academique\periodes.html:10
+msgid "Activer"
+msgstr "Activate"
+
+#: .\templates\academique\periodes.html:12
+msgid "Clôturer l’année ? Toutes les périodes seront fermées."
+msgstr "Close this school year? All terms will be closed."
+
+#: .\templates\academique\periodes.html:12
+#: .\templates\academique\periodes.html:45
+msgid "Clôturer"
+msgstr "Close"
+
+#: .\templates\academique\periodes.html:20
+#: .\templates\academique\periodes.html:23
+#: .\templates\evaluations\portail.html:9
+#: .\templates\evaluations\portail.html:10
+#: .\templates\evaluations\resultats.html:18
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:58
+msgid "Période"
+msgstr "Term"
+
+#: .\templates\academique\periodes.html:20
+#: .\templates\academique\periodes.html:23
+msgid "Du"
+msgstr "From"
+
+#: .\templates\academique\periodes.html:20
+#: .\templates\academique\periodes.html:23
+msgid "Au"
+msgstr "To"
+
+#: .\templates\academique\periodes.html:20
+#: .\templates\evaluations\saisie.html:3
+msgid "Saisie des notes"
+msgstr "Grade entry"
+
+#: .\templates\academique\periodes.html:25
+msgid "Saisie"
+msgstr "Entry"
+
+#: .\templates\academique\periodes.html:25
+msgid "Autorisée"
+msgstr "Allowed"
+
+#: .\templates\academique\periodes.html:25
+msgid "Suspendue"
+msgstr "Suspended"
+
+#: .\templates\academique\periodes.html:29
+msgid "Modifier"
+msgstr "Edit"
+
+#: .\templates\academique\periodes.html:33
+#: .\templates\admissions\detail.html:23
+#: .\templates\emploi_du_temps\salles.html:8
+#: .\templates\emploi_du_temps\salles.html:9
+#: .\templates\importations\detail.html:9
+msgid "Nom"
+msgstr "Name"
+
+#: .\templates\academique\periodes.html:37 .\templates\apprenants\creer.html:30
+#: .\templates\apprenants\inscription_detail.html:47
+#: .\templates\emploi_du_temps\creneau_form.html:12
+#: .\templates\emploi_du_temps\salle_form.html:11
+#: .\templates\finances\depense_creer.html:11
+#: .\templates\finances\paiement_creer.html:11
+#: .\templates\noyau\parametres.html:11 .\templates\noyau\parametres.html:16
+#: .\templates\noyau\parametres.html:21 .\templates\noyau\parametres.html:26
+#: .\templates\noyau\parametres.html:31 .\templates\rgpd\consentements.html:7
+msgid "Enregistrer"
+msgstr "Save"
+
+#: .\templates\academique\periodes.html:42 .\templates\apprenants\liste.html:17
+msgid "Ouvrir"
+msgstr "Open"
+
+#: .\templates\academique\periodes.html:44
+msgid "Suspendre la saisie"
+msgstr "Suspend grade entry"
+
+#: .\templates\academique\periodes.html:44
+msgid "Rouvrir la saisie"
+msgstr "Reopen grade entry"
+
+#: .\templates\academique\periodes.html:45
+msgid "Clôturer cette période ?"
+msgstr "Close this term?"
+
+#: .\templates\academique\periodes.html:55
+msgid "Ajouter une période"
+msgstr "Add a term"
+
+#: .\templates\academique\periodes.html:55
+msgid ""
+"Définissez son nom et ses dates dans les limites de l’année académique, sans "
+"chevaucher une période existante."
+msgstr ""
+"Set its name and dates within the school year without overlapping another "
+"term."
+
+#: .\templates\academique\periodes.html:60
+#: .\templates\academique\structure.html:41
+#: .\templates\apprenants\inscription_detail.html:60
+msgid "Ajouter"
+msgstr "Add"
+
+#: .\templates\academique\periodes.html:67
+msgid "Reprendre la structure d’une année précédente"
+msgstr "Copy the structure from a previous year"
+
+#: .\templates\academique\periodes.html:70
+msgid "Année source"
+msgstr "Source year"
+
+#: .\templates\academique\periodes.html:71
+msgid "Reprendre classes et barèmes"
+msgstr "Copy classes and grading scales"
+
+#: .\templates\academique\structure.html:3
+#: .\templates\academique\structure.html:4
+#: .\templates\academique\structure.html:6
+msgid "Structure académique"
+msgstr "Academic structure"
+
+#: .\templates\academique\structure.html:6
+#: .\templates\apprenants\inscriptions.html:10
+msgid "Année active"
+msgstr "Active year"
+
+#: .\templates\academique\structure.html:10
+msgid "Facultés et programmes"
+msgstr "Faculties and programs"
+
+#: .\templates\academique\structure.html:12
+msgid "Aucun programme"
+msgstr "No programs"
+
+#: .\templates\academique\structure.html:13
+msgid "Aucune faculté."
+msgstr "No faculties."
+
+#: .\templates\academique\structure.html:16
+msgid "Ajouter la faculté"
+msgstr "Add faculty"
+
+#: .\templates\academique\structure.html:18
+msgid "Ajouter le programme"
+msgstr "Add program"
+
+#: .\templates\academique\structure.html:26
+msgid "Aucun niveau."
+msgstr "No grades."
+
+#: .\templates\academique\structure.html:30
+msgid "Ajouter le niveau"
+msgstr "Add grade"
+
+#: .\templates\academique\structure.html:37
+msgid "Aucun groupe pour l’année active."
+msgstr "No groups for the active year."
+
+#: .\templates\admissions\confirmation.html:3
+#: .\templates\admissions\confirmation.html:7
+msgid "Candidature envoyée"
+msgstr "Application submitted"
+
+#: .\templates\admissions\confirmation.html:8
+#, python-format
+msgid "Votre demande a bien été transmise à <strong>%(school)s</strong>."
+msgstr "Your application was sent to <strong>%(school)s</strong>."
+
+#: .\templates\admissions\confirmation.html:9
+#, python-format
+msgid "Conservez cette référence : <strong>%(reference)s</strong>."
+msgstr "Keep this reference: <strong>%(reference)s</strong>."
+
+#: .\templates\admissions\confirmation.html:10
+msgid "Retour à l’accueil"
+msgstr "Back to home"
+
+#: .\templates\admissions\deposer.html:7
+msgid "Déposer une candidature"
+msgstr "Submit an application"
+
+#: .\templates\admissions\deposer.html:8
+msgid ""
+"Transmettez votre demande à l’établissement. La direction vous contactera "
+"après examen du dossier."
+msgstr ""
+"Send your application to the school. The administration will contact you "
+"after reviewing it."
+
+#: .\templates\admissions\deposer.html:11
+msgid "Établissement souhaité"
+msgstr "Preferred school"
+
+#: .\templates\admissions\deposer.html:13
+msgid "Choisir un établissement"
+msgstr "Choose a school"
+
+#: .\templates\admissions\deposer.html:16
+msgid "Continuer"
+msgstr "Continue"
+
+#: .\templates\admissions\deposer.html:17
+msgid "Aucun établissement n’accepte actuellement les candidatures en ligne."
+msgstr "No schools are currently accepting online applications."
+
+#: .\templates\admissions\deposer.html:39
+msgid ""
+"Les renseignements sont utilisés uniquement pour examiner cette candidature "
+"et préparer une éventuelle inscription."
+msgstr ""
+"Your information is used only to review this application and prepare a "
+"possible enrollment."
+
+#: .\templates\admissions\deposer.html:40
+msgid "Envoyer la candidature"
+msgstr "Submit application"
+
+#: .\templates\admissions\detail.html:3 .\templates\admissions\detail.html:4
+msgid "Candidature"
+msgstr "Application"
+
+#: .\templates\admissions\detail.html:7
+#, python-format
+msgid "Référence %(reference)s"
+msgstr "Reference %(reference)s"
+
+#: .\templates\admissions\detail.html:8
+msgid "Retour aux candidatures"
+msgstr "Back to applications"
+
+#: .\templates\admissions\detail.html:11 .\templates\admissions\liste.html:17
+#: .\templates\admissions\liste.html:20
+msgid "Candidat"
+msgstr "Applicant"
+
+#: .\templates\admissions\detail.html:13
+msgid "Date de naissance"
+msgstr "Date of birth"
+
+#: .\templates\admissions\detail.html:14 .\templates\apprenants\detail.html:12
+msgid "Sexe"
+msgstr "Gender"
+
+#: .\templates\admissions\detail.html:15
+msgid "Lieu de naissance"
+msgstr "Place of birth"
+
+#: .\templates\admissions\detail.html:16
+msgid "Classe souhaitée"
+msgstr "Requested class"
+
+#: .\templates\admissions\detail.html:18
+msgid "Message"
+msgstr "Message"
+
+#: .\templates\admissions\detail.html:21
+msgid "Parent ou tuteur"
+msgstr "Parent or guardian"
+
+#: .\templates\admissions\detail.html:25
+msgid "Courriel"
+msgstr "Email"
+
+#: .\templates\admissions\detail.html:26
+msgid "Consentement"
+msgstr "Consent"
+
+#: .\templates\admissions\detail.html:26
+#, python-format
+msgid "Donné le %(date)s"
+msgstr "Given on %(date)s"
+
+#: .\templates\admissions\detail.html:26
+msgid "Non enregistré"
+msgstr "Not recorded"
+
+#: .\templates\admissions\detail.html:31
+#: .\templates\apprenants\inscription_detail.html:35
+#: .\templates\rgpd\demandes.html:12
+msgid "Décision"
+msgstr "Decision"
+
+#: .\templates\admissions\detail.html:33
+#, python-format
+msgid "Traitée le %(date)s"
+msgstr "Processed on %(date)s"
+
+#: .\templates\admissions\detail.html:33
+#, python-format
+msgid "par %(name)s"
+msgstr "by %(name)s"
+
+#: .\templates\admissions\detail.html:34
+msgid "Dossier créé"
+msgstr "Record created"
+
+#: .\templates\admissions\detail.html:35
+#: .\templates\apprenants\inscription_detail.html:9
+msgid "Inscription"
+msgstr "Enrollment"
+
+#: .\templates\admissions\detail.html:36 .\templates\admissions\detail.html:45
+#: .\templates\finances\depenses.html:8 .\templates\finances\depenses.html:10
+#: .\templates\finances\paiements.html:8 .\templates\finances\paiements.html:10
+#: .\templates\presences\appel.html:37
+#: .\templates\presences\mes_absences.html:17
+#: .\templates\presences\mes_absences.html:20
+msgid "Motif"
+msgstr "Reason"
+
+#: .\templates\admissions\detail.html:41
+msgid "Accepter et inscrire"
+msgstr "Accept and enroll"
+
+#: .\templates\admissions\detail.html:46 .\templates\rgpd\demandes.html:12
+msgid "Refuser"
+msgstr "Reject"
+
+#: .\templates\admissions\liste.html:7
+msgid "Demandes reçues par formulaire en ligne"
+msgstr "Applications received online"
+
+#: .\templates\admissions\liste.html:10
+msgid "Filtrer par statut"
+msgstr "Filter by status"
+
+#: .\templates\admissions\liste.html:11
+#: .\templates\apprenants\inscriptions.html:11
+#: .\templates\evaluations\resultats.html:24
+msgid "Tous les statuts"
+msgstr "All statuses"
+
+#: .\templates\admissions\liste.html:14
+msgid "Filtrer"
+msgstr "Filter"
+
+#: .\templates\admissions\liste.html:17
+msgid "Classe demandée"
+msgstr "Requested class"
+
+#: .\templates\admissions\liste.html:17 .\templates\admissions\liste.html:22
+msgid "Déposée le"
+msgstr "Submitted on"
+
+#: .\templates\admissions\liste.html:24
+msgid "Examiner"
+msgstr "Review"
+
+#: .\templates\admissions\liste.html:26
+msgid "Aucune candidature pour ce filtre."
+msgstr "No applications match this filter."
+
+#: .\templates\apprenants\creer.html:6 .\templates\apprenants\liste.html:7
+msgid "Nouvel apprenant"
+msgstr "New student"
+
+#: .\templates\apprenants\creer.html:6
+msgid ""
+"Le matricule est généré automatiquement. Le dossier est créé une seule fois "
+"pour tout le parcours."
+msgstr ""
+"The student ID is generated automatically. The record is created once and "
+"kept throughout the student's journey."
+
+#: .\templates\apprenants\creer.html:9
+msgid "Identité"
+msgstr "Identity"
+
+#: .\templates\apprenants\creer.html:16
+msgid "Coordonnées (facultatif)"
+msgstr "Contact details (optional)"
+
+#: .\templates\apprenants\creer.html:23
+msgid "Responsable légal (facultatif)"
+msgstr "Legal guardian (optional)"
+
+#: .\templates\apprenants\detail.html:6 .\templates\apprenants\liste.html:13
+#: .\templates\apprenants\liste.html:16
+msgid "Matricule"
+msgstr "Student ID"
+
+#: .\templates\apprenants\detail.html:7 .\templates\importations\detail.html:15
+msgid "Retour"
+msgstr "Back"
+
+#: .\templates\apprenants\detail.html:8
+msgid ""
+"Ce dossier a été anonymisé. Les inscriptions et résultats historiques sont "
+"conservés."
+msgstr ""
+"This record has been anonymized. Historical enrollments and results are "
+"retained."
+
+#: .\templates\apprenants\detail.html:9
+msgid "Gérer les consentements"
+msgstr "Manage consents"
+
+#: .\templates\apprenants\detail.html:9
+msgid "Cette action est irréversible. Confirmer l’anonymisation ?"
+msgstr "This action cannot be undone. Confirm anonymization?"
+
+#: .\templates\apprenants\detail.html:9
+msgid "Anonymiser le dossier"
+msgstr "Anonymize record"
+
+#: .\templates\apprenants\detail.html:10
+msgid "Dossier"
+msgstr "Record"
+
+#: .\templates\apprenants\detail.html:13 .\templates\apprenants\liste.html:13
+#: .\templates\apprenants\liste.html:16
+msgid "Naissance"
+msgstr "Birth"
+
+#: .\templates\apprenants\detail.html:13
+msgid "à"
+msgstr "at"
+
+#: .\templates\apprenants\detail.html:19 .\templates\apprenants\detail.html:20
+#: .\templates\apprenants\inscription_detail.html:28
+#: .\templates\apprenants\inscriptions.html:14
+#: .\templates\apprenants\inscriptions.html:15
+#: .\templates\evaluations\resultats.html:19
+#: .\templates\finances\tarifs.html:11
+#: .\templates\pedagogie\affectations.html:8
+#: .\templates\pedagogie\affectations.html:9
+msgid "Niveau"
+msgstr "Grade"
+
+#: .\templates\apprenants\detail.html:21 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7
+#: .\templates\finances\rapports.html:11
+msgid "Détail"
+msgstr "Details"
+
+#: .\templates\apprenants\detail.html:22
+msgid "Aucune inscription."
+msgstr "No enrollments."
+
+#: .\templates\apprenants\detail.html:24
+msgid "Inscrire"
+msgstr "Enroll"
+
+#: .\templates\apprenants\inscription_detail.html:14
+msgid "Dossier de l’élève"
+msgstr "Student record"
+
+#: .\templates\apprenants\inscription_detail.html:17
+msgid "Liste des inscriptions"
+msgstr "Enrollment list"
+
+#: .\templates\apprenants\inscription_detail.html:21
+#: .\templates\finances\facture.html:6 .\templates\finances\mes_factures.html:7
+#: .\templates\finances\rapports.html:11
+msgid "Facture"
+msgstr "Invoice"
+
+#: .\templates\apprenants\inscription_detail.html:26
+msgid "Demande"
+msgstr "Request"
+
+#: .\templates\apprenants\inscription_detail.html:29
+msgid "Faculté"
+msgstr "Faculty"
+
+#: .\templates\apprenants\inscription_detail.html:29
+msgid "Programme"
+msgstr "Program"
+
+#: .\templates\apprenants\inscription_detail.html:31
+msgid "Fin d’année"
+msgstr "Year-end"
+
+#: .\templates\apprenants\inscription_detail.html:38
+#: .\templates\rgpd\demandes.html:14
+msgid "Enregistrer la décision"
+msgstr "Save decision"
+
+#: .\templates\apprenants\inscription_detail.html:42
+msgid "Suivi du parcours"
+msgstr "Progress tracking"
+
+#: .\templates\apprenants\inscription_detail.html:45
+msgid "Changer de groupe"
+msgstr "Change group"
+
+#: .\templates\apprenants\inscription_detail.html:49
+msgid "Préparer la réinscription pour l’année active ?"
+msgstr "Prepare re-enrollment for the active year?"
+
+#: .\templates\apprenants\inscription_detail.html:49
+msgid "Préparer la réinscription"
+msgstr "Prepare re-enrollment"
+
+#: .\templates\apprenants\inscription_detail.html:53
+msgid "Historique des décisions"
+msgstr "Decision history"
+
+#: .\templates\apprenants\inscription_detail.html:55
+msgid "Aucune décision pour le moment."
+msgstr "No decisions yet."
+
+#: .\templates\apprenants\inscription_detail.html:57
+msgid "Pièces"
+msgstr "Documents"
+
+#: .\templates\apprenants\inscription_detail.html:58
+msgid "Aucune pièce jointe."
+msgstr "No attachments."
+
+#: .\templates\apprenants\inscription_form.html:3
+#: .\templates\apprenants\inscription_form.html:6
+#: .\templates\apprenants\inscriptions.html:7
+msgid "Nouvelle inscription"
+msgstr "New enrollment"
+
+#: .\templates\apprenants\inscription_form.html:6
+msgid "statut initial : en attente"
+msgstr "initial status: pending"
+
+#: .\templates\apprenants\inscription_form.html:11
+msgid "Enregistrer la demande"
+msgstr "Save request"
+
+#: .\templates\apprenants\inscriptions.html:9
+msgid "Nom, prénom ou matricule"
+msgstr "Last name, first name, or student ID"
+
+#: .\templates\apprenants\inscriptions.html:9
+msgid "Rechercher"
+msgstr "Search"
+
+#: .\templates\apprenants\inscriptions.html:17
+#: .\templates\rgpd\demandes.html:12
+msgid "Traiter"
+msgstr "Process"
+
+#: .\templates\apprenants\inscriptions.html:18
+msgid "Aucune inscription pour ces critères."
+msgstr "No enrollments match these criteria."
+
+#: .\templates\apprenants\liste.html:9
+msgid "Rechercher par nom, prénom ou matricule"
+msgstr "Search by name, first name, or student ID"
+
+#: .\templates\apprenants\liste.html:9
+msgid "Rechercher un apprenant"
+msgstr "Search for a student"
+
+#: .\templates\apprenants\liste.html:18
+msgid "Aucun apprenant trouvé."
+msgstr "No students found."
+
+#: .\templates\base.html:11
+msgid "Navigation latérale"
+msgstr "Side navigation"
+
+#: .\templates\base.html:18 .\templates\base.html:19
+msgid "Changer d’établissement"
+msgstr "Switch school"
+
+#: .\templates\base.html:49
+msgid "Réduire ou agrandir le menu"
+msgstr "Collapse or expand the menu"
+
+#: .\templates\base.html:53 .\templates\messagerie\notifications.html:7
+msgid "Notifications"
+msgstr "Notifications"
+
+#: .\templates\base.html:58
+msgid "Aucune notification"
+msgstr "No notifications"
+
+#: .\templates\base.html:62
+msgid "Profil et compte"
+msgstr "Profile and account"
+
+#: .\templates\base.html:66
+msgid "Mon profil"
+msgstr "My profile"
+
+#: .\templates\base.html:67 .\templates\base.html:113
+msgid "Console plateforme"
+msgstr "Platform console"
+
+#: .\templates\base.html:68
+msgid "Changer d'établissement"
+msgstr "Switch school"
+
+#: .\templates\base.html:69 .\templates\base.html:104 .\templates\base.html:115
+msgid "Se déconnecter"
+msgstr "Log in"
+
+#: .\templates\base.html:82
+msgid "Accès à la plateforme"
+msgstr "Platform access"
+
+#: .\templates\base.html:82
+msgid "Navigation principale"
+msgstr "Main navigation"
+
+#: .\templates\base.html:95
+msgid "Plus"
+msgstr "More"
+
+#: .\templates\base.html:96 .\templates\pedagogie\affectations.html:22
+msgid "Fermer"
+msgstr "Close"
+
+#: .\templates\base.html:103
+msgid "Session"
+msgstr "Session"
+
+#: .\templates\base.html:114
+msgid "Mes établissements"
+msgstr "My schools"
+
+#: .\templates\comptes\connexion.html:7
+msgid "Bon retour"
+msgstr "Welcome back"
+
+#: .\templates\comptes\connexion.html:8
+msgid "Connectez-vous avec votre nom d’utilisateur ou votre adresse e-mail."
+msgstr "Sign in with your username or email address."
+
+#: .\templates\comptes\connexion.html:16
+msgid "Mot de passe oublié ?"
+msgstr "Forgot your password?"
+
+#: .\templates\comptes\connexion.html:18
+#: .\templates\comptes\inscription.html:30
+#: .\templates\interface\public_base.html:13
+msgid "Se connecter"
+msgstr "Log in"
+
+#: .\templates\comptes\connexion.html:20
+msgid "Nouveau sur EduGest ?"
+msgstr "New to EduGest?"
+
+#: .\templates\comptes\connexion.html:20
+#: .\templates\comptes\inscription.html:28
+#: .\templates\interface\public_base.html:13
+msgid "Créer mon établissement"
+msgstr "Create my school"
+
+#: .\templates\comptes\inscription.html:8
+msgid "Créez votre établissement"
+msgstr "Create your school"
+
+#: .\templates\comptes\inscription.html:9
+msgid ""
+"Essai gratuit de 30 jours, sans carte bancaire. Vous serez l'administrateur "
+"de votre espace."
+msgstr ""
+"30-day free trial, no credit card required. You will be the administrator of "
+"your workspace."
+
+#: .\templates\comptes\inscription.html:13
+msgid "Votre établissement"
+msgstr "Your school"
+
+#: .\templates\comptes\inscription.html:18
+msgid "Votre compte"
+msgstr "Your account"
+
+#: .\templates\comptes\inscription.html:30
+msgid "Déjà un compte ?"
+msgstr "Already have an account?"
+
+#: .\templates\emploi_du_temps\creneau_form.html:6
+msgid "Nouveau créneau"
+msgstr "New time slot"
+
+#: .\templates\emploi_du_temps\creneau_form.html:11
+msgid ""
+"Les chevauchements pour la classe, l’enseignant et la salle sont refusés."
+msgstr "Overlaps for the class, teacher, and room are not allowed."
+
+#: .\templates\emploi_du_temps\gestion.html:7
+#: .\templates\noyau\tableau_de_bord.html:18
+msgid "Aucune année active"
+msgstr "No active school year"
+
+#: .\templates\emploi_du_temps\gestion.html:8
+#: .\templates\emploi_du_temps\salles.html:6
+msgid "Salles"
+msgstr "Rooms"
+
+#: .\templates\emploi_du_temps\gestion.html:8
+msgid "Ajouter un créneau"
+msgstr "Add time slot"
+
+#: .\templates\emploi_du_temps\gestion.html:19
+#: .\templates\emploi_du_temps\mon_emploi.html:9
+msgid "Aujourd’hui"
+msgstr "Today"
+
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:26
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:14
+msgid "Horaire"
+msgstr "Time"
+
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:28
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:17
+#: .\templates\evaluations\classes.html:8
+#: .\templates\evaluations\classes.html:10
+#: .\templates\pedagogie\affectations.html:8
+#: .\templates\pedagogie\affectations.html:9
+msgid "Enseignant"
+msgstr "Teacher"
+
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:29
+#: .\templates\emploi_du_temps\mon_emploi.html:11
+#: .\templates\emploi_du_temps\mon_emploi.html:18
+msgid "Salle"
+msgstr "Room"
+
+#: .\templates\emploi_du_temps\gestion.html:22
+#: .\templates\emploi_du_temps\gestion.html:30
+msgid "Action"
+msgstr "Action"
+
+#: .\templates\emploi_du_temps\gestion.html:30
+msgid "Supprimer"
+msgstr "Delete"
+
+#: .\templates\emploi_du_temps\gestion.html:37
+msgid "Aucun créneau n’est encore défini pour cette classe."
+msgstr "No time slots have been set for this class yet."
+
+#: .\templates\emploi_du_temps\gestion.html:38
+msgid "Aucune classe disponible pour l’année active."
+msgstr "No classes available for the active year."
+
+#: .\templates\emploi_du_temps\mon_emploi.html:23
+msgid "Aucun créneau n’est défini pour vos classes."
+msgstr "No time slots are set for your classes."
+
+#: .\templates\emploi_du_temps\salle_form.html:6
+#: .\templates\emploi_du_temps\salles.html:6
+msgid "Ajouter une salle"
+msgstr "Add room"
+
+#: .\templates\emploi_du_temps\salles.html:8
+#: .\templates\emploi_du_temps\salles.html:9
+msgid "Capacité"
+msgstr "Capacity"
+
+#: .\templates\emploi_du_temps\salles.html:9
+msgid "Non précisée"
+msgstr "Not specified"
+
+#: .\templates\emploi_du_temps\salles.html:10
+msgid "Aucune salle enregistrée."
+msgstr "No rooms have been recorded."
+
+#: .\templates\evaluations\classes.html:8
+#: .\templates\evaluations\classes.html:10
+#: .\templates\evaluations\configuration.html:16
+#: .\templates\evaluations\configuration.html:18
+msgid "Barème"
+msgstr "Grading scale"
+
+#: .\templates\evaluations\classes.html:11
+msgid "Aucune classe."
+msgstr "No classes."
+
+#: .\templates\evaluations\configuration.html:3
+msgid "Configuration de l’évaluation"
+msgstr "Assessment setup"
+
+#: .\templates\evaluations\configuration.html:7
+msgid "barème de la matière"
+msgstr "subject grading scale"
+
+#: .\templates\evaluations\configuration.html:12
+msgid "Composantes de l’évaluation"
+msgstr "Assessment components"
+
+#: .\templates\evaluations\configuration.html:13
+#, python-format
+msgid ""
+"Choisissez librement vos composantes (interrogation, devoir, examen…). La "
+"somme des barèmes doit être exactement %(bareme)s."
+msgstr ""
+"Choose your components (quiz, assignment, exam…). Their grading scales must "
+"total exactly %(bareme)s."
+
+#: .\templates\evaluations\configuration.html:16
+#: .\templates\evaluations\configuration.html:18
+msgid "Intitulé"
+msgstr "Title"
+
+#: .\templates\evaluations\configuration.html:16
+#: .\templates\evaluations\configuration.html:18
+msgid "Retirer la composante"
+msgstr "Remove component"
+
+#: .\templates\evaluations\configuration.html:21
+msgid "Ajouter une composante"
+msgstr "Add component"
+
+#: .\templates\evaluations\configuration.html:22
+#: .\templates\evaluations\configuration.html:32
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:59
+#: .\templates\evaluations\synthese.html:15 .\templates\finances\facture.html:7
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7
+msgid "Total"
+msgstr "Total"
+
+#: .\templates\evaluations\configuration.html:23
+msgid "Des notes sont déjà saisies. Modifier les composantes les supprimera."
+msgstr ""
+"Grades have already been entered. Changing components will delete them."
+
+#: .\templates\evaluations\configuration.html:23
+msgid "Je confirme la suppression des notes saisies"
+msgstr "I confirm deletion of entered grades"
+
+#: .\templates\evaluations\configuration.html:25
+msgid "Enregistrer le brouillon"
+msgstr "Save draft"
+
+#: .\templates\evaluations\configuration.html:26
+msgid "Valider la configuration"
+msgstr "Approve setup"
+
+#: .\templates\evaluations\configuration.html:30
+msgid "Composantes validées"
+msgstr "Approved components"
+
+#: .\templates\evaluations\configuration.html:33
+msgid "Saisir les notes"
+msgstr "Enter grades"
+
+#: .\templates\evaluations\configuration.html:34
+msgid "Modifier la configuration"
+msgstr "Edit setup"
+
+#: .\templates\evaluations\configuration.html:36
+msgid "Motif (obligatoire, tracé)"
+msgstr "Reason (required and recorded)"
+
+#: .\templates\evaluations\configuration.html:37
+msgid "Rouvrir la configuration"
+msgstr "Reopen setup"
+
+#: .\templates\evaluations\mes_evaluations.html:3
+#: .\templates\evaluations\mes_evaluations.html:6
+msgid "Mes évaluations"
+msgstr "My assessments"
+
+#: .\templates\evaluations\mes_evaluations.html:15
+#: .\templates\noyau\tableau_de_bord.html:64
+#: .\templates\noyau\tableau_de_bord.html:95
+msgid "Configurer"
+msgstr "Set up"
+
+#: .\templates\evaluations\mes_evaluations.html:18
+msgid "Synthèse"
+msgstr "Summary"
+
+#: .\templates\evaluations\mes_evaluations.html:24
+msgid "Aucune matière ne vous est affectée pour l’année active."
+msgstr "No subjects are assigned to you for the active year."
+
+#: .\templates\evaluations\portail.html:3
+msgid "Mes résultats"
+msgstr "My results"
+
+#: .\templates\evaluations\portail.html:9
+#: .\templates\evaluations\portail.html:10
+#: .\templates\evaluations\saisie.html:22
+#: .\templates\evaluations\saisie.html:24
+msgid "Note"
+msgstr "Grade"
+
+#: .\templates\evaluations\portail.html:11
+msgid "Aucun résultat publié pour le moment."
+msgstr "No results have been published yet."
+
+#: .\templates\evaluations\resultats.html:10
+msgid "Vue des résultats"
+msgstr "Results view"
+
+#: .\templates\evaluations\resultats.html:11
+msgid "Résultats par matière"
+msgstr "Results by subject"
+
+#: .\templates\evaluations\resultats.html:13
+msgid "Bulletin synthétique"
+msgstr "Summary report card"
+
+#: .\templates\evaluations\resultats.html:17
+msgid "Toutes les années"
+msgstr "All years"
+
+#: .\templates\evaluations\resultats.html:18
+msgid "Toutes les périodes"
+msgstr "All terms"
+
+#: .\templates\evaluations\resultats.html:19
+msgid "Tous les niveaux"
+msgstr "All grades"
+
+#: .\templates\evaluations\resultats.html:20
+msgid "Tous les groupes"
+msgstr "All groups"
+
+#: .\templates\evaluations\resultats.html:22
+msgid "Tous les cours"
+msgstr "All courses"
+
+#: .\templates\evaluations\resultats.html:23
+msgid "Composante"
+msgstr "Component"
+
+#: .\templates\evaluations\resultats.html:23
+msgid "Toutes les composantes"
+msgstr "All components"
+
+#: .\templates\evaluations\resultats.html:25
+#: .\templates\evaluations\synthese.html:15
+#: .\templates\evaluations\synthese.html:17
+#: .\templates\evaluations\synthese.html:24
+msgid "Publication"
+msgstr "Publication"
+
+#: .\templates\evaluations\resultats.html:25
+msgid "Publiés ou non"
+msgstr "Published or unpublished"
+
+#: .\templates\evaluations\resultats.html:25
+msgid "Publiés"
+msgstr "Published"
+
+#: .\templates\evaluations\resultats.html:25
+msgid "Non publiés"
+msgstr "Unpublished"
+
+#: .\templates\evaluations\resultats.html:30
+msgid ""
+"Choisissez une période pour afficher le bulletin synthétique consolidé de "
+"chaque apprenant."
+msgstr "Choose a term to display each student's consolidated report card."
+
+#: .\templates\evaluations\resultats.html:33
+msgid "Bulletins synthétiques"
+msgstr "Summary report cards"
+
+#: .\templates\evaluations\resultats.html:33
+msgid "Les bulletins ne sont établis qu’à partir des résultats publiés."
+msgstr "Report cards are compiled only from published results."
+
+#: .\templates\evaluations\resultats.html:36
+#: .\templates\evaluations\resultats.html:55
+msgid ""
+"Le classement est désactivé dans les paramètres de l’établissement. Les "
+"rangs apparaîtront lorsqu’il sera autorisé."
+msgstr ""
+"Class ranking is disabled in school settings. Ranks will appear when it is "
+"enabled."
+
+#: .\templates\evaluations\resultats.html:36
+#: .\templates\evaluations\resultats.html:55
+msgid "Activer le classement dans les paramètres"
+msgstr "Enable ranking in settings"
+
+#: .\templates\evaluations\resultats.html:40
+#: .\templates\evaluations\resultats.html:46
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:58
+msgid "Rang"
+msgstr "Rank"
+
+#: .\templates\evaluations\resultats.html:41
+#: .\templates\evaluations\resultats.html:47
+msgid "Moyenne générale"
+msgstr "Overall average"
+
+#: .\templates\evaluations\resultats.html:41
+#: .\templates\evaluations\resultats.html:49
+msgid "État du bulletin"
+msgstr "Report card status"
+
+#: .\templates\evaluations\resultats.html:46
+#: .\templates\evaluations\resultats.html:58
+msgid "1er"
+msgstr "1st"
+
+#: .\templates\evaluations\resultats.html:46
+#: .\templates\evaluations\resultats.html:58
+msgid "e"
+msgstr "th"
+
+#: .\templates\evaluations\resultats.html:49
+msgid "Complet"
+msgstr "Complete"
+
+#: .\templates\evaluations\resultats.html:50
+msgid "Aucun bulletin publié pour cette période et ces critères."
+msgstr "No report cards have been published for this term and these criteria."
+
+#: .\templates\evaluations\resultats.html:57
+#: .\templates\evaluations\resultats.html:59
+#: .\templates\evaluations\synthese.html:17
+msgid "Publié"
+msgstr "Published"
+
+#: .\templates\evaluations\resultats.html:59
+msgid "Oui"
+msgstr "Yes"
+
+#: .\templates\evaluations\resultats.html:59
+msgid "Non"
+msgstr "No"
+
+#: .\templates\evaluations\resultats.html:60
+msgid "Aucun résultat pour ces critères."
+msgstr "No results match these criteria."
+
+#: .\templates\evaluations\saisie.html:8
+msgid "Synthèse et publication"
+msgstr "Summary and publishing"
+
+#: .\templates\evaluations\saisie.html:9
+#: .\templates\noyau\tableau_de_bord.html:47
+msgid "Configuration"
+msgstr "Settings"
+
+#: .\templates\evaluations\saisie.html:10
+msgid ""
+"La saisie est actuellement fermée (configuration non validée ou période "
+"fermée). Les notes sont en consultation."
+msgstr ""
+"Grade entry is currently closed (setup not approved or term closed). Grades "
+"are view-only."
+
+#: .\templates\evaluations\saisie.html:23 .\templates\finances\facture.html:8
+msgid "État"
+msgstr "Status"
+
+#: .\templates\evaluations\saisie.html:25
+msgid "Absent"
+msgstr "Absent"
+
+#: .\templates\evaluations\saisie.html:30
+msgid "Résultat"
+msgstr "Result"
+
+#: .\templates\evaluations\saisie.html:31
+msgid "Aucun apprenant inscrit et validé dans ce groupe."
+msgstr "No enrolled and approved students in this group."
+
+#: .\templates\evaluations\saisie.html:37
+msgid "Motif de la correction (obligatoire : des résultats sont publiés)"
+msgstr "Correction reason (required because results are published)"
+
+#: .\templates\evaluations\saisie.html:38
+msgid "Enregistrer les notes"
+msgstr "Save grades"
+
+#: .\templates\evaluations\saisie.html:39
+msgid ""
+"Absent et Dispensé ne sont jamais comptés comme zéro : le résultat reste "
+"incomplet tant qu’une absence n’est pas traitée."
+msgstr ""
+"Absent and Excused are never counted as zero: the result remains incomplete "
+"until an absence is resolved."
+
+#: .\templates\evaluations\synthese.html:10
+msgid "Moyenne de la classe"
+msgstr "Class average"
+
+#: .\templates\evaluations\synthese.html:11
+msgid "Taux de réussite"
+msgstr "Pass rate"
+
+#: .\templates\evaluations\synthese.html:12
+msgid "Résultats incomplets"
+msgstr "Incomplete results"
+
+#: .\templates\evaluations\synthese.html:17
+msgid "Non publié"
+msgstr "Unpublished"
+
+#: .\templates\evaluations\synthese.html:18
+msgid "Aucun résultat."
+msgstr "No results."
+
+#: .\templates\evaluations\synthese.html:19
+msgid "en difficulté"
+msgstr "At risk"
+
+#: .\templates\evaluations\synthese.html:21
+msgid "Classement"
+msgstr "Ranking"
+
+#: .\templates\evaluations\synthese.html:25
+msgid ""
+"Publier les résultats ? Ils deviendront visibles des apprenants et des "
+"parents."
+msgstr "Publish the results? They will become visible to students and parents."
+
+#: .\templates\evaluations\synthese.html:26
+msgid "Publier malgré des résultats incomplets (ils resteront non publiés)"
+msgstr "Publish despite incomplete results (they will remain unpublished)"
+
+#: .\templates\evaluations\synthese.html:27
+msgid "Publier les résultats complets"
+msgstr "Publish complete results"
+
+#: .\templates\evaluations\synthese.html:29
+msgid "Dépublier (motif obligatoire)"
+msgstr "Unpublish (reason required)"
+
+#: .\templates\evaluations\synthese.html:29
+msgid "Dépublier"
+msgstr "Unpublish"
+
+#: .\templates\finances\depense_creer.html:6
+#: .\templates\finances\depenses.html:6
+msgid "Enregistrer une dépense"
+msgstr "Record an expense"
+
+#: .\templates\finances\depenses.html:8 .\templates\finances\depenses.html:10
+#: .\templates\finances\facture.html:9 .\templates\finances\factures.html:8
+#: .\templates\finances\paiements.html:8 .\templates\finances\paiements.html:10
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:21
+#: .\templates\presences\mes_absences.html:17
+#: .\templates\presences\mes_absences.html:20
+msgid "Date"
+msgstr "Date"
+
+#: .\templates\finances\depenses.html:8 .\templates\finances\depenses.html:10
+msgid "Catégorie"
+msgstr "Category"
+
+#: .\templates\finances\depenses.html:8 .\templates\finances\depenses.html:10
+#: .\templates\finances\facture.html:7 .\templates\finances\facture.html:8
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:8
+#: .\templates\finances\paiements.html:10 .\templates\finances\tarifs.html:11
+msgid "Montant"
+msgstr "Amount"
+
+#: .\templates\finances\depenses.html:11
+msgid "Aucune dépense enregistrée."
+msgstr "No expenses recorded."
+
+#: .\templates\finances\depenses.html:14 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:14
+msgid "Pagination"
+msgstr "Pagination"
+
+#: .\templates\finances\depenses.html:15 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:15
+msgid "Précédent"
+msgstr "Previous"
+
+#: .\templates\finances\depenses.html:16 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:16
+msgid "Page"
+msgstr "Page"
+
+#: .\templates\finances\depenses.html:16 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:16
+msgid "sur"
+msgstr "of"
+
+#: .\templates\finances\depenses.html:17 .\templates\finances\factures.html:11
+#: .\templates\finances\paiements.html:17
+msgid "Suivant"
+msgstr "Next"
+
+#: .\templates\finances\facture.html:6
+msgid "Retour aux factures"
+msgstr "Back to invoices"
+
+#: .\templates\finances\facture.html:7
+msgid "Détail des frais"
+msgstr "Fee details"
+
+#: .\templates\finances\facture.html:7
+msgid "Libellé"
+msgstr "Description"
+
+#: .\templates\finances\facture.html:7 .\templates\finances\facture.html:8
+msgid "Payé"
+msgstr "Paid"
+
+#: .\templates\finances\facture.html:7 .\templates\finances\mes_factures.html:7
+#: .\templates\finances\rapports.html:11
+msgid "Solde"
+msgstr "Balance due"
+
+#: .\templates\finances\facture.html:8 .\templates\finances\tarifs.html:11
+msgid "Échéances"
+msgstr "Installments"
+
+#: .\templates\finances\facture.html:8
+msgid "Échéance"
+msgstr "Installment"
+
+#: .\templates\finances\facture.html:8
+msgid "Date limite"
+msgstr "Due date"
+
+#: .\templates\finances\facture.html:8
+msgid "Reste"
+msgstr "Remaining"
+
+#: .\templates\finances\facture.html:8
+msgid "En retard"
+msgstr "Overdue"
+
+#: .\templates\finances\facture.html:8
+msgid "Payée"
+msgstr "Paid"
+
+#: .\templates\finances\facture.html:8
+msgid "Aucune échéance configurée."
+msgstr "No installments configured."
+
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:8
+#: .\templates\finances\paiements.html:10
+msgid "Reçu"
+msgstr "Receipt"
+
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:8
+#: .\templates\finances\paiements.html:10
+msgid "Mode"
+msgstr "Method"
+
+#: .\templates\finances\facture.html:9
+msgid "Référence"
+msgstr "Reference"
+
+#: .\templates\finances\facture.html:9 .\templates\finances\paiements.html:10
+msgid "Reçu PDF"
+msgstr "PDF receipt"
+
+#: .\templates\finances\facture.html:9
+msgid "Aucun paiement."
+msgstr "No payments."
+
+#: .\templates\finances\facture.html:10
+#: .\templates\finances\paiement_creer.html:6
+#: .\templates\finances\paiements.html:6
+msgid "Enregistrer un paiement"
+msgstr "Record a payment"
+
+#: .\templates\finances\facture.html:10
+msgid "Solde dû"
+msgstr "Balance due"
+
+#: .\templates\finances\facture.html:10
+msgid "Encaisser"
+msgstr "Collect payment"
+
+#: .\templates\finances\facture.html:11
+msgid "Annuler cette facture ?"
+msgstr "Cancel this invoice?"
+
+#: .\templates\finances\facture.html:11
+msgid "Annuler la facture"
+msgstr "Cancel invoice"
+
+#: .\templates\finances\factures.html:6
+msgid ""
+"Les factures sont émises à la validation de l'inscription à partir des "
+"grilles de frais."
+msgstr ""
+"Invoices are issued when an enrollment is approved, based on the fee "
+"schedules."
+
+#: .\templates\finances\factures.html:6
+msgid "Gérer les tarifs"
+msgstr "Manage fees"
+
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+msgid "Numéro"
+msgstr "Number"
+
+#: .\templates\finances\factures.html:7 .\templates\finances\factures.html:8
+#: .\templates\finances\mes_factures.html:7
+#: .\templates\finances\rapports.html:11 .\templates\presences\appel.html:26
+#: .\templates\presences\appel.html:30
+msgid "Apprenant"
+msgstr "Student"
+
+#: .\templates\finances\factures.html:7
+msgid "Émise le"
+msgstr "Issued on"
+
+#: .\templates\finances\factures.html:9
+msgid "Aucune facture émise."
+msgstr "No invoices issued."
+
+#: .\templates\finances\mes_factures.html:6
+msgid "Factures associées à votre dossier ou à celui de vos enfants."
+msgstr "Invoices associated with your record or your children's records."
+
+#: .\templates\finances\mes_factures.html:7
+msgid "Aucune facture disponible."
+msgstr "No invoices available."
+
+#: .\templates\finances\paiements.html:11
+msgid "Aucun paiement enregistré."
+msgstr "No payments recorded."
+
+#: .\templates\finances\rapports.html:6
+msgid "Rapports financiers"
+msgstr "Financial reports"
+
+#: .\templates\finances\rapports.html:7
+msgid "Synthèse générale"
+msgstr "Overall summary"
+
+#: .\templates\finances\rapports.html:7
+msgid "Paiements enregistrés"
+msgstr "Recorded payments"
+
+#: .\templates\finances\rapports.html:7
+msgid "Dépenses enregistrées"
+msgstr "Recorded expenses"
+
+#: .\templates\finances\rapports.html:7 .\templates\finances\rapports.html:9
+msgid "Solde net"
+msgstr "Net balance"
+
+#: .\templates\finances\rapports.html:8
+msgid "Période du rapport"
+msgstr "Report period"
+
+#: .\templates\finances\rapports.html:8
+msgid "Afficher"
+msgstr "Display"
+
+#: .\templates\finances\rapports.html:9
+#, python-format
+msgid "Synthèse du %(debut)s au %(fin)s"
+msgstr "Summary from %(debut)s to %(fin)s"
+
+#: .\templates\finances\rapports.html:9
+msgid "Paiements encaissés"
+msgstr "Payments collected"
+
+#: .\templates\finances\rapports.html:9
+msgid "Factures émises (cumul)"
+msgstr "Invoices issued (total)"
+
+#: .\templates\finances\rapports.html:9 .\templates\finances\rapports.html:11
+msgid "Échéances en retard"
+msgstr "Overdue installments"
+
+#: .\templates\finances\rapports.html:10
+msgid "Encaissements par mode"
+msgstr "Collections by method"
+
+#: .\templates\finances\rapports.html:10
+msgid "Aucun encaissement sur cette période."
+msgstr "No payments collected in this period."
+
+#: .\templates\finances\rapports.html:10
+msgid "Dépenses par catégorie"
+msgstr "Expenses by category"
+
+#: .\templates\finances\rapports.html:10
+msgid "Aucune dépense sur cette période."
+msgstr "No expenses in this period."
+
+#: .\templates\finances\rapports.html:11
+msgid "Exigible"
+msgstr "Due"
+
+#: .\templates\finances\rapports.html:11
+msgid "Aucune échéance en retard."
+msgstr "No overdue installments."
+
+#: .\templates\finances\tarifs.html:6
+msgid ""
+"Les grilles sont appliquées aux inscriptions validées ensuite. Les factures "
+"déjà émises ne sont pas modifiées."
+msgstr ""
+"Fee schedules apply to future approved enrollments. Existing invoices are "
+"not changed."
+
+#: .\templates\finances\tarifs.html:8
+msgid "Créer un type de frais"
+msgstr "Create a fee type"
+
+#: .\templates\finances\tarifs.html:8
+msgid "Ajouter le type"
+msgstr "Add fee type"
+
+#: .\templates\finances\tarifs.html:9
+msgid "Configurer une grille"
+msgstr "Configure a fee schedule"
+
+#: .\templates\finances\tarifs.html:9
+msgid "Enregistrer la grille"
+msgstr "Save fee schedule"
+
+#: .\templates\finances\tarifs.html:10
+msgid "Types de frais"
+msgstr "Fee types"
+
+#: .\templates\finances\tarifs.html:10
+msgid "inactif"
+msgstr "inactive"
+
+#: .\templates\finances\tarifs.html:10
+msgid "Aucun type de frais."
+msgstr "No fee types."
+
+#: .\templates\finances\tarifs.html:11
+msgid "Grilles configurées"
+msgstr "Configured fee schedules"
+
+#: .\templates\finances\tarifs.html:11
+msgid "Frais"
+msgstr "Fee"
+
+#: .\templates\finances\tarifs.html:11
+msgid "Aucune grille configurée."
+msgstr "No fee schedules configured."
+
+#: .\templates\importations\accueil.html:6
+msgid "Importations"
+msgstr "Imports"
+
+#: .\templates\importations\accueil.html:6
+msgid ""
+"Importez des dossiers d’apprenants ou envoyez des invitations au personnel à "
+"partir d’un fichier CSV ou Excel."
+msgstr ""
+"Import student records or send staff invitations from a CSV or Excel file."
+
+#: .\templates\importations\accueil.html:10
+msgid ""
+"Taille maximale : 5 Mo et 5 000 lignes. L’aperçu est conservé au maximum 24 "
+"heures."
+msgstr ""
+"Maximum size: 5 MB and 5,000 rows. The preview is kept for up to 24 hours."
+
+#: .\templates\importations\accueil.html:11
+msgid "Analyser le fichier"
+msgstr "Analyze file"
+
+#: .\templates\importations\accueil.html:14
+msgid "Colonnes attendues"
+msgstr "Expected columns"
+
+#: .\templates\importations\accueil.html:15
+msgid ""
+"Les colonnes lieu_naissance, email, telephone, adresse, responsable_nom, "
+"responsable_prenoms, responsable_telephone, responsable_email, niveau, "
+"classe et programme sont facultatives."
+msgstr ""
+"The lieu_naissance, email, telephone, adresse, responsable_nom, "
+"responsable_prenoms, responsable_telephone, responsable_email, niveau, "
+"classe, and programme columns are optional."
+
+#: .\templates\importations\accueil.html:16
+msgid "Le rôle doit correspondre à un rôle de l’établissement."
+msgstr "The role must match a role in the school."
+
+#: .\templates\importations\accueil.html:19
+msgid "Aperçus en attente"
+msgstr "Pending previews"
+
+#: .\templates\importations\accueil.html:19
+msgid "ligne(s) valide(s)"
+msgstr "valid row(s)"
+
+#: .\templates\importations\detail.html:6
+msgid "ligne(s)"
+msgstr "row(s)"
+
+#: .\templates\importations\detail.html:6
+msgid "valide(s)"
+msgstr "valid"
+
+#: .\templates\importations\detail.html:6
+msgid "erreur(s)"
+msgstr "error(s)"
+
+#: .\templates\importations\detail.html:7
+msgid "Cet aperçu a expiré. Veuillez analyser à nouveau le fichier."
+msgstr "This preview has expired. Please analyze the file again."
+
+#: .\templates\importations\detail.html:8
+msgid "Lignes à corriger"
+msgstr "Rows to fix"
+
+#: .\templates\importations\detail.html:8
+#: .\templates\importations\detail.html:9
+msgid "Ligne"
+msgstr "Row"
+
+#: .\templates\importations\detail.html:9
+msgid "Lignes prêtes à importer"
+msgstr "Rows ready to import"
+
+#: .\templates\importations\detail.html:9
+msgid "Prénoms"
+msgstr "First name(s)"
+
+#: .\templates\importations\detail.html:9
+msgid "Détails"
+msgstr "Details"
+
+#: .\templates\importations\detail.html:9
+msgid "E-mail et rôle"
+msgstr "Email and role"
+
+#: .\templates\importations\detail.html:13
+msgid "Confirmer l’importation"
+msgstr "Confirm import"
+
+#: .\templates\importations\detail.html:14
+msgid "Supprimer l’aperçu"
+msgstr "Delete preview"
+
+#: .\templates\interface\composants\_selecteur_langue.html:2
+msgid "Langue"
+msgstr "Language"
+
+#: .\templates\interface\composants\_selecteur_langue.html:5
+msgid "Langue de l’interface"
+msgstr "Interface language"
+
+#: .\templates\interface\composants\_selecteur_langue.html:7
+msgid "Langue de l’établissement"
+msgstr "School language"
+
+#: .\templates\interface\composants\_selecteur_langue.html:12
+msgid "Appliquer"
+msgstr "Apply"
+
+#: .\templates\interface\public_base.html:10
+msgid "Accès"
+msgstr "Access"
+
+#: .\templates\interface\public_base.html:12
+msgid "Mon espace"
+msgstr "My workspace"
+
+#: .\templates\interface\public_base.html:18
+msgid "Gestion scolaire et universitaire en ligne"
+msgstr "Online school and university management"
+
+#: .\templates\messagerie\boite.html:4
+msgid "Messagerie"
+msgstr "Messaging"
+
+#: .\templates\messagerie\boite.html:7
+msgid "Échanges privés avec les membres de votre établissement."
+msgstr "Private conversations with members of your school."
+
+#: .\templates\messagerie\boite.html:8 .\templates\messagerie\nouveau.html:6
+msgid "Nouveau message"
+msgstr "New message"
+
+#: .\templates\messagerie\boite.html:12 .\templates\messagerie\boite.html:16
+msgid "Sujet"
+msgstr "Subject"
+
+#: .\templates\messagerie\boite.html:12 .\templates\messagerie\boite.html:17
+msgid "Participants"
+msgstr "Participants"
+
+#: .\templates\messagerie\boite.html:12 .\templates\messagerie\boite.html:18
+msgid "Dernier message"
+msgstr "Latest message"
+
+#: .\templates\messagerie\boite.html:12 .\templates\messagerie\boite.html:19
+msgid "Activité"
+msgstr "Activity"
+
+#: .\templates\messagerie\boite.html:16
+#: .\templates\messagerie\notifications.html:14
+msgid "Nouveau"
+msgstr "New"
+
+#: .\templates\messagerie\boite.html:21
+msgid ""
+"Aucune conversation. Vous pouvez écrire à un membre autorisé de "
+"l’établissement."
+msgstr ""
+"No conversations yet. You can message an authorized member of your school."
+
+#: .\templates\messagerie\conversation.html:7
+msgid "Avec"
+msgstr "With"
+
+#: .\templates\messagerie\conversation.html:8
+msgid "Retour aux messages"
+msgstr "Back to messages"
+
+#: .\templates\messagerie\conversation.html:13
+msgid "Compte supprimé"
+msgstr "Deleted account"
+
+#: .\templates\messagerie\conversation.html:16
+msgid "Aucun message."
+msgstr "No messages."
+
+#: .\templates\messagerie\conversation.html:21
+msgid "Répondre"
+msgstr "Reply"
+
+#: .\templates\messagerie\notifications.html:8
+msgid "Tout marquer comme lu"
+msgstr "Mark all as read"
+
+#: .\templates\messagerie\notifications.html:18
+msgid "Aucune notification."
+msgstr "No notifications."
+
+#: .\templates\messagerie\nouveau.html:11
+msgid "Envoyer"
+msgstr "Send"
+
+#: .\templates\noyau\accueil_public.html:7
+msgid "Gérez votre école ou votre université, de l'inscription au bulletin."
+msgstr "Manage your school or university, from enrollment to report cards."
+
+#: .\templates\noyau\accueil_public.html:8
+msgid ""
+"EduGest est une plateforme en ligne : créez votre établissement en deux "
+"minutes, invitez votre équipe et commencez à inscrire vos apprenants."
+msgstr ""
+"EduGest is an online platform: set up your school in two minutes, invite "
+"your team, and start enrolling students."
+
+#: .\templates\noyau\accueil_public.html:10
+msgid "Créer mon établissement gratuitement"
+msgstr "Create my school for free"
+
+#: .\templates\noyau\accueil_public.html:11
+msgid "J'ai déjà un compte"
+msgstr "I already have an account"
+
+#: .\templates\noyau\accueil_public.html:12
+msgid "Candidater à une école"
+msgstr "Apply to a school"
+
+#: .\templates\noyau\accueil_public.html:14
+msgid "Essai gratuit de 30 jours · sans carte bancaire · aucune installation"
+msgstr "30-day free trial · no credit card required · no installation"
+
+#: .\templates\noyau\accueil_public.html:19
+msgid "Tout ce qu'il faut, rien de superflu"
+msgstr "Everything you need, nothing you don’t"
+
+#: .\templates\noyau\accueil_public.html:20
+msgid ""
+"Conçu pour les secrétaires, enseignants, directeurs, parents et apprenants."
+msgstr ""
+"Designed for administrators, teachers, school leaders, parents, and students."
+
+#: .\templates\noyau\accueil_public.html:22
+msgid "Inscriptions simples"
+msgstr "Simple enrollment"
+
+#: .\templates\noyau\accueil_public.html:22
+msgid ""
+"Dossier permanent de l'apprenant, validation tracée, réinscription en un "
+"clic."
+msgstr ""
+"Permanent student records, tracked approvals, and one-click re-enrollment."
+
+#: .\templates\noyau\accueil_public.html:23
+msgid "Notation libre"
+msgstr "Flexible grading"
+
+#: .\templates\noyau\accueil_public.html:23
+msgid ""
+"Barèmes sur 10, 20, 100 ou plus. Chaque enseignant organise ses évaluations."
+msgstr ""
+"Grade scales of 10, 20, 100, or more. Teachers organize their own "
+"assessments."
+
+#: .\templates\noyau\accueil_public.html:24
+msgid "École ou université"
+msgstr "School or university"
+
+#: .\templates\noyau\accueil_public.html:24
+msgid ""
+"Niveaux et classes, ou facultés et programmes : l'outil s'adapte à votre "
+"organisation."
+msgstr ""
+"Grades and classes, or faculties and programs: the platform adapts to your "
+"organization."
+
+#: .\templates\noyau\accueil_public.html:25
+msgid "Données isolées"
+msgstr "Isolated data"
+
+#: .\templates\noyau\accueil_public.html:25
+msgid ""
+"Chaque établissement travaille dans son propre espace, sans aucune fuite "
+"possible."
+msgstr "Each school works in its own workspace, keeping its data separate."
+
+#: .\templates\noyau\accueil_public.html:30
+msgid "Démarrez en trois étapes"
+msgstr "Get started in three steps"
+
+#: .\templates\noyau\accueil_public.html:31
+msgid ""
+"Aucun administrateur ne crée votre compte : vous êtes autonome dès le départ."
+msgstr ""
+"No administrator needs to create your account; you are in control from the "
+"start."
+
+#: .\templates\noyau\accueil_public.html:33
+msgid "Créez votre espace"
+msgstr "Create your workspace"
+
+#: .\templates\noyau\accueil_public.html:33
+msgid "Nom de l'établissement, votre adresse e-mail et votre mot de passe."
+msgstr "Enter your school name, email address, and password."
+
+#: .\templates\noyau\accueil_public.html:34
+msgid "Configurez en un clic"
+msgstr "Set up in one click"
+
+#: .\templates\noyau\accueil_public.html:34
+msgid "Année, périodes, niveaux et classes se créent en une seule étape."
+msgstr "Create the school year, terms, grades, and classes in one step."
+
+#: .\templates\noyau\accueil_public.html:35
+msgid "Invitez votre équipe"
+msgstr "Invite your team"
+
+#: .\templates\noyau\accueil_public.html:35
+msgid "Chacun reçoit un e-mail et crée lui-même son accès."
+msgstr "Each person receives an email and creates their own account."
+
+#: .\templates\noyau\accueil_public.html:40
+msgid "Des formules adaptées à votre taille"
+msgstr "Plans that fit your school"
+
+#: .\templates\noyau\accueil_public.html:41
+msgid "Commencez gratuitement, changez de formule quand vous grandissez."
+msgstr "Start for free and upgrade as your school grows."
+
+#: .\templates\noyau\accueil_public.html:46
+msgid "Gratuit"
+msgstr "Free"
+
+#: .\templates\noyau\accueil_public.html:46
+msgid "mois"
+msgstr "month"
+
+#: .\templates\noyau\accueil_public.html:47
+#, python-format
+msgid "Jusqu'à %(limite)s apprenants"
+msgstr "Up to %(limite)s students"
+
+#: .\templates\noyau\accueil_public.html:47
+msgid "Apprenants illimités"
+msgstr "Unlimited students"
+
+#: .\templates\noyau\accueil_public.html:48
+#, python-format
+msgid "%(limite)s membres du personnel"
+msgstr "%(limite)s staff members"
+
+#: .\templates\noyau\accueil_public.html:48
+msgid "Personnel illimité"
+msgstr "Unlimited staff"
+
+#: .\templates\noyau\accueil_public.html:49
+msgid "30 jours d'essai"
+msgstr "30-day trial"
+
+#: .\templates\noyau\accueil_public.html:53
+msgid "Commencer maintenant"
+msgstr "Get started now"
+
+#: .\templates\noyau\parametres.html:6
+msgid "Paramètres de l’établissement"
+msgstr "School settings"
+
+#: .\templates\noyau\parametres.html:9
+msgid "Identité, langue et fuseau horaire"
+msgstr "Identity, language, and time zone"
+
+#: .\templates\noyau\parametres.html:9
+msgid ""
+"Renseignez les coordonnées de l’établissement, sa langue par défaut et le "
+"fuseau horaire utilisé pour ses dates et heures."
+msgstr ""
+"Set the school’s contact details, default language, and time zone for dates "
+"and times."
+
+#: .\templates\noyau\parametres.html:14
+msgid "Règles de notation"
+msgstr "Grading rules"
+
+#: .\templates\noyau\parametres.html:14
+msgid "Aucune note maximale n'est imposée : chaque matière a son barème."
+msgstr ""
+"There is no fixed maximum score; each subject has its own grading scale."
+
+#: .\templates\noyau\parametres.html:19
+msgid "Année académique"
+msgstr "Academic year"
+
+#: .\templates\noyau\parametres.html:19
+msgid ""
+"Choisissez le nombre de périodes proposé automatiquement pour chaque "
+"nouvelle année. Vous pourrez le modifier pendant la création de l’année."
+msgstr ""
+"Choose the default number of terms for each new school year. You can change "
+"it when creating a year."
+
+#: .\templates\noyau\parametres.html:24
+msgid ""
+"Définissez la durée de conservation des dossiers inactifs avant qu'ils "
+"puissent être anonymisés."
+msgstr "Set how long inactive records are kept before they may be anonymized."
+
+#: .\templates\noyau\parametres.html:29
+msgid "Vocabulaire"
+msgstr "Terminology"
+
+#: .\templates\noyau\parametres.html:29
+msgid ""
+"Adaptez les termes à votre établissement (ex. « Département » à la place de "
+"« Programme »)."
+msgstr ""
+"Adapt terminology to your school (for example, use “Department” instead of "
+"“Program”)."
+
+#: .\templates\noyau\tableau_de_bord.html:10
+msgid "Votre espace de travail"
+msgstr "Your workspace"
+
+#: .\templates\noyau\tableau_de_bord.html:11
+msgid "Bonjour"
+msgstr "Hello"
+
+#: .\templates\noyau\tableau_de_bord.html:25
+msgid "Indicateurs de l’établissement"
+msgstr "School indicators"
+
+#: .\templates\noyau\tableau_de_bord.html:35
+msgid "en activité"
+msgstr "active"
+
+#: .\templates\noyau\tableau_de_bord.html:48
+msgid "Les premiers pas"
+msgstr "Getting started"
+
+#: .\templates\noyau\tableau_de_bord.html:49
+msgid "Suivez ces étapes pour préparer votre établissement à fonctionner."
+msgstr "Follow these steps to get your school ready."
+
+#: .\templates\noyau\tableau_de_bord.html:54
+msgid "Progression de la configuration"
+msgstr "Setup progress"
+
+#: .\templates\noyau\tableau_de_bord.html:77
+msgid "À faire"
+msgstr "To do"
+
+#: .\templates\noyau\tableau_de_bord.html:78
+msgid "Travail pédagogique"
+msgstr "Teaching tasks"
+
+#: .\templates\noyau\tableau_de_bord.html:93
+msgid "Saisir"
+msgstr "Enter grades"
+
+#: .\templates\noyau\tableau_de_bord.html:108
+msgid "Suivi"
+msgstr "Overview"
+
+#: .\templates\noyau\tableau_de_bord.html:109
+msgid "Résultats récents"
+msgstr "Recent results"
+
+#: .\templates\pedagogie\affectations.html:6
+msgid "Affectation des enseignants"
+msgstr "Teacher assignments"
+
+#: .\templates\pedagogie\affectations.html:9
+msgid "Tout le niveau"
+msgstr "Entire grade"
+
+#: .\templates\pedagogie\affectations.html:10
+msgid "Aucune affectation pour l’année active."
+msgstr "No assignments for the active year."
+
+#: .\templates\pedagogie\affectations.html:11
+msgid "Nouvelle affectation"
+msgstr "New assignment"
+
+#: .\templates\pedagogie\affectations.html:14
+msgid "Affecter"
+msgstr "Assign"
+
+#: .\templates\pedagogie\affectations.html:21
+msgid "Inviter un enseignant"
+msgstr "Invite a teacher"
+
+#: .\templates\pedagogie\affectations.html:25
+msgid ""
+"Un lien d’invitation sera envoyé. L’enseignant pourra créer son compte et "
+"sera ajouté à votre établissement."
+msgstr ""
+"An invitation link will be sent. The teacher can create an account and join "
+"your school."
+
+#: .\templates\pedagogie\affectations.html:31
+msgid "Envoyer l’invitation"
+msgstr "Send invitation"
+
+#: .\templates\presences\appel.html:3 .\templates\presences\appel.html:7
+msgid "Appel des présences"
+msgstr "Take attendance"
+
+#: .\templates\presences\appel.html:7
+msgid "Enregistrez les présences, absences et retards de vos classes."
+msgstr "Record attendance, absences, and tardiness for your classes."
+
+#: .\templates\presences\appel.html:8 .\templates\rgpd\consentements.html:8
+msgid "Historique"
+msgstr "History"
+
+#: .\templates\presences\appel.html:24
+msgid ""
+"Un appel existe déjà pour cette classe et cette date; son enregistrement "
+"mettra à jour les statuts."
+msgstr ""
+"Attendance has already been recorded for this class and date; saving will "
+"update the statuses."
+
+#: .\templates\presences\appel.html:26
+msgid "Motif (facultatif)"
+msgstr "Reason (optional)"
+
+#: .\templates\presences\appel.html:42
+msgid "Enregistrer l’appel"
+msgstr "Save attendance"
+
+#: .\templates\presences\appel.html:45
+msgid "Aucun apprenant validé n’est inscrit dans cette classe."
+msgstr "No approved students are enrolled in this class."
+
+#: .\templates\presences\liste.html:3 .\templates\presences\liste.html:6
+msgid "Historique des présences"
+msgstr "Attendance history"
+
+#: .\templates\presences\liste.html:6
+msgid "Appels enregistrés et assiduité par classe."
+msgstr "Recorded attendance and attendance rates by class."
+
+#: .\templates\presences\liste.html:6
+msgid "Faire l’appel"
+msgstr "Take attendance"
+
+#: .\templates\presences\liste.html:8
+msgid "Filtrer par classe"
+msgstr "Filter by class"
+
+#: .\templates\presences\liste.html:10
+msgid "Toutes les classes"
+msgstr "All classes"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:23
+msgid "Présents"
+msgstr "Present"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:24
+msgid "Absents"
+msgstr "Absent"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:25
+msgid "Retards"
+msgstr "Late"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:26
+msgid "Justifiés"
+msgstr "Excused"
+
+#: .\templates\presences\liste.html:17 .\templates\presences\liste.html:27
+msgid "Enregistré par"
+msgstr "Recorded by"
+
+#: .\templates\presences\liste.html:29
+msgid "Aucun appel enregistré."
+msgstr "No attendance recorded."
+
+#: .\templates\presences\mes_absences.html:6
+msgid "Absences et retards"
+msgstr "Absences and tardiness"
+
+#: .\templates\presences\mes_absences.html:6
+msgid "Suivi des apprenants associés à votre compte."
+msgstr "Track students associated with your account."
+
+#: .\templates\presences\mes_absences.html:11
+msgid "absence(s)"
+msgstr "absence(s)"
+
+#: .\templates\presences\mes_absences.html:12
+msgid "retard(s)"
+msgstr "late arrival(s)"
+
+#: .\templates\presences\mes_absences.html:13
+msgid "absence(s) justifiée(s)"
+msgstr "excused absence(s)"
+
+#: .\templates\presences\mes_absences.html:21
+msgid "Aucune absence ni aucun retard enregistré."
+msgstr "No absences or tardiness recorded."
+
+#: .\templates\presences\mes_absences.html:27
+msgid "Aucun dossier d’apprenant n’est associé à votre compte."
+msgstr "No student records are associated with your account."
+
+#: .\templates\rgpd\consentements.html:6
+msgid "Consentements"
+msgstr "Consents"
+
+#: .\templates\rgpd\consentements.html:6
+msgid "Chaque modification ajoute une entrée à l’historique."
+msgstr "Each change adds an entry to the history."
+
+#: .\templates\rgpd\consentements.html:8
+msgid "accordé"
+msgstr "granted"
+
+#: .\templates\rgpd\consentements.html:8
+msgid "refusé"
+msgstr "denied"
+
+#: .\templates\rgpd\consentements.html:8
+msgid "Aucun consentement enregistré."
+msgstr "No consents recorded."
+
+#: .\templates\rgpd\demandes.html:6
+msgid "Demandes de protection des données"
+msgstr "Data protection requests"
+
+#: .\templates\rgpd\demandes.html:6
+msgid ""
+"Les demandes d’effacement sont anonymisées sans supprimer les inscriptions "
+"ou résultats historiques. Une inscription en cours bloque l’anonymisation."
+msgstr ""
+"Erasure requests anonymize records without deleting enrollment or historical "
+"results. An active enrollment prevents anonymization."
+
+#: .\templates\rgpd\demandes.html:9
+msgid "Dossier indisponible"
+msgstr "Record unavailable"
+
+#: .\templates\rgpd\demandes.html:9
+msgid "demande du"
+msgstr "requested on"
+
+#: .\templates\rgpd\demandes.html:9 .\templates\rgpd\mes_donnees.html:14
+msgid "échéance"
+msgstr "due date"
+
+#: .\templates\rgpd\demandes.html:10
+msgid "Réponse"
+msgstr "Response"
+
+#: .\templates\rgpd\demandes.html:13
+msgid "Réponse ou motif"
+msgstr "Response or reason"
+
+#: .\templates\rgpd\demandes.html:15
+msgid "Aucune demande en attente."
+msgstr "No pending requests."
+
+#: .\templates\rgpd\mes_donnees.html:6
+msgid "Mes données personnelles"
+msgstr "My personal data"
+
+#: .\templates\rgpd\mes_donnees.html:6
+msgid ""
+"Consultez et exportez les données des dossiers qui vous sont rattachés, ou "
+"adressez une demande à l’établissement."
+msgstr ""
+"View and export data from records linked to you, or submit a request to the "
+"school."
+
+#: .\templates\rgpd\mes_donnees.html:7
+msgid "Exporter mes données"
+msgstr "Export my data"
+
+#: .\templates\rgpd\mes_donnees.html:8
+msgid "Télécharger une copie JSON"
+msgstr "Download a JSON copy"
+
+#: .\templates\rgpd\mes_donnees.html:8
+msgid "Aucun dossier n’est associé à votre compte."
+msgstr "No records are linked to your account."
+
+#: .\templates\rgpd\mes_donnees.html:10
+msgid "Créer une demande"
+msgstr "Create a request"
+
+#: .\templates\rgpd\mes_donnees.html:12
+msgid "Envoyer la demande"
+msgstr "Submit request"
+
+#: .\templates\rgpd\mes_donnees.html:13
+msgid "Historique de mes demandes"
+msgstr "My request history"
+
+#: .\templates\rgpd\mes_donnees.html:14
+msgid "Aucune demande enregistrée."
+msgstr "No requests recorded."
+
+#, python-format
+#~| msgid "Année %(designation)s"
+#~ msgid "School year %(designation)s"
+#~ msgstr "School year %(designation)s"

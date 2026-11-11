@@ -1,0 +1,11 @@
+{% extends "comptes/_auth_base.html" %}
+{% block titre %}Mot de passe oublié{% endblock %}
+{% block classe_carte %}auth-carte--etroite{% endblock %}
+{% block auth_contenu %}
+<h1>Mot de passe oublié</h1>
+<p class="sous-titre">Saisissez votre adresse e-mail : nous vous enverrons un lien pour choisir un nouveau mot de passe.</p>
+<form method="post" novalidate>{% csrf_token %}
+  <div class="grille-formulaire" style="grid-template-columns:1fr">{% for champ in form %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <button class="btn btn-principal" type="submit">Envoyer le lien</button></form>
+<div class="auth-pied"><a href="{% url 'connexion' %}">Retour à la connexion</a></div>
+{% endblock %}

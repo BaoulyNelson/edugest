@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block titre %}Dépenses{% endblock %}
+{% block titre_contexte %}Dépenses{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">{% translate "Dépenses" %}</h1><a class="btn btn-principal" href="{% url 'finances:depense_creer' %}">{% translate "Enregistrer une dépense" %}</a></div>
+<section class="carte defilement-controle">
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{% translate "Date" %}</th><th>{% translate "Catégorie" %}</th><th>{% translate "Motif" %}</th><th>{% translate "Montant" %}</th></tr></thead><tbody>
+  {% for depense in page %}
+    <tr><td class="principal" data-libelle="{% translate 'Date' %}">{{ depense.date_depense|date:"d/m/Y" }}</td><td data-libelle="{% translate 'Catégorie' %}">{{ depense.get_categorie_display }}</td><td data-libelle="{% translate 'Motif' %}">{{ depense.motif }}</td><td data-libelle="{% translate 'Montant' %}">{{ depense.montant }}</td></tr>
+  {% empty %}<tr><td colspan="4">{% translate "Aucune dépense enregistrée." %}</td></tr>{% endfor %}
+  </tbody></table>
+</section>
+{% if page.has_other_pages %}<nav class="pagination" aria-label="{% translate 'Pagination' %}">
+  {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">{% translate "Précédent" %}</a>{% endif %}
+  <span>{% translate "Page" %} {{ page.number }} {% translate "sur" %} {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}<a href="?page={{ page.next_page_number }}">{% translate "Suivant" %}</a>{% endif %}
+</nav>{% endif %}
+{% endblock %}

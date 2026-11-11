@@ -1,0 +1,36 @@
+{% load static %}
+<!-- Métadonnées de base et Responsive -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5c63">
+{% if favicon_url %}<link rel="icon" href="{{ favicon_url }}">{% else %}<link rel="icon" href="{% static 'images/logo.png' %}">{% endif %}
+
+<!-- SEO & Référencement -->
+<meta name="description" content="{% block meta_description %}{{ marque_plateforme.nom|default:'EduGest' }} - Plateforme de gestion scolaire et administrative multi-tenant.{% endblock %}">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph / Partage Réseaux Sociaux (WhatsApp, Facebook, LinkedIn, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:title" content="{% block og_title %}{{ marque_plateforme.nom|default:'EduGest' }}{% endblock %}">
+<meta property="og:description" content="{% block og_description %}Solution intégrée pour la gestion académique, les notes, les bulletins et le suivi des établissements scolaires.{% endblock %}">
+<meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/edugest-og-cover.jpg' %}{% endblock %}">
+<meta property="og:site_name" content="{{ marque_plateforme.nom|default:'EduGest' }}">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% block twitter_title %}{{ marque_plateforme.nom|default:'EduGest' }}{% endblock %}">
+<meta name="twitter:description" content="{% block twitter_description %}Solution intégrée pour la gestion académique, les notes et les bulletins scolaires.{% endblock %}">
+<meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/edugest-og-cover.jpg' %}{% endblock %}">
+
+<!-- Feuilles de style CSS -->
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-icons.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/variables.css' %}" rel="stylesheet">
+<link href="{% static 'css/base.css' %}" rel="stylesheet">
+<link href="{% static 'css/navigation.css' %}?v=4" rel="stylesheet">
+<link href="{% static 'css/formulaires.css' %}" rel="stylesheet">
+<link href="{% static 'css/tableaux.css' %}" rel="stylesheet">
+<link href="{% static 'css/etats.css' %}" rel="stylesheet">
+<link href="{% static 'css/public.css' %}?v=3" rel="stylesheet">

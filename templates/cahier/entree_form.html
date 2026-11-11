@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block titre %}Ajouter une séance{% endblock %}
+{% block titre_contexte %}Cahier de textes{% endblock %}
+{% block contenu %}
+<div class="entete-page"><h1 class="titre-page">Ajouter une séance</h1></div>
+<form method="post" enctype="multipart/form-data" class="carte-formulaire" novalidate>
+  {% csrf_token %}
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}
+  <div class="grille-formulaire">{% for champ in formulaire %}{% include "interface/composants/_champ.html" %}{% endfor %}</div>
+  <div class="actions-formulaire"><button class="btn btn-principal" type="submit">Enregistrer la séance</button><a class="btn btn-secondaire" href="{% url 'cahier:entrees' %}">Annuler</a></div>
+</form>
+{% endblock %}
