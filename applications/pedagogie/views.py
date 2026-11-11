@@ -8,6 +8,7 @@ from django.views.decorators.http import require_POST
 
 from applications.academique.models import AnneeAcademique, Niveau
 from applications.academique.services import annee_active
+from applications.interface.terminologie import profil_etablissement
 from applications.noyau.decorateurs import a_la_permission, permission_requise
 from applications.noyau.exceptions import ErreurMetier
 from applications.noyau.models import Role
@@ -57,6 +58,12 @@ def _inscriptions_accessibles(request):
 @permission_requise("pedagogie.gerer")
 def matieres(request):
     formulaire = FormulaireMatiere(request.POST or None)
+    libelle_cours = profil_etablissement(request.etablissement.type)["libelles"]["cours_singulier"]
+    formulaire.fields["nom"].label = f"Nom : {libelle_cours}"
+    formulaire.fields["nom"].help_text = (
+        "Ajoutez le nom au référentiel sans choisir de niveau. "
+        "L’association à un niveau et son barème se configurent séparément."
+    )
     if request.method == "POST" and formulaire.is_valid():
         try:
             services.creer_matiere(request.etablissement, formulaire.cleaned_data["nom"])

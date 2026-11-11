@@ -232,8 +232,21 @@ def niveau_modifier(request, pk):
             messages.success(request, "Le nom du niveau a été corrigé.")
             return redirect("academique:structure")
     return render(request, "academique/nom_form.html", {
-        "formulaire": formulaire, "objet": niveau, "titre": "Modifier le niveau",
+        "formulaire": formulaire, "objet": niveau, "titre": "Modifier le niveau", "est_niveau": True,
     })
+
+
+@permission_requise("academique.gerer")
+@require_POST
+def niveau_supprimer(request, pk):
+    niveau = get_object_or_404(Niveau, pk=pk)
+    try:
+        services.supprimer_niveau(niveau, par=request.user)
+    except ErreurMetier as erreur:
+        messages.error(request, str(erreur))
+    else:
+        messages.success(request, f"Le niveau « {niveau} » a été supprimé.")
+    return redirect("academique:structure")
 
 
 @permission_requise("academique.gerer")

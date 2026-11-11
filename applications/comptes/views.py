@@ -12,7 +12,7 @@ from applications.noyau.models import Utilisateur
 
 from . import services
 from .authentification import BackendEmail
-from .forms import FormulaireCompteInvite, FormulaireConnexion, FormulaireInscriptionEspace
+from .forms import FormulaireCompteInvite, FormulaireConnexion, FormulaireInscriptionEspace, FormulaireProfil
 
 BACKEND = f"{BackendEmail.__module__}.{BackendEmail.__name__}"
 
@@ -137,4 +137,9 @@ def invitation(request, jeton):
 
 @login_required
 def profil(request):
-    return render(request, "comptes/profil.html")
+    formulaire = FormulaireProfil(request.POST or None, request.FILES or None, instance=request.user)
+    if request.method == "POST" and formulaire.is_valid():
+        formulaire.save()
+        messages.success(request, "Votre profil a été mis à jour.")
+        return redirect("profil")
+    return render(request, "comptes/profil.html", {"formulaire": formulaire})

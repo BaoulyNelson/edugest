@@ -275,6 +275,28 @@ def modifier_niveau(niveau, nom, par=None):
 
 
 @transaction.atomic
+def supprimer_niveau(niveau, par=None):
+    """Supprime un niveau uniquement s'il n'est référencé par aucune donnée métier."""
+    niveau = Niveau.sans_filtre.select_for_update().get(pk=niveau.pk)
+    dependances = (
+        ("classes", niveau.classes.count(), "classe(s)"),
+        ("inscriptions", niveau.inscriptions.count(), "inscription(s)"),
+        ("matieres_niveaux", niveau.matieres_niveaux.count(), "matière(s) configurée(s)"),
+        ("grilles_frais", niveau.grilles_frais.count(), "grille(s) de frais"),
+    )
+    utilise_par = [f"{nombre} {libelle}" for _, nombre, libelle in dependances if nombre]
+    if utilise_par:
+        raise ErreurMetier(
+            f"Le niveau « {niveau} » ne peut pas être supprimé : il est utilisé par "
+            f"{', '.join(utilise_par)}."
+        )
+    etablissement = niveau.etablissement
+    nom = str(niveau)
+    enregistrer_audit(etablissement, par, "niveau.suppression", niveau, avant={"nom": nom})
+    niveau.delete()
+
+
+@transaction.atomic
 def modifier_classe(classe, nom, par=None):
     classe = Classe.sans_filtre.select_for_update().get(pk=classe.pk)
     ancien_nom = classe.nom
@@ -321,7 +343,7 @@ def configuration_rapide(etablissement, designation, date_debut, date_fin, nombr
     """Prépare un établissement en une seule opération : année active, périodes, niveaux et classes."""
     annee = creer_annee(etablissement, designation, date_debut, date_fin, nombre_periodes, par=par)
     activer_annee(annee, par=par)
-    if niveaux_standards and not etablissement.est_universitaire:
+    if niveaux_standards and etablissement.type == TypeEtablissement.SCOLAIRE:
         for nom, court in NIVEAUX_STANDARDS:
             niveau = Niveau.sans_filtre.filter(etablissement=etablissement, programme=None, nom=nom).first() \
                 or creer_niveau(etablissement, nom)

@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.password_validation import validate_password
+from django.core.files.uploadedfile import UploadedFile
 
 from applications.apprenants.models import Apprenant, ResponsableLegal
 from applications.interface.forms import annoter_relations_ajout_rapide
@@ -28,6 +29,41 @@ class FormulaireConnexion(AuthenticationForm):
         "invalid_login": "Nom d’utilisateur/adresse e-mail ou mot de passe incorrect.",
         "inactive": "Ce compte est désactivé.",
     }
+
+
+class FormulaireProfil(forms.ModelForm):
+    photo = forms.ImageField(
+        label="Photo de profil",
+        required=False,
+        widget=forms.ClearableFileInput(attrs={"accept": "image/*"}),
+        help_text="Image JPG, PNG ou WebP, 5 Mo maximum.",
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = ("first_name", "last_name", "telephone", "photo")
+        labels = {
+            "first_name": "Prénom",
+            "last_name": "Nom",
+            "telephone": "Téléphone",
+        }
+        widgets = {
+            "first_name": forms.TextInput(attrs={"autocomplete": "given-name", "class": "form-control"}),
+            "last_name": forms.TextInput(attrs={"autocomplete": "family-name", "class": "form-control"}),
+            "telephone": forms.TextInput(attrs={"type": "tel", "autocomplete": "tel", "class": "form-control"}),
+        }
+
+    def clean_photo(self):
+        photo = self.cleaned_data.get("photo")
+        if not isinstance(photo, UploadedFile):
+            return photo
+        if photo.size > 5 * 1024 * 1024:
+            raise forms.ValidationError("La photo ne peut pas dépasser 5 Mo.")
+        if getattr(getattr(photo, "image", None), "format", None) not in {"JPEG", "PNG", "WEBP"}:
+            raise forms.ValidationError("Utilisez une image au format JPG, PNG ou WebP.")
+        if photo.image.width * photo.image.height > 16_000_000:
+            raise forms.ValidationError("La photo ne peut pas dépasser 16 mégapixels.")
+        return photo
 
 
 class FormulaireCompte(forms.Form):

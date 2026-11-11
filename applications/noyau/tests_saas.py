@@ -190,6 +190,20 @@ class TestsInscriptionLibre(TestCase):
         self.assertEqual(annee.periodes.count(), 2)
         self.assertEqual(Niveau.sans_filtre.count(), 0)
 
+    def test_demarrage_rapide_professionnel_ne_cree_pas_de_niveaux_ou_classes_generiques(self):
+        self.client.post(reverse("inscription"), {**DONNEES, "type_etablissement": "PROFESSIONNEL"})
+
+        page = self.client.get(reverse("demarrage"))
+        self.assertNotContains(page, "Créer les niveaux de la 7e année fondamentale à la philosophie")
+
+        self.client.post(reverse("demarrage"), {
+            "designation": "2026-2027", "date_debut": "2026-09-01", "date_fin": "2027-06-30",
+            "nombre_periodes": 3, "niveaux_standards": "on", "classes_par_niveau": 2,
+        })
+
+        self.assertEqual(Niveau.sans_filtre.count(), 0)
+        self.assertEqual(Classe.sans_filtre.count(), 0)
+
 
 class TestsInvitations(TestCase):
     def setUp(self):

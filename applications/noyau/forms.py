@@ -205,6 +205,6 @@ class FormulaireDemarrage(forms.Form):
                     else 3
                 ),
             })
-        if etablissement is not None and etablissement.est_universitaire:
+        if etablissement is not None and etablissement.type != TypeEtablissement.SCOLAIRE:
             del self.fields["niveaux_standards"]
             del self.fields["classes_par_niveau"]

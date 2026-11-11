@@ -59,7 +59,10 @@
         </ul>
       </div>
       <div class="dropdown">
-        <button class="bouton-icone" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{% translate 'Profil et compte' %}"><i class="bi bi-person-circle" aria-hidden="true"></i></button>
+        <button class="bouton-icone" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{% translate 'Profil et compte' %}">
+          {% if user.photo %}<img src="{{ user.photo.url }}" alt="" class="avatar-compte">
+          {% else %}<i class="bi bi-person-circle" aria-hidden="true"></i>{% endif %}
+        </button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li><span class="dropdown-item-text"><strong>{{ user.nom_affiche }}</strong><br><small class="text-muted">{{ request.appartenance.role|default:"Administrateur plateforme" }}</small></span></li>
           <li><hr class="dropdown-divider"></li>

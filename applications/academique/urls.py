@@ -13,6 +13,7 @@ urlpatterns = [
     path("periodes/<int:pk>/action/", views.periode_action, name="periode_action"),
     path("structure/", views.structure, name="structure"),
     path("niveaux/<int:pk>/modifier/", views.niveau_modifier, name="niveau_modifier"),
+    path("niveaux/<int:pk>/supprimer/", views.niveau_supprimer, name="niveau_supprimer"),
     path("classes/<int:pk>/modifier/", views.classe_modifier, name="classe_modifier"),
     path("presets/<int:pk>/appliquer/", views.appliquer_preset, name="appliquer_preset"),
 ]

@@ -1,16 +1,102 @@
 {% extends "base.html" %}
-{% block titre %}Profil{% endblock %}
-{% block titre_contexte %}Profil{% endblock %}
+{% load i18n static %}
+{% block titre %}{% translate "Mon profil" %}{% endblock %}
+{% block titre_contexte %}{% translate "Mon profil" %}{% endblock %}
+{% block tete %}<link rel="stylesheet" href="{% static 'css/profil.css' %}?v=1">{% endblock %}
 {% block contenu %}
-<div class="entete-page"><h1 class="titre-page">Mon profil</h1></div>
-<div class="carte-formulaire">
-  <dl class="row mb-0">
-    <dt class="col-sm-4">Nom</dt><dd class="col-sm-8">{{ user.nom_affiche }}</dd>
-    <dt class="col-sm-4">Adresse e-mail</dt><dd class="col-sm-8">{{ user.email }} {% if user.email_verifie %}<span class="badge-statut badge-statut--succes"><i class="bi bi-patch-check" aria-hidden="true"></i> Confirmée</span>{% else %}<span class="badge-statut badge-statut--attention"><i class="bi bi-exclamation-circle" aria-hidden="true"></i> Non confirmée</span>{% endif %}</dd>
-    <dt class="col-sm-4">Établissement</dt><dd class="col-sm-8">{{ request.etablissement.nom }}</dd>
-    <dt class="col-sm-4">Rôle</dt><dd class="col-sm-8">{{ request.appartenance.role|default:"Administrateur plateforme" }}</dd>
-  </dl>
-  <div class="actions-formulaire"><a class="btn btn-secondaire" href="{% url 'mot_de_passe_changer' %}"><i class="bi bi-key" aria-hidden="true"></i> Changer mon mot de passe</a>
-    <a class="btn btn-secondaire" href="{% url 'etablissements' %}"><i class="bi bi-building" aria-hidden="true"></i> Mes établissements</a></div>
-</div>
+<section class="profil-page">
+  <div class="entete-page profil-entete">
+    <div>
+      <span class="profil-surtitre">{% translate "Mon compte" %}</span>
+      <h1 class="titre-page">{% translate "Mon profil" %}</h1>
+      <p class="sous-titre mb-0">{% translate "Gérez vos informations personnelles et les accès à votre compte." %}</p>
+    </div>
+  </div>
+
+  <div class="profil-identite carte">
+    <div class="profil-avatar">
+      {% if user.photo %}
+        <img src="{{ user.photo.url }}" alt="{% blocktranslate with name=user.nom_affiche %}Photo de {{ name }}{% endblocktranslate %}">
+      {% else %}
+        <span aria-hidden="true">{{ user.first_name|default:user.username|first|upper }}</span>
+      {% endif %}
+    </div>
+    <div class="profil-identite__texte">
+      <h2>{{ user.nom_affiche }}</h2>
+      <p>{{ user.email }}</p>
+    </div>
+    {% if user.email_verifie %}
+      <span class="profil-badge profil-badge--succes"><i class="bi bi-patch-check-fill" aria-hidden="true"></i>{% translate "Adresse confirmée" %}</span>
+    {% else %}
+      <span class="profil-badge profil-badge--attention"><i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>{% translate "Adresse à confirmer" %}</span>
+    {% endif %}
+  </div>
+
+  <div class="profil-grille">
+    <form method="post" enctype="multipart/form-data" class="carte profil-formulaire" novalidate>
+      {% csrf_token %}
+      <div class="profil-section-titre">
+        <span class="profil-section-titre__icone"><i class="bi bi-person-lines-fill" aria-hidden="true"></i></span>
+        <div>
+          <h2>{% translate "Informations personnelles" %}</h2>
+          <p>{% translate "Ces informations sont associées à votre compte EduGest." %}</p>
+        </div>
+      </div>
+      {% if formulaire.non_field_errors %}
+        <div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>
+      {% endif %}
+      <fieldset class="section-formulaire">
+        <legend>{% translate "Votre identité" %}</legend>
+        <div class="grille-formulaire">
+          {% include "interface/composants/_champ.html" with champ=formulaire.first_name %}
+          {% include "interface/composants/_champ.html" with champ=formulaire.last_name %}
+          {% include "interface/composants/_champ.html" with champ=formulaire.telephone %}
+          {% include "interface/composants/_champ.html" with champ=formulaire.photo %}
+        </div>
+      </fieldset>
+      <div class="profil-email">
+        <span class="profil-email__icone"><i class="bi bi-envelope" aria-hidden="true"></i></span>
+        <div>
+          <span class="profil-email__libelle">{% translate "Adresse e-mail de connexion" %}</span>
+          <strong>{{ user.email }}</strong>
+          <small>{% translate "Pour modifier votre adresse, contactez l’administration de votre établissement." %}</small>
+        </div>
+        <i class="bi bi-lock-fill profil-email__verrou" aria-hidden="true"></i>
+      </div>
+      <div class="profil-actions">
+        <button class="btn btn-principal rounded-pill px-4" type="submit">
+          <i class="bi bi-check2-circle" aria-hidden="true"></i>{% translate "Enregistrer les modifications" %}
+        </button>
+      </div>
+    </form>
+
+    <aside class="profil-aside">
+      <section class="carte profil-carte-acces">
+        <div class="profil-section-titre">
+          <span class="profil-section-titre__icone profil-section-titre__icone--bleu"><i class="bi bi-building" aria-hidden="true"></i></span>
+          <div>
+            <h2>{% translate "Votre espace" %}</h2>
+            <p>{% translate "Votre contexte actuel dans EduGest." %}</p>
+          </div>
+        </div>
+        <dl class="profil-details">
+          <div><dt>{% translate "Établissement" %}</dt><dd>{% if request.etablissement %}{{ request.etablissement.nom }}{% else %}{% translate "Compte plateforme" %}{% endif %}</dd></div>
+          <div><dt>{% translate "Rôle" %}</dt><dd>{{ request.appartenance.role|default:"Administrateur plateforme" }}</dd></div>
+        </dl>
+        <a class="btn btn-secondaire rounded-pill w-100" href="{% url 'etablissements' %}">
+          <i class="bi bi-arrow-left-right" aria-hidden="true"></i>{% translate "Mes établissements" %}
+        </a>
+      </section>
+
+      <section class="carte profil-carte-securite">
+        <span class="profil-securite-icone"><i class="bi bi-shield-lock" aria-hidden="true"></i></span>
+        <h2>{% translate "Sécurité du compte" %}</h2>
+        <p>{% translate "Utilisez un mot de passe unique et difficile à deviner pour protéger votre espace." %}</p>
+        <a class="btn btn-secondaire rounded-pill w-100" href="{% url 'mot_de_passe_changer' %}">
+          <i class="bi bi-key" aria-hidden="true"></i>{% translate "Changer mon mot de passe" %}
+        </a>
+      </section>
+    </aside>
+  </div>
+</section>
 {% endblock %}

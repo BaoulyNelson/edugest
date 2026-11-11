@@ -46,6 +46,7 @@
 .barre-superieure .titre-contexte { font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bouton-icone { width: var(--zone-tactile); height: var(--zone-tactile); display: inline-grid; place-items: center; border: 0; background: transparent; border-radius: 50%; color: var(--couleur-texte); position: relative; }
 .bouton-icone:hover { background: var(--couleur-neutre-claire); }
+.bouton-icone .avatar-compte { width: 2rem; height: 2rem; border-radius: 50%; object-fit: cover; }
 .pastille { position: absolute; top: .25rem; right: .15rem; background: var(--couleur-danger); color: #fff; border-radius: 1rem; font-size: .65rem; padding: 0 .35rem; min-width: 1.1rem; line-height: 1.1rem; text-align: center; }
 
 /* Mobile : barre fixe de 5 accès (4 dynamiques + « Plus ») */

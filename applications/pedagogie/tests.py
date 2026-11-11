@@ -5,11 +5,13 @@ from django.urls import reverse
 from unittest import mock
 
 from applications.noyau.exceptions import ErreurMetier
-from applications.noyau.models import Invitation
+from applications.noyau.models import Appartenance, Invitation, Role, TypeEtablissement
 from applications.noyau.outils_tests import inscrire, monde_scolaire
-from applications.noyau.services import creer_membre
+from applications.noyau.services import creer_etablissement, creer_membre
 from applications.pedagogie import services
-from applications.pedagogie.models import AffectationEnseignant, ChoixQuestion, QuestionQuiz, TentativeQuiz
+from applications.pedagogie.models import (
+    AffectationEnseignant, ChoixQuestion, Matiere, MatiereNiveau, QuestionQuiz, TentativeQuiz,
+)
 from applications.academique.services import creer_niveau
 from applications.apprenants.models import Inscription
 from applications.noyau.models import Utilisateur
@@ -46,6 +48,29 @@ class TestsPedagogie(TestCase):
     def test_matiere_en_double_refusee(self):
         with self.assertRaises(ErreurMetier):
             services.creer_matiere(self.m["etab"], "mathématiques")
+
+    def test_module_professionnel_peut_etre_ajoute_au_referentiel_sans_niveau(self):
+        professionnel = creer_etablissement("Centre professionnel", TypeEtablissement.PROFESSIONNEL)
+        utilisateur = self.m["directeur"].utilisateur
+        Appartenance.sans_filtre.create(
+            utilisateur=utilisateur,
+            etablissement=professionnel,
+            role=Role.sans_filtre.get(etablissement=professionnel, nom="Administrateur de l'établissement"),
+        )
+        self.client.force_login(utilisateur)
+        self.client.session["etablissement_id"] = professionnel.pk
+        self.client.session.save()
+
+        page = self.client.get(reverse("pedagogie:matieres"))
+        self.assertContains(page, "Nom : Module pratique")
+        self.assertContains(page, "sans choisir de niveau")
+        self.assertContains(page, '<form method="post" novalidate>', html=False)
+
+        reponse = self.client.post(reverse("pedagogie:matieres"), {"nom": "Électricité résidentielle"})
+
+        self.assertRedirects(reponse, reverse("pedagogie:matieres"), fetch_redirect_response=False)
+        module = Matiere.sans_filtre.get(etablissement=professionnel, nom="Électricité résidentielle")
+        self.assertFalse(MatiereNiveau.sans_filtre.filter(matiere=module).exists())
 
     def test_seul_un_enseignant_peut_etre_affecte(self):
         with self.assertRaises(ErreurMetier):

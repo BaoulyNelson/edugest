@@ -57,6 +57,29 @@ class TestsAcademique(TestCase):
         self.assertEqual(monde["classe_a"].nom, "7e A corrigée")
         self.assertEqual(monde["n7"].nom, "7e corrigée")
 
+    def test_niveau_inutilise_peut_etre_supprime_depuis_sa_page_de_modification(self):
+        monde = monde_scolaire()
+        niveau = services.creer_niveau(monde["etab"], "Niveau inutilisé")
+        self.client.force_login(monde["directeur"].utilisateur)
+
+        page = self.client.get(reverse("academique:niveau_modifier", args=[niveau.pk]))
+        self.assertContains(page, "Supprimer le niveau")
+
+        reponse = self.client.post(reverse("academique:niveau_supprimer", args=[niveau.pk]))
+
+        self.assertRedirects(reponse, reverse("academique:structure"), fetch_redirect_response=False)
+        self.assertFalse(Niveau.sans_filtre.filter(pk=niveau.pk).exists())
+
+    def test_niveau_utilise_ne_peut_pas_etre_supprime(self):
+        monde = monde_scolaire()
+        self.client.force_login(monde["directeur"].utilisateur)
+
+        reponse = self.client.post(reverse("academique:niveau_supprimer", args=[monde["n7"].pk]), follow=True)
+
+        self.assertContains(reponse, "ne peut pas être supprimé")
+        self.assertContains(reponse, "classe(s)")
+        self.assertTrue(Niveau.sans_filtre.filter(pk=monde["n7"].pk).exists())
+
     def test_preset_cree_uniquement_les_niveaux_manquants(self):
         monde = monde_scolaire()
         preset = PresetAcademique.sans_filtre.create(

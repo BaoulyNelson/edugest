@@ -9,4 +9,14 @@
   <div class="grille-formulaire">{% include "interface/composants/_champ.html" with champ=formulaire.nom %}</div>
   <div class="actions-formulaire"><button class="btn btn-principal" type="submit">{% translate "Enregistrer la correction" %}</button><a class="btn btn-secondaire" href="{% url 'academique:structure' %}">{% translate "Annuler" %}</a></div>
 </form>
+{% if est_niveau %}
+<form method="post" action="{% url 'academique:niveau_supprimer' objet.pk %}" class="carte-formulaire mt-3">
+  {% csrf_token %}
+  <h2 class="h5">{% translate "Supprimer ce niveau" %}</h2>
+  <p class="sous-titre">{% translate "La suppression est possible uniquement si aucune classe, inscription, matière ou grille de frais n’y est rattachée." %}</p>
+  <button class="btn btn-danger-doux" type="submit" onclick="return confirm('{% translate "Supprimer définitivement ce niveau ?" %}')">
+    <i class="bi bi-trash3" aria-hidden="true"></i>{% translate "Supprimer le niveau" %}
+  </button>
+</form>
+{% endif %}
 {% endblock %}

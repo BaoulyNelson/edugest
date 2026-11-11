@@ -171,6 +171,7 @@ class ModeleEtablissement(ModeleValide):
 class Utilisateur(AbstractUser):
     email = models.EmailField("adresse e-mail", unique=True)
     telephone = models.CharField("téléphone", max_length=30, blank=True)
+    photo = models.ImageField("photo de profil", upload_to="profils/", blank=True)
     email_verifie = models.BooleanField("adresse e-mail vérifiée", default=False)
 
     REQUIRED_FIELDS = ["email"]

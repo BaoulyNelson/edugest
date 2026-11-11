@@ -5,7 +5,7 @@
 {% block meta_description %}{% blocktrans with plateforme=marque_plateforme.nom|default:"EduGest" %}{{ plateforme }} réunit la gestion des élèves, des notes, des bulletins et des finances dans un espace sécurisé pour chaque établissement.{% endblocktrans %}{% endblock %}
 {% block og_title %}{% translate "Toute la gestion de votre établissement, enfin réunie" %}{% endblock %}
 {% block twitter_title %}{% translate "Toute la gestion de votre établissement, enfin réunie" %}{% endblock %}
-{% block styles_publics %}<link rel="stylesheet" href="{% static 'css/landing.css' %}?v=5">{% endblock %}
+{% block styles_publics %}<link rel="stylesheet" href="{% static 'css/landing.css' %}?v=6">{% endblock %}
 
 {% block entete_public %}
 <header class="landing-nav" id="top">
@@ -24,7 +24,7 @@
     <span class="landing-nav__lang-code" aria-hidden="true">{{ LANGUAGE_CODE|upper }}</span>
     {% include "interface/composants/_selecteur_langue.html" %}
     {% if user.is_authenticated %}
-      <a class="landing-button landing-button--small" href="{% url 'tableau_de_bord' %}">{% translate "Accéder à mon tableau de bord" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+      <a class="landing-button landing-button--small" href="{% url 'tableau_de_bord' %}"><span class="landing-nav__desktop-label">{% translate "Accéder à mon tableau de bord" %}</span><span class="landing-nav__mobile-label">{% translate "Mon espace" %}</span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
     {% else %}
       <a class="landing-text-link" href="{% url 'connexion' %}">{% translate "Connexion" %}</a>
       <a class="landing-button landing-button--small" href="{% url 'inscription' %}">{% translate "Essai gratuit" %}<i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
