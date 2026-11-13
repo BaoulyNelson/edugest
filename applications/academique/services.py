@@ -218,8 +218,15 @@ def creer_faculte(etablissement, nom, code=""):
     return Faculte.sans_filtre.create(etablissement=etablissement, nom=nom, code=code)
 
 
-def creer_programme(faculte, nom, code=""):
-    return Programme.sans_filtre.create(etablissement=faculte.etablissement, faculte=faculte, nom=nom, code=code)
+@transaction.atomic
+def creer_programme(faculte, nom, code="", niveaux_lmd=False):
+    programme = Programme.sans_filtre.create(
+        etablissement=faculte.etablissement, faculte=faculte, nom=nom, code=code
+    )
+    if niveaux_lmd:
+        for ordre, nom_niveau in enumerate(NIVEAUX_UNIVERSITAIRES_STANDARDS, start=1):
+            creer_niveau(faculte.etablissement, nom_niveau, programme=programme, ordre=ordre)
+    return programme
 
 
 @transaction.atomic
@@ -402,11 +409,46 @@ NIVEAUX_STANDARDS = [
     ("NS1", "NS1"), ("NS2", "NS2"), ("NS3", "NS3"), ("NS4 / Philosophie", "NS4"),
 ]
 
+NIVEAUX_UNIVERSITAIRES_STANDARDS = (
+    "Année préparatoire / tronc commun",
+    "Licence 1 (L1)",
+    "Licence 2 (L2)",
+    "Licence 3 (L3)",
+)
+
+PARCOURS_PROFESSIONNELS = {
+    "Informatique & Bureautique": (
+        "Microsoft Word & Traitement de texte",
+        "Microsoft Excel & Tableurs",
+        "Maintenance Informatique & Réseaux",
+    ),
+    "Comptabilité & Gestion": (
+        "Comptabilité Générale",
+        "Fiscalité & Paie",
+        "Logiciel Comptable (QuickBooks / Sage)",
+    ),
+    "Électricité Bâtiment": (
+        "Schémas & Installation Électrique",
+        "Sécurité Électrique & Normes",
+        "Énergie Solaire & Photovoltaïque",
+    ),
+    "Cosmétologie / Esthétique": (
+        "Soins du Visage & Dermatologie",
+        "Coiffure & Techniques de Coupe",
+        "Manucure & Pédicure",
+    ),
+    "Couture & Haute Mode": (
+        "Patronage & Coupe",
+        "Montage & Assemblage Machine",
+        "Stylisme & Finitions",
+    ),
+}
+
 
 @transaction.atomic
 def configuration_rapide(etablissement, designation, date_debut, date_fin, nombre_periodes,
                          niveaux_standards=True, classes_par_niveau=1, par=None):
-    """Prépare un établissement en une seule opération : année active, périodes, niveaux et classes."""
+    """Prépare l'année et, selon le type d'établissement, sa structure de départ."""
     annee = creer_annee(etablissement, designation, date_debut, date_fin, nombre_periodes, par=par)
     activer_annee(annee, par=par)
     if niveaux_standards and etablissement.type == TypeEtablissement.SCOLAIRE:
@@ -416,6 +458,26 @@ def configuration_rapide(etablissement, designation, date_debut, date_fin, nombr
             for lettre in "ABCDEFGH"[:max(0, classes_par_niveau)]:
                 if not Classe.sans_filtre.filter(niveau=niveau, annee=annee, nom=f"{court} {lettre}").exists():
                     creer_classe(niveau, annee, f"{court} {lettre}")
+    elif niveaux_standards and etablissement.type == TypeEtablissement.PROFESSIONNEL:
+        from applications.pedagogie import services as services_pedagogie
+        from applications.pedagogie.models import Matiere, MatiereNiveau
+
+        for nom_parcours, modules in PARCOURS_PROFESSIONNELS.items():
+            niveau = Niveau.sans_filtre.filter(
+                etablissement=etablissement, programme=None, nom=nom_parcours
+            ).first() or creer_niveau(etablissement, nom_parcours)
+            for nom_module in modules:
+                matiere = Matiere.sans_filtre.filter(
+                    etablissement=etablissement, nom__iexact=nom_module
+                ).first()
+                if matiere is None:
+                    matiere = services_pedagogie.creer_matiere(etablissement, nom_module)
+                if not MatiereNiveau.sans_filtre.filter(
+                    annee=annee, niveau=niveau, matiere=matiere
+                ).exists():
+                    services_pedagogie.definir_matiere_niveau(
+                        annee, niveau, matiere, bareme=100, coefficient=1, par=par
+                    )
     return annee
 
 

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block titre %}{% if evenement %}{% translate "Modifier l’événement" %}{% else %}{% translate "Nouvel événement" %}{% endif %}{% endblock %}
+{% block titre_contexte %}{% translate "Actualités" %}{% endblock %}
+{% block tete %}<link rel="stylesheet" href="{% static 'css/communication_examens.css' %}?v=1">{% endblock %}
+{% block contenu %}
+<a class="module-retour" href="{% url 'actualites:liste' %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> {% translate "Retour aux actualités" %}</a>
+<header class="module-formulaire-entete">
+  <span class="module-hero__surtitre">{% translate "Agenda de l’établissement" %}</span>
+  <h1>{% if evenement %}{% translate "Modifier l’événement" %}{% else %}{% translate "Créer un événement" %}{% endif %}</h1>
+  <p>{% translate "Ajoutez les informations pratiques pour que chacun puisse s’organiser." %}</p>
+</header>
+<form method="post" class="formulaire-module" novalidate>
+  {% csrf_token %}
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}
+  <div class="formulaire-module__principal">
+    <section class="carte">
+      <h2><i class="bi bi-card-heading me-2" aria-hidden="true"></i>{% translate "Détails de l’événement" %}</h2>
+      <div class="grille-formulaire">
+        {% with champ=formulaire.titre %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        {% with champ=formulaire.description %}{% include "interface/composants/_champ.html" %}{% endwith %}
+      </div>
+    </section>
+    <div class="module-note"><i class="bi bi-lightbulb" aria-hidden="true"></i><span>{% translate "Une description courte et un lieu précis aident les participants à se préparer." %}</span></div>
+  </div>
+  <aside class="formulaire-module__secondaire">
+    <section class="carte">
+      <h2><i class="bi bi-calendar2-event me-2" aria-hidden="true"></i>{% translate "Date et lieu" %}</h2>
+      <div class="d-grid gap-3">
+        {% with champ=formulaire.debut %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        {% with champ=formulaire.fin %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        {% with champ=formulaire.lieu %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        {% with champ=formulaire.statut %}{% include "interface/composants/_champ.html" %}{% endwith %}
+      </div>
+    </section>
+    <section class="carte formulaire-module__actions">
+      <h2>{% translate "Enregistrer l’événement" %}</h2>
+      <p class="text-muted small">{% translate "Vous pourrez ensuite modifier les détails ou signaler une annulation." %}</p>
+      <div class="actions-formulaire flex-column">
+        <button class="btn btn-principal" type="submit"><i class="bi bi-calendar-check" aria-hidden="true"></i> {% translate "Enregistrer" %}</button>
+        <a class="btn btn-secondaire" href="{% url 'actualites:liste' %}">{% translate "Annuler" %}</a>
+      </div>
+    </section>
+  </aside>
+</form>
+{% endblock %}

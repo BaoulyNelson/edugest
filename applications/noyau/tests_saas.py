@@ -15,6 +15,7 @@ from django.utils import timezone, translation
 
 from applications.academique.models import AnneeAcademique, Classe, Niveau
 from applications.apprenants import services as apprenants
+from applications.pedagogie.models import Matiere, MatiereNiveau
 from applications.noyau import saas
 from applications.noyau.exceptions import ErreurMetier
 from applications.noyau.forms import FormulaireIdentite
@@ -190,19 +191,52 @@ class TestsInscriptionLibre(TestCase):
         self.assertEqual(annee.periodes.count(), 2)
         self.assertEqual(Niveau.sans_filtre.count(), 0)
 
-    def test_demarrage_rapide_professionnel_ne_cree_pas_de_niveaux_ou_classes_generiques(self):
+    def test_demarrage_rapide_professionnel_cree_les_parcours_et_modules_proposes(self):
         self.client.post(reverse("inscription"), {**DONNEES, "type_etablissement": "PROFESSIONNEL"})
 
         page = self.client.get(reverse("demarrage"))
-        self.assertNotContains(page, "Créer les niveaux de la 7e année fondamentale à la philosophie")
+        self.assertContains(page, "Créer les 5 parcours professionnels et leurs 15 modules")
 
         self.client.post(reverse("demarrage"), {
             "designation": "2026-2027", "date_debut": "2026-09-01", "date_fin": "2027-06-30",
             "nombre_periodes": 3, "niveaux_standards": "on", "classes_par_niveau": 2,
         })
 
-        self.assertEqual(Niveau.sans_filtre.count(), 0)
+        self.assertEqual(Niveau.sans_filtre.count(), 5)
+        self.assertEqual(Matiere.sans_filtre.count(), 15)
+        self.assertEqual(MatiereNiveau.sans_filtre.count(), 15)
         self.assertEqual(Classe.sans_filtre.count(), 0)
+        modules_par_parcours = {
+            "Informatique & Bureautique": {
+                "Microsoft Word & Traitement de texte",
+                "Microsoft Excel & Tableurs",
+                "Maintenance Informatique & Réseaux",
+            },
+            "Comptabilité & Gestion": {
+                "Comptabilité Générale",
+                "Fiscalité & Paie",
+                "Logiciel Comptable (QuickBooks / Sage)",
+            },
+            "Électricité Bâtiment": {
+                "Schémas & Installation Électrique",
+                "Sécurité Électrique & Normes",
+                "Énergie Solaire & Photovoltaïque",
+            },
+            "Cosmétologie / Esthétique": {
+                "Soins du Visage & Dermatologie",
+                "Coiffure & Techniques de Coupe",
+                "Manucure & Pédicure",
+            },
+            "Couture & Haute Mode": {
+                "Patronage & Coupe",
+                "Montage & Assemblage Machine",
+                "Stylisme & Finitions",
+            },
+        }
+        for parcours, modules_attendus in modules_par_parcours.items():
+            modules_crees = MatiereNiveau.sans_filtre.filter(niveau__nom=parcours)
+            self.assertSetEqual(set(modules_crees.values_list("matiere__nom", flat=True)), modules_attendus)
+            self.assertSetEqual(set(modules_crees.values_list("bareme", flat=True)), {100})
 
 
 class TestsInvitations(TestCase):

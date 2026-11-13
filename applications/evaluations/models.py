@@ -191,3 +191,57 @@ class DocumentResultat(ModeleEtablissement):
 
     def delete(self, *args, **kwargs):
         raise ValidationError("Un document de résultats ne peut pas être supprimé.")
+
+
+class Examen(ModeleEtablissement):
+    class Statut(models.TextChoices):
+        PLANIFIE = "PLANIFIE", "Planifié"
+        ANNULE = "ANNULE", "Annulé"
+
+    matiere_niveau = models.ForeignKey(
+        MatiereNiveau, on_delete=models.PROTECT, related_name="examens", verbose_name="matière et niveau"
+    )
+    classe = models.ForeignKey(
+        "academique.Classe", on_delete=models.PROTECT, null=True, blank=True,
+        related_name="examens", verbose_name="classe",
+    )
+    salle = models.ForeignKey(
+        "emploi_du_temps.Salle", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="examens", verbose_name="salle",
+    )
+    intitule = models.CharField("intitulé", max_length=150)
+    debut = models.DateTimeField("début")
+    fin = models.DateTimeField("fin")
+    consignes = models.TextField("consignes", blank=True)
+    statut = models.CharField("statut", max_length=10, choices=Statut.choices, default=Statut.PLANIFIE)
+    cree_par = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="+"
+    )
+    cree_le = models.DateTimeField(default=timezone.now, editable=False)
+    modifie_le = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "examen planifié"
+        verbose_name_plural = "examens planifiés"
+        ordering = ["debut", "pk"]
+        constraints = [
+            models.CheckConstraint(check=models.Q(fin__gt=models.F("debut")), name="examen_dates_coherentes"),
+        ]
+        indexes = [
+            models.Index(
+                fields=["etablissement", "statut", "debut"], name="examen_visibilite_idx"
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.intitule} — {self.matiere_niveau.matiere}"
+
+    def clean(self):
+        super().clean()
+        if self.debut and self.fin and self.fin <= self.debut:
+            raise ValidationError({"fin": "La fin doit être postérieure au début."})
+        if self.classe_id and self.matiere_niveau_id and (
+            self.classe.niveau_id != self.matiere_niveau.niveau_id
+            or self.classe.annee_id != self.matiere_niveau.annee_id
+        ):
+            raise ValidationError({"classe": "La classe doit correspondre au niveau et à l'année de la matière."})

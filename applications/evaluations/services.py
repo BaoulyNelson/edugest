@@ -2,19 +2,23 @@
 import hashlib
 from decimal import Decimal, InvalidOperation
 
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Exists, OuterRef, Q
 from django.core.files.base import ContentFile
 from django.utils import timezone
 
+from applications.academique.models import AnneeAcademique
+from applications.academique.services import annee_active
 from applications.apprenants.models import Apprenant, Inscription, LienResponsable
+from applications.emploi_du_temps.models import Salle
 from applications.noyau.exceptions import ErreurMetier
 from applications.noyau.models import ParametresEtablissement
 from applications.noyau.services import enregistrer_audit, verifier_permission
 from applications.pedagogie.services import bareme_applique, coefficient_applique, matiere_enseignee
 
 from .models import (
-    ComposanteEvaluation, ConfigurationEvaluation, DocumentResultat,
+    ComposanteEvaluation, ConfigurationEvaluation, DocumentResultat, Examen,
     HistoriqueNote, Note, ResultatPeriode,
 )
 
@@ -685,3 +689,141 @@ def revoquer_document_resultat(document, motif, par):
         motif=motif, apres={"version": document.version},
     )
     return document
+
+
+def _verifier_planification_examen(
+    etablissement, matiere_niveau, classe, salle, debut, fin, exclure_pk=None
+):
+    if fin <= debut:
+        raise ErreurMetier("La fin de l'examen doit être postérieure au début.")
+    if not matiere_niveau or matiere_niveau.etablissement_id != etablissement.pk:
+        raise ErreurMetier("La matière choisie n'appartient pas à cet établissement.")
+    annee = AnneeAcademique.sans_filtre.select_for_update().get(
+        pk=matiere_niveau.annee_id, etablissement=etablissement
+    )
+    active = annee_active(etablissement)
+    if active is None or active.pk != annee.pk:
+        raise ErreurMetier("Un examen ne peut être planifié que pour l'année académique active.")
+    if timezone.is_naive(debut) or timezone.is_naive(fin):
+        raise ErreurMetier("Les dates de l'examen doivent comporter un fuseau horaire.")
+    if (
+        timezone.localtime(debut).date() < annee.date_debut
+        or timezone.localtime(fin).date() > annee.date_fin
+    ):
+        raise ErreurMetier("L'examen doit être compris dans les dates de l'année académique.")
+    if classe is not None and (
+        classe.etablissement_id != etablissement.pk
+        or classe.annee_id != annee.pk
+        or classe.niveau_id != matiere_niveau.niveau_id
+    ):
+        raise ErreurMetier("La classe doit correspondre au niveau et à l'année de la matière.")
+    if salle is not None:
+        salle = Salle.sans_filtre.select_for_update().get(pk=salle.pk)
+        if salle.etablissement_id != etablissement.pk:
+            raise ErreurMetier("La salle choisie appartient à un autre établissement.")
+
+    if salle and salle.capacite:
+        inscriptions = Inscription.sans_filtre.filter(
+            etablissement=etablissement,
+            annee=annee,
+            niveau=matiere_niveau.niveau,
+            statut=Inscription.Statut.VALIDEE,
+        )
+        if classe is not None:
+            inscriptions = inscriptions.filter(classe=classe)
+        effectif = inscriptions.count()
+        if effectif > salle.capacite:
+            raise ErreurMetier(
+                f"La salle {salle} ({salle.capacite} places) est trop petite pour "
+                f"{effectif} apprenants."
+            )
+
+    chevauchements = Examen.sans_filtre.filter(
+        etablissement=etablissement,
+        statut=Examen.Statut.PLANIFIE,
+        debut__lt=fin,
+        fin__gt=debut,
+    ).select_related("matiere_niveau__niveau", "classe", "salle")
+    if exclure_pk:
+        chevauchements = chevauchements.exclude(pk=exclure_pk)
+    conflits = []
+    for autre in chevauchements:
+        if salle is not None and autre.salle_id == salle.pk:
+            conflits.append(f"La salle {salle} est déjà réservée pour « {autre.intitule} ».")
+        meme_niveau = (
+            autre.matiere_niveau.annee_id == annee.pk
+            and autre.matiere_niveau.niveau_id == matiere_niveau.niveau_id
+        )
+        cibles_communes = classe is None or autre.classe_id is None or classe.pk == autre.classe_id
+        if meme_niveau and cibles_communes:
+            conflits.append(
+                f"Un examen « {autre.intitule} » chevauche déjà cet horaire pour le même niveau ou la même classe."
+            )
+    if conflits:
+        raise ErreurMetier(" ".join(conflits))
+    return annee
+
+
+@transaction.atomic
+def planifier_examen(
+    *, etablissement, matiere_niveau, classe=None, salle=None, intitule, debut, fin, consignes="", par=None
+):
+    annee = _verifier_planification_examen(
+        etablissement, matiere_niveau, classe, salle, debut, fin
+    )
+    examen = Examen(
+        etablissement=etablissement, matiere_niveau=matiere_niveau, classe=classe,
+        salle=salle, intitule=intitule.strip(), debut=debut, fin=fin,
+        consignes=consignes.strip(), cree_par=par,
+    )
+    try:
+        examen.save()
+    except ValidationError as erreur:
+        raise ErreurMetier("; ".join(erreur.messages)) from erreur
+    enregistrer_audit(
+        etablissement, par, "examen.planification", examen,
+        apres={"intitule": examen.intitule, "debut": examen.debut.isoformat(), "annee": annee.designation},
+    )
+    return examen
+
+
+@transaction.atomic
+def modifier_examen(
+    examen, *, matiere_niveau, classe=None, salle=None, intitule, debut, fin, consignes="", par=None
+):
+    examen = Examen.sans_filtre.select_for_update().get(pk=examen.pk)
+    _verifier_planification_examen(
+        examen.etablissement, matiere_niveau, classe, salle, debut, fin, exclure_pk=examen.pk
+    )
+    avant = {"intitule": examen.intitule, "debut": examen.debut.isoformat()}
+    examen.matiere_niveau = matiere_niveau
+    examen.classe = classe
+    examen.salle = salle
+    examen.intitule = intitule.strip()
+    examen.debut = debut
+    examen.fin = fin
+    examen.consignes = consignes.strip()
+    try:
+        examen.save()
+    except ValidationError as erreur:
+        raise ErreurMetier("; ".join(erreur.messages)) from erreur
+    enregistrer_audit(
+        examen.etablissement, par, "examen.modification", examen,
+        avant=avant, apres={"intitule": examen.intitule, "debut": examen.debut.isoformat()},
+    )
+    return examen
+
+
+@transaction.atomic
+def annuler_examen(examen, par=None):
+    examen = Examen.sans_filtre.select_for_update().get(pk=examen.pk)
+    if examen.statut == Examen.Statut.ANNULE:
+        raise ErreurMetier("Cet examen est déjà annulé.")
+    ancien_statut = examen.statut
+    examen.statut = Examen.Statut.ANNULE
+    examen.save(update_fields=["statut", "modifie_le"])
+    enregistrer_audit(
+        examen.etablissement, par, "examen.annulation", examen,
+        avant={"statut": ancien_statut}, apres={"statut": examen.statut},
+    )
+    return examen

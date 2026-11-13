@@ -113,9 +113,19 @@ class TestsAcademique(TestCase):
 
         reponse = self.client.post(reverse("academique:structure"), {
             "cible": "programme", "programme-faculte": faculte.pk, "programme-nom": "Informatique",
+            "programme-niveaux_lmd": "on",
         })
         self.assertRedirects(reponse, reverse("academique:structure"), fetch_redirect_response=False)
-        self.assertTrue(Programme.objects.filter(faculte=faculte, nom="Informatique").exists())
+        programme = Programme.objects.get(faculte=faculte, nom="Informatique")
+        self.assertEqual(
+            list(programme.niveaux.order_by("ordre").values_list("nom", flat=True)),
+            [
+                "Année préparatoire / tronc commun",
+                "Licence 1 (L1)",
+                "Licence 2 (L2)",
+                "Licence 3 (L3)",
+            ],
+        )
 
     def test_corriger_nom_niveau_sans_modifier_ses_relations(self):
         monde = monde_scolaire()

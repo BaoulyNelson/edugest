@@ -21,6 +21,7 @@ urlpatterns = [
     path("rgpd/", include("applications.rgpd.urls")),
     path("admissions/", include("applications.admissions.urls")),
     path("badges/", include("applications.badges.urls")),
+    path("actualites/", include("applications.actualites.urls")),
 ]
 
 handler404 = "configuration.erreurs.page_introuvable"

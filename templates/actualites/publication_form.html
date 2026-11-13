@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block titre %}{% if publication %}{% translate "Modifier la publication" %}{% else %}{% translate "Nouvelle publication" %}{% endif %}{% endblock %}
+{% block titre_contexte %}{% translate "Actualités" %}{% endblock %}
+{% block tete %}<link rel="stylesheet" href="{% static 'css/communication_examens.css' %}?v=1">{% endblock %}
+{% block contenu %}
+<a class="module-retour" href="{% url 'actualites:liste' %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> {% translate "Retour aux actualités" %}</a>
+<header class="module-formulaire-entete">
+  <span class="module-hero__surtitre">{% translate "Communication de l’établissement" %}</span>
+  <h1>{% if publication %}{% translate "Modifier la publication" %}{% else %}{% translate "Rédiger une actualité ou une annonce" %}{% endif %}</h1>
+  <p>{% translate "Présentez clairement l’information puis choisissez quand et comment la publier." %}</p>
+</header>
+<form method="post" class="formulaire-module" novalidate>
+  {% csrf_token %}
+  {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}
+  <div class="formulaire-module__principal">
+    <section class="carte">
+      <h2><i class="bi bi-pencil-square me-2" aria-hidden="true"></i>{% translate "Contenu de la publication" %}</h2>
+      <div class="grille-formulaire">
+        {% with champ=formulaire.titre %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        {% with champ=formulaire.contenu %}{% include "interface/composants/_champ.html" %}{% endwith %}
+      </div>
+    </section>
+  </div>
+  <aside class="formulaire-module__secondaire">
+    <section class="carte">
+      <h2><i class="bi bi-send me-2" aria-hidden="true"></i>{% translate "Publication" %}</h2>
+      <div class="d-grid gap-3">
+        {% with champ=formulaire.type %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        {% with champ=formulaire.statut %}{% include "interface/composants/_champ.html" %}{% endwith %}
+        {% with champ=formulaire.publiee_le %}{% include "interface/composants/_champ.html" %}{% endwith %}
+      </div>
+      <div class="module-note mt-3"><i class="bi bi-info-circle" aria-hidden="true"></i><span>{% translate "Un brouillon reste privé. Une publication programmée sera visible à partir de la date choisie." %}</span></div>
+    </section>
+    <section class="carte formulaire-module__actions">
+      <h2>{% translate "Prêt à enregistrer ?" %}</h2>
+      <p class="text-muted small">{% translate "Vous pourrez modifier ou archiver cette publication plus tard." %}</p>
+      <div class="actions-formulaire flex-column">
+        <button class="btn btn-principal" type="submit"><i class="bi bi-check2-circle" aria-hidden="true"></i> {% translate "Enregistrer la publication" %}</button>
+        <a class="btn btn-secondaire" href="{% url 'actualites:liste' %}">{% translate "Annuler" %}</a>
+      </div>
+    </section>
+  </aside>
+</form>
+{% endblock %}

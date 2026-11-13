@@ -8,6 +8,7 @@ urlpatterns = [
     path("matieres/", views.matieres, name="matieres"),
     path("niveaux/<int:pk>/", views.niveau, name="niveau"),
     path("affectations/", views.affectations, name="affectations"),
+    path("affectations/<int:pk>/retirer/", views.desaffecter_enseignant, name="desaffecter_enseignant"),
     path("affectations/inviter-enseignant/", views.inviter_enseignant, name="inviter_enseignant"),
     path("ressources/", views.ressources, name="ressources"),
     path("ressources/<int:pk>/fichier/", views.telecharger_ressource, name="telecharger_ressource"),

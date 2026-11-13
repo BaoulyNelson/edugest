@@ -5,9 +5,21 @@
 {% block contenu %}
 <div class="entete-page"><h1 class="titre-page">{% translate "Affectation des enseignants" %}</h1>{% if annee %}<span class="sous-titre">{% translate "Année" %} {{ annee }}</span>{% endif %}</div>
 <section class="carte defilement-controle">
-  <table class="tableau tableau-adaptatif"><thead><tr><th>{% translate "Enseignant" %}</th><th>{{ libelles.cours_singulier }}</th><th>{% translate "Niveau" %}</th><th>{{ libelles.groupe }}</th></tr></thead><tbody>
-  {% for a in affectations %}<tr><td class="principal" data-libelle="{% translate 'Enseignant' %}">{{ a.appartenance.utilisateur.nom_affiche }}</td><td data-libelle="{{ libelles.cours_singulier }}">{{ a.matiere_niveau.matiere }}</td><td data-libelle="{% translate 'Niveau' %}">{{ a.matiere_niveau.niveau.nom }}</td><td data-libelle="{{ libelles.groupe }}">{{ a.classe|default:_("Tout le niveau") }}</td></tr>
-  {% empty %}<tr><td colspan="4" class="etat-vide">{% translate "Aucune affectation pour l’année active." %}</td></tr>{% endfor %}</tbody></table></section>
+  <table class="tableau tableau-adaptatif"><thead><tr><th>{% translate "Enseignant" %}</th><th>{{ libelles.cours_singulier }}</th><th>{% translate "Niveau" %}</th><th>{{ libelles.groupe }}</th><th>{% translate "Actions" %}</th></tr></thead><tbody>
+  {% for a in affectations %}
+    <tr>
+      <td class="principal" data-libelle="{% translate 'Enseignant' %}">{{ a.appartenance.utilisateur.nom_affiche }}</td>
+      <td data-libelle="{{ libelles.cours_singulier }}">{{ a.matiere_niveau.matiere }}</td>
+      <td data-libelle="{% translate 'Niveau' %}">{{ a.matiere_niveau.niveau.nom }}</td>
+      <td data-libelle="{{ libelles.groupe }}">{{ a.classe|default:_("Tout le niveau") }}</td>
+      <td class="actions" data-libelle="{% translate 'Actions' %}">
+        <form method="post" action="{% url 'pedagogie:desaffecter_enseignant' a.pk %}" data-confirmer="{% blocktrans with cours=a.matiere_niveau.matiere enseignant=a.appartenance.utilisateur.nom_affiche %}Retirer « {{ cours }} » de l’affectation de {{ enseignant }} ?{% endblocktrans %}">
+          {% csrf_token %}
+          <button class="btn btn-danger-doux btn-sm" type="submit"><i class="bi bi-person-dash" aria-hidden="true"></i> {% translate "Désaffecter" %}</button>
+        </form>
+      </td>
+    </tr>
+  {% empty %}<tr><td colspan="5" class="etat-vide">{% translate "Aucune affectation pour l’année active." %}</td></tr>{% endfor %}</tbody></table></section>
 <section class="carte-formulaire"><h2>{% translate "Nouvelle affectation" %}</h2>
   <form method="post" novalidate>{% csrf_token %}
     {% if formulaire.non_field_errors %}<div class="message message--error" role="alert">{{ formulaire.non_field_errors|join:" " }}</div>{% endif %}

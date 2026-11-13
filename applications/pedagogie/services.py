@@ -135,6 +135,34 @@ def affecter_enseignant(appartenance, matiere_niveau, classe=None, par=None):
 
 
 @transaction.atomic
+def desaffecter_enseignant(affectation, par=None):
+    affectation = AffectationEnseignant.sans_filtre.select_for_update().get(pk=affectation.pk)
+    Configuration = apps.get_model("evaluations", "ConfigurationEvaluation")
+    if Configuration.sans_filtre.filter(affectation=affectation).exists():
+        raise ErreurMetier(
+            "Cette affectation est utilisée par une configuration d’évaluation. "
+            "Elle ne peut pas être retirée afin de préserver l’historique des résultats."
+        )
+    Creneau = apps.get_model("emploi_du_temps", "Creneau")
+    if Creneau.sans_filtre.filter(affectation=affectation).exists():
+        raise ErreurMetier(
+            "Cette affectation possède des créneaux d’emploi du temps. "
+            "Retirez d’abord ces créneaux pour éviter de les supprimer avec le cours."
+        )
+    avant = {
+        "enseignant": affectation.appartenance.utilisateur.nom_affiche,
+        "matiere": affectation.matiere_niveau.matiere.nom,
+        "niveau": affectation.matiere_niveau.niveau.nom,
+        "classe": affectation.classe.nom if affectation.classe_id else None,
+    }
+    enregistrer_audit(
+        affectation.etablissement, par, "affectation.suppression", affectation, avant=avant
+    )
+    affectation.delete()
+    return affectation
+
+
+@transaction.atomic
 def dupliquer_matieres_niveaux(source, cible):
     """Copie barèmes et coefficients d'une année vers une autre (sans écraser l'existant)."""
     copiees = 0

@@ -119,6 +119,12 @@ class FormulaireFaculte(forms.Form):
 class FormulaireProgramme(forms.Form):
     faculte = forms.ModelChoiceField(label="Faculté", queryset=Faculte.objects.none())
     nom = forms.CharField(label="Nom du programme", max_length=150)
+    niveaux_lmd = forms.BooleanField(
+        label="Créer les niveaux préparatoire / tronc commun et L1 à L3",
+        required=False,
+        initial=True,
+        help_text="Ces niveaux resteront modifiables dans la structure académique.",
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

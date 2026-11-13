@@ -5,6 +5,10 @@ from . import views
 app_name = "evaluations"
 
 urlpatterns = [
+    path("examens/", views.examens, name="examens"),
+    path("examens/ajouter/", views.examen_creer, name="examen_creer"),
+    path("examens/<int:pk>/modifier/", views.examen_modifier, name="examen_modifier"),
+    path("examens/<int:pk>/annuler/", views.examen_annuler, name="examen_annuler"),
     path("mes-evaluations/", views.mes_evaluations, name="mes_evaluations"),
     path("classes/", views.classes, name="classes"),
     path("configuration/<int:affectation_pk>/<int:periode_pk>/", views.configuration, name="configuration"),

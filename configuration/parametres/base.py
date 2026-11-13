@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "applications.admissions",
     "applications.interface",
     "applications.badges",
+    "applications.actualites",
 ]
 
 AUTH_USER_MODEL = "noyau.Utilisateur"

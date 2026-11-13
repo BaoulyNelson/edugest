@@ -1,12 +1,15 @@
 from decimal import Decimal
+from datetime import datetime, timedelta
 from tempfile import TemporaryDirectory
 
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils import timezone
 
 from applications.academique import services as academique
 from applications.evaluations import services
-from applications.evaluations.models import DocumentResultat, HistoriqueNote, Note, ResultatPeriode
+from applications.evaluations.models import DocumentResultat, Examen, HistoriqueNote, Note, ResultatPeriode
+from applications.emploi_du_temps.models import Salle
 from applications.noyau.exceptions import ErreurMetier
 from applications.noyau.models import Utilisateur
 from applications.noyau.outils_tests import inscrire, monde_scolaire
@@ -479,3 +482,92 @@ class TestsPublication(BaseEvaluations):
             self.assertEqual(self.client.get(
                 reverse("evaluations:document_telecharger", args=[document_autre_apprenant.pk])
             ).status_code, 403)
+
+
+class TestsPlanificationExamens(TestCase):
+    def setUp(self):
+        self.m = monde_scolaire()
+        self.debut = timezone.make_aware(datetime(2027, 1, 15, 10, 0))
+        self.fin = self.debut + timedelta(hours=2)
+
+    def planifier(self, **modifications):
+        donnees = {
+            "etablissement": self.m["etab"],
+            "matiere_niveau": self.m["mn"],
+            "classe": self.m["classe_a"],
+            "salle": None,
+            "intitule": "Examen du semestre",
+            "debut": self.debut,
+            "fin": self.fin,
+            "par": self.m["directeur"].utilisateur,
+        }
+        donnees.update(modifications)
+        return services.planifier_examen(**donnees)
+
+    def test_planifier_et_annuler_un_examen(self):
+        examen = self.planifier()
+        self.assertEqual(Examen.objects.get().pk, examen.pk)
+
+        services.annuler_examen(examen, self.m["directeur"].utilisateur)
+        examen.refresh_from_db()
+        self.assertEqual(examen.statut, Examen.Statut.ANNULE)
+
+    def test_refuse_chevauchement_de_classe_et_hors_annee_active(self):
+        self.planifier()
+        with self.assertRaises(ErreurMetier):
+            self.planifier(intitule="Examen en conflit")
+
+        with self.assertRaises(ErreurMetier):
+            debut_hors_annee = timezone.make_aware(datetime(2027, 7, 1, 10, 0))
+            self.planifier(debut=debut_hors_annee, fin=debut_hors_annee + timedelta(hours=2))
+
+    def test_salle_reservee_et_capacite_verifiee(self):
+        salle = Salle.objects.create(
+            etablissement=self.m["etab"], nom="Salle d'examen", capacite=2
+        )
+        self.planifier(salle=salle)
+        with self.assertRaises(ErreurMetier):
+            self.planifier(
+                classe=self.m["classe_b"], salle=salle, intitule="Autre classe"
+            )
+
+        services.annuler_examen(Examen.objects.get(), self.m["directeur"].utilisateur)
+        salle.capacite = 1
+        salle.save()
+        inscrire(self.m, "Premier", classe=self.m["classe_a"])
+        inscrire(self.m, "Deuxième", classe=self.m["classe_a"])
+        with self.assertRaises(ErreurMetier):
+            self.planifier(salle=salle)
+
+    def test_page_examen_visible_aux_roles_autorises(self):
+        self.planifier()
+        self.client.force_login(self.m["prof"].utilisateur)
+        session = self.client.session
+        session["etablissement_id"] = self.m["etab"].pk
+        session.save()
+
+        reponse = self.client.get(reverse("evaluations:examens"))
+
+        self.assertEqual(reponse.status_code, 200)
+        self.assertContains(reponse, "Examen du semestre")
+
+    def test_creation_depuis_le_formulaire(self):
+        self.client.force_login(self.m["directeur"].utilisateur)
+        session = self.client.session
+        session["etablissement_id"] = self.m["etab"].pk
+        session.save()
+
+        reponse = self.client.post(reverse("evaluations:examen_creer"), {
+            "matiere_niveau": self.m["mn"].pk,
+            "classe": self.m["classe_a"].pk,
+            "intitule": "Composition",
+            "debut": self.debut.strftime("%Y-%m-%dT%H:%M"),
+            "fin": self.fin.strftime("%Y-%m-%dT%H:%M"),
+            "salle": "",
+            "consignes": "",
+        })
+
+        self.assertRedirects(
+            reponse, reverse("evaluations:examens"), fetch_redirect_response=False
+        )
+        self.assertTrue(Examen.objects.filter(intitule="Composition").exists())

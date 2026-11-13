@@ -16,8 +16,9 @@ from applications.pedagogie.models import AffectationEnseignant, Matiere
 
 from . import services
 from .exports import exporter_excel, exporter_pdf
+from .forms import FormulaireExamen
 from .models import (
-    ComposanteEvaluation, ConfigurationEvaluation, DocumentResultat, Note, ResultatPeriode,
+    ComposanteEvaluation, ConfigurationEvaluation, DocumentResultat, Examen, Note, ResultatPeriode,
 )
 
 
@@ -445,3 +446,90 @@ def telecharger_document_resultat(request, pk):
         as_attachment=True,
         filename=f"resultats-v{document.version}.pdf",
     )
+
+
+@permission_requise("examens.consulter", "examens.gerer")
+def examens(request):
+    annee = annee_active(request.etablissement)
+    peut_gerer = a_la_permission(request, "examens.gerer")
+    liste_examens = Examen.objects.none()
+    if annee is not None:
+        liste_examens = Examen.objects.filter(
+            matiere_niveau__annee=annee
+        ).select_related(
+            "matiere_niveau__matiere", "matiere_niveau__niveau", "classe", "salle"
+        )
+    examens_planifies = liste_examens.filter(statut=Examen.Statut.PLANIFIE).count()
+    examens_annules = liste_examens.filter(statut=Examen.Statut.ANNULE).count()
+    return render(request, "evaluations/examens.html", {
+        "examens": liste_examens,
+        "annee": annee,
+        "peut_gerer": peut_gerer,
+        "examens_planifies": examens_planifies,
+        "examens_annules": examens_annules,
+    })
+
+
+@permission_requise("examens.gerer")
+def examen_creer(request):
+    annee = annee_active(request.etablissement)
+    if annee is None:
+        messages.error(request, "Activez une année académique avant de planifier un examen.")
+        return redirect("evaluations:examens")
+    formulaire = FormulaireExamen(
+        request.POST or None, etablissement=request.etablissement, annee=annee
+    )
+    if request.method == "POST" and formulaire.is_valid():
+        try:
+            services.planifier_examen(
+                etablissement=request.etablissement,
+                par=request.user,
+                **formulaire.cleaned_data,
+            )
+        except ErreurMetier as erreur:
+            formulaire.add_error(None, str(erreur))
+        else:
+            messages.success(request, "Examen planifié.")
+            return redirect("evaluations:examens")
+    return render(request, "evaluations/examen_form.html", {"formulaire": formulaire})
+
+
+@permission_requise("examens.gerer")
+def examen_modifier(request, pk):
+    examen = get_object_or_404(
+        Examen.objects.select_related("matiere_niveau__annee"), pk=pk
+    )
+    annee = annee_active(request.etablissement)
+    if annee is None or examen.matiere_niveau.annee_id != annee.pk:
+        messages.error(request, "Seuls les examens de l'année académique active peuvent être modifiés.")
+        return redirect("evaluations:examens")
+    formulaire = FormulaireExamen(
+        request.POST or None, instance=examen,
+        etablissement=request.etablissement, annee=annee,
+    )
+    if request.method == "POST" and formulaire.is_valid():
+        try:
+            services.modifier_examen(
+                examen, par=request.user, **formulaire.cleaned_data
+            )
+        except ErreurMetier as erreur:
+            formulaire.add_error(None, str(erreur))
+        else:
+            messages.success(request, "Examen mis à jour.")
+            return redirect("evaluations:examens")
+    return render(request, "evaluations/examen_form.html", {
+        "formulaire": formulaire, "examen": examen,
+    })
+
+
+@permission_requise("examens.gerer")
+@require_POST
+def examen_annuler(request, pk):
+    examen = get_object_or_404(Examen.objects, pk=pk)
+    try:
+        services.annuler_examen(examen, request.user)
+    except ErreurMetier as erreur:
+        messages.error(request, str(erreur))
+    else:
+        messages.success(request, "Examen annulé.")
+    return redirect("evaluations:examens")

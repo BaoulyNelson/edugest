@@ -176,7 +176,9 @@ def structure(request):
                     elif cible == "faculte":
                         services.creer_faculte(etablissement, donnees["nom"])
                     elif cible == "programme":
-                        services.creer_programme(donnees["faculte"], donnees["nom"])
+                        services.creer_programme(
+                            donnees["faculte"], donnees["nom"], niveaux_lmd=donnees["niveaux_lmd"]
+                        )
                     elif cible == "site":
                         site = formulaire.save(commit=False)
                         site.etablissement = etablissement

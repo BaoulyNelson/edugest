@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block titre %}{% translate "Examens" %}{% endblock %}
+{% block titre_contexte %}{% translate "Enseignement" %}{% endblock %}
+{% block tete %}<link rel="stylesheet" href="{% static 'css/communication_examens.css' %}?v=1">{% endblock %}
+{% block contenu %}
+<header class="module-hero">
+  <div class="module-hero__texte">
+    <span class="module-hero__icone" aria-hidden="true"><i class="bi bi-calendar2-check"></i></span>
+    <div>
+      <span class="module-hero__surtitre">{% translate "Calendrier académique" %}</span>
+      <h1>{% translate "Planification des examens" %}</h1>
+      <p>{% if annee %}{% translate "Année académique" %} · {{ annee }}{% else %}{% translate "Aucune année académique active." %}{% endif %}</p>
+    </div>
+  </div>
+  {% if peut_gerer and annee %}
+    <div class="module-hero__actions">
+      <a class="btn btn-light" href="{% url 'evaluations:examen_creer' %}"><i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Planifier un examen" %}</a>
+    </div>
+  {% endif %}
+</header>
+
+<section class="module-indicateurs" aria-label="{% translate 'Résumé des examens' %}">
+  <div class="module-indicateur">
+    <span class="module-indicateur__icone" aria-hidden="true"><i class="bi bi-calendar3"></i></span>
+    <div><strong>{{ examens|length }}</strong><span>{% translate "Examens au calendrier" %}</span></div>
+  </div>
+  <div class="module-indicateur">
+    <span class="module-indicateur__icone" aria-hidden="true"><i class="bi bi-check2-circle"></i></span>
+    <div><strong>{{ examens_planifies }}</strong><span>{% translate "Examens planifiés" %}</span></div>
+  </div>
+  <div class="module-indicateur">
+    <span class="module-indicateur__icone" aria-hidden="true"><i class="bi bi-calendar-x"></i></span>
+    <div><strong>{{ examens_annules }}</strong><span>{% translate "Examens annulés" %}</span></div>
+  </div>
+</section>
+
+<section class="carte">
+  <header class="module-section__entete">
+    <div>
+      <h2 class="module-section__titre"><i class="bi bi-list-check" aria-hidden="true"></i> {% translate "Échéances de l’année" %}</h2>
+      <p class="module-section__aide">{% translate "Les séances sont classées chronologiquement. Les conflits de classe et de salle sont vérifiés à l’enregistrement." %}</p>
+    </div>
+  </header>
+  <div class="examen-liste">
+    {% for examen in examens %}
+      <article class="examen-carte">
+        <div class="examen-horaire">
+          <strong>{{ examen.debut|date:"d" }}</strong>
+          <span>{{ examen.debut|date:"M" }}</span>
+          <span>{{ examen.debut|date:"H:i" }}</span>
+        </div>
+        <div>
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+            <h3 class="examen-carte__titre">{{ examen.intitule }}</h3>
+            <span class="module-badge {% if examen.statut == 'ANNULE' %}module-badge--danger{% endif %}">{{ examen.get_statut_display }}</span>
+          </div>
+          <div class="examen-carte__meta">
+            <span><i class="bi bi-book" aria-hidden="true"></i> {{ examen.matiere_niveau.matiere }}</span>
+            <span><i class="bi bi-mortarboard" aria-hidden="true"></i> {{ examen.matiere_niveau.niveau }}</span>
+            <span><i class="bi bi-people" aria-hidden="true"></i> {% if examen.classe %}{{ examen.classe }}{% else %}{% translate "Tout le niveau" %}{% endif %}</span>
+            {% if examen.salle %}<span><i class="bi bi-geo-alt" aria-hidden="true"></i> {{ examen.salle }}</span>{% endif %}
+            <span><i class="bi bi-clock" aria-hidden="true"></i> {{ examen.debut|date:"H:i" }}–{{ examen.fin|date:"H:i" }}</span>
+          </div>
+          {% if examen.consignes %}<p class="examen-carte__consignes">{{ examen.consignes|linebreaksbr }}</p>{% endif %}
+        </div>
+        {% if peut_gerer %}
+          <div class="examen-carte__actions">
+            <a class="btn btn-secondaire btn-sm" href="{% url 'evaluations:examen_modifier' examen.pk %}"><i class="bi bi-pencil" aria-hidden="true"></i> {% translate "Modifier" %}</a>
+            {% if examen.statut == "PLANIFIE" %}
+              <form method="post" action="{% url 'evaluations:examen_annuler' examen.pk %}" data-confirmer="{% translate 'Annuler cet examen ?' %}">
+                {% csrf_token %}
+                <button class="btn btn-danger-doux btn-sm" type="submit"><i class="bi bi-calendar-x" aria-hidden="true"></i> {% translate "Annuler" %}</button>
+              </form>
+            {% endif %}
+          </div>
+        {% endif %}
+      </article>
+    {% empty %}
+      <div class="module-vide">
+        <i class="bi bi-calendar2-plus" aria-hidden="true"></i>
+        <strong>{% translate "Le calendrier est encore vide" %}</strong>
+        <p>{% if peut_gerer %}{% translate "Planifiez les examens de l’année pour les rendre visibles aux enseignants et aux apprenants." %}{% else %}{% translate "Les examens programmés pour cette année apparaîtront ici." %}{% endif %}</p>
+        {% if peut_gerer and annee %}<a class="btn btn-principal btn-sm mt-2" href="{% url 'evaluations:examen_creer' %}">{% translate "Planifier le premier examen" %}</a>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

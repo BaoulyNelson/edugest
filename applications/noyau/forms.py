@@ -205,6 +205,16 @@ class FormulaireDemarrage(forms.Form):
                     else 3
                 ),
             })
-        if etablissement is not None and etablissement.type != TypeEtablissement.SCOLAIRE:
-            del self.fields["niveaux_standards"]
-            del self.fields["classes_par_niveau"]
+        if etablissement is not None:
+            if etablissement.type == TypeEtablissement.PROFESSIONNEL:
+                del self.fields["classes_par_niveau"]
+                self.fields["niveaux_standards"].label = (
+                    "Créer les 5 parcours professionnels et leurs 15 modules"
+                )
+                self.fields["niveaux_standards"].help_text = (
+                    "Les modules seront rattachés à leur parcours avec un barème initial de 100 points, "
+                    "modifiable ensuite."
+                )
+            elif etablissement.type != TypeEtablissement.SCOLAIRE:
+                del self.fields["niveaux_standards"]
+                del self.fields["classes_par_niveau"]

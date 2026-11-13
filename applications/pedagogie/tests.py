@@ -1,3 +1,5 @@
+from datetime import time
+
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.test import override_settings
@@ -15,6 +17,8 @@ from applications.pedagogie.models import (
 from applications.academique.services import creer_niveau
 from applications.apprenants.models import Inscription
 from applications.noyau.models import Utilisateur
+from applications.emploi_du_temps.models import Creneau
+from applications.evaluations.models import ConfigurationEvaluation
 
 
 class TestsPedagogie(TestCase):
@@ -96,6 +100,68 @@ class TestsPedagogie(TestCase):
                 etablissement=self.m["etab"], appartenance=self.m["prof"],
                 matiere_niveau=self.m["mn"], classe=self.m["classe_a"],
             )
+
+    def test_desaffecter_un_cours_sans_historique(self):
+        affectation = services.affecter_enseignant(
+            self.m["prof"], self.m["mn"], self.m["classe_b"]
+        )
+
+        services.desaffecter_enseignant(affectation, self.m["directeur"].utilisateur)
+
+        self.assertFalse(AffectationEnseignant.sans_filtre.filter(pk=affectation.pk).exists())
+
+    def test_desaffectation_preserve_evaluations_et_horaires_existants(self):
+        affectation = self.m["affectation"]
+        ConfigurationEvaluation.sans_filtre.create(
+            etablissement=self.m["etab"], affectation=affectation,
+            periode=self.m["periode1"],
+        )
+        with self.assertRaises(ErreurMetier):
+            services.desaffecter_enseignant(affectation, self.m["directeur"].utilisateur)
+        self.assertTrue(AffectationEnseignant.sans_filtre.filter(pk=affectation.pk).exists())
+
+        autre_prof = creer_membre(
+            self.m["etab"], "prof_horaire", "prof_horaire@ecole.test",
+            "MotDePasse!2026", "Enseignant",
+        )
+        affectation_avec_horaire = services.affecter_enseignant(
+            autre_prof, self.m["mn"], self.m["classe_b"]
+        )
+        Creneau.sans_filtre.create(
+            etablissement=self.m["etab"], annee=self.m["annee"],
+            affectation=affectation_avec_horaire, jour=1,
+            heure_debut=time(8, 0), heure_fin=time(9, 0),
+        )
+        with self.assertRaises(ErreurMetier):
+            services.desaffecter_enseignant(
+                affectation_avec_horaire, self.m["directeur"].utilisateur
+            )
+        self.assertTrue(
+            AffectationEnseignant.sans_filtre.filter(pk=affectation_avec_horaire.pk).exists()
+        )
+
+    def test_desaffecter_depuis_la_page_enseignants(self):
+        responsable = creer_membre(
+            self.m["etab"], "rp_retrait", "rp_retrait@ecole.test",
+            "MotDePasse!2026", "Responsable pédagogique",
+        )
+        self.client.force_login(responsable.utilisateur)
+        session = self.client.session
+        session["etablissement_id"] = self.m["etab"].pk
+        session.save()
+
+        page = self.client.get(reverse("pedagogie:affectations"))
+        self.assertContains(page, "Désaffecter")
+        reponse = self.client.post(
+            reverse("pedagogie:desaffecter_enseignant", args=[self.m["affectation"].pk])
+        )
+
+        self.assertRedirects(
+            reponse, reverse("pedagogie:affectations"), fetch_redirect_response=False
+        )
+        self.assertFalse(
+            AffectationEnseignant.sans_filtre.filter(pk=self.m["affectation"].pk).exists()
+        )
 
     @override_settings(EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend")
     @mock.patch("applications.noyau.saas.send_mail", return_value=1)

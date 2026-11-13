@@ -138,6 +138,19 @@ def affectations(request):
 
 @permission_requise("pedagogie.gerer")
 @require_POST
+def desaffecter_enseignant(request, pk):
+    affectation = get_object_or_404(AffectationEnseignant.objects, pk=pk)
+    try:
+        services.desaffecter_enseignant(affectation, par=request.user)
+    except ErreurMetier as erreur:
+        messages.error(request, str(erreur))
+    else:
+        messages.success(request, "Affectation retirée.")
+    return redirect("pedagogie:affectations")
+
+
+@permission_requise("pedagogie.gerer")
+@require_POST
 def inviter_enseignant(request):
     formulaire = FormulaireInvitationEnseignant(request.POST)
     if not formulaire.is_valid():

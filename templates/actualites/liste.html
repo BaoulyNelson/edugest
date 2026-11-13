@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block titre %}{% translate "Actualités et événements" %}{% endblock %}
+{% block titre_contexte %}{% translate "Communication" %}{% endblock %}
+{% block tete %}<link rel="stylesheet" href="{% static 'css/communication_examens.css' %}?v=1">{% endblock %}
+{% block contenu %}
+<header class="module-hero">
+  <div class="module-hero__texte">
+    <span class="module-hero__icone" aria-hidden="true"><i class="bi bi-megaphone"></i></span>
+    <div>
+      <span class="module-hero__surtitre">{% translate "Espace de communication" %}</span>
+      <h1>{% translate "Actualités, annonces et événements" %}</h1>
+      <p>{% translate "Les informations importantes et les rendez-vous de votre établissement." %}</p>
+    </div>
+  </div>
+  {% if peut_gerer %}
+    <div class="module-hero__actions">
+      <a class="btn btn-light" href="{% url 'actualites:publication_creer' %}"><i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Nouvelle publication" %}</a>
+      <a class="btn btn-secondaire text-white border-white bg-transparent" href="{% url 'actualites:evenement_creer' %}"><i class="bi bi-calendar-plus" aria-hidden="true"></i> {% translate "Nouvel événement" %}</a>
+    </div>
+  {% endif %}
+</header>
+
+<section class="module-indicateurs" aria-label="{% translate 'Résumé des communications' %}">
+  <div class="module-indicateur">
+    <span class="module-indicateur__icone" aria-hidden="true"><i class="bi bi-megaphone"></i></span>
+    <div><strong>{{ publications|length }}</strong><span>{% translate "Actualités et annonces" %}</span></div>
+  </div>
+  <div class="module-indicateur">
+    <span class="module-indicateur__icone" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
+    <div><strong>{{ evenements|length }}</strong><span>{% translate "Événements à venir" %}</span></div>
+  </div>
+</section>
+
+<section class="carte module-section">
+  <header class="module-section__entete">
+    <div>
+      <h2 class="module-section__titre"><i class="bi bi-journal-richtext" aria-hidden="true"></i> {% translate "À la une" %}</h2>
+      <p class="module-section__aide">{% translate "Actualités et annonces partagées avec la communauté." %}</p>
+    </div>
+  </header>
+  <div class="editorial-grid">
+    {% for publication in publications %}
+      <article class="editorial-card">
+        <div class="editorial-card__meta">
+          <span class="module-badge"><i class="bi bi-megaphone" aria-hidden="true"></i> {{ publication.get_type_display }}</span>
+          {% if peut_gerer %}
+            <span class="module-badge {% if publication.statut == 'ARCHIVEE' %}module-badge--neutre{% elif publication.statut == 'BROUILLON' %}module-badge--secondaire{% endif %}">{{ publication.get_statut_display }}</span>
+          {% endif %}
+          <time class="editorial-card__date" datetime="{{ publication.publiee_le|date:'c' }}"><i class="bi bi-clock" aria-hidden="true"></i> {{ publication.publiee_le|date:"d/m/Y H:i" }}</time>
+        </div>
+        <h3 class="editorial-card__titre">{{ publication.titre }}</h3>
+        <div class="editorial-card__contenu">{{ publication.contenu|linebreaksbr }}</div>
+        {% if peut_gerer %}
+          <div class="editorial-card__actions">
+            <a class="btn btn-secondaire btn-sm" href="{% url 'actualites:publication_modifier' publication.pk %}"><i class="bi bi-pencil" aria-hidden="true"></i> {% translate "Modifier" %}</a>
+            {% if publication.statut != "ARCHIVEE" %}
+              <form method="post" action="{% url 'actualites:publication_archiver' publication.pk %}" data-confirmer="{% translate 'Archiver cette publication ?' %}">
+                {% csrf_token %}
+                <button class="btn btn-danger-doux btn-sm" type="submit"><i class="bi bi-archive" aria-hidden="true"></i> {% translate "Archiver" %}</button>
+              </form>
+            {% endif %}
+          </div>
+        {% endif %}
+      </article>
+    {% empty %}
+      <div class="module-vide">
+        <i class="bi bi-journal-plus" aria-hidden="true"></i>
+        <strong>{% translate "Aucune publication pour le moment" %}</strong>
+        <p>{% if peut_gerer %}{% translate "Publiez une actualité ou une annonce pour informer votre communauté." %}{% else %}{% translate "Les nouvelles de votre établissement apparaîtront ici." %}{% endif %}</p>
+        {% if peut_gerer %}<a class="btn btn-principal btn-sm mt-2" href="{% url 'actualites:publication_creer' %}">{% translate "Créer une publication" %}</a>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="carte">
+  <header class="module-section__entete">
+    <div>
+      <h2 class="module-section__titre"><i class="bi bi-calendar2-week" aria-hidden="true"></i> {% translate "Prochains rendez-vous" %}</h2>
+      <p class="module-section__aide">{% translate "Consultez les dates, les lieux et les détails des événements." %}</p>
+    </div>
+  </header>
+  <div class="evenement-liste">
+    {% for evenement in evenements %}
+      <article class="evenement-carte">
+        <time class="evenement-date" datetime="{{ evenement.debut|date:'c' }}">
+          <strong>{{ evenement.debut|date:"d" }}</strong><span>{{ evenement.debut|date:"M" }}</span>
+        </time>
+        <div>
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+            <h3 class="evenement-carte__titre">{{ evenement.titre }}</h3>
+            {% if peut_gerer %}<span class="module-badge {% if evenement.statut == 'ANNULE' %}module-badge--danger{% endif %}">{{ evenement.get_statut_display }}</span>{% endif %}
+          </div>
+          <div class="evenement-carte__meta">
+            <span><i class="bi bi-clock" aria-hidden="true"></i> {{ evenement.debut|date:"H:i" }}–{{ evenement.fin|date:"H:i" }}</span>
+            {% if evenement.lieu %}<span><i class="bi bi-geo-alt" aria-hidden="true"></i> {{ evenement.lieu }}</span>{% endif %}
+          </div>
+          {% if evenement.description %}<p class="evenement-carte__description">{{ evenement.description|linebreaksbr }}</p>{% endif %}
+        </div>
+        {% if peut_gerer %}
+          <div class="evenement-carte__actions">
+            <a class="btn btn-secondaire btn-sm" href="{% url 'actualites:evenement_modifier' evenement.pk %}"><i class="bi bi-pencil" aria-hidden="true"></i> {% translate "Modifier" %}</a>
+          </div>
+        {% endif %}
+      </article>
+    {% empty %}
+      <div class="module-vide">
+        <i class="bi bi-calendar2-check" aria-hidden="true"></i>
+        <strong>{% translate "Aucun événement à venir" %}</strong>
+        <p>{% if peut_gerer %}{% translate "Ajoutez un événement pour qu’il apparaisse dans ce calendrier." %}{% else %}{% translate "Les prochains rendez-vous seront affichés ici." %}{% endif %}</p>
+        {% if peut_gerer %}<a class="btn btn-principal btn-sm mt-2" href="{% url 'actualites:evenement_creer' %}">{% translate "Ajouter un événement" %}</a>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
