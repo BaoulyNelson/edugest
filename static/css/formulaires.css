@@ -138,7 +138,7 @@
 /* Barre de filtres */
 .barre-filtres .form-control, .barre-filtres .form-select { min-height: 3rem; }
 
-form > .grille-formulaire + .btn, form > .grille-formulaire + button, .champ + .btn { margin-top: 1.25rem; }
+form .grille-formulaire + .btn, form .grille-formulaire + button, form .champ + .btn { margin-top: 1.25rem; }
 .carte-formulaire .btn-principal[type="submit"]:only-child { min-width: 12rem; }
 
 .grille-formulaire--deux { grid-template-columns: 1fr 1fr; }

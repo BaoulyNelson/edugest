@@ -83,6 +83,10 @@ msgid "Candidatures"
 msgstr "Applications"
 
 #: .\applications\interface\navigation.py:19
+msgid "Badges"
+msgstr "Badges"
+
+#: .\applications\interface\navigation.py:20
 msgid "Académique"
 msgstr "Academic"
 

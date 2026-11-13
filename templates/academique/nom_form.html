@@ -18,5 +18,23 @@
     <i class="bi bi-trash3" aria-hidden="true"></i>{% translate "Supprimer le niveau" %}
   </button>
 </form>
+{% elif est_faculte %}
+<form method="post" action="{% url 'academique:faculte_supprimer' objet.pk %}" class="carte-formulaire mt-3">
+  {% csrf_token %}
+  <h2 class="h5">{% translate "Supprimer cette faculté" %}</h2>
+  <p class="sous-titre">{% translate "La suppression est possible uniquement si aucun programme n’y est rattaché." %}</p>
+  <button class="btn btn-danger-doux" type="submit" onclick="return confirm('{% translate "Supprimer définitivement cette faculté ?" %}')">
+    <i class="bi bi-trash3" aria-hidden="true"></i>{% translate "Supprimer la faculté" %}
+  </button>
+</form>
+{% elif est_programme %}
+<form method="post" action="{% url 'academique:programme_supprimer' objet.pk %}" class="carte-formulaire mt-3">
+  {% csrf_token %}
+  <h2 class="h5">{% translate "Supprimer ce programme" %}</h2>
+  <p class="sous-titre">{% translate "La suppression est possible uniquement si aucun niveau ni aucune inscription ne sont rattachés au programme." %}</p>
+  <button class="btn btn-danger-doux" type="submit" onclick="return confirm('{% translate "Supprimer définitivement ce programme ?" %}')">
+    <i class="bi bi-trash3" aria-hidden="true"></i>{% translate "Supprimer le programme" %}
+  </button>
+</form>
 {% endif %}
 {% endblock %}

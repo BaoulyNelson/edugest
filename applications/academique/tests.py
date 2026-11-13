@@ -7,17 +7,116 @@ from django.urls import reverse
 from applications.academique import services
 from applications.academique.forms import FormulaireAnnee
 from applications.academique.models import (
-    AnneeAcademique, Classe, Niveau, Periode, PresetAcademique, Programme, SiteEtablissement,
+    AnneeAcademique, Classe, Faculte, Niveau, Periode, PresetAcademique, Programme, SiteEtablissement,
 )
 from applications.apprenants import services as services_apprenants
 from applications.apprenants.models import Inscription
 from applications.noyau.exceptions import ErreurMetier
 from applications.noyau.models import TypeEtablissement
 from applications.noyau.outils_tests import monde_scolaire, monde_universitaire
-from applications.noyau.services import creer_etablissement
+from applications.noyau.services import creer_etablissement, creer_membre
 
 
 class TestsAcademique(TestCase):
+    def test_corriger_noms_faculte_et_programme_depuis_structure(self):
+        monde = monde_universitaire()
+        directeur = creer_membre(
+            monde["etab"], f"dir_{monde['etab'].pk}", f"dir{monde['etab'].pk}@universite.test",
+            "MotDePasse!2026", "Directeur",
+        )
+        self.client.force_login(directeur.utilisateur)
+
+        page = self.client.get(reverse("academique:structure"))
+        self.assertContains(page, reverse("academique:faculte_modifier", args=[monde["faculte"].pk]))
+        self.assertContains(page, reverse("academique:programme_modifier", args=[monde["programme"].pk]))
+
+        reponse = self.client.post(
+            reverse("academique:faculte_modifier", args=[monde["faculte"].pk]),
+            {"nom": "Faculté des Sciences humaines"},
+        )
+        self.assertRedirects(reponse, reverse("academique:structure"), fetch_redirect_response=False)
+        monde["faculte"].refresh_from_db()
+        monde["programme"].refresh_from_db()
+        self.assertEqual(monde["faculte"].nom, "Faculté des Sciences humaines")
+        self.assertEqual(monde["programme"].faculte_id, monde["faculte"].pk)
+
+        reponse = self.client.post(
+            reverse("academique:programme_modifier", args=[monde["programme"].pk]),
+            {"nom": "Informatique appliquée"},
+        )
+        self.assertRedirects(reponse, reverse("academique:structure"), fetch_redirect_response=False)
+        monde["programme"].refresh_from_db()
+        monde["niveau"].refresh_from_db()
+        self.assertEqual(monde["programme"].nom, "Informatique appliquée")
+        self.assertEqual(monde["niveau"].programme_id, monde["programme"].pk)
+
+    def test_suppression_faculte_et_programme_protege_les_relations(self):
+        monde = monde_universitaire()
+        directeur = creer_membre(
+            monde["etab"], f"dir_{monde['etab'].pk}", f"dir{monde['etab'].pk}@universite.test",
+            "MotDePasse!2026", "Directeur",
+        )
+        self.client.force_login(directeur.utilisateur)
+
+        page = self.client.get(reverse("academique:faculte_modifier", args=[monde["faculte"].pk]))
+        self.assertContains(page, "Supprimer la faculté")
+        reponse = self.client.post(
+            reverse("academique:faculte_supprimer", args=[monde["faculte"].pk]), follow=True,
+        )
+        self.assertContains(reponse, "contient 1 programme")
+        self.assertTrue(Faculte.objects.filter(pk=monde["faculte"].pk).exists())
+
+        page = self.client.get(reverse("academique:programme_modifier", args=[monde["programme"].pk]))
+        self.assertContains(page, "Supprimer le programme")
+        reponse = self.client.post(
+            reverse("academique:programme_supprimer", args=[monde["programme"].pk]), follow=True,
+        )
+        self.assertContains(reponse, "utilisé par 1 niveau")
+        self.assertTrue(Programme.objects.filter(pk=monde["programme"].pk).exists())
+
+        services.supprimer_niveau(monde["niveau"])
+        reponse = self.client.post(
+            reverse("academique:programme_supprimer", args=[monde["programme"].pk]),
+        )
+        self.assertRedirects(reponse, reverse("academique:structure"), fetch_redirect_response=False)
+        reponse = self.client.post(
+            reverse("academique:faculte_supprimer", args=[monde["faculte"].pk]),
+        )
+        self.assertRedirects(reponse, reverse("academique:structure"), fetch_redirect_response=False)
+        self.assertFalse(Programme.objects.filter(pk=monde["programme"].pk).exists())
+        self.assertFalse(Faculte.objects.filter(pk=monde["faculte"].pk).exists())
+
+    def test_creation_faculte_debloque_le_formulaire_de_programme_sans_ajout_rapide(self):
+        etablissement = creer_etablissement("Université sans faculté", TypeEtablissement.UNIVERSITAIRE)
+        directeur = creer_membre(
+            etablissement, f"dir_{etablissement.pk}", f"dir{etablissement.pk}@universite.test",
+            "MotDePasse!2026", "Directeur",
+        )
+        self.client.force_login(directeur.utilisateur)
+
+        page = self.client.get(reverse("academique:structure"))
+        self.assertContains(page, "Nom de la faculté")
+        self.assertContains(page, "<fieldset disabled>")
+        self.assertContains(page, "Ajoutez d’abord une faculté")
+        self.assertNotContains(page, 'data-ajout-rapide-cible="faculte"')
+
+        reponse = self.client.post(reverse("academique:structure"), {
+            "cible": "faculte", "faculte-nom": "Sciences",
+        })
+        self.assertRedirects(reponse, reverse("academique:structure"), fetch_redirect_response=False)
+        faculte = Faculte.objects.get(nom="Sciences")
+
+        page = self.client.get(reverse("academique:structure"))
+        self.assertNotContains(page, "<fieldset disabled>")
+        self.assertNotContains(page, "Ajoutez d’abord une faculté")
+        self.assertContains(page, 'name="programme-faculte"')
+
+        reponse = self.client.post(reverse("academique:structure"), {
+            "cible": "programme", "programme-faculte": faculte.pk, "programme-nom": "Informatique",
+        })
+        self.assertRedirects(reponse, reverse("academique:structure"), fetch_redirect_response=False)
+        self.assertTrue(Programme.objects.filter(faculte=faculte, nom="Informatique").exists())
+
     def test_corriger_nom_niveau_sans_modifier_ses_relations(self):
         monde = monde_scolaire()
         services.modifier_niveau(monde["n7"], "7e année corrigée", par=monde["directeur"].utilisateur)

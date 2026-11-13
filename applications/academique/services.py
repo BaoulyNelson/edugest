@@ -223,6 +223,72 @@ def creer_programme(faculte, nom, code=""):
 
 
 @transaction.atomic
+def modifier_faculte(faculte, nom, par=None):
+    faculte = Faculte.sans_filtre.select_for_update().get(pk=faculte.pk)
+    ancien_nom = faculte.nom
+    faculte.nom = nom.strip()
+    try:
+        faculte.save(update_fields=["nom"])
+    except ValidationError as erreur:
+        raise ErreurMetier("; ".join(erreur.messages)) from erreur
+    enregistrer_audit(
+        faculte.etablissement, par, "faculte.modification", faculte,
+        avant={"nom": ancien_nom}, apres={"nom": faculte.nom},
+    )
+    return faculte
+
+
+@transaction.atomic
+def modifier_programme(programme, nom, par=None):
+    programme = Programme.sans_filtre.select_for_update().get(pk=programme.pk)
+    ancien_nom = programme.nom
+    programme.nom = nom.strip()
+    try:
+        programme.save(update_fields=["nom"])
+    except ValidationError as erreur:
+        raise ErreurMetier("; ".join(erreur.messages)) from erreur
+    enregistrer_audit(
+        programme.etablissement, par, "programme.modification", programme,
+        avant={"nom": ancien_nom}, apres={"nom": programme.nom},
+    )
+    return programme
+
+
+@transaction.atomic
+def supprimer_faculte(faculte, par=None):
+    faculte = Faculte.sans_filtre.select_for_update().get(pk=faculte.pk)
+    nombre_programmes = faculte.programmes.count()
+    if nombre_programmes:
+        raise ErreurMetier(
+            f"La faculté « {faculte.nom} » ne peut pas être supprimée : "
+            f"elle contient {nombre_programmes} programme(s)."
+        )
+    enregistrer_audit(
+        faculte.etablissement, par, "faculte.suppression", faculte, avant={"nom": faculte.nom}
+    )
+    faculte.delete()
+
+
+@transaction.atomic
+def supprimer_programme(programme, par=None):
+    programme = Programme.sans_filtre.select_for_update().get(pk=programme.pk)
+    dependances = (
+        ("niveaux", programme.niveaux.count(), "niveau(x)"),
+        ("inscriptions", programme.inscriptions.count(), "inscription(s)"),
+    )
+    utilise_par = [f"{nombre} {libelle}" for _, nombre, libelle in dependances if nombre]
+    if utilise_par:
+        raise ErreurMetier(
+            f"Le programme « {programme.nom} » ne peut pas être supprimé : "
+            f"il est utilisé par {', '.join(utilise_par)}."
+        )
+    enregistrer_audit(
+        programme.etablissement, par, "programme.suppression", programme, avant={"nom": programme.nom}
+    )
+    programme.delete()
+
+
+@transaction.atomic
 def creer_niveau(etablissement, nom, programme=None, ordre=None):
     """École : niveau sans programme. Université : niveau obligatoirement rattaché à un programme."""
     if programme is None:

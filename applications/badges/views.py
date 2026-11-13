@@ -24,7 +24,9 @@ def classe_pdf(request, pk):
     classe = get_object_or_404(Classe.objects.select_related("annee"), pk=pk)
     inscriptions = Inscription.objects.filter(
         classe=classe, annee=classe.annee, statut=Inscription.Statut.VALIDEE
-    ).select_related("apprenant", "classe").order_by("apprenant__nom", "apprenant__prenoms")
+    ).select_related(
+        "apprenant", "classe", "annee", "niveau__programme__faculte", "programme__faculte",
+    ).order_by("apprenant__nom", "apprenant__prenoms")
     cibles = [(BadgeGenere.Type.APPRENANT, inscription) for inscription in inscriptions]
     return _reponse_pdf(request, cibles, f"badges-{classe.pk}.pdf")
 

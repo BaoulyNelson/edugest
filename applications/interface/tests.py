@@ -171,6 +171,7 @@ class TestsAccesEtNavigation(BaseInterface):
         routes = {e["route"] for groupe in reponse.context["navigation"]["sidebar"].values() for e in groupe}
         self.assertNotIn("personnel", routes)
         self.assertNotIn("apprenants:inscriptions", routes)
+        self.assertNotIn("badges:liste", routes)
         self.assertIn("evaluations:mes_evaluations", routes)
         entrees_cahier = {
             entree["libelle"]: entree["url"]
@@ -181,6 +182,15 @@ class TestsAccesEtNavigation(BaseInterface):
         self.assertEqual(entrees_cahier["Devoirs"], reverse("cahier:devoirs"))
         panneau = reponse.content.decode()
         self.assertIn('href="/cahier/devoirs/"', panneau)
+
+        reponse = self.connecter(self.m["directeur"]).get(reverse("tableau_de_bord"))
+        routes = {e["route"] for groupe in reponse.context["navigation"]["sidebar"].values() for e in groupe}
+        self.assertIn("badges:liste", routes)
+        self.assertContains(reponse, 'href="/badges/"')
+        self.assertIn(
+            "badges:liste",
+            {entree["route"] for entree in reponse.context["navigation"]["groupes_plus"]["Scolarité"]},
+        )
 
     def test_permissions_verifiees_cote_serveur(self):
         client = self.connecter(self.m["prof"])

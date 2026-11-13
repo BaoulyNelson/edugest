@@ -207,6 +207,66 @@ def structure(request):
 
 
 @permission_requise("academique.gerer")
+def faculte_modifier(request, pk):
+    faculte = get_object_or_404(Faculte, pk=pk)
+    formulaire = FormulaireNom(request.POST or None, initial={"nom": faculte.nom})
+    if request.method == "POST" and formulaire.is_valid():
+        try:
+            services.modifier_faculte(faculte, formulaire.cleaned_data["nom"], par=request.user)
+        except ErreurMetier as erreur:
+            formulaire.add_error("nom", str(erreur))
+        else:
+            messages.success(request, "Le nom de la faculté a été corrigé.")
+            return redirect("academique:structure")
+    return render(request, "academique/nom_form.html", {
+        "formulaire": formulaire, "objet": faculte, "titre": "Modifier la faculté", "est_faculte": True,
+    })
+
+
+@permission_requise("academique.gerer")
+@require_POST
+def faculte_supprimer(request, pk):
+    faculte = get_object_or_404(Faculte, pk=pk)
+    try:
+        services.supprimer_faculte(faculte, par=request.user)
+    except ErreurMetier as erreur:
+        messages.error(request, str(erreur))
+    else:
+        messages.success(request, f"La faculté « {faculte.nom} » a été supprimée.")
+    return redirect("academique:structure")
+
+
+@permission_requise("academique.gerer")
+def programme_modifier(request, pk):
+    programme = get_object_or_404(Programme, pk=pk)
+    formulaire = FormulaireNom(request.POST or None, initial={"nom": programme.nom})
+    if request.method == "POST" and formulaire.is_valid():
+        try:
+            services.modifier_programme(programme, formulaire.cleaned_data["nom"], par=request.user)
+        except ErreurMetier as erreur:
+            formulaire.add_error("nom", str(erreur))
+        else:
+            messages.success(request, "Le nom du programme a été corrigé.")
+            return redirect("academique:structure")
+    return render(request, "academique/nom_form.html", {
+        "formulaire": formulaire, "objet": programme, "titre": "Modifier le programme", "est_programme": True,
+    })
+
+
+@permission_requise("academique.gerer")
+@require_POST
+def programme_supprimer(request, pk):
+    programme = get_object_or_404(Programme, pk=pk)
+    try:
+        services.supprimer_programme(programme, par=request.user)
+    except ErreurMetier as erreur:
+        messages.error(request, str(erreur))
+    else:
+        messages.success(request, f"Le programme « {programme.nom} » a été supprimé.")
+    return redirect("academique:structure")
+
+
+@permission_requise("academique.gerer")
 @require_POST
 def appliquer_preset(request, pk):
     preset = get_object_or_404(PresetAcademique, pk=pk, actif=True)

@@ -8,14 +8,17 @@
 {% if request.etablissement.est_universitaire %}
 <section class="carte">
   <h2>{% translate "Facultés et programmes" %}</h2>
-  {% for f in facultes %}<div class="py-2 border-bottom"><strong>{{ f.nom }}</strong>
-    <div class="sous-titre">{% for p in f.programmes.all %}{{ p.nom }}{% if not forloop.last %} · {% endif %}{% empty %}{% translate "Aucun programme" %}{% endfor %}</div></div>
+  {% for f in facultes %}<div class="py-2 border-bottom"><strong>{{ f.nom }} <a class="text-reset ms-1" href="{% url 'academique:faculte_modifier' f.pk %}" aria-label="{% blocktranslate with faculte=f.nom %}Modifier {{ faculte }}{% endblocktranslate %}"><i class="bi bi-pencil" aria-hidden="true"></i></a></strong>
+    <div class="sous-titre">{% for p in f.programmes.all %}<span class="text-nowrap">{{ p.nom }} <a class="text-reset ms-1" href="{% url 'academique:programme_modifier' p.pk %}" aria-label="{% blocktranslate with programme=p.nom %}Modifier {{ programme }}{% endblocktranslate %}"><i class="bi bi-pencil" aria-hidden="true"></i></a></span>{% if not forloop.last %} · {% endif %}{% empty %}{% translate "Aucun programme" %}{% endfor %}</div></div>
   {% empty %}<div class="etat-vide">{% translate "Aucune faculté." %}</div>{% endfor %}
   <div class="row g-3 mt-2">
     <form method="post" class="col-md-6" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="faculte">
       <div class="grille-formulaire">{% for champ in formulaires.faculte %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><button class="btn btn-principal" type="submit">{% translate "Ajouter la faculté" %}</button></form>
     <form method="post" class="col-md-6" novalidate>{% csrf_token %}<input type="hidden" name="cible" value="programme">
-      <div class="grille-formulaire">{% for champ in formulaires.programme %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><button class="btn btn-principal" type="submit">{% translate "Ajouter le programme" %}</button></form>
+      {% if not facultes %}<p class="champ-aide">{% translate "Ajoutez d’abord une faculté pour pouvoir créer un programme." %}</p>{% endif %}
+      <fieldset{% if not facultes %} disabled{% endif %}>
+        <div class="grille-formulaire">{% for champ in formulaires.programme %}{% include "interface/composants/_champ.html" %}{% endfor %}</div><button class="btn btn-principal" type="submit">{% translate "Ajouter le programme" %}</button>
+      </fieldset></form>
   </div>
 </section>
 {% endif %}

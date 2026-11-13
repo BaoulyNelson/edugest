@@ -82,6 +82,10 @@ msgid "Candidatures"
 msgstr "Demann admisyon"
 
 #: .\applications\interface\navigation.py:19
+msgid "Badges"
+msgstr "Badj"
+
+#: .\applications\interface\navigation.py:20
 msgid "Académique"
 msgstr "Akademik"
 

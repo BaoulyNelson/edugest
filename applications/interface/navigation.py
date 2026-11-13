@@ -16,6 +16,7 @@ ENTREES = [
     ("importations", _("Importer"), "bi-cloud-arrow-up", "importations:accueil", ("importations.apprenants", "importations.personnel"), _("Scolarité")),
     ("inscriptions", _("Inscriptions"), "bi-journal-check", "apprenants:inscriptions", ("inscriptions.enregistrer", "inscriptions.decider"), _("Scolarité")),
     ("admissions", _("Candidatures"), "bi-person-plus", "admissions:liste", ("inscriptions.decider",), _("Scolarité")),
+    ("badges", _("Badges"), "bi-person-badge", "badges:liste", ("apprenants.consulter", "apprenants.gerer", "utilisateurs.gerer"), _("Scolarité")),
     ("academique", _("Académique"), "bi-calendar3", "academique:annees", ("academique.gerer",), _("Scolarité")),
     ("structure", _("Structure"), "bi-diagram-3", "academique:structure", ("academique.gerer",), _("Scolarité")),
     ("pedagogie", _("Matières"), "bi-journal-text", "pedagogie:matieres", ("pedagogie.gerer",), _("Pédagogie")),

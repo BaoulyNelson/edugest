@@ -83,6 +83,10 @@ msgid "Candidatures"
 msgstr "Solicitudes"
 
 #: .\applications\interface\navigation.py:19
+msgid "Badges"
+msgstr "Credenciales"
+
+#: .\applications\interface\navigation.py:20
 msgid "Académique"
 msgstr "Académico"
 

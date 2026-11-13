@@ -109,7 +109,7 @@ class FormulaireClasse(forms.Form):
 
 
 class FormulaireFaculte(forms.Form):
-    nom = forms.CharField(label="Nom", max_length=150)
+    nom = forms.CharField(label="Nom de la faculté", max_length=150)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -124,6 +124,7 @@ class FormulaireProgramme(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields["faculte"].queryset = Faculte.objects.all()
         _style(self)
+        self.fields["faculte"].widget.attrs.pop("data-ajout-rapide", None)
 
 
 class FormulaireSite(forms.ModelForm):
