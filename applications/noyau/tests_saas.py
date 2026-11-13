@@ -41,6 +41,13 @@ class TestsInscriptionLibre(TestCase):
         self.assertContains(reponse, "inscription/?plan=essai")
         self.assertContains(reponse, "inscription/?plan=standard")
         self.assertContains(reponse, "inscription/?plan=premium")
+        self.assertContains(reponse, "Gestion des élèves")
+        self.assertContains(reponse, "Classes")
+        self.assertContains(reponse, "Emploi du temps")
+        self.assertContains(reponse, "Paiements")
+        self.assertContains(reponse, "Analyses")
+        self.assertContains(reponse, "Répartition des élèves par cycle")
+        self.assertContains(reponse, "Évolution des inscriptions et des revenus sur 12 mois")
 
     def test_plan_demande_est_preselectionne_et_attribue_a_l_abonnement(self):
         page = self.client.get(f"{reverse('inscription')}?plan=standard")
@@ -179,8 +186,16 @@ class TestsInscriptionLibre(TestCase):
         self.assertContains(reponse, "est configuré")
         etab = Etablissement.objects.get()
         self.assertEqual(AnneeAcademique.sans_filtre.get(etablissement=etab).statut, "ACTIVE")
-        self.assertEqual(Niveau.sans_filtre.filter(etablissement=etab).count(), 7)
-        self.assertEqual(Classe.sans_filtre.filter(etablissement=etab).count(), 14)
+        niveaux = list(
+            Niveau.sans_filtre.filter(etablissement=etab).order_by("ordre").values_list("nom", flat=True)
+        )
+        self.assertEqual(niveaux, [
+            "1re année fondamentale", "2e année fondamentale", "3e année fondamentale",
+            "4e année fondamentale", "5e année fondamentale", "6e année fondamentale",
+            "7e année fondamentale", "8e année fondamentale", "9e année fondamentale",
+            "NS1", "NS2", "NS3", "NS4 / Philosophie",
+        ])
+        self.assertEqual(Classe.sans_filtre.filter(etablissement=etab).count(), 26)
         self.assertContains(self.client.get(reverse("demarrage")), "déjà active")
         self.assertContains(self.client.get(reverse("tableau_de_bord")), "Les premiers pas")
 
@@ -496,6 +511,16 @@ class TestsAbonnements(TestCase):
         saas.modifier_abonnement(self.m["etab"], statut="SUSPENDU")
         self.assertEqual(self.client.get(reverse("tableau_de_bord")).status_code, 302)
         self.assertEqual(self.client.get(reverse("academique:annees")).status_code, 403)
+
+    def test_console_affiche_le_logo_de_l_etablissement(self):
+        racine = Utilisateur.objects.create_superuser("root_logo", "root_logo@x.test", "MotDePasse!2026")
+        self.client.force_login(racine)
+        Etablissement.objects.filter(pk=self.m["etab"].pk).update(logo="logos/ecole-a.png")
+
+        reponse = self.client.get(reverse("plateforme"))
+
+        self.assertContains(reponse, 'class="plateforme-nom-etablissement__logo"')
+        self.assertContains(reponse, "logos/ecole-a.png")
 
     def test_superutilisateur_configure_la_marque_globale_de_l_erp(self):
         racine = Utilisateur.objects.create_superuser("racine_marque", "racine@x.test", "MotDePasse!2026")

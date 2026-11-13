@@ -91,7 +91,7 @@
         <tbody>
         {% for l in lignes %}
           <tr>
-            <td class="principal" data-libelle="Établissement"><span class="plateforme-nom-etablissement"><i class="bi bi-building" aria-hidden="true"></i>{{ l.etablissement.nom }}</span><div class="sous-titre">{{ l.etablissement.slug }}</div></td>
+            <td class="principal" data-libelle="Établissement"><span class="plateforme-nom-etablissement">{% if l.etablissement.logo %}<img class="plateforme-nom-etablissement__logo" src="{{ l.etablissement.logo.url }}" alt="">{% else %}<i class="bi bi-building" aria-hidden="true"></i>{% endif %}{{ l.etablissement.nom }}</span><div class="sous-titre">{{ l.etablissement.slug }}</div></td>
             <td data-libelle="Type">{{ l.etablissement.get_type_display }}</td>
             <td data-libelle="État">{% if l.etablissement.actif %}<span class="badge-statut badge-statut--succes">Actif</span>{% else %}<span class="badge-statut badge-statut--danger">Désactivé</span>{% endif %}</td>
             <td class="secondaire" data-libelle="Créé le">{{ l.etablissement.cree_le|date:"d/m/Y" }}</td>

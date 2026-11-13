@@ -405,6 +405,9 @@ def dupliquer_annee(source, cible, par=None):
 
 
 NIVEAUX_STANDARDS = [
+    ("1re année fondamentale", "1re"), ("2e année fondamentale", "2e"),
+    ("3e année fondamentale", "3e"), ("4e année fondamentale", "4e"),
+    ("5e année fondamentale", "5e"), ("6e année fondamentale", "6e"),
     ("7e année fondamentale", "7e"), ("8e année fondamentale", "8e"), ("9e année fondamentale", "9e"),
     ("NS1", "NS1"), ("NS2", "NS2"), ("NS3", "NS3"), ("NS4 / Philosophie", "NS4"),
 ]

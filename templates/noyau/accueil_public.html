@@ -5,7 +5,7 @@
 {% block meta_description %}{% blocktrans with plateforme=marque_plateforme.nom|default:"EduGest" %}{{ plateforme }} réunit la gestion des élèves, des notes, des bulletins et des finances dans un espace sécurisé pour chaque établissement.{% endblocktrans %}{% endblock %}
 {% block og_title %}{% translate "Toute la gestion de votre établissement, enfin réunie" %}{% endblock %}
 {% block twitter_title %}{% translate "Toute la gestion de votre établissement, enfin réunie" %}{% endblock %}
-{% block styles_publics %}<link rel="stylesheet" href="{% static 'css/landing.css' %}?v=6">{% endblock %}
+{% block styles_publics %}<link rel="stylesheet" href="{% static 'css/landing.css' %}?v=7">{% endblock %}
 
 {% block entete_public %}
 <header class="landing-nav" id="top">
@@ -38,10 +38,13 @@
   <section class="landing-hero" id="apercu">
     <div class="landing-hero__glow landing-hero__glow--one" aria-hidden="true"></div>
     <div class="landing-hero__glow landing-hero__glow--two" aria-hidden="true"></div>
+    <div class="landing-hero__pattern" aria-hidden="true">
+      <i class="bi bi-book-half"></i><i class="bi bi-pencil"></i><i class="bi bi-gear"></i><i class="bi bi-mortarboard"></i>
+    </div>
     <div class="landing-hero__inner">
       <div class="landing-hero__copy">
         <div class="landing-eyebrow"><span class="landing-eyebrow__dot"></span>{% translate "La plateforme de gestion pensée pour l'éducation" %}</div>
-        <h1>{% translate "Pilotez votre établissement scolaire avec une précision inégalée." %}</h1>
+        <h1>{% translate "Pilotez votre établissement scolaire avec précision." %}</h1>
         <p>{% blocktrans with plateforme=marque_plateforme.nom|default:"EduGest" %}{{ plateforme }} rassemble élèves, inscriptions, notes, bulletins et finances dans un espace moderne, conçu pour votre établissement et votre équipe.{% endblocktrans %}</p>
         <div class="landing-hero__actions">
           {% if user.is_authenticated %}<a class="landing-button" href="{% url 'tableau_de_bord' %}">{% translate "Accéder à mon tableau de bord" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>{% else %}<a class="landing-button" href="{% url 'inscription' %}?plan=essai">{% translate "Commencer gratuitement" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>{% endif %}
@@ -56,37 +59,61 @@
         <div class="landing-app">
           <aside class="landing-app__side" aria-hidden="true">
             <div class="landing-app__brand"><span><i class="bi bi-mortarboard-fill"></i></span><b>{{ marque_plateforme.nom_court|default:marque_plateforme.nom|default:"EduGest" }}</b></div>
-            <div class="landing-app__tenant"><span class="landing-app__tenant-icon"><i class="bi bi-buildings"></i></span><span><b>{% translate "Mon établissement" %}</b><small>{% translate "Année 2025–2026" %}</small></span><i class="bi bi-chevron-down"></i></div>
+            <div class="landing-app__tenant"><span class="landing-app__tenant-icon"><i class="bi bi-buildings"></i></span><span><b>{% translate "Mon établissement" %}</b><small>{% translate "Année 2026–2027" %}</small></span><i class="bi bi-chevron-down"></i></div>
             <small class="landing-app__label">{% translate "MENU PRINCIPAL" %}</small>
-            <span class="landing-app__item landing-app__item--active"><i class="bi bi-grid-1x2-fill"></i>{% translate "Vue d'ensemble" %}</span>
-            <span class="landing-app__item"><i class="bi bi-people"></i>{% translate "Élèves" %}</span>
-            <span class="landing-app__item"><i class="bi bi-journal-check"></i>{% translate "Notes & bulletins" %}</span>
-            <span class="landing-app__item"><i class="bi bi-wallet2"></i>{% translate "Finances" %}</span>
+            <span class="landing-app__item landing-app__item--active"><i class="bi bi-grid-1x2-fill"></i>{% translate "Tableau de bord" %}</span>
+            <span class="landing-app__item"><i class="bi bi-people"></i>{% translate "Gestion des élèves" %}</span>
+            <span class="landing-app__item"><i class="bi bi-door-open"></i>{% translate "Classes" %}</span>
+            <span class="landing-app__item"><i class="bi bi-calendar3"></i>{% translate "Emploi du temps" %}</span>
+            <span class="landing-app__item"><i class="bi bi-wallet2"></i>{% translate "Paiements" %}</span>
+            <span class="landing-app__item"><i class="bi bi-graph-up-arrow"></i>{% translate "Analyses" %}</span>
             <div class="landing-app__side-bottom"><span class="landing-avatar">AD</span><span><b>{% translate "Administration" %}</b><small>{% translate "Espace de gestion" %}</small></span><i class="bi bi-three-dots"></i></div>
           </aside>
           <div class="landing-app__main">
             <div class="landing-app__top"><span>{% translate "Tableau de bord" %}<small>{% translate "Voici un aperçu de votre établissement." %}</small></span><span class="landing-app__top-actions"><i class="bi bi-search"></i><i class="bi bi-bell"></i><span class="landing-avatar">AD</span></span></div>
             <div class="landing-app__welcome"><span><b>{% translate "Bonjour, Admin" %} <span aria-hidden="true">✦</span></b><small>{% translate "Un regard clair sur votre activité scolaire." %}</small></span><span class="landing-app__period"><i class="bi bi-calendar3"></i>{% translate "Cette année" %}<i class="bi bi-chevron-down"></i></span></div>
             <div class="landing-app__stats">
-              <div><span class="landing-app__stat-icon landing-app__stat-icon--blue"><i class="bi bi-people-fill"></i></span><small>{% translate "Élèves inscrits" %}</small><b>1 248</b><em><i class="bi bi-arrow-up-right"></i> 8,2% <span>{% translate "cette année" %}</span></em></div>
-              <div><span class="landing-app__stat-icon landing-app__stat-icon--green"><i class="bi bi-journal-check"></i></span><small>{% translate "Résultats publiés" %}</small><b>86%</b><em><i class="bi bi-arrow-up-right"></i> 12% <span>{% translate "ce trimestre" %}</span></em></div>
-              <div><span class="landing-app__stat-icon landing-app__stat-icon--gold"><i class="bi bi-cash-stack"></i></span><small>{% translate "Recettes suivies" %}</small><b>—</b><em class="landing-app__muted">{% translate "Suivi en temps réel" %}</em></div>
+              <article class="landing-app__metric landing-app__metric--students">
+                <div class="landing-app__metric-head"><span>{% translate "Effectif des élèves" %}</span><i class="bi bi-people-fill" aria-hidden="true"></i></div>
+                <div class="landing-app__student-total"><div><b>1 248</b><em><i class="bi bi-arrow-up-right"></i> 8,2% <span>{% translate "cette année" %}</span></em></div><div class="landing-app__donut" role="img" aria-label="{% translate 'Répartition des élèves par cycle' %}"><span>1 248</span></div></div>
+                <div class="landing-app__student-legend"><span><i></i>{% translate "Primaire" %} 42%</span><span><i></i>{% translate "Secondaire" %} 38%</span><span><i></i>{% translate "Autres" %} 20%</span></div>
+              </article>
+              <article class="landing-app__metric landing-app__metric--success">
+                <div class="landing-app__metric-head"><span>{% translate "Réussite académique" %}</span><i class="bi bi-patch-check-fill" aria-hidden="true"></i></div>
+                <b class="landing-app__metric-value">86%</b>
+                <svg class="landing-app__sparkline" viewBox="0 0 180 38" role="img" aria-label="{% translate 'Progression du taux de réussite' %}">
+                  <path d="M2 32H178" fill="none" stroke="#edf1f3"/><path d="M3 29 C24 26 28 30 43 23 S67 25 80 17 102 20 118 12 144 15 158 7 170 8 178 3" fill="none" stroke="#2d927c" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+                <em><i class="bi bi-arrow-up-right"></i> 4,2 {% translate "points ce trimestre" %}</em>
+              </article>
+              <article class="landing-app__metric landing-app__metric--revenue">
+                <div class="landing-app__metric-head"><span>{% translate "Recettes mensuelles" %}</span><i class="bi bi-cash-stack" aria-hidden="true"></i></div>
+                <b class="landing-app__metric-value">1,28 <small>M HTG</small></b>
+                <div class="landing-app__revenue-bars" role="img" aria-label="{% translate 'Graphique des recettes mensuelles' %}">
+                  <span style="--bar-height:35%"></span><span style="--bar-height:48%"></span><span style="--bar-height:42%"></span><span style="--bar-height:60%"></span><span style="--bar-height:55%"></span><span style="--bar-height:72%"></span><span style="--bar-height:65%"></span><span style="--bar-height:82%"></span><span style="--bar-height:74%"></span><span style="--bar-height:91%"></span><span style="--bar-height:84%"></span><span style="--bar-height:100%"></span>
+                </div>
+                <em><i class="bi bi-arrow-up-right"></i> 12% <span>{% translate "sur le mois précédent" %}</span></em>
+              </article>
             </div>
             <div class="landing-app__chart">
-              <div class="landing-app__chart-head"><span><b>{% translate "Activité de l'établissement" %}</b><small>{% translate "Inscriptions au fil de l'année" %}</small></span><span class="landing-app__legend"><i></i>{% translate "Inscriptions" %}</span></div>
-              <svg viewBox="0 0 640 150" role="img" aria-label="{% translate 'Graphique illustratif des inscriptions scolaires' %}">
-                <defs><linearGradient id="landingChartFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#297c72" stop-opacity=".22"/><stop offset="1" stop-color="#297c72" stop-opacity="0"/></linearGradient></defs>
-                <path d="M0 124H640M0 86H640M0 48H640M0 10H640" fill="none" stroke="#edf1f4" stroke-width="1"/>
-                <path d="M0 118C45 112 58 89 105 99S172 72 220 84 290 49 338 66 406 42 453 53 520 18 564 35 609 12 640 18V150H0Z" fill="url(#landingChartFill)"/>
-                <path d="M0 118C45 112 58 89 105 99S172 72 220 84 290 49 338 66 406 42 453 53 520 18 564 35 609 12 640 18" fill="none" stroke="#28796f" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="564" cy="35" r="5" fill="#fff" stroke="#28796f" stroke-width="3"/>
+              <div class="landing-app__chart-head"><span><b>{% translate "Inscriptions & revenus" %}</b><small>{% translate "Évolution sur les 12 derniers mois" %}</small></span><span class="landing-app__legend"><i></i>{% translate "Inscriptions" %}<i class="landing-app__legend-revenue"></i>{% translate "Revenus" %}</span></div>
+              <svg viewBox="0 0 760 190" role="img" aria-label="{% translate 'Évolution des inscriptions et des revenus sur 12 mois' %}">
+                <defs>
+                  <linearGradient id="landingEnrollmentFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#218c7b" stop-opacity=".24"/><stop offset="1" stop-color="#218c7b" stop-opacity=".01"/></linearGradient>
+                  <linearGradient id="landingRevenueFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5a8bd2" stop-opacity=".2"/><stop offset="1" stop-color="#5a8bd2" stop-opacity=".01"/></linearGradient>
+                </defs>
+                <g class="landing-app__chart-grid"><path d="M0 24H760M0 64H760M0 104H760M0 144H760"/></g>
+                <path d="M0 135 C34 130 40 112 68 119 S102 129 138 105 180 118 207 91 250 104 276 83 318 91 345 68 386 88 414 70 455 75 483 54 524 70 552 50 592 60 622 38 658 47 704 26 736 23 760 21V154H0Z" fill="url(#landingEnrollmentFill)"/>
+                <path d="M0 151 C36 146 48 137 69 143 S110 145 138 130 181 141 207 119 246 135 276 112 316 120 345 101 385 117 414 96 451 105 483 83 518 95 552 73 588 89 622 67 658 74 704 49 736 46 760 43V154H0Z" fill="url(#landingRevenueFill)"/>
+                <path d="M0 135 C34 130 40 112 68 119 S102 129 138 105 180 118 207 91 250 104 276 83 318 91 345 68 386 88 414 70 455 75 483 54 524 70 552 50 592 60 622 38 658 47 704 26 736 23 760 21" fill="none" stroke="#218c7b" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M0 151 C36 146 48 137 69 143 S110 145 138 130 181 141 207 119 246 135 276 112 316 120 345 101 385 117 414 96 451 105 483 83 518 95 552 73 588 89 622 67 658 74 704 49 736 46 760 43" fill="none" stroke="#5a8bd2" stroke-width="2.5" stroke-linecap="round"/>
+                <g class="landing-app__chart-labels"><text x="8" y="181">Jan.</text><text x="74" y="181">Fév.</text><text x="140" y="181">Mar.</text><text x="206" y="181">Avr.</text><text x="272" y="181">Mai</text><text x="338" y="181">Juin</text><text x="404" y="181">Juil.</text><text x="470" y="181">Août</text><text x="536" y="181">Sept.</text><text x="602" y="181">Oct.</text><text x="668" y="181">Nov.</text><text x="730" y="181">Déc.</text></g>
               </svg>
-              <div class="landing-app__months"><span>{% translate "Sept." %}</span><span>{% translate "Oct." %}</span><span>{% translate "Nov." %}</span><span>{% translate "Déc." %}</span><span>{% translate "Janv." %}</span><span>{% translate "Févr." %}</span></div>
+              <div class="landing-app__chart-note"><i class="bi bi-info-circle" aria-hidden="true"></i>{% translate "Aperçu illustratif — les données réelles apparaissent après connexion." %}</div>
             </div>
           </div>
         </div>
         <div class="landing-float landing-float--grade"><span><i class="bi bi-patch-check-fill"></i></span><div><b>{% translate "Bulletin publié" %}</b><small>{% translate "La famille est informée" %}</small></div></div>
-        <div class="landing-float landing-float--attendance"><span class="landing-float__pulse"></span><div><b>{% translate "Suivi centralisé" %}</b><small>{% translate "Données à jour" %}</small></div></div>
       </div>
     </div>
   </section>

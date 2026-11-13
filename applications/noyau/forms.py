@@ -187,7 +187,7 @@ class FormulaireDemarrage(forms.Form):
     date_fin = forms.DateField(label="Fin", widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"))
     nombre_periodes = forms.IntegerField(label="Nombre de périodes", min_value=1, max_value=12,
                                          help_text="3 trimestres, 4 trimestres, 2 semestres…")
-    niveaux_standards = forms.BooleanField(label="Créer les niveaux de la 7e année fondamentale à la philosophie", required=False, initial=True)
+    niveaux_standards = forms.BooleanField(label="Créer les niveaux de la 1re année fondamentale à la philosophie", required=False, initial=True)
     classes_par_niveau = forms.IntegerField(label="Classes par niveau", min_value=0, max_value=8, initial=1,
                                             help_text="1 = classe A seulement, 2 = A et B…")
 
